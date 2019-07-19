@@ -21,5 +21,5 @@ public interface JeeslWorkflowModificationLevel <S extends UtilsStatus<S,L,D>, L
 											EjbWithCodeGraphic<G>,
 											UtilsStatus<S,L,D>
 {
-	public enum Code{nothing,full}
+	public enum Code{nothing,full,admin}
 }

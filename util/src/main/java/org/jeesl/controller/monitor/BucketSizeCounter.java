@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
+import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
 import org.openfuxml.factory.xml.table.XmlTableFactory;
 import org.openfuxml.renderer.text.OfxTextSilentRenderer;
 import org.slf4j.Logger;
@@ -35,6 +36,7 @@ public class BucketSizeCounter
 		loop=0;
 	}
 	
+	public <C extends EjbWithCode> void add(C ejb, long size){add(ejb.getCode(),size);}
 	public <E extends Enum<E>> void add(E event, long size){add(event.toString(),size);}
 	public void add(String event, long size)
 	{

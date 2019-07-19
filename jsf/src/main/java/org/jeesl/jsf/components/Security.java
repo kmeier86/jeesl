@@ -40,7 +40,7 @@ public class Security extends UIPanel
 		{
 			
 			JeeslJsfWorkflowHandler wfh = (JeeslJsfWorkflowHandler)ComponentAttribute.getObject(Properties.workflow,null,context,this);
-			workflowAllow = wfh.isAllowEntityModifications();
+			workflowAllow = wfh.isAllowEntityModifications() || wfh.isAllowAdminModifications();
 			if(debugOnInfo) {logger.info(JeeslJsfWorkflowHandler.class.getSimpleName()+" evaluated workflowAllow:"+workflowAllow);}
 		}
 //		ValueExpression veWorkflow = this.getValueExpression(Properties.workflow.toString());

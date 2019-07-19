@@ -78,9 +78,9 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 							SR extends JeeslSecurityRole<L,D,?,?,?,?,USER>,
 							RE extends JeeslRevisionEntity<L,D,?,?,RA>,
 							RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
-							AL extends JeeslApprovalLink<AW,RE>,
-							AW extends JeeslApprovalWorkflow<WP,AS,WY>,
-							WY extends JeeslApprovalActivity<WT,AW,FRC,USER>,
+							AL extends JeeslApprovalLink<WF,RE>,
+							WF extends JeeslApprovalWorkflow<WP,AS,WY>,
+							WY extends JeeslApprovalActivity<WT,WF,FRC,USER>,
 							FRC extends JeeslFileContainer<?,?>,
 							WCS extends JeeslConstraint<L,D,?,?,?,?,?,?>,
 							USER extends JeeslUser<SR>
@@ -94,19 +94,19 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 	private boolean debugOnInfo; public void setDebugOnInfo(boolean debugOnInfo){this.debugOnInfo=debugOnInfo;if(actionsHandler!=null) {actionsHandler.setDebugOnInfo(debugOnInfo);}}
 	private boolean allowTransitions; public boolean isAllowTransitions() {return allowTransitions;} public void setAllowTransitions(boolean allowTransitions) {this.allowTransitions = allowTransitions;}
 	
-	private final JeeslWorkflowFacade<L,D,LOC,WX,WP,AS,AST,WSP,WPT,WML,WT,ATT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fWorkflow;
+	private final JeeslWorkflowFacade<L,D,LOC,WX,WP,AS,AST,WSP,WPT,WML,WT,ATT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fWorkflow;
 	
-	private final WorkflowFactoryBuilder<L,D,WX,WP,AS,AST,WSP,WPT,WML,WT,ATT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbWorkflow;
+	private final WorkflowFactoryBuilder<L,D,WX,WP,AS,AST,WSP,WPT,WML,WT,ATT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fbWorkflow;
 	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?> fbRevision;
 	
 	private JeeslJsfSecurityHandler<SR,?,?,?,?,USER> security;
 	private JeeslFileRepositoryHandler<?,FRC,?> frh; public JeeslFileRepositoryHandler<?, FRC, ?> getFrh() {return frh;}
-	private final JeeslWorkflowCommunicator<L,D,LOC,WX,WP,AS,AST,WSP,WPT,WML,WT,ATT,WC,WA,AB,AO,MT,MC,MD,SR,RE,RA,AW,WY,FRC,USER> communicator;
-	private final JeeslWorkflowActionsHandler<WT,WA,AB,AO,RE,RA,AW,WCS> actionsHandler;
+	private final JeeslWorkflowCommunicator<L,D,LOC,WX,WP,AS,AST,WSP,WPT,WML,WT,ATT,WC,WA,AB,AO,MT,MC,MD,SR,RE,RA,WF,WY,FRC,USER> communicator;
+	private final JeeslWorkflowActionsHandler<WT,WA,AB,AO,RE,RA,WF,WCS> actionsHandler;
 	
 	private final Comparator<WY> cpActivity;
 	
-	private final Map<JeeslWithWorkflow<AW>,AW> mapWorkflow; public Map<JeeslWithWorkflow<AW>, AW> getMapWorkflow() {return mapWorkflow;}
+	private final Map<JeeslWithWorkflow<WF>,WF> mapWorkflow; public Map<JeeslWithWorkflow<WF>,WF> getMapWorkflow() {return mapWorkflow;}
 	private final Map<WY,byte[]> mapSignature; public Map<WY, byte[]> getMapSignature() {return mapSignature;}
 	
 	private final List<WY> activities; public List<WY> getActivities() {return activities;}
@@ -114,13 +114,14 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 	private final List<WA> actions; public List<WA> getActions() {return actions;}
 	private final List<WC> communications; public List<WC> getCommunications() {return communications;}
 	private final List<WCS> constraints; public List<WCS> getConstraints() {return constraints;}
-
+	private final List<WML> levels; public List<WML> getLevels() {return levels;}
+	
 	private USER user;
-	private JeeslWithWorkflow<AW> entity;
+	private JeeslWithWorkflow<WF> entity;
 
 	protected WP process; public WP getProcess() {return process;} protected void setProcess(WP process) {this.process = process;}
 	private AL link; public AL getLink() {return link;} public void setLink(AL link) {this.link = link;}
-	private AW workflow; public AW getWorkflow() {return workflow;} public void setWorkflow(AW workflow) {this.workflow = workflow;}
+	private WF workflow; public WF getWorkflow() {return workflow;} public void setWorkflow(WF workflow) {this.workflow = workflow;}
 	private WY activity; public WY getActivity() {return activity;} public void setActivity(WY activity) {this.activity = activity;}
 	private WT transition; public WT getTransition() {return transition;}
 	private String remark; public String getRemark() {return remark;} public void setRemark(String remark) {this.remark = remark;}
@@ -128,12 +129,13 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 	
 	private boolean historyWithSignature; public boolean isHistoryWithSignature() {return historyWithSignature;}
 	private boolean allowEntityModifications; @Override public boolean isAllowEntityModifications() {return allowEntityModifications;}
+	private boolean allowAdminModifications; @Override public boolean isAllowAdminModifications() {return allowAdminModifications;}
 	
-	public JeeslWorkflowEngine(WorkflowFactoryBuilder<L,D,WX,WP,AS,AST,WSP,WPT,WML,WT,ATT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbWorkflow,
+	public JeeslWorkflowEngine(WorkflowFactoryBuilder<L,D,WX,WP,AS,AST,WSP,WPT,WML,WT,ATT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fbWorkflow,
 								IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?> fbRevision,
-								JeeslWorkflowFacade<L,D,LOC,WX,WP,AS,AST,WSP,WPT,WML,WT,ATT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fWorkflow,
-								JeeslWorkflowMessageHandler<WC,SR,RE,MT,MC,MD,AW,WY,USER> recipientResolver,
-								JeeslWorkflowActionsHandler<WT,WA,AB,AO,RE,RA,AW,WCS> actionHandler,
+								JeeslWorkflowFacade<L,D,LOC,WX,WP,AS,AST,WSP,WPT,WML,WT,ATT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fWorkflow,
+								JeeslWorkflowMessageHandler<WC,SR,RE,MT,MC,MD,WF,WY,USER> recipientResolver,
+								JeeslWorkflowActionsHandler<WT,WA,AB,AO,RE,RA,WF,WCS> actionHandler,
 								JeeslFileRepositoryHandler<?,FRC,?> frh)
 	{
 		this.fbWorkflow=fbWorkflow;
@@ -155,6 +157,7 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 		actions = new ArrayList<>();
 		communications = new ArrayList<>();
 		constraints = new ArrayList<>();
+		levels = new ArrayList<>();
 		
 		communicator = new JeeslWorkflowCommunicator<>(recipientResolver);
 		communicator.setDebugOnInfo(debugOnInfo);
@@ -174,7 +177,7 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 //		if(rFrh) {frh.reset();}
 	}
 	
-	public void addWorkflow(JeeslJsfSecurityHandler<SR,?,?,?,?,USER> security, USER user, JeeslWithWorkflow<AW> ejb)
+	public void addWorkflow(JeeslJsfSecurityHandler<SR,?,?,?,?,USER> security, USER user, JeeslWithWorkflow<WF> ejb)
 	{
 		this.security = security;
 		this.user=user;
@@ -198,7 +201,7 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 		reloadWorkflow(false);
 	}
 	
-	public <W extends JeeslWithWorkflow<AW>> void saveWorkflow(JeeslWithWorkflow<AW> ejb) throws UtilsConstraintViolationException, UtilsLockingException
+	public <W extends JeeslWithWorkflow<WF>> void saveWorkflow(JeeslWithWorkflow<WF> ejb) throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		this.entity=ejb;
 		if(workflow!=null)
@@ -212,7 +215,7 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 		}
 	}
 	
-	public <W extends JeeslWithWorkflow<AW>> void selectEntity(JeeslJsfSecurityHandler<SR,?,?,?,?,USER> security, USER user, W ejb) throws UtilsNotFoundException
+	public <W extends JeeslWithWorkflow<WF>> void selectEntity(JeeslJsfSecurityHandler<SR,?,?,?,?,USER> security, USER user, W ejb) throws UtilsNotFoundException
 	{
 		this.security=security;
 		this.user=user;
@@ -225,7 +228,7 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 		reloadWorkflow(false);
 	}
 	
-	public <W extends JeeslWithWorkflow<AW>> void loadWorkflows(List<W> ejbs)
+	public <W extends JeeslWithWorkflow<WF>> void loadWorkflows(List<W> ejbs)
 	{
 		mapWorkflow.clear();
 		for(W  w : ejbs)
@@ -250,18 +253,31 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 		
 		List<WSP> availablePermissions = fWorkflow.allForParent(fbWorkflow.getClassPermission(), workflow.getCurrentStage());
 		if(debugOnInfo) {logger.info("Checking "+availablePermissions.size()+" "+fbWorkflow.getClassPermission().getSimpleName());}
+		
+		levels.clear();
 		boolean hasResponsibleRole = false;
-		allowEntityModifications  = false;
+		allowEntityModifications = false;
+		allowAdminModifications = false;
 		for(WSP wsp : availablePermissions)
 		{
 			
 			boolean wspIsResponsible = wsp.getType().getCode().contentEquals(JeeslWorkflowPermissionType.Code.responsible.toString());
 			boolean userHasRole = security.hasRole(wsp.getRole());
 			boolean wspIsFullAllow = wsp.getModificationLevel().getCode().contentEquals(JeeslWorkflowModificationLevel.Code.full.toString());
+			boolean wspIsAdminAllow = wsp.getModificationLevel().getCode().contentEquals(JeeslWorkflowModificationLevel.Code.admin.toString());
 			
-			if(wspIsResponsible && userHasRole) {hasResponsibleRole=true;}
-			if(wspIsFullAllow && userHasRole) {allowEntityModifications=true;}
-			if(debugOnInfo) {logger.info("\t"+wsp.getPosition()+" "+wsp.getRole().getCode()+":"+userHasRole+" "+JeeslWorkflowPermissionType.Code.responsible+":"+wspIsResponsible+" "+JeeslWorkflowModificationLevel.Code.full+":"+wspIsFullAllow);}
+			if(wspIsResponsible && userHasRole)
+			{
+				if(!levels.contains(wsp.getModificationLevel())) {levels.add(wsp.getModificationLevel());}
+				hasResponsibleRole=true;
+			}
+			if(wspIsFullAllow && userHasRole)
+			{
+				if(!levels.contains(wsp.getModificationLevel())) {levels.add(wsp.getModificationLevel());}
+				allowEntityModifications=true;
+			}
+			if(wspIsAdminAllow && userHasRole) {allowAdminModifications=true;}
+			if(debugOnInfo) {logger.info("\t"+wsp.getPosition()+" "+wsp.getRole().getCode()+":"+userHasRole+" "+JeeslWorkflowPermissionType.Code.responsible+":"+wspIsResponsible+" "+JeeslWorkflowModificationLevel.Code.full+":"+wspIsFullAllow+" "+JeeslWorkflowModificationLevel.Code.admin+":"+allowAdminModifications);}
 		}
 		
 		if(EjbIdFactory.isSaved(entity))
