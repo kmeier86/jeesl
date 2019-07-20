@@ -4,10 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.jeesl.controller.processor.finance.AmountRounder;
 import org.jeesl.factory.json.db.tuple.JsonTupleFactory;
@@ -19,6 +17,7 @@ import org.jeesl.util.comparator.json.Tuple1Comparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class JsonTuple1Handler <A extends EjbWithId> extends JsonTupleHandler implements Serializable
@@ -31,7 +30,7 @@ public class JsonTuple1Handler <A extends EjbWithId> extends JsonTupleHandler im
 	private final Tuple1Comparator<A> cpTuple;
 	
 	protected final Class<A> cA;
-	protected final Set<A> setA; 
+	protected final Map<Long,A> mapA; 
 	private int sizeA; public int getSizeA() {return sizeA;}
 	private final List<A> listA; public List<A> getListA() {return listA;}
 	private final Map<A,Json1Tuple<A>> map1; public Map<A,Json1Tuple<A>> getMapA() {return map1;}
@@ -42,7 +41,7 @@ public class JsonTuple1Handler <A extends EjbWithId> extends JsonTupleHandler im
 	{
 		this.cA=cA;
 		
-		setA = new HashSet<A>();
+		mapA = new HashMap<Long,A>();
 		listA = new ArrayList<A>();
 		map1 = new HashMap<A,Json1Tuple<A>>();
 		
@@ -53,7 +52,7 @@ public class JsonTuple1Handler <A extends EjbWithId> extends JsonTupleHandler im
 	
 	public void clear()
 	{
-		setA.clear();
+		mapA.clear();
 		listA.clear();
 		map1.clear();
 	}
@@ -61,23 +60,30 @@ public class JsonTuple1Handler <A extends EjbWithId> extends JsonTupleHandler im
 	public void init(Json1Tuples<A> tuples)
 	{
 		clear();
-		add(tuples);
-	}
-	private void add(Json1Tuples<A> tuples)
-	{
 		for(Json1Tuple<A> t : tuples.getTuples())
 		{
 			if(t.getSum()!=null) {t.setSum(AmountRounder.two(t.getSum()/sumDivider));}
 			
-			setA.add(t.getEjb());
+			if(t.getEjb()==null)
+			{
+				if(mapA.containsKey(t.getId())) {t.setEjb(mapA.get(t.getId()));}
+				else
+				{
+					try{t.setEjb(cA.newInstance()); t.getEjb().setId(t.getId());}
+					catch (InstantiationException | IllegalAccessException e) {e.printStackTrace();}
+				}
+			}
+			
+			if(!mapA.containsKey(t.getId())) {mapA.put(t.getId(),t.getEjb());}
 			if(!map1.containsKey(t.getEjb())) {map1.put(t.getEjb(), t);}
 		}
-		initA();
+		initListA(null);
 	}
 	
-	protected void initA()
+	protected void initListA(UtilsFacade fJeesl)
 	{
-		listA.addAll(setA);
+		if(fJeesl==null){listA.addAll(mapA.values());}
+		else{listA.addAll(fJeesl.find(cA,new ArrayList<Long>(mapA.keySet())));}
 		sizeA = listA.size();
 		if(jcpA!=null && jcpA.provides(cA)){Collections.sort(listA, jcpA.provide(cA));}
 	}

@@ -31,10 +31,9 @@ public class JsonTuple2Handler <A extends EjbWithId, B extends EjbWithId>
 	final static Logger logger = LoggerFactory.getLogger(JsonTuple2Handler.class);
 
 	private JeeslComparatorProvider<B> jcpB; public void setComparatorProviderB(JeeslComparatorProvider<B> jppB) {this.jcpB = jppB;}
-	
 
-	private final Class<B> cB;
-	protected final Set<B> setB;
+	protected final Class<B> cB;
+	protected final Map<Long,B> mapB;
 	
 	private int sizeB; public int getSizeB() {return sizeB;}
 	private final List<B> listB; public List<B> getListB() {return listB;}
@@ -46,7 +45,7 @@ public class JsonTuple2Handler <A extends EjbWithId, B extends EjbWithId>
 		super(cA);
 		this.cB=cB;
 		
-		setB = new HashSet<B>();
+		mapB = new HashMap<Long,B>();
 		listB = new ArrayList<B>();
 		map = new HashMap<A,Map<B,Json2Tuple<A,B>>>();
 		tuples2 = new ArrayList<Json2Tuple<A,B>>();
@@ -58,7 +57,7 @@ public class JsonTuple2Handler <A extends EjbWithId, B extends EjbWithId>
 	{
 		super.clear();
 		map.clear();
-		setB.clear();
+		mapB.clear();
 		listB.clear();
 	}
 
@@ -114,21 +113,41 @@ public class JsonTuple2Handler <A extends EjbWithId, B extends EjbWithId>
 		{
 			if(t.getSum()!=null) {t.setSum(AmountRounder.two(t.getSum()/sumDivider));}
 			
-			setA.add(t.getEjb1());
-			setB.add(t.getEjb2());
+			if(t.getEjb1()==null)
+			{
+				if(mapA.containsKey(t.getId1())) {t.setEjb1(mapA.get(t.getId1()));}
+				else
+				{
+					try{t.setEjb1(cA.newInstance()); t.getEjb1().setId(t.getId1());}
+					catch (InstantiationException | IllegalAccessException e) {e.printStackTrace();}
+				}
+			}
+			if(t.getEjb2()==null)
+			{
+				if(mapB.containsKey(t.getId2())) {t.setEjb2(mapB.get(t.getId2()));}
+				else
+				{
+					try{t.setEjb2(cB.newInstance()); t.getEjb2().setId(t.getId2());}
+					catch (InstantiationException | IllegalAccessException e) {e.printStackTrace();}
+				}
+			}
+			
+			if(!mapA.containsKey(t.getId1())) {mapA.put(t.getId1(),t.getEjb1());}
+			if(!mapB.containsKey(t.getId2())) {mapB.put(t.getId2(),t.getEjb2());}
 			
 			if(!map.containsKey(t.getEjb1())) {map.put(t.getEjb1(), new HashMap<B,Json2Tuple<A,B>>());}
 			map.get(t.getEjb1()).put(t.getEjb2(), t);
 		}
 	
-		initA();
-		initB();
+		initListA(null);
+		initListB(null);
 		tuples2.addAll(tuples.getTuples());
 	}
 	
-	protected void initB()
+	protected void initListB(UtilsFacade fJeesl)
 	{
-		listB.addAll(setB);
+		if(fJeesl==null){listB.addAll(mapB.values());}
+		else{listB.addAll(fJeesl.find(cB,new ArrayList<Long>(mapB.keySet())));}
 		sizeB = listB.size();
 		if(jcpB!=null && jcpB.provides(cB)){Collections.sort(listB, jcpB.provide(cB));}
 	}

@@ -35,22 +35,12 @@ public class Security extends UIPanel
 		boolean accessGranted = false;
 		boolean workflowAllow = true;
 		
-		
 		if(ComponentAttribute.available(Properties.workflow,context,this))
 		{
-			
 			JeeslJsfWorkflowHandler wfh = (JeeslJsfWorkflowHandler)ComponentAttribute.getObject(Properties.workflow,null,context,this);
 			workflowAllow = wfh.isAllowEntityModifications() || wfh.isAllowAdminModifications();
 			if(debugOnInfo) {logger.info(JeeslJsfWorkflowHandler.class.getSimpleName()+" evaluated workflowAllow:"+workflowAllow);}
 		}
-//		ValueExpression veWorkflow = this.getValueExpression(Properties.workflow.toString());
-//		if(veWorkflow!=null)
-//		{
-//			JeeslJsfWorkflowHandler wfh = (JeeslJsfWorkflowHandler)veWorkflow.getValue(context.getELContext());
-//			
-//			workflowAllow = wfh.isAllowEntityModifications();
-//		}
-		
 		
 		boolean accessGrantedAttribute = ComponentAttribute.getBoolean(Properties.allow,true,context,this);
 		try
