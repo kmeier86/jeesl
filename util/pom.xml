@@ -127,6 +127,12 @@
             <artifactId>jboss-javaee-6.0</artifactId>
             <type>pom</type>
             <scope>provided</scope>
+            <exclusions>
+            	<exclusion>
+            		<groupId>org.jboss.resteasy</groupId>
+            		<artifactId>jaxrs-api</artifactId>
+            	</exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.primefaces</groupId>
@@ -261,6 +267,12 @@
             </exclusions>
             <scope>provided</scope>
         </dependency>
+		<dependency>
+  			<groupId>org.jboss.spec.javax.ws.rs</groupId>
+  			<artifactId>jboss-jaxrs-api_2.0_spec</artifactId>
+  			<version>1.0.1.Beta1</version>
+  			<scope>provided</scope>
+  		</dependency>
 
 
         <!--	28.11.2015 ... Trying to deactivate. Should only be required in report module -->
