@@ -159,14 +159,16 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-ejb-plugin</artifactId>
-                <version>${maven-ejb-plugin.version}</version>
-                <configuration>
-                    <ejbVersion>3.1</ejbVersion>
-                </configuration>
-            </plugin>
+           <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<executions>
+					<execution>
+                    	<id>default-deploy</id>
+                    	<phase>none</phase>
+                	</execution>
+				</executions>
+			</plugin>
             <plugin>
 		        <groupId>org.codehaus.mojo</groupId>
 		        <artifactId>versions-maven-plugin</artifactId>
