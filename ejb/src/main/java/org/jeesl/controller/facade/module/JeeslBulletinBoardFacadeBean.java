@@ -34,6 +34,8 @@ public class JeeslBulletinBoardFacadeBean<L extends UtilsLang,D extends UtilsDes
 					extends UtilsFacadeBean
 					implements JeeslBbFacade<L,D,SCOPE,BB,PUB,POST,USER>
 {	
+	private static final long serialVersionUID = 1L;
+
 	final static Logger logger = LoggerFactory.getLogger(JeeslBulletinBoardFacadeBean.class);
 	
 	private final BbFactoryBuilder<L,D,SCOPE,BB,PUB,POST,USER> fbBb;

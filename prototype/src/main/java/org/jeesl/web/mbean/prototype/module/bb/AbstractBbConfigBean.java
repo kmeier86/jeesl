@@ -51,14 +51,7 @@ public class AbstractBbConfigBean <L extends UtilsLang,D extends UtilsDescriptio
 	protected final SbSingleHandler<SCOPE> sbhScope; public SbSingleHandler<SCOPE> getSbhScope() {return sbhScope;}
 	
 	private List<BB> boards; public List<BB> getBoards() {return boards;} public void setBoards(List<BB> boards) {this.boards = boards;}
-	private List<PUB> publishings;
-	
-	public List<PUB> getPublishings() {
-		return publishings;
-	}
-	public void setPublishings(List<PUB> publishings) {
-		this.publishings = publishings;
-	}
+	private List<PUB> publishings; public List<PUB> getPublishings() {return publishings;} public void setPublishings(List<PUB> publishings) {this.publishings = publishings;}
 
 	protected long refId;
 	private BB board; public BB getBoard() {return board;} public void setBoard(BB board) {this.board = board;}
