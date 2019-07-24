@@ -55,7 +55,12 @@
 								<p:selectBooleanCheckbox value="#{cc.attrs.bean.report.visible}"/>
 								
 								<p:outputLabel value="#{msg.aupCode}"/>
-								<p:inputText autocomplete="off" value="#{cc.attrs.bean.report.code}"/>
+								<p:fragment>
+									<p:inputText id="fullQualifiedClass" autocomplete="off" value="#{cc.attrs.bean.report.code}" validatorMessage="Report code is not a valid Java (simple) classname for referencing the Report">
+										<f:validateRegex pattern="([a-zA-Z_$][a-zA-Z\d_$]*\.)*[a-zA-Z_$][a-zA-Z\d_$]*" />
+									</p:inputText>
+									<p:watermark for="fullQualifiedClass" value="(Simple) classname of the report class to be referenced to, e.g. ProjectReport" id="watermark" />
+								</p:fragment>
 								
 								<p:outputLabel value="#{msg.jeeslIoReportXmlExample}"/>
 								<p:inputText autocomplete="off" value="#{cc.attrs.bean.report.xmlExample}" />
