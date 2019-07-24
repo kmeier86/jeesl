@@ -10,6 +10,7 @@ import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
 import org.jeesl.api.facade.module.JeeslWorkflowFacade;
+import org.jeesl.api.facade.system.graphic.JeeslGraphicFacade;
 import org.jeesl.controller.handler.module.workflow.WorkflowProcesslResetHandler;
 import org.jeesl.controller.handler.sb.SbSingleHandler;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
@@ -31,8 +32,8 @@ import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowPermissionT
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStage;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStagePermission;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStageType;
-import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransitionType;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
+import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransitionType;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicType;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
@@ -91,6 +92,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractWorkflowProcessBean.class);
 
+	private JeeslGraphicFacade<L,D,?,G,GT,?,?> fGraphic;
 	private JeeslWorkflowFacade<L,D,LOC,AX,WP,AS,AST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fWorkflow;
 	private JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?> fRevision;
 	
@@ -178,10 +180,12 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 	}
 	
 	protected void postConstructProcess(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+										JeeslGraphicFacade<L,D,?,G,GT,?,?> fGraphic,
 										JeeslWorkflowFacade<L,D,LOC,AX,WP,AS,AST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fApproval,
 										JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?> fRevision)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
+		this.fGraphic=fGraphic;
 		this.fWorkflow=fApproval;
 		this.fRevision=fRevision;
 		
@@ -316,20 +320,24 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 		reloadStages();
 	}
 	
-	public void handleFileUpload(FileUploadEvent event) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException
+	public void handleFileUpload(FileUploadEvent event) throws  UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
 	{
 		UploadedFile file = event.getFile();
 		logger.info("Received file with a size of " +file.getSize());
 		
-		if(stage.getGraphic()==null)
+		G graphic = null;
+		try
+		{
+			graphic = fGraphic.fGraphic(fbWorkflow.getClassStage(),stage.getId());
+		}
+		catch (UtilsNotFoundException e)
 		{
 			GT type = fWorkflow.fByCode(fbSvg.getClassGraphicType(), JeeslGraphicType.Code.svg);
-			G graphic = fWorkflow.persist(fbSvg.efGraphic().build(type));
+			graphic = fWorkflow.persist(fbSvg.efGraphic().build(type));
 			stage.setGraphic(graphic);
 			stage = fWorkflow.save(stage);
 		}
-		
-		G graphic = stage.getGraphic();
+
 		graphic.setData(file.getContents());
 		graphic = fWorkflow.save(graphic);
 	}

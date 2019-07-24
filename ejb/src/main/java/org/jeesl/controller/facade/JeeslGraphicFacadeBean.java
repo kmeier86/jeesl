@@ -29,6 +29,8 @@ public class JeeslGraphicFacadeBean<L extends UtilsLang, D extends UtilsDescript
 					extends UtilsFacadeBean
 					implements JeeslGraphicFacade<L,D,S,G,GT,F,FS>
 {	
+	private static final long serialVersionUID = 1L;
+	
 	private final Class<S> cStatus;
 	private final Class<G> cG;
 	
