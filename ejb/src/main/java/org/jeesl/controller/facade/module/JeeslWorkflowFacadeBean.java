@@ -63,35 +63,35 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 									SR extends JeeslSecurityRole<L,D,?,?,?,?,?>,
 									RE extends JeeslRevisionEntity<L,D,?,?,RA>,
 									RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
-									AL extends JeeslApprovalLink<AW,RE>,
+									WL extends JeeslApprovalLink<AW,RE>,
 									AW extends JeeslApprovalWorkflow<AP,AS,WY>,
 									WY extends JeeslApprovalActivity<WT,AW,FRC,USER>,
 									FRC extends JeeslFileContainer<?,?>,
 									USER extends JeeslUser<SR>>
 					extends UtilsFacadeBean
-					implements JeeslWorkflowFacade<L,D,LOC,AX,AP,AS,AST,ASP,APT,WML,WT,ATT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER>
+					implements JeeslWorkflowFacade<L,D,LOC,AX,AP,AS,AST,ASP,APT,WML,WT,ATT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,AW,WY,FRC,USER>
 {	
 	private static final long serialVersionUID = 1L;
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslWorkflowFacadeBean.class);
 	
-	private final WorkflowFactoryBuilder<L,D,AX,AP,AS,AST,ASP,APT,WML,WT,ATT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbApproval;
+	private final WorkflowFactoryBuilder<L,D,AX,AP,AS,AST,ASP,APT,WML,WT,ATT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,AW,WY,FRC,USER> fbWorkflow;
 	
-	public JeeslWorkflowFacadeBean(EntityManager em, final WorkflowFactoryBuilder<L,D,AX,AP,AS,AST,ASP,APT,WML,WT,ATT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbApproval)
+	public JeeslWorkflowFacadeBean(EntityManager em, final WorkflowFactoryBuilder<L,D,AX,AP,AS,AST,ASP,APT,WML,WT,ATT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,AW,WY,FRC,USER> fbApproval)
 	{
 		super(em);
-		this.fbApproval=fbApproval;
+		this.fbWorkflow=fbApproval;
 	}
 
 	@Override
 	public WT fTransitionBegin(AP process)
 	{
 		logger.warn("Optimisation required here!!");
-		for(AS stage : this.allForParent(fbApproval.getClassStage(), process))
+		for(AS stage : this.allForParent(fbWorkflow.getClassStage(), process))
 		{
 			if(stage.getType().getCode().equals(JeeslWorkflowStageType.Code.start.toString()))
 			{
-				List<WT> transitions = this.allForParent(fbApproval.getClassTransition(), stage);
+				List<WT> transitions = this.allForParent(fbWorkflow.getClassTransition(), stage);
 				for(WT t : transitions)
 				{
 					if(!t.getType().getCode().equals(JeeslWorkflowTransitionType.Code.auto.toString()))
@@ -106,20 +106,20 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 	}
 
 	@Override
-	public <W extends JeeslWithWorkflow<AW>> AL fLink(AP process, W owner) throws UtilsNotFoundException
+	public <W extends JeeslWithWorkflow<AW>> WL fLink(AP process, W owner) throws UtilsNotFoundException
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
-		CriteriaQuery<AL> cQ = cB.createQuery(fbApproval.getClassLink());
-		Root<AL> link = cQ.from(fbApproval.getClassLink());
+		CriteriaQuery<WL> cQ = cB.createQuery(fbWorkflow.getClassLink());
+		Root<WL> link = cQ.from(fbWorkflow.getClassLink());
 		
-		Join<AL,AW> jWorkflow = link.join(JeeslApprovalLink.Attributes.workflow.toString());
+		Join<WL,AW> jWorkflow = link.join(JeeslApprovalLink.Attributes.workflow.toString());
 		Path<AP> pProcess = jWorkflow.get(JeeslApprovalWorkflow.Attributes.process.toString());
 		Path<Long> pRefId = link.get(JeeslApprovalLink.Attributes.refId.toString());
 		
 		cQ.where(cB.and(cB.equal(pRefId,owner.getId()),cB.equal(pProcess,process)));
 		cQ.select(link);
 		
-		List<AL> links = em.createQuery(cQ).getResultList();
+		List<WL> links = em.createQuery(cQ).getResultList();
 		
 		if(!links.isEmpty())
 		{
@@ -132,7 +132,7 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 		}
 		else
 		{
-			{throw new UtilsNotFoundException("No "+fbApproval.getClassLink()+" found for "+owner);}
+			{throw new UtilsNotFoundException("No "+fbWorkflow.getClassLink()+" found for "+owner);}
 		}
 	}
 }

@@ -4,6 +4,7 @@ import org.jeesl.factory.builder.AbstractFactoryBuilder;
 import org.jeesl.factory.ejb.module.bb.EjbBbBoardFactory;
 import org.jeesl.interfaces.model.module.bb.JeeslBbBoard;
 import org.jeesl.interfaces.model.module.bb.post.JeeslBbPost;
+import org.jeesl.interfaces.model.module.bb.post.JeeslBbThread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,9 +15,10 @@ import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 
 public class BbFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 								SCOPE extends UtilsStatus<SCOPE,L,D>,
-								BB extends JeeslBbBoard<L,D,SCOPE,BB,PUB,POST,USER>,
+								BB extends JeeslBbBoard<L,D,SCOPE,BB,PUB,USER>,
 								PUB extends UtilsStatus<PUB,L,D>,
-								POST extends JeeslBbPost<BB,USER>,
+								THREAD extends JeeslBbThread<BB>,
+								POST extends JeeslBbPost<THREAD,USER>,
 								USER extends EjbWithEmail>
 		extends AbstractFactoryBuilder<L,D>
 {

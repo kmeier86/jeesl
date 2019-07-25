@@ -33,7 +33,7 @@ import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public class AbstractBbConfigBean <L extends UtilsLang,D extends UtilsDescription,
+public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
 									SCOPE extends UtilsStatus<SCOPE,L,D>,
 									BB extends JeeslBbBoard<L,D,SCOPE,BB,PUB,USER>,
 									PUB extends UtilsStatus<PUB,L,D>,
@@ -44,7 +44,7 @@ public class AbstractBbConfigBean <L extends UtilsLang,D extends UtilsDescriptio
 					implements Serializable,SbSingleBean
 {
 	private static final long serialVersionUID = 1L;
-	final static Logger logger = LoggerFactory.getLogger(AbstractBbConfigBean.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractBbPostBean.class);
 	
 	protected JeeslBbFacade<L,D,SCOPE,BB,PUB,THREAD,POST,USER> fBb;
 	
@@ -60,7 +60,7 @@ public class AbstractBbConfigBean <L extends UtilsLang,D extends UtilsDescriptio
 	private TreeNode tree; public TreeNode getTree() {return tree;}
     private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
 	
-	public AbstractBbConfigBean(BbFactoryBuilder<L,D,SCOPE,BB,PUB,THREAD,POST,USER> fbBb)
+	public AbstractBbPostBean(BbFactoryBuilder<L,D,SCOPE,BB,PUB,THREAD,POST,USER> fbBb)
 	{
 		super(fbBb.getClassL(),fbBb.getClassD());
 		this.fbBb=fbBb;

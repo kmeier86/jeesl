@@ -2,8 +2,6 @@ package org.jeesl.interfaces.model.module.bb;
 
 import java.io.Serializable;
 
-import org.jeesl.interfaces.model.module.bb.post.JeeslBbPost;
-
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -16,9 +14,8 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 
 public interface JeeslBbBoard<L extends UtilsLang, D extends UtilsDescription,
 								SCOPE extends UtilsStatus<SCOPE,L,D>,
-								BB extends JeeslBbBoard<L,D,SCOPE,BB,PUB,POST,USER>,
+								BB extends JeeslBbBoard<L,D,SCOPE,BB,PUB,USER>,
 								PUB extends UtilsStatus<PUB,L,D>,
-								POST extends JeeslBbPost<BB,USER>,
 								USER extends EjbWithEmail>
 						extends Serializable,
 								EjbWithId,EjbWithRefId,EjbWithPosition,EjbWithName,

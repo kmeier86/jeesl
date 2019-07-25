@@ -66,8 +66,8 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 							WSP extends JeeslWorkflowStagePermission<AS,WPT,WML,SR>,
 							WPT extends JeeslWorkflowPermissionType<WPT,L,D,?>,
 							WML extends JeeslWorkflowModificationLevel<WML,?,?,?>,
-							WT extends JeeslWorkflowTransition<L,D,AS,ATT,SR,?>,
-							ATT extends JeeslWorkflowTransitionType<ATT,L,D,?>,
+							WT extends JeeslWorkflowTransition<L,D,AS,WTT,SR,?>,
+							WTT extends JeeslWorkflowTransitionType<WTT,L,D,?>,
 							WC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
 							WA extends JeeslWorkflowAction<WT,AB,AO,RE,RA>,
 							AB extends JeeslWorkflowBot<AB,L,D,?>,
@@ -94,14 +94,14 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 	private boolean debugOnInfo; public void setDebugOnInfo(boolean debugOnInfo){this.debugOnInfo=debugOnInfo;if(actionsHandler!=null) {actionsHandler.setDebugOnInfo(debugOnInfo);}}
 	private boolean allowTransitions; public boolean isAllowTransitions() {return allowTransitions;} public void setAllowTransitions(boolean allowTransitions) {this.allowTransitions = allowTransitions;}
 	
-	private final JeeslWorkflowFacade<L,D,LOC,WX,WP,AS,AST,WSP,WPT,WML,WT,ATT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fWorkflow;
+	private final JeeslWorkflowFacade<L,D,LOC,WX,WP,AS,AST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fWorkflow;
 	
-	private final WorkflowFactoryBuilder<L,D,WX,WP,AS,AST,WSP,WPT,WML,WT,ATT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fbWorkflow;
+	private final WorkflowFactoryBuilder<L,D,WX,WP,AS,AST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fbWorkflow;
 	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?> fbRevision;
 	
 	private JeeslJsfSecurityHandler<SR,?,?,?,?,USER> security;
 	private JeeslFileRepositoryHandler<?,FRC,?> frh; public JeeslFileRepositoryHandler<?, FRC, ?> getFrh() {return frh;}
-	private final JeeslWorkflowCommunicator<L,D,LOC,WX,WP,AS,AST,WSP,WPT,WML,WT,ATT,WC,WA,AB,AO,MT,MC,MD,SR,RE,RA,WF,WY,FRC,USER> communicator;
+	private final JeeslWorkflowCommunicator<L,D,LOC,WX,WP,AS,AST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,MD,SR,RE,RA,WF,WY,FRC,USER> communicator;
 	private final JeeslWorkflowActionsHandler<WT,WA,AB,AO,RE,RA,WF,WCS> actionsHandler;
 	
 	private final Comparator<WY> cpActivity;
@@ -131,9 +131,9 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 	private boolean allowEntityModifications; @Override public boolean isAllowEntityModifications() {return allowEntityModifications;}
 	private boolean allowAdminModifications; @Override public boolean isAllowAdminModifications() {return allowAdminModifications;}
 	
-	public JeeslWorkflowEngine(WorkflowFactoryBuilder<L,D,WX,WP,AS,AST,WSP,WPT,WML,WT,ATT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fbWorkflow,
+	public JeeslWorkflowEngine(WorkflowFactoryBuilder<L,D,WX,WP,AS,AST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fbWorkflow,
 								IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?> fbRevision,
-								JeeslWorkflowFacade<L,D,LOC,WX,WP,AS,AST,WSP,WPT,WML,WT,ATT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fWorkflow,
+								JeeslWorkflowFacade<L,D,LOC,WX,WP,AS,AST,WSP,WPT,WML,WT,WTT,WC,WA,AB,AO,MT,MC,SR,RE,RA,AL,WF,WY,FRC,USER> fWorkflow,
 								JeeslWorkflowMessageHandler<WC,SR,RE,MT,MC,MD,WF,WY,USER> recipientResolver,
 								JeeslWorkflowActionsHandler<WT,WA,AB,AO,RE,RA,WF,WCS> actionHandler,
 								JeeslFileRepositoryHandler<?,FRC,?> frh)
@@ -288,9 +288,8 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 			{
 				StringBuilder sb = null;
 				if(debugOnInfo){sb = new StringBuilder();sb.append("\tChecking "+fbWorkflow.getClassTransition().getSimpleName()+" "+t.getPosition()+" visible:"+t.isVisible());}
-				if(t.isVisible())
+				if(t.isVisible() && t.getType().getCode().equals(JeeslWorkflowTransitionType.Code.user.toString()))
 				{
-					
 					if(t.getRole()==null)
 					{
 						if(debugOnInfo) {sb.append(" has no special role, adding if responsible?"+hasResponsibleRole);}

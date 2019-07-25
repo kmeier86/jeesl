@@ -10,7 +10,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public class EjbBbBoardFactory<L extends UtilsLang,D extends UtilsDescription,
 								SCOPE extends UtilsStatus<SCOPE,L,D>,
-								BB extends JeeslBbBoard<L,D,SCOPE,BB,PUB,?,?>,
+								BB extends JeeslBbBoard<L,D,SCOPE,BB,PUB,?>,
 								PUB extends UtilsStatus<PUB,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbBbBoardFactory.class);
