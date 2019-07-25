@@ -24,4 +24,14 @@ public class XmlDataFactory
 		if(value!=null){xml.setValue(value);}
 		return xml;
 	}
+	
+	public static Data build(Date record, Double x, Double y)
+	{
+		Data xml = new Data();
+		if(record!=null){xml.setRecord(DateUtil.toXmlGc(record));}
+		if(x!=null){xml.setX(x);}
+		if(y!=null){xml.setY(y);}
+		return xml;
+	}
+	
 }

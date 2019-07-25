@@ -9,6 +9,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import net.sf.ahtutils.xml.status.Interval;
+import net.sf.ahtutils.xml.status.Scope;
 
 
 /**
@@ -21,6 +23,9 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
+ *         &lt;element ref="{http://www.jeesl.org/timeseries}entity"/&gt;
+ *         &lt;element ref="{http://ahtutils.aht-group.com/status}scope"/&gt;
+ *         &lt;element ref="{http://ahtutils.aht-group.com/status}interval"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/timeseries}transaction" maxOccurs="unbounded"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/timeseries}data" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
@@ -33,6 +38,9 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
+    "entity",
+    "scope",
+    "interval",
     "transaction",
     "data"
 })
@@ -43,9 +51,99 @@ public class Ts
 
     private final static long serialVersionUID = 1L;
     @XmlElement(required = true)
+    protected Entity entity;
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
+    protected Scope scope;
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
+    protected Interval interval;
+    @XmlElement(required = true)
     protected List<Transaction> transaction;
     @XmlElement(required = true)
     protected List<Data> data;
+
+    /**
+     * Gets the value of the entity property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Entity }
+     *     
+     */
+    public Entity getEntity() {
+        return entity;
+    }
+
+    /**
+     * Sets the value of the entity property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Entity }
+     *     
+     */
+    public void setEntity(Entity value) {
+        this.entity = value;
+    }
+
+    public boolean isSetEntity() {
+        return (this.entity!= null);
+    }
+
+    /**
+     * Gets the value of the scope property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Scope }
+     *     
+     */
+    public Scope getScope() {
+        return scope;
+    }
+
+    /**
+     * Sets the value of the scope property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Scope }
+     *     
+     */
+    public void setScope(Scope value) {
+        this.scope = value;
+    }
+
+    public boolean isSetScope() {
+        return (this.scope!= null);
+    }
+
+    /**
+     * Gets the value of the interval property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Interval }
+     *     
+     */
+    public Interval getInterval() {
+        return interval;
+    }
+
+    /**
+     * Sets the value of the interval property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Interval }
+     *     
+     */
+    public void setInterval(Interval value) {
+        this.interval = value;
+    }
+
+    public boolean isSetInterval() {
+        return (this.interval!= null);
+    }
 
     /**
      * Gets the value of the transaction property.

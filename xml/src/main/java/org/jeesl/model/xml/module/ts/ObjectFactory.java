@@ -38,6 +38,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Entity }
+     * 
+     */
+    public Entity createEntity() {
+        return new Entity();
+    }
+
+    /**
      * Create an instance of {@link Transaction }
      * 
      */
@@ -59,14 +67,6 @@ public class ObjectFactory {
      */
     public TimeSeries createTimeSeries() {
         return new TimeSeries();
-    }
-
-    /**
-     * Create an instance of {@link Entity }
-     * 
-     */
-    public Entity createEntity() {
-        return new Entity();
     }
 
 }
