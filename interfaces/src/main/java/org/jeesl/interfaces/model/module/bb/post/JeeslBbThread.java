@@ -1,18 +1,19 @@
 package org.jeesl.interfaces.model.module.bb.post;
 
-import java.io.Serializable;
-
 import org.jeesl.interfaces.model.module.bb.JeeslBbBoard;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
-import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import net.sf.ahtutils.interfaces.model.with.parent.EjbWithParentAttributeResolver;
+import net.sf.ahtutils.model.interfaces.with.EjbWithName;
+import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
 public interface JeeslBbThread<BB extends JeeslBbBoard<?,?,?,BB,?,?>>
-						extends Serializable,
-								EjbWithId,
-								EjbSaveable
-{	
+						extends EjbWithParentAttributeResolver,
+								EjbSaveable,
+								EjbWithRecord,EjbWithName
+{
+	public enum Attributes{board}
+	
 	BB getBoard();
 	void setBoard(BB board);
 }

@@ -1,6 +1,7 @@
 package org.jeesl.web.mbean.prototype.module.bb;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
@@ -53,10 +54,19 @@ public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
 	protected final SbSingleHandler<SCOPE> sbhScope; public SbSingleHandler<SCOPE> getSbhScope() {return sbhScope;}
 	
 	private List<BB> boards; public List<BB> getBoards() {return boards;} public void setBoards(List<BB> boards) {this.boards = boards;}
+	private final List<THREAD> threads; public List<THREAD> getThreads() {return threads;}
 	private List<PUB> publishings; public List<PUB> getPublishings() {return publishings;} public void setPublishings(List<PUB> publishings) {this.publishings = publishings;}
 
 	protected long refId;
 	private BB board; public BB getBoard() {return board;} public void setBoard(BB board) {this.board = board;}
+	private THREAD thread;
+	public THREAD getThread() {
+		return thread;
+	}
+	public void setThread(THREAD thread) {
+		this.thread = thread;
+	}
+
 	private TreeNode tree; public TreeNode getTree() {return tree;}
     private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
 	
@@ -65,6 +75,7 @@ public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
 		super(fbBb.getClassL(),fbBb.getClassD());
 		this.fbBb=fbBb;
 		sbhScope = new SbSingleHandler<SCOPE>(fbBb.getClassScope(),this);
+		threads = new ArrayList<THREAD>();
 	}
 
 	protected void postConstructBb(JeeslTranslationBean<L,D,?> bTranslation, JeeslFacesMessageBean bMessage, JeeslBbFacade<L,D,SCOPE,BB,PUB,THREAD,POST,USER> fBb)
@@ -117,50 +128,16 @@ public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
 		}
 	}
 	
-	public void addBoard() throws UtilsNotFoundException
-	{
-		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbBb.getClassBoard()));}
-		PUB publishing = fBb.fByCode(fbBb.getClassPublishing(), JeeslBbPublishing.Code.closed);
-		board = fbBb.bb().build(null,sbhScope.getSelection(),refId,publishing);
-	}
-	
-	public void saveBoard() throws UtilsConstraintViolationException, UtilsLockingException
-	{
-		board.setPublishing(fBb.find(fbBb.getClassPublishing(),board.getPublishing()));
-		board = fBb.save(board);
-		reloadBoards();
-	}
-	
     @SuppressWarnings("unchecked")
-	public void onSectionSelect(NodeSelectEvent event)
+	public void onBoardSelect(NodeSelectEvent event)
     {
 		logger.info("Selected "+event.getTreeNode().toString());
 		board = (BB)event.getTreeNode().getData();
 		board = fBb.find(fbBb.getClassBoard(),board);
+		threads.clear();
+		threads.addAll(fBb.allForParent(fbBb.getClassThread(), board));
     }
 	
-	@SuppressWarnings("unchecked")
-	public void onDragDrop(TreeDragDropEvent event) throws UtilsConstraintViolationException, UtilsLockingException
-	{
-        TreeNode dragNode = event.getDragNode();
-        TreeNode dropNode = event.getDropNode();
-        int dropIndex = event.getDropIndex();
-        logger.info("Dragged " + dragNode.getData() + "Dropped on " + dropNode.getData() + " at " + dropIndex);
-        
-        logger.info("Childs of "+dropNode.getData());
-        BB parent = (BB)dropNode.getData();
-        int index=1;
-        for(TreeNode n : dropNode.getChildren())
-        {
-    		BB child =(BB)n.getData();
-//    		BB db = fBb.find(child,false);
-//    		efS.update(db,child);
-    		child.setParent(parent);
-    		child.setPosition(index);
-    		fBb.save(child);
-    		index++;
-        }  
-    }
 	
 	public void onNodeExpand(NodeExpandEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
     public void onNodeCollapse(NodeCollapseEvent event) {if(debugOnInfo) {logger.info("Collapsed "+event.getTreeNode().toString());}}

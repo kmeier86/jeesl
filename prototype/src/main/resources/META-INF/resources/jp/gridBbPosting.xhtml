@@ -16,11 +16,11 @@
 					<h:form id="fTree" >
 						<p:panel header="#{msg.jeeslBbTree}" styleClass="jeeslTree" >
 							<f:facet name="actions">
-								<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addBoard()}" update=":#{cc.id}:sBoard"/>
+								
 							</f:facet>
 							<p:tree id="tree1" value="#{cc.attrs.bean.tree}" var="node" 
 									selection="#{cc.attrs.bean.node}" selectionMode="single">
-					            <p:ajax event="select" listener="#{cc.attrs.bean.onSectionSelect}" update=":#{cc.id}:sBoard"/>
+					            <p:ajax event="select" listener="#{cc.attrs.bean.onBoardSelect}" update=":#{cc.id}:sThread"/>
 					            <p:ajax event="expand" listener="#{cc.attrs.bean.onNodeExpand}" />
 								<p:ajax event="collapse" listener="#{cc.attrs.bean.onNodeCollapse}" />
 					            <p:treeNode>
@@ -31,7 +31,7 @@
 						</p:panel>
 					</h:form>
 				</j:slot>
-				<j:slot id="sBoard" width="8">
+				<j:slot id="sThread" width="8">
 					<h:form id="fSection" rendered="#{not empty cc.attrs.bean.board}">
 						<p:panel header="#{cc.attrs.bean.board.name}" styleClass="jeeslPanel">
 							<f:facet name="actions">
@@ -43,7 +43,18 @@
 						</p:panel>
 					</h:form>
 					<h:form id="fThreads" rendered="#{not empty cc.attrs.bean.board}">
-						
+						<p:dataTable var="t" value="#{cc.attrs.bean.threads}" draggableRows="false"
+										selection="#{cc.attrs.bean.thread}" selectionMode="single" rowKey="#{t.id}">
+							<f:facet name="header">
+								<j:dtHeader title="#{msg.jeeslIoDmsDocuments}">
+									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addThread()}" update=":#{cc.id}:sThread"/>
+								</j:dtHeader>
+							</f:facet>
+							<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectThread()}" update=":#{cc.id}:sThread"/>
+							<p:column>  
+								<h:outputText value="#{t.name}"/>
+							</p:column>
+					   	</p:dataTable>
 					</h:form>
 				</j:slot>
 			</j:row>

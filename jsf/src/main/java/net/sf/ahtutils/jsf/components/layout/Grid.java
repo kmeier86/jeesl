@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 @ListenerFor(systemEventClass=PostAddToViewEvent.class)
 public class Grid extends AbstractUtilsGrid
 {	
+	//j:grid
 	final static Logger logger = LoggerFactory.getLogger(Grid.class);
 	private static enum Properties {width,gutter,styleClass}
 	

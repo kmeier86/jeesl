@@ -27,16 +27,19 @@ public class BbFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 	private final Class<SCOPE> cScope; public Class<SCOPE> getClassScope() {return cScope;}
 	private final Class<BB> cBb; public Class<BB> getClassBoard() {return cBb;}
 	private final Class<PUB> cPublishing; public Class<PUB> getClassPublishing() {return cPublishing;}
+	private final Class<THREAD> cThread; public Class<THREAD> getClassThread() {return cThread;}
 
 	public BbFactoryBuilder(final Class<L> cL,final Class<D> cD,
 								final Class<SCOPE> cScope,
 								final Class<BB> cBb,
-								final Class<PUB> cPublishing)
+								final Class<PUB> cPublishing,
+								final Class<THREAD> cThread)
 	{       
 		super(cL,cD);
 		this.cScope=cScope;
 		this.cBb=cBb;
 		this.cPublishing=cPublishing;
+		this.cThread=cThread;
 	}
 
 
