@@ -40,14 +40,14 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class WorkflowFactoryBuilder<L extends UtilsLang, D extends UtilsDescription,
-									AX extends JeeslWorkflowContext<AX,L,D,?>,
-									AP extends JeeslWorkflowProcess<L,D,AX>,
-									AS extends JeeslWorkflowStage<L,D,AP,AST,?>,
+									WX extends JeeslWorkflowContext<WX,L,D,?>,
+									WP extends JeeslWorkflowProcess<L,D,WX>,
+									WS extends JeeslWorkflowStage<L,D,WP,AST,?>,
 									AST extends JeeslWorkflowStageType<AST,?,?,?>,
-									ASP extends JeeslWorkflowStagePermission<AS,APT,WML,SR>,
+									ASP extends JeeslWorkflowStagePermission<WS,APT,WML,SR>,
 									APT extends JeeslWorkflowPermissionType<APT,L,D,?>,
 									WML extends JeeslWorkflowModificationLevel<WML,?,?,?>,
-									WT extends JeeslWorkflowTransition<L,D,AS,ATT,SR,?>,
+									WT extends JeeslWorkflowTransition<L,D,WS,ATT,SR,?>,
 									ATT extends JeeslWorkflowTransitionType<ATT,L,D,?>,
 									AC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
 									AA extends JeeslWorkflowAction<WT,AB,AO,RE,RA>,
@@ -59,7 +59,7 @@ public class WorkflowFactoryBuilder<L extends UtilsLang, D extends UtilsDescript
 									RE extends JeeslRevisionEntity<L,D,?,?,RA>,
 									RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
 									AL extends JeeslApprovalLink<AW,RE>,
-									AW extends JeeslApprovalWorkflow<AP,AS,WY>,
+									AW extends JeeslApprovalWorkflow<WP,WS,WY>,
 									WY extends JeeslApprovalActivity<WT,AW,FRC,USER>,
 									FRC extends JeeslFileContainer<?,?>,
 									USER extends JeeslUser<SR>>
@@ -67,9 +67,9 @@ public class WorkflowFactoryBuilder<L extends UtilsLang, D extends UtilsDescript
 {
 	final static Logger logger = LoggerFactory.getLogger(WorkflowFactoryBuilder.class);
 	
-	private final Class<AX> cContext; public Class<AX> getClassContext() {return cContext;}
-	private final Class<AP> cProcess; public Class<AP> getClassProcess() {return cProcess;}
-	private final Class<AS> cStage; public Class<AS> getClassStage() {return cStage;}
+	private final Class<WX> cContext; public Class<WX> getClassContext() {return cContext;}
+	private final Class<WP> cProcess; public Class<WP> getClassProcess() {return cProcess;}
+	private final Class<WS> cStage; public Class<WS> getClassStage() {return cStage;}
 	private final Class<AST> cStageType; public Class<AST> getClassStageType() {return cStageType;}
 	private final Class<ASP> cPermission; public Class<ASP> getClassPermission() {return cPermission;}
 	private final Class<APT> cPermissionType; public Class<APT> getClassPermissionType() {return cPermissionType;}
@@ -84,9 +84,9 @@ public class WorkflowFactoryBuilder<L extends UtilsLang, D extends UtilsDescript
 	private final Class<WY> cActivity; public Class<WY> getClassActivity() {return cActivity;}
 	
 	public WorkflowFactoryBuilder(final Class<L> cL, final Class<D> cD,
-									final Class<AX> cContext,
-									final Class<AP> cProcess,
-									final Class<AS> cStage,
+									final Class<WX> cContext,
+									final Class<WP> cProcess,
+									final Class<WS> cStage,
 									final Class<AST> cStageType,
 									final Class<ASP> cPermission,
 									final Class<APT> cPermissionType,
@@ -118,13 +118,13 @@ public class WorkflowFactoryBuilder<L extends UtilsLang, D extends UtilsDescript
 		this.cActivity=cActivity;
 	}
 	
-	public EjbWorkflowProcessFactory<AP> ejbProcess() {return new EjbWorkflowProcessFactory<>(cProcess);}
-	public EjbWorkflowStageFactory<AP,AS> ejbStage() {return new EjbWorkflowStageFactory<>(cStage);}
-	public EjbWorkflowPermissionFactory<AS,ASP,WML,SR> ejbPermission() {return new EjbWorkflowPermissionFactory<>(cPermission);}
-	public EjbWorkflowTransitionFactory<AS,WT> ejbTransition() {return new EjbWorkflowTransitionFactory<>(cTransition);}
+	public EjbWorkflowProcessFactory<WP> ejbProcess() {return new EjbWorkflowProcessFactory<>(cProcess);}
+	public EjbWorkflowStageFactory<WP,WS> ejbStage() {return new EjbWorkflowStageFactory<>(cStage);}
+	public EjbWorkflowPermissionFactory<WS,ASP,WML,SR> ejbPermission() {return new EjbWorkflowPermissionFactory<>(cPermission);}
+	public EjbWorkflowTransitionFactory<WS,WT> ejbTransition() {return new EjbWorkflowTransitionFactory<>(cTransition);}
 	public EjbWorkflowCommunicationFactory<WT,AC,MT,MC,SR,RE> ejbCommunication() {return new EjbWorkflowCommunicationFactory<>(cCommunication);}
 	public EjbWorkflowActionFactory<WT,AA,AB,AO,RE,RA> ejbAction() {return new EjbWorkflowActionFactory<>(cAction);}
 	public EjbWorkflowLinkFactory<RE,AL,AW> ejbLink() {return new EjbWorkflowLinkFactory<>(cLink);}
-	public EjbWorkflowFactory<AP,AS,AW> ejbWorkflow() {return new EjbWorkflowFactory<>(cWorkflow);}
+	public EjbWorkflowFactory<WP,WS,AW> ejbWorkflow() {return new EjbWorkflowFactory<>(cWorkflow);}
 	public EjbWorkflowActivityFactory<WT,AW,WY,USER> ejbActivity() {return new EjbWorkflowActivityFactory<>(cActivity);}
 }
