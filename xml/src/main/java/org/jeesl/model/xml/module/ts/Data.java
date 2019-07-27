@@ -25,6 +25,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" /&gt;
  *       &lt;attribute name="record" type="{http://www.w3.org/2001/XMLSchema}dateTime" /&gt;
  *       &lt;attribute name="value" type="{http://www.w3.org/2001/XMLSchema}double" /&gt;
+ *       &lt;attribute name="x" type="{http://www.w3.org/2001/XMLSchema}double" /&gt;
+ *       &lt;attribute name="y" type="{http://www.w3.org/2001/XMLSchema}double" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -47,6 +49,10 @@ public class Data
     protected XMLGregorianCalendar record;
     @XmlAttribute(name = "value")
     protected Double value;
+    @XmlAttribute(name = "x")
+    protected Double x;
+    @XmlAttribute(name = "y")
+    protected Double y;
 
     /**
      * Gets the value of the id property.
@@ -138,6 +144,70 @@ public class Data
 
     public void unsetValue() {
         this.value = null;
+    }
+
+    /**
+     * Gets the value of the x property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Double }
+     *     
+     */
+    public double getX() {
+        return x;
+    }
+
+    /**
+     * Sets the value of the x property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Double }
+     *     
+     */
+    public void setX(double value) {
+        this.x = value;
+    }
+
+    public boolean isSetX() {
+        return (this.x!= null);
+    }
+
+    public void unsetX() {
+        this.x = null;
+    }
+
+    /**
+     * Gets the value of the y property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Double }
+     *     
+     */
+    public double getY() {
+        return y;
+    }
+
+    /**
+     * Sets the value of the y property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Double }
+     *     
+     */
+    public void setY(double value) {
+        this.y = value;
+    }
+
+    public boolean isSetY() {
+        return (this.y!= null);
+    }
+
+    public void unsetY() {
+        this.y = null;
     }
 
 }
