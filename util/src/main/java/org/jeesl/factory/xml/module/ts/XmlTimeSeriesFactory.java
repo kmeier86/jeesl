@@ -8,7 +8,7 @@ public class XmlTimeSeriesFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlTimeSeriesFactory.class);
 	
-	public static TimeSeries build()
+	private static TimeSeries build()
 	{
 		TimeSeries xml = new TimeSeries();
 		

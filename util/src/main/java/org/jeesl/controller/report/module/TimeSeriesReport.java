@@ -8,7 +8,7 @@ import org.jeesl.api.facade.module.JeeslTsFacade;
 import org.jeesl.controller.report.AbstractJeeslReport;
 import org.jeesl.factory.builder.system.ReportFactoryBuilder;
 import org.jeesl.factory.xml.module.ts.XmlDataFactory;
-import org.jeesl.factory.xml.module.ts.XmlTimeSeriesFactory;
+import org.jeesl.factory.xml.module.ts.XmlTsFactory;
 import org.jeesl.factory.xml.system.io.report.XmlReportFactory;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
@@ -29,7 +29,7 @@ import org.jeesl.interfaces.model.system.io.report.JeeslReportStyle;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportTemplate;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportWorkbook;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
-import org.jeesl.model.xml.module.ts.TimeSeries;
+import org.jeesl.model.xml.module.ts.Ts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -106,7 +106,7 @@ public class TimeSeriesReport <L extends UtilsLang,D extends UtilsDescription,
 		logger.info("Records: "+tsData.size());
 		Report xml = XmlReportFactory.build();
 		
-		TimeSeries xTs = XmlTimeSeriesFactory.build();
+		Ts xTs = XmlTsFactory.build();
 		
 		for(DATA data : tsData)
 		{

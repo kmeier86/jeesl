@@ -1,7 +1,6 @@
 package org.jeesl.factory.xml.module.ts;
 
 import org.jeesl.model.xml.module.ts.Entity;
-import org.jeesl.model.xml.module.ts.TimeSeries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

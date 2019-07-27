@@ -90,7 +90,7 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 		return ds;	
 	}
 	
-	public static Ds build2(TimeSeries timeSeries)
+	private static Ds build2(TimeSeries timeSeries)
 	{
 		Ds ds = new Ds();
 		
