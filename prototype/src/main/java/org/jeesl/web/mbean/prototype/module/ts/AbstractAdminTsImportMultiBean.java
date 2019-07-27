@@ -22,7 +22,7 @@ import org.jeesl.api.facade.module.JeeslTsFacade;
 import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.factory.mc.ts.McTimeSeriesFactory;
 import org.jeesl.factory.xml.module.ts.XmlDataFactory;
-import org.jeesl.factory.xml.module.ts.XmlTimeSeriesFactory;
+import org.jeesl.factory.xml.module.ts.XmlTsFactory;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsMultiPoint;
@@ -196,7 +196,7 @@ public class AbstractAdminTsImportMultiBean <L extends UtilsLang, D extends Util
 		IOUtils.copy(event.getFile().getInputstream(), out);
 		
 		// Create a new TimeSeries
-		setTimeSeries(XmlTimeSeriesFactory.build());
+		timeSeries = XmlTsFactory.buildOld();
 		
 		// Get a new Resolver that gives you the XlsWorkbook by asking the reports.xml registry for the file
 		
@@ -230,7 +230,7 @@ public class AbstractAdminTsImportMultiBean <L extends UtilsLang, D extends Util
 		DateTime dt = new DateTime(new Date());
 		Random rnd = new Random();
 		
-		timeSeries = XmlTimeSeriesFactory.build();
+		timeSeries = XmlTsFactory.buildOld();
 		for(int i=0;i<5;i++)
 		{
 			timeSeries.getData().add(XmlDataFactory.build(dt.plusDays(i).toDate(), rnd.nextInt(10)*rnd.nextDouble()));

@@ -1,5 +1,6 @@
 package org.jeesl.factory.xml.module.ts;
 
+import org.jeesl.model.xml.module.ts.TimeSeries;
 import org.jeesl.model.xml.module.ts.Ts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,5 +12,12 @@ public class XmlTsFactory
 	public static Ts build()
 	{
 		return new Ts();
+	}
+	
+	public static TimeSeries buildOld()
+	{
+		TimeSeries xml = new TimeSeries();
+		
+		return xml;
 	}
 }
