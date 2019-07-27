@@ -105,7 +105,8 @@ public class JsonTuple2Handler <A extends EjbWithId, B extends EjbWithId>
 		init(tuples);
 		
 	}
-	public void init(Json2Tuples<A,B> tuples)
+	public void init(Json2Tuples<A,B> tuples) {init(null,tuples);}
+	public void init(UtilsFacade fJeesl, Json2Tuples<A,B> tuples)
 	{
 		clear();
 	
@@ -139,8 +140,8 @@ public class JsonTuple2Handler <A extends EjbWithId, B extends EjbWithId>
 			map.get(t.getEjb1()).put(t.getEjb2(), t);
 		}
 	
-		initListA(null);
-		initListB(null);
+		initListA(fJeesl);
+		initListB(fJeesl);
 		tuples2.addAll(tuples.getTuples());
 	}
 	
