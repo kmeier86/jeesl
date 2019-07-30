@@ -1,6 +1,5 @@
 package net.sf.ahtutils.factory.xml.utils;
 
-import net.sf.ahtutils.factory.xml.status.XmlScopeFactory;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -10,6 +9,7 @@ import net.sf.ahtutils.xml.utils.TrafficLight;
 import org.jeesl.api.exception.xml.JeeslXmlStructureException;
 import org.jeesl.factory.xml.system.lang.XmlDescriptionsFactory;
 import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
+import org.jeesl.factory.xml.system.status.XmlScopeFactory;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

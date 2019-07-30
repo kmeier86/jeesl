@@ -8,20 +8,20 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-import net.sf.ahtutils.xml.status.Result;
+import net.sf.ahtutils.xml.status.Context;
 
-public class XmlResultFactory<L extends UtilsLang, D extends UtilsDescription,S extends UtilsStatus<S,L,D>>
+public class XmlContextFactory<L extends UtilsLang, D extends UtilsDescription,S extends UtilsStatus<S,L,D>>
 {
-	final static Logger logger = LoggerFactory.getLogger(XmlResultFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlContextFactory.class);
 		
 	private String localeCode;
-	private Result q;
+	private Context q;
 	
 	private XmlLangsFactory<L> xfLangs;
 	private XmlDescriptionsFactory<D> xfDescriptions;
 	
-	public XmlResultFactory(Result q){this(null,q);}
-	public XmlResultFactory(String localeCode,Result q)
+	public XmlContextFactory(Context q){this(null,q);}
+	public XmlContextFactory(String localeCode, Context q)
 	{
 		this.localeCode=localeCode;
 		this.q=q;
@@ -29,20 +29,20 @@ public class XmlResultFactory<L extends UtilsLang, D extends UtilsDescription,S 
 		if(q.isSetDescriptions()){xfDescriptions = new XmlDescriptionsFactory<D>(q.getDescriptions());}
 	}
 	
-	public static <E extends Enum<E>> Result build(E code){return build(code.toString());}
-	public static <E extends Enum<E>> Result build(String code){return build(code.toString(),null);}
-	public static Result build(String code, String label)
+	public static <E extends Enum<E>> Context build(E code){return build(code.toString());}
+	public static <E extends Enum<E>> Context build(String code){return build(code.toString(),null);}
+	public static Context build(String code, String label)
 	{
-		Result xml = new Result();
+		Context xml = new Context();
 		xml.setCode(code);
 		xml.setLabel(label);
 		return xml;
 	}
 	
-	public Result build(S ejb){return build(ejb,null);}
-	public Result build(S ejb, String group)
+	public Context build(S ejb){return build(ejb,null);}
+	public Context build(S ejb, String group)
 	{
-		Result xml = new Result();
+		Context xml = new Context();
 		if(q.isSetId()){xml.setId(ejb.getId());}
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}
 		if(q.isSetPosition()){xml.setPosition(ejb.getPosition());}

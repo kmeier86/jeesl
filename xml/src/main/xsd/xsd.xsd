@@ -16,9 +16,10 @@
     xmlns:u   ="http://ahtutils.aht-group.com/utils"
     xmlns:it  ="http://ahtutils.aht-group.com/issue"
 	
-	xmlns:ts  ="http://www.jeesl.org/timeseries"
-	xmlns:cal ="http://www.jeesl.org/calendar"
-	xmlns:inv ="http://www.jeesl.org/inventory"
+	xmlns:wf  		= "http://www.jeesl.org/workflow"
+	xmlns:ts 		= "http://www.jeesl.org/timeseries"
+	xmlns:cal 		= "http://www.jeesl.org/calendar"
+	xmlns:inv		= "http://www.jeesl.org/inventory"
 	
 	xmlns:rev		="http://www.jeesl.org/revision"
 	xmlns:jatt		="http://www.jeesl.org/io/attribute"
@@ -36,6 +37,8 @@
 	
 	xmlns:db ="http://ahtutils.aht-group.com/dbseed"
     xmlns:io ="http://exlp.sf.net/io"
+    
+    
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" jaxb:extensionBindingPrefixes="xjc"
@@ -73,6 +76,7 @@
 	<xsd:import namespace="http://www.jeesl.org/inventory" schemaLocation="jeesl/module/inventory/inventory.xsd"/>
 	<xsd:import namespace="http://www.jeesl.org/dev/srs" schemaLocation="jeesl/dev/srs.xsd"/>
 	<xsd:import namespace="http://www.jeesl.org/timeseries" schemaLocation="jeesl/module/timeseries.xsd"/>
+	<xsd:import namespace="http://www.jeesl.org/workflow" schemaLocation="jeesl/module/workflow.xsd"/>
 	<xsd:import namespace="http://www.jeesl.org/revision" schemaLocation="jeesl/revision.xsd"/>
 	<xsd:import namespace="http://www.jeesl.org/text" schemaLocation="jeesl/text.xsd"/>
     <xsd:import namespace="http://exlp.sf.net/io" schemaLocation="../../../../../exlp/xml/src/main/xsd/util/io.xsd"/>

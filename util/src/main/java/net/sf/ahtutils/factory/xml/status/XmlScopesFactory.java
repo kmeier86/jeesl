@@ -8,6 +8,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.status.Scopes;
 
 import org.jeesl.api.exception.xml.JeeslXmlStructureException;
+import org.jeesl.factory.xml.system.status.XmlScopeFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

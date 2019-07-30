@@ -198,6 +198,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Scope }
+     * 
+     */
+    public Scope createScope() {
+        return new Scope();
+    }
+
+    /**
+     * Create an instance of {@link Interval }
+     * 
+     */
+    public Interval createInterval() {
+        return new Interval();
+    }
+
+    /**
      * Create an instance of {@link Source }
      * 
      */
@@ -211,14 +227,6 @@ public class ObjectFactory {
      */
     public Unit createUnit() {
         return new Unit();
-    }
-
-    /**
-     * Create an instance of {@link Scope }
-     * 
-     */
-    public Scope createScope() {
-        return new Scope();
     }
 
     /**
@@ -331,6 +339,14 @@ public class ObjectFactory {
      */
     public Scopes createScopes() {
         return new Scopes();
+    }
+
+    /**
+     * Create an instance of {@link Context }
+     * 
+     */
+    public Context createContext() {
+        return new Context();
     }
 
     /**

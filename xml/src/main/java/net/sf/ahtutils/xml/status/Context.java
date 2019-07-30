@@ -28,11 +28,12 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}lang" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" /&gt;
- *       &lt;attribute name="group" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *       &lt;attribute name="code" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+ *       &lt;attribute name="group" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *       &lt;attribute name="label" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *       &lt;attribute name="visible" type="{http://www.w3.org/2001/XMLSchema}boolean" /&gt;
  *       &lt;attribute name="image" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
+ *       &lt;attribute name="style" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *       &lt;attribute name="position" type="{http://www.w3.org/2001/XMLSchema}int" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -48,8 +49,8 @@ import javax.xml.bind.annotation.XmlType;
     "descriptions",
     "lang"
 })
-@XmlRootElement(name = "interval")
-public class Interval
+@XmlRootElement(name = "context")
+public class Context
     implements Serializable
 {
 
@@ -64,16 +65,18 @@ public class Interval
     protected List<Lang> lang;
     @XmlAttribute(name = "id")
     protected Long id;
-    @XmlAttribute(name = "group")
-    protected String group;
     @XmlAttribute(name = "code")
     protected String code;
+    @XmlAttribute(name = "group")
+    protected String group;
     @XmlAttribute(name = "label")
     protected String label;
     @XmlAttribute(name = "visible")
     protected Boolean visible;
     @XmlAttribute(name = "image")
     protected String image;
+    @XmlAttribute(name = "style")
+    protected String style;
     @XmlAttribute(name = "position")
     protected Integer position;
 
@@ -231,34 +234,6 @@ public class Interval
     }
 
     /**
-     * Gets the value of the group property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getGroup() {
-        return group;
-    }
-
-    /**
-     * Sets the value of the group property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setGroup(String value) {
-        this.group = value;
-    }
-
-    public boolean isSetGroup() {
-        return (this.group!= null);
-    }
-
-    /**
      * Gets the value of the code property.
      * 
      * @return
@@ -284,6 +259,34 @@ public class Interval
 
     public boolean isSetCode() {
         return (this.code!= null);
+    }
+
+    /**
+     * Gets the value of the group property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getGroup() {
+        return group;
+    }
+
+    /**
+     * Sets the value of the group property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setGroup(String value) {
+        this.group = value;
+    }
+
+    public boolean isSetGroup() {
+        return (this.group!= null);
     }
 
     /**
@@ -372,6 +375,34 @@ public class Interval
 
     public boolean isSetImage() {
         return (this.image!= null);
+    }
+
+    /**
+     * Gets the value of the style property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getStyle() {
+        return style;
+    }
+
+    /**
+     * Sets the value of the style property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setStyle(String value) {
+        this.style = value;
+    }
+
+    public boolean isSetStyle() {
+        return (this.style!= null);
     }
 
     /**
