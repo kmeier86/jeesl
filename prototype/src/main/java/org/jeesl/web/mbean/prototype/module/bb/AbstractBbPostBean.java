@@ -11,14 +11,12 @@ import org.jeesl.controller.handler.sb.SbSingleHandler;
 import org.jeesl.factory.builder.module.BbFactoryBuilder;
 import org.jeesl.interfaces.bean.sb.SbSingleBean;
 import org.jeesl.interfaces.model.module.bb.JeeslBbBoard;
-import org.jeesl.interfaces.model.module.bb.JeeslBbPublishing;
 import org.jeesl.interfaces.model.module.bb.post.JeeslBbPost;
 import org.jeesl.interfaces.model.module.bb.post.JeeslBbThread;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.primefaces.event.NodeCollapseEvent;
 import org.primefaces.event.NodeExpandEvent;
 import org.primefaces.event.NodeSelectEvent;
-import org.primefaces.event.TreeDragDropEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 import org.slf4j.Logger;
@@ -26,7 +24,6 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -59,13 +56,7 @@ public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
 
 	protected long refId;
 	private BB board; public BB getBoard() {return board;} public void setBoard(BB board) {this.board = board;}
-	private THREAD thread;
-	public THREAD getThread() {
-		return thread;
-	}
-	public void setThread(THREAD thread) {
-		this.thread = thread;
-	}
+	private THREAD thread; public THREAD getThread() {return thread;} public void setThread(THREAD thread) {this.thread = thread;}
 
 	private TreeNode tree; public TreeNode getTree() {return tree;}
     private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
@@ -138,6 +129,10 @@ public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
 		threads.addAll(fBb.allForParent(fbBb.getClassThread(), board));
     }
 	
+    public void addThread()
+    {
+    	thread = fbBb.ejbThread().build(board);
+    }
 	
 	public void onNodeExpand(NodeExpandEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
     public void onNodeCollapse(NodeCollapseEvent event) {if(debugOnInfo) {logger.info("Collapsed "+event.getTreeNode().toString());}}

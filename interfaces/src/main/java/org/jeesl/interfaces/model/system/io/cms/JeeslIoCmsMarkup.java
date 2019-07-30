@@ -6,7 +6,7 @@ import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public interface JeeslIoCmsMarkup <T extends UtilsStatus<T,?,?>> 
-		extends Serializable,EjbSaveable
+		extends Serializable,EjbSaveable 
 {	
 	T getType();
 	void setType(T type);

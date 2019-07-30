@@ -2,6 +2,7 @@ package org.jeesl.factory.builder.module;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
 import org.jeesl.factory.ejb.module.bb.EjbBbBoardFactory;
+import org.jeesl.factory.ejb.module.bb.EjbBbThreadFactory;
 import org.jeesl.interfaces.model.module.bb.JeeslBbBoard;
 import org.jeesl.interfaces.model.module.bb.post.JeeslBbPost;
 import org.jeesl.interfaces.model.module.bb.post.JeeslBbThread;
@@ -42,9 +43,6 @@ public class BbFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 		this.cThread=cThread;
 	}
 
-
-	public EjbBbBoardFactory<L,D,SCOPE,BB,PUB> bb()
-	{
-		return new EjbBbBoardFactory<L,D,SCOPE,BB,PUB>(cBb);
-	}
+	public EjbBbBoardFactory<L,D,SCOPE,BB,PUB> bb(){return new EjbBbBoardFactory<>(cBb);}
+	public EjbBbThreadFactory<BB,THREAD> ejbThread(){return new EjbBbThreadFactory<>(cThread);}
 }

@@ -35,9 +35,23 @@
     		<s:lang key="fr" translation="Publishing"/>
     	</s:langs>
     </s:translation>
+    <s:translation key="jeeslBbThreads">
+    	<s:langs>
+    		<s:lang key="de" translation="Threads"/>
+    		<s:lang key="en" translation="Threads"/>
+    		<s:lang key="fr" translation="Threads"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslBbThread">
+    	<s:langs>
+    		<s:lang key="de" translation="Thread"/>
+    		<s:lang key="en" translation="Thread"/>
+    		<s:lang key="fr" translation="Thread"/>
+    	</s:langs>
+    </s:translation>
     <s:translation key="jeeslBbTopic">
     	<s:langs>
-    		<s:lang key="de" translation="Topic"/>
+    		<s:lang key="de" translation="Thema"/>
     		<s:lang key="en" translation="Topic"/>
     		<s:lang key="fr" translation="Topic"/>
     	</s:langs>
