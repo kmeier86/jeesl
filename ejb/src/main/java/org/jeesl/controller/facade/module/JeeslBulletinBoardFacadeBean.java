@@ -17,6 +17,8 @@ import org.jeesl.factory.builder.module.BbFactoryBuilder;
 import org.jeesl.interfaces.model.module.bb.JeeslBbBoard;
 import org.jeesl.interfaces.model.module.bb.post.JeeslBbPost;
 import org.jeesl.interfaces.model.module.bb.post.JeeslBbThread;
+import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsMarkupType;
+import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,18 +33,20 @@ public class JeeslBulletinBoardFacadeBean<L extends UtilsLang,D extends UtilsDes
 										BB extends JeeslBbBoard<L,D,SCOPE,BB,PUB,USER>,
 										PUB extends UtilsStatus<PUB,L,D>,
 										THREAD extends JeeslBbThread<BB>,
-										POST extends JeeslBbPost<THREAD,USER>,
+										POST extends JeeslBbPost<THREAD,M,MT,USER>,
+										M extends JeeslMarkup<MT>,
+										MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 										USER extends EjbWithEmail>
 					extends UtilsFacadeBean
-					implements JeeslBbFacade<L,D,SCOPE,BB,PUB,THREAD,POST,USER>
+					implements JeeslBbFacade<L,D,SCOPE,BB,PUB,THREAD,POST,M,MT,USER>
 {	
 	private static final long serialVersionUID = 1L;
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslBulletinBoardFacadeBean.class);
 	
-	private final BbFactoryBuilder<L,D,SCOPE,BB,PUB,THREAD,POST,USER> fbBb;
+	private final BbFactoryBuilder<L,D,SCOPE,BB,PUB,THREAD,POST,M,MT,USER> fbBb;
 	
-	public JeeslBulletinBoardFacadeBean(EntityManager em, final BbFactoryBuilder<L,D,SCOPE,BB,PUB,THREAD,POST,USER> fbBb)
+	public JeeslBulletinBoardFacadeBean(EntityManager em, final BbFactoryBuilder<L,D,SCOPE,BB,PUB,THREAD,POST,M,MT,USER> fbBb)
 	{
 		super(em);
 		this.fbBb=fbBb;

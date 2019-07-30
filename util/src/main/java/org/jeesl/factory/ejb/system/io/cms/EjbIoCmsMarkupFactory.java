@@ -1,10 +1,10 @@
 package org.jeesl.factory.ejb.system.io.cms;
 
-import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsMarkup;
+import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbIoCmsMarkupFactory<M extends JeeslIoCmsMarkup<?>>
+public class EjbIoCmsMarkupFactory<M extends JeeslMarkup<?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbIoCmsMarkupFactory.class);
 	

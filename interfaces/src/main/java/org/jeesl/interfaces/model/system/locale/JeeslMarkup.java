@@ -1,11 +1,12 @@
-package org.jeesl.interfaces.model.system.io.cms;
+package org.jeesl.interfaces.model.system.locale;
 
 import java.io.Serializable;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
+import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsMarkupType;
 
-public interface JeeslIoCmsMarkup <T extends UtilsStatus<T,?,?>> 
+import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
+
+public interface JeeslMarkup <T extends JeeslIoCmsMarkupType<?,?,T,?>> 
 		extends Serializable,EjbSaveable 
 {	
 	T getType();

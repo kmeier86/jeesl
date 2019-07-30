@@ -1,4 +1,4 @@
-package net.sf.ahtutils.interfaces.model.with;
+package org.jeesl.interfaces.model.system.with;
 
 public interface EjbWithRemark
 {

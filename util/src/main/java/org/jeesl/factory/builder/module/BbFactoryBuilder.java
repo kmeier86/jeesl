@@ -6,6 +6,8 @@ import org.jeesl.factory.ejb.module.bb.EjbBbThreadFactory;
 import org.jeesl.interfaces.model.module.bb.JeeslBbBoard;
 import org.jeesl.interfaces.model.module.bb.post.JeeslBbPost;
 import org.jeesl.interfaces.model.module.bb.post.JeeslBbThread;
+import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsMarkupType;
+import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +21,9 @@ public class BbFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 								BB extends JeeslBbBoard<L,D,SCOPE,BB,PUB,USER>,
 								PUB extends UtilsStatus<PUB,L,D>,
 								THREAD extends JeeslBbThread<BB>,
-								POST extends JeeslBbPost<THREAD,USER>,
+								POST extends JeeslBbPost<THREAD,M,MT,USER>,
+								M extends JeeslMarkup<MT>,
+								MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 								USER extends EjbWithEmail>
 		extends AbstractFactoryBuilder<L,D>
 {

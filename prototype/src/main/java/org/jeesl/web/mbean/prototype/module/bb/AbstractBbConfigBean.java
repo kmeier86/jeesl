@@ -13,6 +13,8 @@ import org.jeesl.interfaces.model.module.bb.JeeslBbBoard;
 import org.jeesl.interfaces.model.module.bb.JeeslBbPublishing;
 import org.jeesl.interfaces.model.module.bb.post.JeeslBbPost;
 import org.jeesl.interfaces.model.module.bb.post.JeeslBbThread;
+import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsMarkupType;
+import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.primefaces.event.NodeCollapseEvent;
 import org.primefaces.event.NodeExpandEvent;
@@ -38,7 +40,9 @@ public class AbstractBbConfigBean <L extends UtilsLang,D extends UtilsDescriptio
 									BB extends JeeslBbBoard<L,D,SCOPE,BB,PUB,USER>,
 									PUB extends UtilsStatus<PUB,L,D>,
 									THREAD extends JeeslBbThread<BB>,
-									POST extends JeeslBbPost<THREAD,USER>,
+									POST extends JeeslBbPost<THREAD,M,MT,USER>,
+									M extends JeeslMarkup<MT>,
+									MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 									USER extends EjbWithEmail>
 					extends AbstractAdminBean<L,D>
 					implements Serializable,SbSingleBean
@@ -46,9 +50,9 @@ public class AbstractBbConfigBean <L extends UtilsLang,D extends UtilsDescriptio
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractBbConfigBean.class);
 	
-	protected JeeslBbFacade<L,D,SCOPE,BB,PUB,THREAD,POST,USER> fBb;
+	protected JeeslBbFacade<L,D,SCOPE,BB,PUB,THREAD,POST,M,MT,USER> fBb;
 	
-	private final BbFactoryBuilder<L,D,SCOPE,BB,PUB,THREAD,POST,USER> fbBb;
+	private final BbFactoryBuilder<L,D,SCOPE,BB,PUB,THREAD,POST,M,MT,USER> fbBb;
 	
 	protected final SbSingleHandler<SCOPE> sbhScope; public SbSingleHandler<SCOPE> getSbhScope() {return sbhScope;}
 	
@@ -60,14 +64,14 @@ public class AbstractBbConfigBean <L extends UtilsLang,D extends UtilsDescriptio
 	private TreeNode tree; public TreeNode getTree() {return tree;}
     private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
 	
-	public AbstractBbConfigBean(BbFactoryBuilder<L,D,SCOPE,BB,PUB,THREAD,POST,USER> fbBb)
+	public AbstractBbConfigBean(BbFactoryBuilder<L,D,SCOPE,BB,PUB,THREAD,POST,M,MT,USER> fbBb)
 	{
 		super(fbBb.getClassL(),fbBb.getClassD());
 		this.fbBb=fbBb;
 		sbhScope = new SbSingleHandler<SCOPE>(fbBb.getClassScope(),this);
 	}
 
-	protected void postConstructBb(JeeslTranslationBean<L,D,?> bTranslation, JeeslFacesMessageBean bMessage, JeeslBbFacade<L,D,SCOPE,BB,PUB,THREAD,POST,USER> fBb)
+	protected void postConstructBb(JeeslTranslationBean<L,D,?> bTranslation, JeeslFacesMessageBean bMessage, JeeslBbFacade<L,D,SCOPE,BB,PUB,THREAD,POST,M,MT,USER> fBb)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fBb=fBb;
