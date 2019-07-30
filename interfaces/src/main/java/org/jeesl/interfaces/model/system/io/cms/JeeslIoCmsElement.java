@@ -26,7 +26,7 @@ public interface JeeslIoCmsElement<
 	public enum Attributes{section}
 	
 	public enum Type{paragraph,image,
-					statusTable}
+					sysStatusTable,sysStatusList}
 	
 	S getSection();
 	void setSection(S section);

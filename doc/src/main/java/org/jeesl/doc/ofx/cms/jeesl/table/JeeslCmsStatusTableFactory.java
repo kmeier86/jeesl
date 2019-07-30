@@ -1,4 +1,4 @@
-package org.jeesl.doc.ofx.cms.jeesl;
+package org.jeesl.doc.ofx.cms.jeesl.table;
 
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsContent;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsElement;

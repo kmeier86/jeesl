@@ -5,6 +5,7 @@
 	xmlns:survey="http://ahtutils.aht-group.com/survey"
 	xmlns:sec="http://ahtutils.aht-group.com/security"
 	xmlns:ts="http://www.jeesl.org/timeseries"
+	xmlns:wf="http://www.jeesl.org/workflow"
 	xmlns:jatt="http://www.jeesl.org/io/attribute"
 	xmlns:f="http://www.jeesl.org/finance"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -14,6 +15,7 @@
 	<xsd:import namespace="http://www.jeesl.org/io/attribute" schemaLocation="io/attribute.xsd"/>
 	<xsd:import namespace="http://ahtutils.aht-group.com/security" schemaLocation="../aht/security.xsd"/>
 	<xsd:import namespace="http://www.jeesl.org/timeseries" schemaLocation="module/timeseries.xsd"/>
+	<xsd:import namespace="http://www.jeesl.org/workflow" schemaLocation="module/workflow.xsd"/>
 	
 	<xsd:element name="container">
         <xsd:complexType>
@@ -58,6 +60,14 @@
 		<xsd:complexType>
 			<xsd:sequence>
 				<xsd:element ref="ts:transaction" maxOccurs="1"/>
+			</xsd:sequence>
+			<xsd:attribute name="localeCode" type="xsd:string"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="queryWf">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="wf:process" maxOccurs="1"/>
 			</xsd:sequence>
 			<xsd:attribute name="localeCode" type="xsd:string"/>
 		</xsd:complexType>

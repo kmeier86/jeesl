@@ -70,6 +70,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link QueryWf }
+     * 
+     */
+    public QueryWf createQueryWf() {
+        return new QueryWf();
+    }
+
+    /**
      * Create an instance of {@link QuerySecurity }
      * 
      */
