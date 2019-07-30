@@ -40,7 +40,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class WorkflowFactoryBuilder<L extends UtilsLang, D extends UtilsDescription,
-									WX extends JeeslWorkflowContext<WX,L,D,?>,
+									WX extends JeeslWorkflowContext<L,D,WX,?>,
 									WP extends JeeslWorkflowProcess<L,D,WX>,
 									WS extends JeeslWorkflowStage<L,D,WP,AST,?>,
 									AST extends JeeslWorkflowStageType<AST,?,?,?>,

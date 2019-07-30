@@ -53,7 +53,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public abstract class AbstractWorkflowDashboardBean <L extends UtilsLang, D extends UtilsDescription, LOC extends UtilsStatus<LOC,L,D>,
-											AX extends JeeslWorkflowContext<AX,L,D,?>,
+											AX extends JeeslWorkflowContext<L,D,AX,?>,
 											AP extends JeeslWorkflowProcess<L,D,AX>,
 											AS extends JeeslWorkflowStage<L,D,AP,AST,?>,
 											AST extends JeeslWorkflowStageType<AST,?,?,?>,
@@ -93,7 +93,7 @@ public abstract class AbstractWorkflowDashboardBean <L extends UtilsLang, D exte
 	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?> fbRevision;
 	private final SecurityFactoryBuilder<L,D,?,SR,?,?,?,?,?,?,?> fbSecurity;
 	
-	JeeslWorkflowEngine<L,D,LOC,AX,AP,AS,AST,ASP,APT,WML,AT,ATT,AC,AA,AB,AO,MT,MC,MD,SR,RE,RA,AL,AW,AY,FRC,WCS,USER> wfEngine;
+	private JeeslWorkflowEngine<L,D,LOC,AX,AP,AS,AST,ASP,APT,WML,AT,ATT,AC,AA,AB,AO,MT,MC,MD,SR,RE,RA,AL,AW,AY,FRC,WCS,USER> wfEngine;
 	
 	private final SbSingleHandler<AX> sbhContext; public SbSingleHandler<AX> getSbhContext() {return sbhContext;}
 	private final SbSingleHandler<AP> sbhProcess; public SbSingleHandler<AP> getSbhProcess() {return sbhProcess;}

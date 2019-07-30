@@ -52,7 +52,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class JeeslWorkflowCommunicator <L extends UtilsLang, D extends UtilsDescription, LOC extends UtilsStatus<LOC,L,D>,
-										WX extends JeeslWorkflowContext<WX,L,D,?>,
+										WX extends JeeslWorkflowContext<L,D,WX,?>,
 										WP extends JeeslWorkflowProcess<L,D,WX>,
 										WS extends JeeslWorkflowStage<L,D,WP,AST,?>,
 										AST extends JeeslWorkflowStageType<AST,?,?,?>,
