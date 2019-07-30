@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
+import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -56,11 +57,14 @@ public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
 	
 	private List<BB> boards; public List<BB> getBoards() {return boards;} public void setBoards(List<BB> boards) {this.boards = boards;}
 	private final List<THREAD> threads; public List<THREAD> getThreads() {return threads;}
-	private List<PUB> publishings; public List<PUB> getPublishings() {return publishings;} public void setPublishings(List<PUB> publishings) {this.publishings = publishings;}
+	private final List<POST> postings; public List<POST> getPostings() {return postings;}
+	
 
 	protected long refId;
+	protected MT markupType;
 	private BB board; public BB getBoard() {return board;} public void setBoard(BB board) {this.board = board;}
 	private THREAD thread; public THREAD getThread() {return thread;} public void setThread(THREAD thread) {this.thread = thread;}
+	private POST post; public POST getPost() {return post;} public void setPost(POST post) {this.post = post;}
 
 	private TreeNode tree; public TreeNode getTree() {return tree;}
     private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
@@ -71,6 +75,7 @@ public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
 		this.fbBb=fbBb;
 		sbhScope = new SbSingleHandler<SCOPE>(fbBb.getClassScope(),this);
 		threads = new ArrayList<THREAD>();
+		postings = new ArrayList<POST>();
 	}
 
 	protected void postConstructBb(JeeslTranslationBean<L,D,?> bTranslation, JeeslFacesMessageBean bMessage, JeeslBbFacade<L,D,SCOPE,BB,PUB,THREAD,POST,M,MT,USER> fBb)
@@ -80,7 +85,8 @@ public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
 		pageConfig();
 		reloadBoards();
 		
-		publishings = fBb.allOrderedPositionVisible(fbBb.getClassPublishing());
+		try {markupType = fBb.fByCode(fbBb.getClassMarkupType(),JeeslIoCmsMarkupType.Code.text);}
+		catch (UtilsNotFoundException e) {e.printStackTrace();}
 	}
 	
 	//This method can be overriden
@@ -94,6 +100,13 @@ public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
 	@Override public void selectSbSingle(EjbWithId item) throws UtilsLockingException, UtilsConstraintViolationException
 	{
 		reloadBoards();
+		reset(true,true);
+	}
+	
+	private void reset(boolean rBoard, boolean rThread)
+	{
+		if(rBoard) {board=null;}
+		if(rThread) {thread=null;}
 	}
 	
 	private void reloadBoards()
@@ -129,13 +142,41 @@ public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
 		logger.info("Selected "+event.getTreeNode().toString());
 		board = (BB)event.getTreeNode().getData();
 		board = fBb.find(fbBb.getClassBoard(),board);
+		reloadThreads();
+		reset(false,true);
+    }
+    
+	private void reloadThreads()
+	{
 		threads.clear();
 		threads.addAll(fBb.allForParent(fbBb.getClassThread(), board));
-    }
+	}
 	
+    public void selectThread()
+    {
+    	reset(false,false);
+    	reloadPostings();
+    }
+    
     public void addThread()
     {
     	thread = fbBb.ejbThread().build(board);
+    	post = fbBb.ejbPost().build("none",thread,markupType);
+    }
+    
+    public void saveThread() throws UtilsConstraintViolationException, UtilsLockingException
+    {
+    	thread = fBb.save(thread);
+    	post.setThread(thread);
+    	post = fBb.save(post);
+    	reloadThreads();
+    	reloadPostings();
+    }
+   
+    private void reloadPostings()
+    {
+    	postings.clear();
+    	postings.addAll(fBb.allForParent(fbBb.getClassPost(), thread));
     }
 	
 	public void onNodeExpand(NodeExpandEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}

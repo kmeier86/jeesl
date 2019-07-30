@@ -56,4 +56,25 @@
     		<s:lang key="fr" translation="Topic"/>
     	</s:langs>
     </s:translation>
+    <s:translation key="jeeslBbPostings">
+    	<s:langs>
+    		<s:lang key="de" translation="Postings"/>
+    		<s:lang key="en" translation="Postings"/>
+    		<s:lang key="fr" translation="Postings"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslBbMessage">
+    	<s:langs>
+    		<s:lang key="de" translation="Nachricht"/>
+    		<s:lang key="en" translation="Message"/>
+    		<s:lang key="fr" translation="Message"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslBbMessageDate">
+    	<s:langs>
+    		<s:lang key="de" translation="Date"/>
+    		<s:lang key="en" translation="Date"/>
+    		<s:lang key="fr" translation="Date"/>
+    	</s:langs>
+    </s:translation>
 </s:translations>
