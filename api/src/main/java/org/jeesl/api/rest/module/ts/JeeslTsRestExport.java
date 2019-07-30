@@ -11,7 +11,4 @@ public interface JeeslTsRestExport
 {
 	@GET @Path("/module/ts/unit") @Produces(MediaType.APPLICATION_XML)
 	Container exportTsUnit();
-	
-	@GET @Path("/module/ts/unit/si") @Produces(MediaType.APPLICATION_XML)
-	Container exportTsUnitSi();
 }

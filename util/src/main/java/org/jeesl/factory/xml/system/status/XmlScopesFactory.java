@@ -1,4 +1,4 @@
-package net.sf.ahtutils.factory.xml.status;
+package org.jeesl.factory.xml.system.status;
 
 import java.util.List;
 
@@ -8,24 +8,24 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.status.Scopes;
 
 import org.jeesl.api.exception.xml.JeeslXmlStructureException;
-import org.jeesl.factory.xml.system.status.XmlScopeFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class XmlScopesFactory
+public class XmlScopesFactory<L extends UtilsLang, D extends UtilsDescription,S extends UtilsStatus<S,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlScopesFactory.class);
 		
 	private Scopes q;
-	private String lang;
 	
-	public XmlScopesFactory(String lang,Scopes q)
+	private XmlScopeFactory<L,D,S> xfScope;
+	
+	public XmlScopesFactory(String localeCode, Scopes q)
 	{
 		this.q=q;
-		this.lang=lang;
+		if(q.isSetScope()) {xfScope = new XmlScopeFactory<>(localeCode,q.getScope().get(0));}
 	}
 	
-	public <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription> Scopes build(List<S> ejbs) throws JeeslXmlStructureException
+	public Scopes build(List<S> ejbs) throws JeeslXmlStructureException
 	{
 		Scopes xml = new Scopes();
 		
@@ -35,15 +35,11 @@ public class XmlScopesFactory
 			else{xml.setSize(0);}
 		}
 		
-		if(q.isSetScope())
+		if(q.isSetScope() && ejbs!=null)
 		{
-			if(ejbs!=null)
+			for(S s : ejbs)
 			{
-				XmlScopeFactory f = new XmlScopeFactory(lang,q.getScope().get(0));
-				for(S s : ejbs)
-				{
-					xml.getScope().add(f.build(s));
-				}
+				xml.getScope().add(xfScope.build(s));
 			}
 		}
 		

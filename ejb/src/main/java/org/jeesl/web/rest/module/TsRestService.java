@@ -2,6 +2,7 @@ package org.jeesl.web.rest.module;
 
 import org.jeesl.api.facade.module.JeeslTsFacade;
 import org.jeesl.api.rest.module.ts.JeeslTsRestExport;
+import org.jeesl.factory.builder.module.TsFactoryBuilder;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTimeSeries;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsEntityClass;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsMultiPoint;
@@ -47,16 +48,15 @@ public class TsRestService <L extends UtilsLang,
 	final static Logger logger = LoggerFactory.getLogger(TsRestService.class);
 	
 	private final JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF> fTs;
+	private final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF> fbTs;
 	
-	private final Class<UNIT> cUnit;
-	
-	private TsRestService(JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF> fTs,
-							final Class<L> cL, final Class<D> cD, final Class<UNIT> cUnit)
+	private TsRestService(TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF> fbTs,
+							JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF> fTs,
+							final Class<UNIT> cUnit)
 	{
-		super(fTs,cL,cD);
+		super(fTs,fbTs.getClassL(),fbTs.getClassD());
+		this.fbTs=fbTs;
 		this.fTs=fTs;
-		
-		this.cUnit=cUnit;
 	}
 	
 	public static <L extends UtilsLang,
@@ -79,14 +79,11 @@ public class TsRestService <L extends UtilsLang,
 					WS extends UtilsStatus<WS,L,D>,
 					QAF extends UtilsStatus<QAF,L,D>>
 			TsRestService<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF>
-			factory(JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF> fTs, final Class<L> cL, final Class<D> cD, final Class<UNIT> cUnit)
+			factory(TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF> fbTs,
+					JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF> fTs,  final Class<UNIT> cUnit)
 	{
-		return new TsRestService<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF>(fTs,cL,cD,cUnit);
+		return new TsRestService<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF>(fbTs,fTs,cUnit);
 	}
 	
-	@Override public Container exportTsUnit() {return xfContainer.build(fTs.allOrderedPosition(cUnit));}
-	@Override public Container exportTsUnitSi() {return xfContainer.build(fTs.allOrderedPosition(cUnit));}
-
-//	@Override public DataUpdate importCalendarType(Container container){return importStatus(cType,container,null);}
-
+	@Override public Container exportTsUnit() {return xfContainer.build(fTs.allOrderedPosition(fbTs.getClassUnit()));}
 }
