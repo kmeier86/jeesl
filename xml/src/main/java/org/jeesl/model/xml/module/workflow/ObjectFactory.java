@@ -30,6 +30,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Process }
+     * 
+     */
+    public Process createProcess() {
+        return new Process();
+    }
+
+    /**
      * Create an instance of {@link Workflow }
      * 
      */
@@ -43,14 +51,6 @@ public class ObjectFactory {
      */
     public Processes createProcesses() {
         return new Processes();
-    }
-
-    /**
-     * Create an instance of {@link Process }
-     * 
-     */
-    public Process createProcess() {
-        return new Process();
     }
 
 }
