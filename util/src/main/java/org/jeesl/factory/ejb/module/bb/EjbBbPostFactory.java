@@ -28,7 +28,7 @@ public class EjbBbPostFactory<THREAD extends JeeslBbThread<?>,
         this.cMarkup = cMarkup;
     }
 	
-	public POST build(String localeCode, THREAD thread, MT markupType)
+	public POST build(String localeCode, THREAD thread, MT markupType, USER user)
 	{
 		try
 		{
@@ -40,6 +40,7 @@ public class EjbBbPostFactory<THREAD extends JeeslBbThread<?>,
 			ejb.setMarkup(markup);
 			ejb.setThread(thread);
 			ejb.setRecord(new Date());
+			ejb.setUser(user);
 			
 		    return ejb;
 		}

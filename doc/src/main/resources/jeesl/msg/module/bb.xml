@@ -63,6 +63,13 @@
     		<s:lang key="fr" translation="Postings"/>
     	</s:langs>
     </s:translation>
+        <s:translation key="jeeslBbPosting">
+    	<s:langs>
+    		<s:lang key="de" translation="Posting"/>
+    		<s:lang key="en" translation="Posting"/>
+    		<s:lang key="fr" translation="Posting"/>
+    	</s:langs>
+    </s:translation>
 	<s:translation key="jeeslBbMessage">
     	<s:langs>
     		<s:lang key="de" translation="Nachricht"/>

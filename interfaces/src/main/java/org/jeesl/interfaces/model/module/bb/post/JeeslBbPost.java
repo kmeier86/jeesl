@@ -24,4 +24,7 @@ public interface JeeslBbPost<THREAD extends JeeslBbThread<?>,
 	
 	M getMarkup();
 	void setMarkup(M markup);
+	
+	USER getUser();
+	void setUser(USER user);
 }

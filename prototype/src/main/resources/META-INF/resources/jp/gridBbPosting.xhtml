@@ -49,11 +49,11 @@
 							</f:facet>
 							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
 								<p:outputLabel value="#{msg.jeeslBbMessageDate}"/>
-								<jp:outputDate value="#{cc.attrs.bean.post.record}" withTime="true"/>
+								<jp:outputDate value="#{cc.attrs.bean.thread.record}" withTime="true"/>
 								<p:outputLabel value="#{msg.jeeslBbTopic}"/>
 								<p:inputText value="#{cc.attrs.bean.thread.name}"/>
 								<p:outputLabel value="#{msg.jeeslBbMessage}"/>
-								<jtp:inputMarkup value="#{cc.attrs.bean.post.markup}"/>
+								<jtp:inputMarkup value="#{cc.attrs.bean.posting.markup}"/>
 							</p:panelGrid>
 						</p:panel>
 					</h:form>
@@ -74,27 +74,44 @@
 					<h:form id="fThread2" rendered="#{(not empty cc.attrs.bean.thread) and (cc.attrs.bean.thread.id gt 0)}">
 						<p:panel header="#{msg.jeeslBbThread}" styleClass="jeeslPanel">
 							<f:facet name="actions">
-								<j:icon type="jeeslSave" listener="#{cc.attrs.bean.saveThread()}" update=":#{cc.id}:sThread"/>
+								<j:icon type="jeeslArrowLeft" listener="#{cc.attrs.bean.postingToThreads()}" update=":#{cc.id}:sThread"/>
 							</f:facet>
 							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
 								<p:outputLabel value="#{msg.jeeslBbMessageDate}"/>
-								<jp:outputDate value="#{cc.attrs.bean.post.record}" withTime="true"/>
+								<jp:outputDate value="#{cc.attrs.bean.posting.record}" withTime="true"/>
 								<p:outputLabel value="#{msg.jeeslBbTopic}"/>
 								<h:outputText value="#{cc.attrs.bean.thread.name}"/>
 							</p:panelGrid>
 						</p:panel>
 					</h:form>
+					<h:form id="fPosting" >
+						<p:panel header="#{msg.jeeslBbPosting}" styleClass="jeeslPanel" rendered="#{(not empty cc.attrs.bean.thread) and (cc.attrs.bean.thread.id gt 0) and (not empty cc.attrs.bean.posting) and (cc.attrs.bean.posting.id eq 0)}">
+							<f:facet name="actions">
+								<j:icon type="jeeslSave" listener="#{cc.attrs.bean.savePosting()}" update=":#{cc.id}:sThread"/>
+							</f:facet>
+							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
+								<p:outputLabel value="#{msg.jeeslBbMessageDate}"/>
+								<jp:outputDate value="#{cc.attrs.bean.posting.record}" withTime="true"/>
+								<p:outputLabel value="#{msg.jeeslBbMessage}"/>
+								<jtp:inputMarkup value="#{cc.attrs.bean.posting.markup}"/>
+							</p:panelGrid>
+						</p:panel>
+					</h:form>
 					<h:form id="fPosts" rendered="#{(not empty cc.attrs.bean.thread) and (cc.attrs.bean.thread.id gt 0)}">
-						<p:dataTable var="p" value="#{cc.attrs.bean.posts}" draggableRows="false"
-										selection="#{cc.attrs.bean.post}" selectionMode="single" rowKey="#{p.id}">
+						<p:dataTable var="p" value="#{cc.attrs.bean.postings}">
 							<f:facet name="header">
 								<j:dtHeader title="#{msg.jeeslBbPostings}">
-									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addPost()}" update=":#{cc.id}:sThread"/>
+									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addPosting()}" update=":#{cc.id}:sThread"/>
 								</j:dtHeader>
 							</f:facet>
-							<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectPost()}" update=":#{cc.id}:sThread"/>
 							<p:column>  
-								<h:outputText value="#{p.id}"/>
+								<jp:outputDate value="#{p.record}" withTime="true"/>
+							</p:column>
+							<p:column>  
+								<h:outputText value="#{p.user.firstName} #{p.user.lastName}"/>
+							</p:column>
+							<p:column>  
+								<h:outputText value="#{p.markup.content}"/>
 							</p:column>
 					   	</p:dataTable>
 					</h:form>

@@ -61,10 +61,11 @@ public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
 	
 
 	protected long refId;
+	private USER user;
 	protected MT markupType;
 	private BB board; public BB getBoard() {return board;} public void setBoard(BB board) {this.board = board;}
 	private THREAD thread; public THREAD getThread() {return thread;} public void setThread(THREAD thread) {this.thread = thread;}
-	private POST post; public POST getPost() {return post;} public void setPost(POST post) {this.post = post;}
+	private POST posting; public POST getPosting() {return posting;} public void setPosting(POST posting) {this.posting = posting;}
 
 	private TreeNode tree; public TreeNode getTree() {return tree;}
     private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
@@ -78,10 +79,13 @@ public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
 		postings = new ArrayList<POST>();
 	}
 
-	protected void postConstructBb(JeeslTranslationBean<L,D,?> bTranslation, JeeslFacesMessageBean bMessage, JeeslBbFacade<L,D,SCOPE,BB,PUB,THREAD,POST,M,MT,USER> fBb)
+	protected void postConstructBb(JeeslTranslationBean<L,D,?> bTranslation, JeeslFacesMessageBean bMessage,
+									JeeslBbFacade<L,D,SCOPE,BB,PUB,THREAD,POST,M,MT,USER> fBb,
+									USER user)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fBb=fBb;
+		this.user=user;
 		pageConfig();
 		reloadBoards();
 		
@@ -100,13 +104,14 @@ public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
 	@Override public void selectSbSingle(EjbWithId item) throws UtilsLockingException, UtilsConstraintViolationException
 	{
 		reloadBoards();
-		reset(true,true);
+		reset(true,true,true);
 	}
 	
-	private void reset(boolean rBoard, boolean rThread)
+	private void reset(boolean rBoard, boolean rThread, boolean rPosting)
 	{
 		if(rBoard) {board=null;}
 		if(rThread) {thread=null;}
+		if(rPosting) {posting=null;}
 	}
 	
 	private void reloadBoards()
@@ -143,7 +148,7 @@ public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
 		board = (BB)event.getTreeNode().getData();
 		board = fBb.find(fbBb.getClassBoard(),board);
 		reloadThreads();
-		reset(false,true);
+		reset(false,true,true);
     }
     
 	private void reloadThreads()
@@ -154,21 +159,21 @@ public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
 	
     public void selectThread()
     {
-    	reset(false,false);
+    	reset(false,false,true);
     	reloadPostings();
     }
     
     public void addThread()
     {
     	thread = fbBb.ejbThread().build(board);
-    	post = fbBb.ejbPost().build("none",thread,markupType);
+    	posting = fbBb.ejbPost().build("none",thread,markupType,user);
     }
     
     public void saveThread() throws UtilsConstraintViolationException, UtilsLockingException
     {
     	thread = fBb.save(thread);
-    	post.setThread(thread);
-    	post = fBb.save(post);
+    	posting.setThread(thread);
+    	posting = fBb.save(posting);
     	reloadThreads();
     	reloadPostings();
     }
@@ -177,6 +182,26 @@ public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
     {
     	postings.clear();
     	postings.addAll(fBb.allForParent(fbBb.getClassPost(), thread));
+    }
+    
+    public void postingToThreads()
+    {
+    	logger.info("postingToThread");
+    	reset(false,true,true);
+    }
+    
+    public void addPosting()
+    {
+    	logger.info(AbstractLogMessage.addEntity(fbBb.getClassPost()));
+    	reset(false,false,true);
+    	posting = fbBb.ejbPost().build("none",thread,markupType,user);
+    }
+    
+    public void savePosting() throws UtilsConstraintViolationException, UtilsLockingException
+    {
+    	logger.info(AbstractLogMessage.addEntity(fbBb.getClassPost()));
+    	posting = fBb.save(posting);
+    	reloadPostings();
     }
 	
 	public void onNodeExpand(NodeExpandEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
