@@ -46,8 +46,8 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 public class WorkflowRestService <L extends UtilsLang, D extends UtilsDescription, LOC extends UtilsStatus<LOC,L,D>,
 									WX extends JeeslWorkflowContext<L,D,WX,?>,
 									WP extends JeeslWorkflowProcess<L,D,WX,WS>,
-									WS extends JeeslWorkflowStage<L,D,WP,AST,?>,
-									AST extends JeeslWorkflowStageType<AST,?,?,?>,
+									WS extends JeeslWorkflowStage<L,D,WP,WST,?>,
+									WST extends JeeslWorkflowStageType<WST,?,?,?>,
 									ASP extends JeeslWorkflowStagePermission<WS,APT,WML,SR>,
 									APT extends JeeslWorkflowPermissionType<APT,L,D,?>,
 									WML extends JeeslWorkflowModificationLevel<WML,?,?,?>,
@@ -72,18 +72,18 @@ public class WorkflowRestService <L extends UtilsLang, D extends UtilsDescriptio
 {
 	final static Logger logger = LoggerFactory.getLogger(WorkflowRestService.class);
 	
-	private final JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,AST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fWorkflow;
-	private final WorkflowFactoryBuilder<L,D,WX,WP,WS,AST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbWorkflow;
+	private final JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fWorkflow;
+	private final WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbWorkflow;
 	
-	private final XmlProcessFactory<L,D,WX,WP,WS,AST> xfProcess;
+	private final XmlProcessFactory<L,D,WX,WP,WS,WST> xfProcess;
 	
-	private WorkflowRestService(WorkflowFactoryBuilder<L,D,WX,WP,WS,AST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbWorkflow,
-			JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,AST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fWorkflow)
+	private WorkflowRestService(WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbWorkflow,
+			JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fWorkflow)
 	{
 		super(fWorkflow,fbWorkflow.getClassL(),fbWorkflow.getClassD());
 		this.fWorkflow=fWorkflow;
 		this.fbWorkflow=fbWorkflow;
-		xfProcess = new XmlProcessFactory<>(XmlWorkflowQuery.get(XmlWorkflowQuery.Key.xProcess));
+		xfProcess = new XmlProcessFactory<>(XmlWorkflowQuery.get(XmlWorkflowQuery.Key.xProcess)); xfProcess.lazy(fbWorkflow, fWorkflow);
 	}
 	
 	public static <L extends UtilsLang, D extends UtilsDescription, LOC extends UtilsStatus<LOC,L,D>,

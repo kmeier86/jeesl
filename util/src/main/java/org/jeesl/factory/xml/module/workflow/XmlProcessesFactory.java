@@ -19,8 +19,9 @@ public class XmlProcessesFactory<L extends UtilsLang, D extends UtilsDescription
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlProcessesFactory.class);
 	
-	private final String localeCode;
-	private final Processes q;
+	
+	@SuppressWarnings("unused") private final String localeCode;
+	@SuppressWarnings("unused") private final Processes q;
 	
 	public XmlProcessesFactory(String localeCode, Processes q)
 	{

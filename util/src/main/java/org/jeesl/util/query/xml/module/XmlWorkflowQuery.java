@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.jeesl.factory.xml.system.status.XmlContextFactory;
 import org.jeesl.model.xml.jeesl.QueryWf;
+import org.jeesl.model.xml.module.workflow.Stage;
 import org.jeesl.util.query.xml.XmlStatusQuery;
 
 public class XmlWorkflowQuery
@@ -38,6 +39,16 @@ public class XmlWorkflowQuery
 		xml.setLangs(XmlStatusQuery.langs());
 		xml.setDescriptions(XmlStatusQuery.descriptions());
 		xml.setContext(XmlContextFactory.build("",""));
+		xml.getStage().add(xStage());
+		return xml;
+	}
+	
+	private static Stage xStage()
+	{		
+		Stage xml = new Stage();
+		xml.setId(0);
+		xml.setLangs(XmlStatusQuery.langs());
+		xml.setDescriptions(XmlStatusQuery.descriptions());
 	
 		return xml;
 	}

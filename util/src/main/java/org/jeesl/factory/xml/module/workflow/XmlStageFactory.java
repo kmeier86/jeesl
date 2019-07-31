@@ -21,6 +21,7 @@ public class XmlStageFactory<L extends UtilsLang, D extends UtilsDescription,
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlStageFactory.class);
 	
+	@SuppressWarnings("unused")
 	private final String localeCode;
 	private final Stage q;
 	
@@ -36,11 +37,11 @@ public class XmlStageFactory<L extends UtilsLang, D extends UtilsDescription,
 		if(q.isSetDescriptions()) {xfDescription = new XmlDescriptionsFactory<>(q.getDescriptions());}
 	}
 	
-	public static org.jeesl.model.xml.module.workflow.Process build(){return new org.jeesl.model.xml.module.workflow.Process();}
+	public static Stage build(){return new Stage();}
 	
-	public org.jeesl.model.xml.module.workflow.Process build(WS stage)
+	public Stage build(WS stage)
 	{
-		org.jeesl.model.xml.module.workflow.Process xml = build();
+		Stage xml = build();
 		if(q.isSetId()) {xml.setId(stage.getId());}
 		if(q.isSetLangs()) {xml.setLangs(xfLangs.getUtilsLangs(stage.getName()));}
 		if(q.isSetDescriptions()) {xml.setDescriptions(xfDescription.create(stage.getDescription()));}

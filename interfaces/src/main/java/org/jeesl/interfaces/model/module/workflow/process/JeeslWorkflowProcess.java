@@ -1,6 +1,7 @@
 package org.jeesl.interfaces.model.module.workflow.process;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStage;
 import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
@@ -24,5 +25,6 @@ public interface JeeslWorkflowProcess <L extends UtilsLang, D extends UtilsDescr
 				EjbWithId,EjbWithCode,EjbWithPosition,
 				JeeslWithContext<WX>,EjbWithLang<L>,EjbWithDescription<D>
 {
-	
+	List<WS> getStages();
+	void setStages(List<WS> stages);
 }
