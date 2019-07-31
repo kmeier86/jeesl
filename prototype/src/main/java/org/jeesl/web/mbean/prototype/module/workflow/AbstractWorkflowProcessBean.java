@@ -64,8 +64,8 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extends UtilsDescription, LOC extends UtilsStatus<LOC,L,D>,
 											AX extends JeeslWorkflowContext<L,D,AX,G>,
 											WP extends JeeslWorkflowProcess<L,D,AX,AS>,
-											AS extends JeeslWorkflowStage<L,D,WP,AST,G>,
-											AST extends JeeslWorkflowStageType<AST,?,?,?>,
+											AS extends JeeslWorkflowStage<L,D,WP,WST,G>,
+											WST extends JeeslWorkflowStageType<L,D,WST,?>,
 											ASP extends JeeslWorkflowStagePermission<AS,APT,WML,SR>,
 											APT extends JeeslWorkflowPermissionType<APT,L,D,?>,
 											WML extends JeeslWorkflowModificationLevel<WML,?,?,?>,
@@ -93,10 +93,10 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 	final static Logger logger = LoggerFactory.getLogger(AbstractWorkflowProcessBean.class);
 
 	private JeeslGraphicFacade<L,D,?,G,GT,?,?> fGraphic;
-	private JeeslWorkflowFacade<L,D,LOC,AX,WP,AS,AST,ASP,APT,WML,AT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fWorkflow;
+	private JeeslWorkflowFacade<L,D,LOC,AX,WP,AS,WST,ASP,APT,WML,AT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fWorkflow;
 	private JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?> fRevision;
 	
-	private final WorkflowFactoryBuilder<L,D,AX,WP,AS,AST,ASP,APT,WML,AT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbWorkflow;
+	private final WorkflowFactoryBuilder<L,D,AX,WP,AS,WST,ASP,APT,WML,AT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbWorkflow;
 	private final IoTemplateFactoryBuilder<L,D,?,MC,MT,?,?,?,?> fbTemplate;
 	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?> fbRevision;
 	private final SecurityFactoryBuilder<L,D,?,SR,?,?,?,?,?,?,?> fbSecurity;
@@ -109,7 +109,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 	private final List<MT> templates; public List<MT> getTemplates() {return templates;}
 	private final List<SR> roles; public List<SR> getRoles() {return roles;}
 	private final List<AS> stages; public List<AS> getStages() {return stages;}
-	private final List<AST> stageTypes; public List<AST> getStageTypes() {return stageTypes;}
+	private final List<WST> stageTypes; public List<WST> getStageTypes() {return stageTypes;}
 	private final List<ASP> permissions; public List<ASP> getPermissions() {return permissions;}
 	private final List<APT> permissionTypes; public List<APT> getPermissionTypes() {return permissionTypes;}
 	private final List<WML> modificationLevels; public List<WML> getModificationLevels() {return modificationLevels;}
@@ -139,7 +139,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 	private final Comparator<SR> cpRole;
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public AbstractWorkflowProcessBean(final WorkflowFactoryBuilder<L,D,AX,WP,AS,AST,ASP,APT,WML,AT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbApproval,
+	public AbstractWorkflowProcessBean(final WorkflowFactoryBuilder<L,D,AX,WP,AS,WST,ASP,APT,WML,AT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbApproval,
 											final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?> fbRevision,
 											final SecurityFactoryBuilder<L,D,?,SR,?,?,?,?,?,?,?> fbSecurity,
 											final IoTemplateFactoryBuilder<L,D,?,MC,MT,?,?,?,?> fbTemplate,
@@ -181,7 +181,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 	
 	protected void postConstructProcess(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 										JeeslGraphicFacade<L,D,?,G,GT,?,?> fGraphic,
-										JeeslWorkflowFacade<L,D,LOC,AX,WP,AS,AST,ASP,APT,WML,AT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fApproval,
+										JeeslWorkflowFacade<L,D,LOC,AX,WP,AS,WST,ASP,APT,WML,AT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fApproval,
 										JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?> fRevision)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);

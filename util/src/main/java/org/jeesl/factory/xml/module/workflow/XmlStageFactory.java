@@ -13,8 +13,8 @@ import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 
 public class XmlStageFactory<L extends UtilsLang, D extends UtilsDescription,
-								WS extends JeeslWorkflowStage<L,D,?,AST,?>,
-								AST extends JeeslWorkflowStageType<AST,?,?,?>>
+								WS extends JeeslWorkflowStage<L,D,?,WST,?>,
+								WST extends JeeslWorkflowStageType<L,D,WST,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlStageFactory.class);
 	

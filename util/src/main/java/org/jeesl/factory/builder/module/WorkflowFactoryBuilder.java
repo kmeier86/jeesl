@@ -43,7 +43,7 @@ public class WorkflowFactoryBuilder<L extends UtilsLang, D extends UtilsDescript
 									WX extends JeeslWorkflowContext<L,D,WX,?>,
 									WP extends JeeslWorkflowProcess<L,D,WX,WS>,
 									WS extends JeeslWorkflowStage<L,D,WP,WST,?>,
-									WST extends JeeslWorkflowStageType<WST,?,?,?>,
+									WST extends JeeslWorkflowStageType<L,D,WST,?>,
 									WSP extends JeeslWorkflowStagePermission<WS,APT,WML,SR>,
 									APT extends JeeslWorkflowPermissionType<APT,L,D,?>,
 									WML extends JeeslWorkflowModificationLevel<WML,?,?,?>,

@@ -15,7 +15,7 @@ public class XmlProcessesFactory<L extends UtilsLang, D extends UtilsDescription
 								WX extends JeeslWorkflowContext<L,D,WX,?>,
 								WP extends JeeslWorkflowProcess<L,D,WX,WS>,
 								WS extends JeeslWorkflowStage<L,D,WP,WST,?>,
-								WST extends JeeslWorkflowStageType<WST,?,?,?>>
+								WST extends JeeslWorkflowStageType<L,D,WST,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlProcessesFactory.class);
 	

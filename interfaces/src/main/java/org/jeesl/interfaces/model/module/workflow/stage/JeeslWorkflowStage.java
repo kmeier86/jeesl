@@ -20,7 +20,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 
 public interface JeeslWorkflowStage <L extends UtilsLang, D extends UtilsDescription,
 									WP extends JeeslWorkflowProcess<L,D,?,?>,
-									AST extends JeeslWorkflowStageType<AST,?,?,?>,
+									WST extends JeeslWorkflowStageType<L,D,WST,?>,
 									G extends JeeslGraphic<L,D,?,?,?>
 									>
 		extends Serializable,EjbPersistable,EjbRemoveable,EjbSaveable,
@@ -32,6 +32,6 @@ public interface JeeslWorkflowStage <L extends UtilsLang, D extends UtilsDescrip
 	WP getProcess();
 	void setProcess(WP process);
 	
-	AST getType();
-	void setType(AST type);
+	WST getType();
+	void setType(WST type);
 }
