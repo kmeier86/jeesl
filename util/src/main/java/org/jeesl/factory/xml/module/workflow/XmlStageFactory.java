@@ -2,9 +2,6 @@ package org.jeesl.factory.xml.module.workflow;
 
 import org.jeesl.factory.xml.system.lang.XmlDescriptionsFactory;
 import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
-import org.jeesl.factory.xml.system.status.XmlContextFactory;
-import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowContext;
-import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStage;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStageType;
 import org.jeesl.model.xml.jeesl.QueryWf;
@@ -21,8 +18,6 @@ public class XmlStageFactory<L extends UtilsLang, D extends UtilsDescription,
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlStageFactory.class);
 	
-	@SuppressWarnings("unused")
-	private final String localeCode;
 	private final Stage q;
 	
 	private XmlLangsFactory<L> xfLangs;
@@ -31,7 +26,6 @@ public class XmlStageFactory<L extends UtilsLang, D extends UtilsDescription,
 	public XmlStageFactory(QueryWf query) {this(query.getLocaleCode(),query.getStage());}
 	public XmlStageFactory(String localeCode, Stage q)
 	{
-		this.localeCode=localeCode;
 		this.q=q;
 		if(q.isSetLangs()) {xfLangs = new XmlLangsFactory<>(q.getLangs());}
 		if(q.isSetDescriptions()) {xfDescription = new XmlDescriptionsFactory<>(q.getDescriptions());}

@@ -2,8 +2,6 @@
 package org.jeesl.model.xml.module.workflow;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -26,7 +24,7 @@ import net.sf.ahtutils.xml.status.Langs;
  *       &lt;sequence&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}langs"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}descriptions"/&gt;
- *         &lt;element ref="{http://www.jeesl.org/workflow}transition" maxOccurs="unbounded"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/workflow}stage"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" /&gt;
  *     &lt;/restriction&gt;
@@ -40,10 +38,10 @@ import net.sf.ahtutils.xml.status.Langs;
 @XmlType(name = "", propOrder = {
     "langs",
     "descriptions",
-    "transition"
+    "stage"
 })
-@XmlRootElement(name = "stage")
-public class Stage
+@XmlRootElement(name = "transition")
+public class Transition
     implements Serializable
 {
 
@@ -53,7 +51,7 @@ public class Stage
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
     protected Descriptions descriptions;
     @XmlElement(required = true)
-    protected List<Transition> transition;
+    protected Stage stage;
     @XmlAttribute(name = "id")
     protected Long id;
 
@@ -114,40 +112,31 @@ public class Stage
     }
 
     /**
-     * Gets the value of the transition property.
+     * Gets the value of the stage property.
      * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the transition property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getTransition().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Transition }
-     * 
-     * 
+     * @return
+     *     possible object is
+     *     {@link Stage }
+     *     
      */
-    public List<Transition> getTransition() {
-        if (transition == null) {
-            transition = new ArrayList<Transition>();
-        }
-        return this.transition;
+    public Stage getStage() {
+        return stage;
     }
 
-    public boolean isSetTransition() {
-        return ((this.transition!= null)&&(!this.transition.isEmpty()));
+    /**
+     * Sets the value of the stage property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Stage }
+     *     
+     */
+    public void setStage(Stage value) {
+        this.stage = value;
     }
 
-    public void unsetTransition() {
-        this.transition = null;
+    public boolean isSetStage() {
+        return (this.stage!= null);
     }
 
     /**

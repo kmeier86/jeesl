@@ -67,7 +67,7 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 							WPT extends JeeslWorkflowPermissionType<WPT,L,D,?>,
 							WML extends JeeslWorkflowModificationLevel<WML,?,?,?>,
 							WT extends JeeslWorkflowTransition<L,D,WS,WTT,SR,?>,
-							WTT extends JeeslWorkflowTransitionType<WTT,L,D,?>,
+							WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
 							WC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
 							WA extends JeeslWorkflowAction<WT,AB,AO,RE,RA>,
 							AB extends JeeslWorkflowBot<AB,L,D,?>,

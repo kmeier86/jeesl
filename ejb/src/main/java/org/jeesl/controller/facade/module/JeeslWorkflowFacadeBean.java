@@ -52,8 +52,8 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 									ASP extends JeeslWorkflowStagePermission<WS,APT,WML,SR>,
 									APT extends JeeslWorkflowPermissionType<APT,L,D,?>,
 									WML extends JeeslWorkflowModificationLevel<WML,?,?,?>,
-									WT extends JeeslWorkflowTransition<L,D,WS,ATT,SR,?>,
-									ATT extends JeeslWorkflowTransitionType<ATT,L,D,?>,
+									WT extends JeeslWorkflowTransition<L,D,WS,WTT,SR,?>,
+									WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
 									AC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
 									AA extends JeeslWorkflowAction<WT,AB,AO,RE,RA>,
 									AB extends JeeslWorkflowBot<AB,L,D,?>,
@@ -69,15 +69,15 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 									FRC extends JeeslFileContainer<?,?>,
 									USER extends JeeslUser<SR>>
 					extends UtilsFacadeBean
-					implements JeeslWorkflowFacade<L,D,LOC,AX,AP,WS,AST,ASP,APT,WML,WT,ATT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,AW,WY,FRC,USER>
+					implements JeeslWorkflowFacade<L,D,LOC,AX,AP,WS,AST,ASP,APT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,AW,WY,FRC,USER>
 {	
 	private static final long serialVersionUID = 1L;
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslWorkflowFacadeBean.class);
 	
-	private final WorkflowFactoryBuilder<L,D,AX,AP,WS,AST,ASP,APT,WML,WT,ATT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,AW,WY,FRC,USER> fbWorkflow;
+	private final WorkflowFactoryBuilder<L,D,AX,AP,WS,AST,ASP,APT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,AW,WY,FRC,USER> fbWorkflow;
 	
-	public JeeslWorkflowFacadeBean(EntityManager em, final WorkflowFactoryBuilder<L,D,AX,AP,WS,AST,ASP,APT,WML,WT,ATT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,AW,WY,FRC,USER> fbApproval)
+	public JeeslWorkflowFacadeBean(EntityManager em, final WorkflowFactoryBuilder<L,D,AX,AP,WS,AST,ASP,APT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,AW,WY,FRC,USER> fbApproval)
 	{
 		super(em);
 		this.fbWorkflow=fbApproval;

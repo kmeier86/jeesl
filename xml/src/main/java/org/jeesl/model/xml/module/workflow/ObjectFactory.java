@@ -46,6 +46,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Transition }
+     * 
+     */
+    public Transition createTransition() {
+        return new Transition();
+    }
+
+    /**
      * Create an instance of {@link Workflow }
      * 
      */

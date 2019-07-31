@@ -44,11 +44,11 @@ public class WorkflowFactoryBuilder<L extends UtilsLang, D extends UtilsDescript
 									WP extends JeeslWorkflowProcess<L,D,WX,WS>,
 									WS extends JeeslWorkflowStage<L,D,WP,WST,?>,
 									WST extends JeeslWorkflowStageType<WST,?,?,?>,
-									ASP extends JeeslWorkflowStagePermission<WS,APT,WML,SR>,
+									WSP extends JeeslWorkflowStagePermission<WS,APT,WML,SR>,
 									APT extends JeeslWorkflowPermissionType<APT,L,D,?>,
 									WML extends JeeslWorkflowModificationLevel<WML,?,?,?>,
-									WT extends JeeslWorkflowTransition<L,D,WS,ATT,SR,?>,
-									ATT extends JeeslWorkflowTransitionType<ATT,L,D,?>,
+									WT extends JeeslWorkflowTransition<L,D,WS,WTT,SR,?>,
+									WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
 									AC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
 									AA extends JeeslWorkflowAction<WT,AB,AO,RE,RA>,
 									AB extends JeeslWorkflowBot<AB,L,D,?>,
@@ -71,11 +71,11 @@ public class WorkflowFactoryBuilder<L extends UtilsLang, D extends UtilsDescript
 	private final Class<WP> cProcess; public Class<WP> getClassProcess() {return cProcess;}
 	private final Class<WS> cStage; public Class<WS> getClassStage() {return cStage;}
 	private final Class<WST> cStageType; public Class<WST> getClassStageType() {return cStageType;}
-	private final Class<ASP> cPermission; public Class<ASP> getClassPermission() {return cPermission;}
+	private final Class<WSP> cPermission; public Class<WSP> getClassPermission() {return cPermission;}
 	private final Class<APT> cPermissionType; public Class<APT> getClassPermissionType() {return cPermissionType;}
 	private final Class<WML> cModificationLevel; public Class<WML> getClassModificationLevel() {return cModificationLevel;}
 	private final Class<WT> cTransition; public Class<WT> getClassTransition() {return cTransition;}
-	private final Class<ATT> cTransitionType; public Class<ATT> getClassTransitionType() {return cTransitionType;}
+	private final Class<WTT> cTransitionType; public Class<WTT> getClassTransitionType() {return cTransitionType;}
 	private final Class<AC> cCommunication; public Class<AC> getClassCommunication() {return cCommunication;}
 	private final Class<AA> cAction; public Class<AA> getClassAction() {return cAction;}
 	private final Class<AB> cBot; public Class<AB> getClassBot() {return cBot;}
@@ -88,11 +88,11 @@ public class WorkflowFactoryBuilder<L extends UtilsLang, D extends UtilsDescript
 									final Class<WP> cProcess,
 									final Class<WS> cStage,
 									final Class<WST> cStageType,
-									final Class<ASP> cPermission,
+									final Class<WSP> cPermission,
 									final Class<APT> cPermissionType,
 									final Class<WML> cModificationLevel,
 									final Class<WT> cTransition,
-									final Class<ATT> cTransitionType,
+									final Class<WTT> cTransitionType,
 									final Class<AC> cCommunication,
 									final Class<AA> cAction,
 									final Class<AB> cBot,
@@ -120,7 +120,7 @@ public class WorkflowFactoryBuilder<L extends UtilsLang, D extends UtilsDescript
 	
 	public EjbWorkflowProcessFactory<WP> ejbProcess() {return new EjbWorkflowProcessFactory<>(cProcess);}
 	public EjbWorkflowStageFactory<WP,WS> ejbStage() {return new EjbWorkflowStageFactory<>(cStage);}
-	public EjbWorkflowPermissionFactory<WS,ASP,WML,SR> ejbPermission() {return new EjbWorkflowPermissionFactory<>(cPermission);}
+	public EjbWorkflowPermissionFactory<WS,WSP,WML,SR> ejbPermission() {return new EjbWorkflowPermissionFactory<>(cPermission);}
 	public EjbWorkflowTransitionFactory<WS,WT> ejbTransition() {return new EjbWorkflowTransitionFactory<>(cTransition);}
 	public EjbWorkflowCommunicationFactory<WT,AC,MT,MC,SR,RE> ejbCommunication() {return new EjbWorkflowCommunicationFactory<>(cCommunication);}
 	public EjbWorkflowActionFactory<WT,AA,AB,AO,RE,RA> ejbAction() {return new EjbWorkflowActionFactory<>(cAction);}
