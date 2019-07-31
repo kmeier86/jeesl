@@ -19,7 +19,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithVisible;
 
 public interface JeeslWorkflowTransition <L extends UtilsLang, D extends UtilsDescription,
-									S extends JeeslWorkflowStage<L,D,?,?,?>,
+									S extends JeeslWorkflowStage<L,D,?,?,?,?>,
 									WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
 									SR extends JeeslSecurityRole<?,?,?,?,?,?,?>,
 									G extends JeeslGraphic<L,D,?,?,?>

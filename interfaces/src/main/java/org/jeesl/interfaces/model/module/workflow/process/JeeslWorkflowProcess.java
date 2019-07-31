@@ -19,7 +19,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 
 public interface JeeslWorkflowProcess <L extends UtilsLang, D extends UtilsDescription,
 									WX extends JeeslWorkflowContext<L,D,WX,?>,
-									WS extends JeeslWorkflowStage<L,D,?,?,?>
+									WS extends JeeslWorkflowStage<L,D,?,?,?,?>
 									>
 		extends Serializable,EjbPersistable,EjbRemoveable,EjbSaveable,
 				EjbWithId,EjbWithCode,EjbWithPosition,

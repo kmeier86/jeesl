@@ -4,6 +4,7 @@ import org.jeesl.factory.xml.system.lang.XmlDescriptionsFactory;
 import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStage;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStageType;
+import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
 import org.jeesl.model.xml.jeesl.QueryWf;
 import org.jeesl.model.xml.module.workflow.Stage;
 import org.slf4j.Logger;
@@ -13,8 +14,9 @@ import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 
 public class XmlStageFactory<L extends UtilsLang, D extends UtilsDescription,
-								WS extends JeeslWorkflowStage<L,D,?,WST,?>,
-								WST extends JeeslWorkflowStageType<L,D,WST,?>>
+								WS extends JeeslWorkflowStage<L,D,?,WST,WT,?>,
+								WST extends JeeslWorkflowStageType<L,D,WST,?>,
+								WT extends JeeslWorkflowTransition<L,D,WS,?,?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlStageFactory.class);
 	

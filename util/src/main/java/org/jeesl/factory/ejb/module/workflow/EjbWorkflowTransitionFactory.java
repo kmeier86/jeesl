@@ -8,7 +8,7 @@ import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransi
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbWorkflowTransitionFactory<WS extends JeeslWorkflowStage<?,?,?,?,?>,
+public class EjbWorkflowTransitionFactory<WS extends JeeslWorkflowStage<?,?,?,?,WT,?>,
 										  WT extends JeeslWorkflowTransition<?,?,WS,?,?,?>
 >
 {

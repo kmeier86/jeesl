@@ -12,6 +12,7 @@ import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowContext;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStage;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStageType;
+import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
 import org.jeesl.model.xml.jeesl.QueryWf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +23,9 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 public class XmlProcessFactory<L extends UtilsLang, D extends UtilsDescription,
 								WX extends JeeslWorkflowContext<L,D,WX,?>,
 								WP extends JeeslWorkflowProcess<L,D,WX,WS>,
-								WS extends JeeslWorkflowStage<L,D,WP,WST,?>,
-								WST extends JeeslWorkflowStageType<L,D,WST,?>>
+								WS extends JeeslWorkflowStage<L,D,WP,WST,WT,?>,
+								WST extends JeeslWorkflowStageType<L,D,WST,?>,
+								WT extends JeeslWorkflowTransition<L,D,WS,?,?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlProcessFactory.class);
 	
@@ -32,7 +34,7 @@ public class XmlProcessFactory<L extends UtilsLang, D extends UtilsDescription,
 	private XmlLangsFactory<L> xfLangs;
 	private XmlDescriptionsFactory<D> xfDescription;
 	private XmlContextFactory<L,D,WX> xfContext;
-	private XmlStageFactory<L,D,WS,WST> xfStage;
+	private XmlStageFactory<L,D,WS,WST,WT> xfStage;
 	
 	private WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow;
 	private JeeslWorkflowFacade<L,D,?,WX,WP,WS,WST,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fWorkflow;
@@ -44,7 +46,7 @@ public class XmlProcessFactory<L extends UtilsLang, D extends UtilsDescription,
 		if(q.isSetLangs()) {xfLangs = new XmlLangsFactory<>(q.getLangs());}
 		if(q.isSetDescriptions()) {xfDescription = new XmlDescriptionsFactory<>(q.getDescriptions());}
 		if(q.isSetContext()) {xfContext = new XmlContextFactory<>(localeCode,q.getContext());}
-		if(q.isSetStage()) {xfStage = new XmlStageFactory<L,D,WS,WST>(localeCode,q.getStage().get(0));}
+		if(q.isSetStage()) {xfStage = new XmlStageFactory<>(localeCode,q.getStage().get(0));}
 	}
 	
 	public void lazy(WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow, JeeslWorkflowFacade<L,D,?,WX,WP,WS,WST,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fWorkflow)
