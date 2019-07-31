@@ -45,13 +45,13 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class WorkflowRestService <L extends UtilsLang, D extends UtilsDescription, LOC extends UtilsStatus<LOC,L,D>,
 									WX extends JeeslWorkflowContext<L,D,WX,?>,
-									WP extends JeeslWorkflowProcess<L,D,WX>,
-									AS extends JeeslWorkflowStage<L,D,WP,AST,?>,
+									WP extends JeeslWorkflowProcess<L,D,WX,WS>,
+									WS extends JeeslWorkflowStage<L,D,WP,AST,?>,
 									AST extends JeeslWorkflowStageType<AST,?,?,?>,
-									ASP extends JeeslWorkflowStagePermission<AS,APT,WML,SR>,
+									ASP extends JeeslWorkflowStagePermission<WS,APT,WML,SR>,
 									APT extends JeeslWorkflowPermissionType<APT,L,D,?>,
 									WML extends JeeslWorkflowModificationLevel<WML,?,?,?>,
-									AT extends JeeslWorkflowTransition<L,D,AS,ATT,SR,?>,
+									AT extends JeeslWorkflowTransition<L,D,WS,ATT,SR,?>,
 									ATT extends JeeslWorkflowTransitionType<ATT,L,D,?>,
 									AC extends JeeslWorkflowCommunication<AT,MT,MC,SR,RE>,
 									WA extends JeeslWorkflowAction<AT,AB,AO,RE,RA>,
@@ -63,7 +63,7 @@ public class WorkflowRestService <L extends UtilsLang, D extends UtilsDescriptio
 									RE extends JeeslRevisionEntity<L,D,?,?,RA>,
 									RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
 									AL extends JeeslApprovalLink<AW,RE>,
-									AW extends JeeslApprovalWorkflow<WP,AS,WY>,
+									AW extends JeeslApprovalWorkflow<WP,WS,WY>,
 									WY extends JeeslApprovalActivity<AT,AW,FRC,USER>,
 									FRC extends JeeslFileContainer<?,?>,
 									USER extends JeeslUser<SR>>
@@ -72,13 +72,13 @@ public class WorkflowRestService <L extends UtilsLang, D extends UtilsDescriptio
 {
 	final static Logger logger = LoggerFactory.getLogger(WorkflowRestService.class);
 	
-	private final JeeslWorkflowFacade<L,D,LOC,WX,WP,AS,AST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fWorkflow;
-	private final WorkflowFactoryBuilder<L,D,WX,WP,AS,AST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbWorkflow;
+	private final JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,AST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fWorkflow;
+	private final WorkflowFactoryBuilder<L,D,WX,WP,WS,AST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbWorkflow;
 	
-	private final XmlProcessFactory<L,D,WX,WP> xfProcess;
+	private final XmlProcessFactory<L,D,WX,WP,WS,AST> xfProcess;
 	
-	private WorkflowRestService(WorkflowFactoryBuilder<L,D,WX,WP,AS,AST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbWorkflow,
-			JeeslWorkflowFacade<L,D,LOC,WX,WP,AS,AST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fWorkflow)
+	private WorkflowRestService(WorkflowFactoryBuilder<L,D,WX,WP,WS,AST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbWorkflow,
+			JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,AST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fWorkflow)
 	{
 		super(fWorkflow,fbWorkflow.getClassL(),fbWorkflow.getClassD());
 		this.fWorkflow=fWorkflow;
@@ -88,13 +88,13 @@ public class WorkflowRestService <L extends UtilsLang, D extends UtilsDescriptio
 	
 	public static <L extends UtilsLang, D extends UtilsDescription, LOC extends UtilsStatus<LOC,L,D>,
 						WX extends JeeslWorkflowContext<L,D,WX,?>,
-						WP extends JeeslWorkflowProcess<L,D,WX>,
-						AS extends JeeslWorkflowStage<L,D,WP,AST,?>,
+						WP extends JeeslWorkflowProcess<L,D,WX,WS>,
+						WS extends JeeslWorkflowStage<L,D,WP,AST,?>,
 						AST extends JeeslWorkflowStageType<AST,?,?,?>,
-						ASP extends JeeslWorkflowStagePermission<AS,APT,WML,SR>,
+						ASP extends JeeslWorkflowStagePermission<WS,APT,WML,SR>,
 						APT extends JeeslWorkflowPermissionType<APT,L,D,?>,
 						WML extends JeeslWorkflowModificationLevel<WML,?,?,?>,
-						AT extends JeeslWorkflowTransition<L,D,AS,ATT,SR,?>,
+						AT extends JeeslWorkflowTransition<L,D,WS,ATT,SR,?>,
 						ATT extends JeeslWorkflowTransitionType<ATT,L,D,?>,
 						AC extends JeeslWorkflowCommunication<AT,MT,MC,SR,RE>,
 						WA extends JeeslWorkflowAction<AT,AB,AO,RE,RA>,
@@ -106,13 +106,13 @@ public class WorkflowRestService <L extends UtilsLang, D extends UtilsDescriptio
 						RE extends JeeslRevisionEntity<L,D,?,?,RA>,
 						RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
 						AL extends JeeslApprovalLink<AW,RE>,
-						AW extends JeeslApprovalWorkflow<WP,AS,WY>,
+						AW extends JeeslApprovalWorkflow<WP,WS,WY>,
 						WY extends JeeslApprovalActivity<AT,AW,FRC,USER>,
 						FRC extends JeeslFileContainer<?,?>,
 						USER extends JeeslUser<SR>>
-			WorkflowRestService<L,D,LOC,WX,WP,AS,AST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER>
-			factory(WorkflowFactoryBuilder<L,D,WX,WP,AS,AST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbWorkflow,
-					JeeslWorkflowFacade<L,D,LOC,WX,WP,AS,AST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fWorkflow)
+			WorkflowRestService<L,D,LOC,WX,WP,WS,AST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER>
+			factory(WorkflowFactoryBuilder<L,D,WX,WP,WS,AST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbWorkflow,
+					JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,AST,ASP,APT,WML,AT,ATT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fWorkflow)
 	{
 		return new WorkflowRestService<>(fbWorkflow,fWorkflow);
 	}

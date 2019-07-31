@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 
-public class TxtWorkflowProcessFactory<WP extends JeeslWorkflowProcess<?,?,?>,
+public class TxtWorkflowProcessFactory<WP extends JeeslWorkflowProcess<?,?,?,WS>,
 										WS extends JeeslWorkflowStage<?,?,WP,?,?>,
 										WT extends JeeslWorkflowTransition<?,?,WS,?,?,?>>
 {

@@ -41,9 +41,9 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class WorkflowFactoryBuilder<L extends UtilsLang, D extends UtilsDescription,
 									WX extends JeeslWorkflowContext<L,D,WX,?>,
-									WP extends JeeslWorkflowProcess<L,D,WX>,
-									WS extends JeeslWorkflowStage<L,D,WP,AST,?>,
-									AST extends JeeslWorkflowStageType<AST,?,?,?>,
+									WP extends JeeslWorkflowProcess<L,D,WX,WS>,
+									WS extends JeeslWorkflowStage<L,D,WP,WST,?>,
+									WST extends JeeslWorkflowStageType<WST,?,?,?>,
 									ASP extends JeeslWorkflowStagePermission<WS,APT,WML,SR>,
 									APT extends JeeslWorkflowPermissionType<APT,L,D,?>,
 									WML extends JeeslWorkflowModificationLevel<WML,?,?,?>,
@@ -70,7 +70,7 @@ public class WorkflowFactoryBuilder<L extends UtilsLang, D extends UtilsDescript
 	private final Class<WX> cContext; public Class<WX> getClassContext() {return cContext;}
 	private final Class<WP> cProcess; public Class<WP> getClassProcess() {return cProcess;}
 	private final Class<WS> cStage; public Class<WS> getClassStage() {return cStage;}
-	private final Class<AST> cStageType; public Class<AST> getClassStageType() {return cStageType;}
+	private final Class<WST> cStageType; public Class<WST> getClassStageType() {return cStageType;}
 	private final Class<ASP> cPermission; public Class<ASP> getClassPermission() {return cPermission;}
 	private final Class<APT> cPermissionType; public Class<APT> getClassPermissionType() {return cPermissionType;}
 	private final Class<WML> cModificationLevel; public Class<WML> getClassModificationLevel() {return cModificationLevel;}
@@ -87,7 +87,7 @@ public class WorkflowFactoryBuilder<L extends UtilsLang, D extends UtilsDescript
 									final Class<WX> cContext,
 									final Class<WP> cProcess,
 									final Class<WS> cStage,
-									final Class<AST> cStageType,
+									final Class<WST> cStageType,
 									final Class<ASP> cPermission,
 									final Class<APT> cPermissionType,
 									final Class<WML> cModificationLevel,

@@ -22,15 +22,25 @@
 				<xsd:element ref="wf:process" maxOccurs="unbounded"/>
             </xsd:sequence>
         </xsd:complexType>
-    </xsd:element>
+	</xsd:element>
 	<xsd:element name="process">
-        <xsd:complexType>
+		<xsd:complexType>
         	<xsd:sequence>
         		<xsd:element ref="js:context" maxOccurs="1"/>
         		<xsd:element ref="js:langs" maxOccurs="1"/>
-                <xsd:element ref="js:descriptions" maxOccurs="1"/>
-            </xsd:sequence>
-            <xsd:attribute name="id" type="xsd:long"/>
+				<xsd:element ref="js:descriptions" maxOccurs="1"/>
+				<xsd:element ref="wf:stage" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="id" type="xsd:long"/>
+		</xsd:complexType>
+    </xsd:element>
+    <xsd:element name="stage">
+		<xsd:complexType>
+			<xsd:sequence>
+        		<xsd:element ref="js:langs" maxOccurs="1"/>
+				<xsd:element ref="js:descriptions" maxOccurs="1"/>
+			</xsd:sequence>
+			<xsd:attribute name="id" type="xsd:long"/>
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>

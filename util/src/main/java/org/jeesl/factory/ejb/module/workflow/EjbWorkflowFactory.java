@@ -6,9 +6,9 @@ import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbWorkflowFactory<AP extends JeeslWorkflowProcess<?,?,?>,
-										AS extends JeeslWorkflowStage<?,?,AP,?,?>,
-										AW extends JeeslApprovalWorkflow<AP,AS,?>
+public class EjbWorkflowFactory<AP extends JeeslWorkflowProcess<?,?,?,WS>,
+								WS extends JeeslWorkflowStage<?,?,AP,?,?>,
+								AW extends JeeslApprovalWorkflow<AP,WS,?>
 
 >
 {
