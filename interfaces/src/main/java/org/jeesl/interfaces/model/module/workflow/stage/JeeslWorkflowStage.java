@@ -1,6 +1,7 @@
 package org.jeesl.interfaces.model.module.workflow.stage;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
@@ -36,4 +37,7 @@ public interface JeeslWorkflowStage <L extends UtilsLang, D extends UtilsDescrip
 	
 	WST getType();
 	void setType(WST type);
+	
+	List<WT> getTransitions();
+	void setTransitions(List<WT> transitions);
 }
