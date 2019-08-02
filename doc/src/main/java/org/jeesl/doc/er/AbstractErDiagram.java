@@ -46,7 +46,8 @@ public class AbstractErDiagram
 		List<String> subset = new ArrayList<String>();
 		subset.add(key);
 		File fPdf = null;if(dPdf!=null){fPdf = new File(dPdf,key+".pdf");}
-		buildSvg("neato",subset,new File(fSvg,key+".svg"),fPdf);
+		buildSvg("dot",subset,new File(fSvg,key+".svg"),fPdf);
+		//buildSvg("neato",subset,new File(fSvg,key+".svg"),fPdf);
 	}
 	
 	protected void buildSvg(String type, List<String> subset,File fDst, File fPdf) throws ClassNotFoundException, IOException, TranscoderException
@@ -58,7 +59,7 @@ public class AbstractErDiagram
 		egp.addPackages(packages,subset);
 		
 		Graph g = egp.create();
-//		JaxbUtil.info(g);System.exit(-1);
+		//JaxbUtil.info(g);System.exit(-1);
 		
 		Node xml = JaxbUtil.loadJAXB(colorScheme, Node.class);
 		JaxbUtil.info(xml);
@@ -67,8 +68,8 @@ public class AbstractErDiagram
 		gdc.setColorScheme(xml);
 		
 		gdc.setOverlap(false);
-		gdc.setRatio(0.9);
-		gdc.setRanksep(0.2);
+		gdc.setRatio(0.7);
+		gdc.setRanksep(0.5);
 		
 		gdc.convert(g);
 		gdc.save(fDot);
