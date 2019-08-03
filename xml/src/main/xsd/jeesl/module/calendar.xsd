@@ -3,7 +3,7 @@
     xmlns:cal="http://www.jeesl.org/calendar"
 	xmlns:js="http://ahtutils.aht-group.com/status"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <xsd:import namespace="http://ahtutils.aht-group.com/status" schemaLocation="../../aht/status.xsd"/>
+    <xsd:import namespace="http://ahtutils.aht-group.com/status" schemaLocation="../../jeesl/status.xsd"/>
     <xsd:element name="calendar">
 	    <xsd:complexType>
             <xsd:sequence>

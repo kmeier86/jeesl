@@ -3,6 +3,7 @@ package org.jeesl.doc.ofx;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.JeeslLocaleProvider;
 import org.openfuxml.content.ofx.Paragraph;
 import org.openfuxml.content.ofx.Title;
@@ -17,7 +18,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
-public class OfxMultiLocaleFactory<L extends UtilsLang, LOC extends UtilsStatus<LOC,L,?>>
+public class OfxMultiLocaleFactory<L extends UtilsLang, LOC extends JeeslLocale<L,?,LOC,?>>
 {	
 	final static Logger logger = LoggerFactory.getLogger(OfxMultiLocaleFactory.class);
 		
