@@ -75,7 +75,7 @@ public class WorkflowRestService <L extends UtilsLang, D extends UtilsDescriptio
 	private final JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,ASP,APT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fWorkflow;
 	private final WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,ASP,APT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbWorkflow;
 	
-	private final XmlProcessFactory<L,D,WX,WP,WS,WST,WT> xfProcess;
+	private final XmlProcessFactory<L,D,WX,WP,WS,WST,WT,WTT> xfProcess;
 	
 	private WorkflowRestService(WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,ASP,APT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbWorkflow,
 			JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,ASP,APT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fWorkflow)

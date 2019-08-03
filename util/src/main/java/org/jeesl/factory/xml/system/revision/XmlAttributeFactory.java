@@ -24,7 +24,7 @@ public class XmlAttributeFactory <L extends UtilsLang,D extends UtilsDescription
 	
 	private XmlLangsFactory<L> xfLangs;
 	private XmlDescriptionsFactory<D> xfDescriptions;
-	private XmlTypeFactory<RAT,L,D> xfType;
+	private XmlTypeFactory<L,D,RAT> xfType;
 	
 	public XmlAttributeFactory(Attribute q)
 	{

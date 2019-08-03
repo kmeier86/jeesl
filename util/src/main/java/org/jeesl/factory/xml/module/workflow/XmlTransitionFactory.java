@@ -43,6 +43,7 @@ public class XmlTransitionFactory<L extends UtilsLang, D extends UtilsDescriptio
 	{
 		Transition xml = build();
 		if(q.isSetId()) {xml.setId(transition.getId());}
+		if(q.isSetPosition()) {xml.setPosition(transition.getPosition());}
 		if(q.isSetLangs()) {xml.setLangs(xfLangs.getUtilsLangs(transition.getName()));}
 		if(q.isSetDescriptions()) {xml.setDescriptions(xfDescription.create(transition.getDescription()));}
 		return xml;

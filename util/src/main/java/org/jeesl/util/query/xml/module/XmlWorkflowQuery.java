@@ -4,8 +4,10 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import org.jeesl.factory.xml.system.status.XmlContextFactory;
+import org.jeesl.factory.xml.system.status.XmlTypeFactory;
 import org.jeesl.model.xml.jeesl.QueryWf;
 import org.jeesl.model.xml.module.workflow.Stage;
+import org.jeesl.model.xml.module.workflow.Transition;
 import org.jeesl.util.query.xml.XmlStatusQuery;
 
 public class XmlWorkflowQuery
@@ -47,9 +49,21 @@ public class XmlWorkflowQuery
 	{		
 		Stage xml = new Stage();
 		xml.setId(0);
+		xml.setPosition(0);
+		xml.setType(XmlTypeFactory.build("",""));
 		xml.setLangs(XmlStatusQuery.langs());
 		xml.setDescriptions(XmlStatusQuery.descriptions());
+		xml.getTransition().add(xTransition());
+		return xml;
+	}
 	
+	private static Transition xTransition()
+	{		
+		Transition xml = new Transition();
+		xml.setId(0);
+		xml.setPosition(0);
+		xml.setLangs(XmlStatusQuery.langs());
+		xml.setDescriptions(XmlStatusQuery.descriptions());
 		return xml;
 	}
 }
