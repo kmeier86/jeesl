@@ -1,12 +1,15 @@
 package org.jeesl.doc.ofx.cms.module.workflow;
 
-import org.jeesl.doc.ofx.OfxMultiLocaleFactory;
+import java.io.FileNotFoundException;
+
 import org.jeesl.doc.ofx.cms.generic.AbstractJeeslOfxFactory;
+import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsElement;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.JeeslLocaleProvider;
 import org.jeesl.model.xml.module.workflow.Processes;
 import org.jeesl.model.xml.module.workflow.Workflow;
 import org.openfuxml.content.ofx.Section;
+import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.list.XmlListFactory;
 import org.openfuxml.factory.xml.ofx.content.structure.XmlSectionFactory;
 import org.openfuxml.interfaces.configuration.OfxTranslationProvider;
@@ -16,8 +19,11 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.xml.status.Context;
 import net.sf.ahtutils.xml.status.Contexts;
+import net.sf.exlp.util.xml.JaxbUtil;
 
-public class OfxSectionWorkflow <L extends UtilsLang, LOC extends JeeslLocale<L,?,LOC,?>> extends AbstractJeeslOfxFactory<L,LOC>
+public class OfxSectionWorkflow <L extends UtilsLang, LOC extends JeeslLocale<L,?,LOC,?>,
+								E extends JeeslIoCmsElement<?,?,?,?,?,?>>
+							extends AbstractJeeslOfxFactory<L,LOC>
 {
 	final static Logger logger = LoggerFactory.getLogger(OfxSectionWorkflow.class);
 	
@@ -28,11 +34,22 @@ public class OfxSectionWorkflow <L extends UtilsLang, LOC extends JeeslLocale<L,
 		super(tp);
 		ofxProcess = new OfxTableWorkflowProcess<>(tp);
 	}
+	
+	public Section build(JeeslLocaleProvider<LOC> lp, E element) throws OfxAuthoringException
+	{
+		try
+		{
+			Workflow workflow = JaxbUtil.loadJAXB("/Volumes/ramdisk/workflow.xml",Workflow.class);
+			return build(lp,workflow);
+		}
+		catch (FileNotFoundException e) {throw new OfxAuthoringException(e.getMessage());}
+	}
 
 	public Section build(JeeslLocaleProvider<LOC> lp, Workflow workflow)
 	{
 		
 		Section xml = XmlSectionFactory.build();
+		xml.setContainer(true);
 		xml.getContent().add(contextList(lp,workflow.getContexts()));
 		
 		for(Context context : workflow.getContexts().getContext())

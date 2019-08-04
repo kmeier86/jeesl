@@ -6,6 +6,7 @@ import java.util.List;
 import org.jeesl.api.facade.io.JeeslIoCmsFacade;
 import org.jeesl.doc.ofx.cms.jeesl.JeeslCmsImageFactory;
 import org.jeesl.doc.ofx.cms.jeesl.JeeslCmsParagraphFactory;
+import org.jeesl.doc.ofx.cms.module.workflow.OfxSectionWorkflow;
 import org.jeesl.doc.ofx.cms.system.status.JeeslCmsStatusListFactory;
 import org.jeesl.doc.ofx.cms.system.status.JeeslCmsStatusTableFactory;
 import org.jeesl.interfaces.controller.handler.JeeslFileRepositoryHandler;
@@ -26,6 +27,7 @@ import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.ofx.content.structure.XmlSectionFactory;
 import org.openfuxml.factory.xml.ofx.content.structure.XmlSectionsFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
+import org.openfuxml.interfaces.configuration.OfxTranslationProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,8 +58,9 @@ public abstract class AbstractCmsRenderer <L extends UtilsLang, D extends UtilsD
 	private final JeeslCmsStatusTableFactory<E,C> ofTableStatus;
 	private final JeeslCmsStatusListFactory<E,C> ofxListStatus;
 	private final JeeslCmsImageFactory<E,C,FS,FC,FM> ofImage;
+	private final OfxSectionWorkflow<L,LOC,E> ofxWorkflow;
 	
-	public AbstractCmsRenderer(JeeslIoCmsFacade<L,D,CAT,CMS,V,S,E,EC,ET,C,MT,FC,LOC> fCms, JeeslFileRepositoryHandler<FS,FC,FM> frh)
+	public AbstractCmsRenderer(OfxTranslationProvider tp, JeeslIoCmsFacade<L,D,CAT,CMS,V,S,E,EC,ET,C,MT,FC,LOC> fCms, JeeslFileRepositoryHandler<FS,FC,FM> frh)
 	{
 		this.fCms = fCms;
 		
@@ -65,6 +68,7 @@ public abstract class AbstractCmsRenderer <L extends UtilsLang, D extends UtilsD
 		ofTableStatus = new JeeslCmsStatusTableFactory<E,C>();
 		ofxListStatus = new JeeslCmsStatusListFactory<E,C>();
 		ofImage = new JeeslCmsImageFactory<E,C,FS,FC,FM>(frh);
+		ofxWorkflow = new OfxSectionWorkflow<>(tp);
 	}
 	
 	public Sections build(JeeslLocaleProvider<LOC> lp, String localeCode, CMS cms) throws OfxAuthoringException
@@ -115,12 +119,13 @@ public abstract class AbstractCmsRenderer <L extends UtilsLang, D extends UtilsD
 	protected abstract void build(JeeslLocaleProvider<LOC> lp, String localeCode, List<Serializable> list, E element) throws OfxAuthoringException;
 	
 	//Here we are handling all types which are available as generic renderer in JEESL 
-	protected void buildJeesl(String localeCode, List<Serializable> list, E element) throws OfxAuthoringException
+	protected void buildJeesl(JeeslLocaleProvider<LOC> lp, String localeCode, List<Serializable> list, E element) throws OfxAuthoringException
 	{
 		if(element.getType().getCode().equals(JeeslIoCmsElement.Type.paragraph.toString())) {list.addAll(ofParagraph.build(localeCode,element).getContent());}
 		else if(element.getType().getCode().equals(JeeslIoCmsElement.Type.image.toString())) {list.add(ofImage.build(localeCode,element));}
 		else if(element.getType().getCode().equals(JeeslIoCmsElement.Type.sysStatusTable.toString())) {list.add(ofTableStatus.build(localeCode,element));}
 		else if(element.getType().getCode().equals(JeeslIoCmsElement.Type.sysStatusList.toString())) {list.add(ofxListStatus.build(localeCode,element));}
+		else if(element.getType().getCode().equals(JeeslIoCmsElement.Type.wfProcess.toString())) {list.add(ofxWorkflow.build(lp,element));}
 		
 		else {logger.warn("Unhandled "+element.getType().getCode());}
 	}

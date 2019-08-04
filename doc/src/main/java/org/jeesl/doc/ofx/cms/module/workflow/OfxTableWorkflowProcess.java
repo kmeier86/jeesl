@@ -47,6 +47,7 @@ public class OfxTableWorkflowProcess <L extends UtilsLang, LOC extends JeeslLoca
 	{
 		tableHeaders.clear();
 		super.addHeader("Stage");
+		super.addHeader("Role");
 		super.addHeader("Transition");
 
 		Table table = toOfx(lp,process);
@@ -74,6 +75,7 @@ public class OfxTableWorkflowProcess <L extends UtilsLang, LOC extends JeeslLoca
 		Columns cols = OfxColumnsFactory.build();
 		OfxColumnFactory.add(cols,XmlAlignmentFactory.Horizontal.left);
 		cols.getColumn().add(OfxColumnFactory.flex(80));
+		cols.getColumn().add(OfxColumnFactory.flex(80));
 			
 		Specification specification = new Specification();
 		specification.setLong(true);
@@ -99,7 +101,11 @@ public class OfxTableWorkflowProcess <L extends UtilsLang, LOC extends JeeslLoca
 	{		
 		Row row = OfxRowFactory.build();
 		row.getCell().add(ofxMultiLocale.cell(lp, stage.getLangs()));
-		row.getCell().add(OfxCellFactory.list(transitions(lp, stage.getTransition())));
+		
+		row.getCell().add(OfxCellFactory.createParagraphCell("role"));
+		
+		if(stage.isSetTransition()) {row.getCell().add(OfxCellFactory.list(transitions(lp, stage.getTransition())));}
+		else {row.getCell().add(OfxCellFactory.createParagraphCell(""));}
 		
 		return row;
 	}

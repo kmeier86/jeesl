@@ -112,7 +112,7 @@ public class OfxMultiLocaleFactory<L extends UtilsLang, LOC extends JeeslLocale<
 			{
 				Item item = OfxListItemFactory.build();
 				item.setLang(localeCode);
-				item.setName(StatusXpath.getLang(langs, localeCode).getTranslation());
+				item.getContent().add(XmlParagraphFactory.text(StatusXpath.getLang(langs, localeCode).getTranslation()));
 				items.add(item);
 			}
 			catch (ExlpXpathNotFoundException | ExlpXpathNotUniqueException e) {e.printStackTrace();}

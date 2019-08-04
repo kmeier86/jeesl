@@ -21,7 +21,6 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.xml.status.Translations;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 public class AbstractJeeslOfxTableFactory<L extends UtilsLang, LOC extends JeeslLocale<L,?,LOC,?>>
 								extends AbstractJeeslOfxFactory<L,LOC>
@@ -108,11 +107,10 @@ public class AbstractJeeslOfxTableFactory<L extends UtilsLang, LOC extends Jeesl
 			Cell cell = OfxCellFactory.build();
 			if(json.getEntity()!=null)
 			{
-				logger.info("Building via TP "+json.getEntity()+" "+json.getCode());
+				logger.trace("Building via TP "+json.getEntity()+" "+json.getCode());
 				for(String localeCode : lp.getLocaleCodes())
 				{
 					Paragraph p = XmlParagraphFactory.build(localeCode,tp.toTranslation(localeCode,json.getEntity(),json.getCode()));
-					JaxbUtil.info(p);
 					cell.getContent().add(p);
 				}
 			}
