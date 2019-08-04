@@ -1,4 +1,4 @@
-package org.jeesl.doc.ofx.cms.factory;
+package org.jeesl.doc.ofx.cms.generic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -102,7 +102,7 @@ public class AbstractJeeslOfxTableFactory<L extends UtilsLang, LOC extends Jeesl
 	protected Head buildTableHeader(JeeslLocaleProvider<LOC> lp)
 	{
 		Row row = new Row();
-		logger.info("Building Head with headers:"+tableHeaders.size()+" locales:"+tp.getLocaleCodes().size());
+//		logger.info("Building Head with headers:"+tableHeaders.size()+" locales:"+tp.getLocaleCodes().size());
 		for(JsonTranslation json : tableHeaders)
 		{
 			Cell cell = OfxCellFactory.build();

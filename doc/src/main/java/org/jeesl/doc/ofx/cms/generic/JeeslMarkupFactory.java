@@ -1,4 +1,4 @@
-package org.jeesl.doc.ofx.cms.jeesl;
+package org.jeesl.doc.ofx.cms.generic;
 
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsMarkupType;
 import org.jsoup.Jsoup;
@@ -32,7 +32,6 @@ public class JeeslMarkupFactory
 			logger.info("Building Markup");
 			logger.info(content);
 		}
-		
 		
 		Section section = XmlSectionFactory.build();
 

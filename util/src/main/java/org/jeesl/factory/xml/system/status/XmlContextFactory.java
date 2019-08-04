@@ -9,6 +9,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.status.Context;
+import net.sf.ahtutils.xml.status.Status;
 
 public class XmlContextFactory<L extends UtilsLang, D extends UtilsDescription,S extends UtilsStatus<S,L,D>>
 {
@@ -71,6 +72,16 @@ public class XmlContextFactory<L extends UtilsLang, D extends UtilsDescription,S
 			}
 		}
 		
+		return xml;
+	}
+	
+	public static Context build(Status status)
+	{
+		Context xml = new Context();
+		xml.setCode(status.getCode());
+		xml.setDescriptions(status.getDescriptions());
+		xml.setLangs(status.getLangs());
+//		if(status.isSetParent()){xml.setParent(status.getParent());}
 		return xml;
 	}
 }

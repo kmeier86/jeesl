@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema targetNamespace="http://ahtutils.aht-group.com/status"
-	xmlns:us="http://ahtutils.aht-group.com/status"
+	xmlns:js="http://ahtutils.aht-group.com/status"
  	xmlns:sec="http://ahtutils.aht-group.com/security"
 	xmlns:io ="http://exlp.sf.net/io"
 	xmlns:symbol="http://www.jeesl.org/symbol"
@@ -11,12 +11,12 @@
 	<xsd:element name="area">
         <xsd:complexType>
             <xsd:sequence>
-            	<xsd:element ref="us:parent" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:lang" maxOccurs="unbounded"/>
-                <xsd:element ref="us:transistions" maxOccurs="1"/>
-                <xsd:element ref="us:tracked" maxOccurs="unbounded"/>
+            	<xsd:element ref="js:parent" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:lang" maxOccurs="unbounded"/>
+                <xsd:element ref="js:transistions" maxOccurs="1"/>
+                <xsd:element ref="js:tracked" maxOccurs="unbounded"/>
                 <xsd:element ref="symbol:graphic" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
@@ -33,7 +33,7 @@
 	<xsd:element name="statuses">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element ref="us:status" maxOccurs="unbounded"/>
+				<xsd:element ref="js:status" maxOccurs="unbounded"/>
 			</xsd:sequence>
 			<xsd:attribute name="group" type="xsd:string"/>
 		</xsd:complexType>
@@ -41,12 +41,12 @@
 	<xsd:element name="status">
         <xsd:complexType>
             <xsd:sequence>
-            		<xsd:element ref="us:parent" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:lang" maxOccurs="unbounded"/>
-                <xsd:element ref="us:transistions" maxOccurs="1"/>
-                <xsd:element ref="us:tracked" maxOccurs="unbounded"/>
+            		<xsd:element ref="js:parent" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:lang" maxOccurs="unbounded"/>
+                <xsd:element ref="js:transistions" maxOccurs="1"/>
+                <xsd:element ref="js:tracked" maxOccurs="unbounded"/>
                 <xsd:element ref="symbol:graphic" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
@@ -64,12 +64,12 @@
     <xsd:element name="option">
         <xsd:complexType>
 			<xsd:sequence>
-            	<xsd:element ref="us:parent" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:lang" maxOccurs="unbounded"/>
-                <xsd:element ref="us:transistions" maxOccurs="1"/>
-                <xsd:element ref="us:tracked" maxOccurs="unbounded"/>
+            	<xsd:element ref="js:parent" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:lang" maxOccurs="unbounded"/>
+                <xsd:element ref="js:transistions" maxOccurs="1"/>
+                <xsd:element ref="js:tracked" maxOccurs="unbounded"/>
                 <xsd:element ref="symbol:graphic" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
@@ -95,9 +95,9 @@
         <xsd:complexType>
         	<xsd:sequence>
                 <xsd:element ref="sec:user" maxOccurs="1"/>
-                <xsd:element ref="us:status" maxOccurs="1"/>
-                <xsd:element ref="us:statement" maxOccurs="1"/>
-                <xsd:element ref="us:declaration" maxOccurs="1"/>
+                <xsd:element ref="js:status" maxOccurs="1"/>
+                <xsd:element ref="js:statement" maxOccurs="1"/>
+                <xsd:element ref="js:declaration" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="record" type="xsd:dateTime"/>
         </xsd:complexType>
@@ -106,7 +106,7 @@
 	<xsd:element name="results">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element ref="us:result" maxOccurs="unbounded"/>
+				<xsd:element ref="js:result" maxOccurs="unbounded"/>
 			</xsd:sequence>
 			<xsd:attribute name="group" type="xsd:string"/>
 		</xsd:complexType>
@@ -114,10 +114,10 @@
 	<xsd:element name="result">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element ref="us:transistions" maxOccurs="1"/>
-				<xsd:element ref="us:langs" maxOccurs="1"/>
-				<xsd:element ref="us:descriptions" maxOccurs="1"/>
-				<xsd:element ref="us:lang" maxOccurs="unbounded"/>
+				<xsd:element ref="js:transistions" maxOccurs="1"/>
+				<xsd:element ref="js:langs" maxOccurs="1"/>
+				<xsd:element ref="js:descriptions" maxOccurs="1"/>
+				<xsd:element ref="js:lang" maxOccurs="unbounded"/>
 			</xsd:sequence>
 			<xsd:attribute name="id" type="xsd:long"/>
 			<xsd:attribute name="group" type="xsd:string"/>
@@ -131,10 +131,10 @@
 	<xsd:element name="interval">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element ref="us:transistions" maxOccurs="1"/>
-				<xsd:element ref="us:langs" maxOccurs="1"/>
-				<xsd:element ref="us:descriptions" maxOccurs="1"/>
-				<xsd:element ref="us:lang" maxOccurs="unbounded"/>
+				<xsd:element ref="js:transistions" maxOccurs="1"/>
+				<xsd:element ref="js:langs" maxOccurs="1"/>
+				<xsd:element ref="js:descriptions" maxOccurs="1"/>
+				<xsd:element ref="js:lang" maxOccurs="unbounded"/>
 			</xsd:sequence>
 			<xsd:attribute name="id" type="xsd:long"/>
 			<xsd:attribute name="group" type="xsd:string"/>
@@ -148,10 +148,10 @@
 	<xsd:element name="call">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:transistions" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:lang" maxOccurs="unbounded"/>
+                <xsd:element ref="js:transistions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:lang" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -165,10 +165,10 @@
 	<xsd:element name="stage">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:transistions" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:lang" maxOccurs="unbounded"/>
+                <xsd:element ref="js:transistions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:lang" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -184,9 +184,9 @@
     <xsd:element name="types">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:type" maxOccurs="unbounded"/>
-                <xsd:element ref="us:mainType" maxOccurs="unbounded"/>
-                <xsd:element ref="us:subType" maxOccurs="unbounded"/>
+                <xsd:element ref="js:type" maxOccurs="unbounded"/>
+                <xsd:element ref="js:mainType" maxOccurs="unbounded"/>
+                <xsd:element ref="js:subType" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="group" type="xsd:string"/>
         </xsd:complexType>
@@ -194,12 +194,12 @@
     <xsd:element name="type">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:parent" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:lang" maxOccurs="unbounded"/>
-                <xsd:element ref="us:transistions" maxOccurs="1"/>
-				<xsd:element ref="us:subType" maxOccurs="unbounded"/>
+                <xsd:element ref="js:parent" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:lang" maxOccurs="unbounded"/>
+                <xsd:element ref="js:transistions" maxOccurs="1"/>
+				<xsd:element ref="js:subType" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="key" type="xsd:string"/>
@@ -215,10 +215,10 @@
 	<xsd:element name="mainType">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:transistions" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:lang" maxOccurs="unbounded"/>
+                <xsd:element ref="js:transistions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:lang" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="key" type="xsd:string"/>
@@ -233,11 +233,11 @@
     <xsd:element name="subType">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:transistions" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:lang" maxOccurs="unbounded"/>
-                <xsd:element ref="us:parent" maxOccurs="1"/>
+                <xsd:element ref="js:transistions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:lang" maxOccurs="unbounded"/>
+                <xsd:element ref="js:parent" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="key" type="xsd:string"/>
@@ -252,11 +252,11 @@
     <xsd:element name="dataType">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:parent" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:lang" maxOccurs="unbounded"/>
-                <xsd:element ref="us:transistions" maxOccurs="1"/>
+                <xsd:element ref="js:parent" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:lang" maxOccurs="unbounded"/>
+                <xsd:element ref="js:transistions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="key" type="xsd:string"/>
@@ -272,8 +272,8 @@
     <xsd:element name="priority">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -288,11 +288,11 @@
     <xsd:element name="program">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:transistions" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:lang" maxOccurs="unbounded"/>
-                <xsd:element ref="us:parent" maxOccurs="1"/>
+                <xsd:element ref="js:transistions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:lang" maxOccurs="unbounded"/>
+                <xsd:element ref="js:parent" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="key" type="xsd:string"/>
@@ -307,11 +307,11 @@
 	<xsd:element name="subProgram">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:transistions" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:lang" maxOccurs="unbounded"/>
-                <xsd:element ref="us:parent" maxOccurs="1"/>
+                <xsd:element ref="js:transistions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:lang" maxOccurs="unbounded"/>
+                <xsd:element ref="js:parent" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="key" type="xsd:string"/>
@@ -327,10 +327,10 @@
     <xsd:element name="condition">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:transistions" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:lang" maxOccurs="unbounded"/>
+                <xsd:element ref="js:transistions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:lang" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -344,12 +344,12 @@
     <xsd:element name="domain">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:transistions" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:lang" maxOccurs="unbounded"/>
-                <xsd:element ref="us:parent" maxOccurs="1"/>
-                <xsd:element ref="us:tracked" maxOccurs="unbounded"/>
+                <xsd:element ref="js:transistions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:lang" maxOccurs="unbounded"/>
+                <xsd:element ref="js:parent" maxOccurs="1"/>
+                <xsd:element ref="js:tracked" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -364,12 +364,12 @@
         <xsd:element name="model">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:transistions" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:lang" maxOccurs="unbounded"/>
-                <xsd:element ref="us:parent" maxOccurs="1"/>
-                <xsd:element ref="us:tracked" maxOccurs="unbounded"/>
+                <xsd:element ref="js:transistions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:lang" maxOccurs="unbounded"/>
+                <xsd:element ref="js:parent" maxOccurs="1"/>
+                <xsd:element ref="js:tracked" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -385,7 +385,7 @@
     <xsd:element name="scopes">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:scope" maxOccurs="unbounded"/>
+                <xsd:element ref="js:scope" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="group" type="xsd:string"/>
             <xsd:attribute name="size" type="xsd:int"/>
@@ -394,10 +394,10 @@
     <xsd:element name="scope">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:transistions" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:lang" maxOccurs="unbounded"/>
+                <xsd:element ref="js:transistions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:lang" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -410,13 +410,22 @@
         </xsd:complexType>
     </xsd:element>
     
+     <xsd:element name="contexts">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="js:context" maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:attribute name="group" type="xsd:string"/>
+            <xsd:attribute name="size" type="xsd:int"/>
+        </xsd:complexType>
+    </xsd:element>
 	<xsd:element name="context">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:transistions" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:lang" maxOccurs="unbounded"/>
+                <xsd:element ref="js:transistions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:lang" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -432,7 +441,7 @@
     <xsd:element name="categories">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:category" maxOccurs="unbounded"/>
+                <xsd:element ref="js:category" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="group" type="xsd:string"/>
             <xsd:attribute name="size" type="xsd:int"/>
@@ -441,10 +450,10 @@
     <xsd:element name="category">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:transistions" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:lang" maxOccurs="unbounded"/>
+                <xsd:element ref="js:transistions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:lang" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -459,22 +468,22 @@
     <xsd:element name="transistions">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:status" maxOccurs="unbounded"/>
+                <xsd:element ref="js:status" maxOccurs="unbounded"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="translations">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:translation" maxOccurs="unbounded"/>
+                <xsd:element ref="js:translation" maxOccurs="unbounded"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="translation">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="key" type="xsd:string"/>
         </xsd:complexType>
@@ -484,9 +493,9 @@
     <xsd:element name="organisation">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:function" maxOccurs="unbounded"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:function" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -501,9 +510,9 @@
     <xsd:element name="function">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:parent" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:parent" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -520,8 +529,8 @@
     <xsd:element name="responsible">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -538,15 +547,15 @@
 	<xsd:element name="capabilities">
 		<xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:capability" maxOccurs="unbounded"/>
+                <xsd:element ref="js:capability" maxOccurs="unbounded"/>
 			</xsd:sequence>
 		</xsd:complexType>
 	</xsd:element>
     <xsd:element name="capability">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -563,8 +572,8 @@
     <xsd:element name="phase">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -579,8 +588,8 @@
     <xsd:element name="subPhase">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -597,8 +606,8 @@
     <xsd:element name="original">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -613,8 +622,8 @@
     <xsd:element name="copy">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -629,8 +638,8 @@
     <xsd:element name="origin">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -645,8 +654,8 @@
     <xsd:element name="source">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -662,7 +671,7 @@
 	<xsd:element name="styles">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element ref="us:style" maxOccurs="unbounded"/>
+				<xsd:element ref="js:style" maxOccurs="unbounded"/>
 			</xsd:sequence>
 			<xsd:attribute name="group" type="xsd:string"/>
 		</xsd:complexType>
@@ -670,8 +679,8 @@
   	<xsd:element name="style">
 		<xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -686,8 +695,8 @@
 	<xsd:element name="legend">
 		<xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -702,8 +711,8 @@
 	<xsd:element name="outcome">
 		<xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -718,8 +727,8 @@
 	<xsd:element name="unit">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -734,8 +743,8 @@
     <xsd:element name="frequency">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -751,11 +760,11 @@
     <xsd:element name="sector">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:parent" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:lang" maxOccurs="unbounded"/>
-                <xsd:element ref="us:transistions" maxOccurs="1"/>
+                <xsd:element ref="js:parent" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:lang" maxOccurs="unbounded"/>
+                <xsd:element ref="js:transistions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="key" type="xsd:string"/>
@@ -770,11 +779,11 @@
     <xsd:element name="pillar">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:parent" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:lang" maxOccurs="unbounded"/>
-                <xsd:element ref="us:transistions" maxOccurs="1"/>
+                <xsd:element ref="js:parent" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:lang" maxOccurs="unbounded"/>
+                <xsd:element ref="js:transistions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="key" type="xsd:string"/>
@@ -791,8 +800,8 @@
     <xsd:element name="family">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -807,8 +816,8 @@
     <xsd:element name="order">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -823,8 +832,8 @@
     <xsd:element name="class">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -841,8 +850,8 @@
     <xsd:element name="gender">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -859,9 +868,9 @@
     <xsd:element name="satisfaction">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:tracked" maxOccurs="unbounded"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:tracked" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -878,9 +887,9 @@
     <xsd:element name="procurementMethod">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:tracked" maxOccurs="unbounded"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:tracked" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -895,9 +904,9 @@
 	<xsd:element name="evaluationMethod">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:tracked" maxOccurs="unbounded"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:tracked" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -912,9 +921,9 @@
     <xsd:element name="aggregationMethod">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:tracked" maxOccurs="unbounded"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:tracked" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -931,9 +940,9 @@
     <xsd:element name="statement">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:tracked" maxOccurs="unbounded"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:tracked" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -948,9 +957,9 @@
     <xsd:element name="verification">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:tracked" maxOccurs="unbounded"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:tracked" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -965,9 +974,9 @@
      <xsd:element name="reason">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:tracked" maxOccurs="unbounded"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:tracked" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -982,9 +991,9 @@
     <xsd:element name="declaration">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:tracked" maxOccurs="unbounded"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:tracked" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -999,9 +1008,9 @@
 	<xsd:element name="freeze">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:tracked" maxOccurs="unbounded"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:tracked" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -1018,7 +1027,7 @@
 	<xsd:element name="levels">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element ref="us:level" maxOccurs="unbounded"/>
+				<xsd:element ref="js:level" maxOccurs="unbounded"/>
 			</xsd:sequence>
 			<xsd:attribute name="group" type="xsd:string"/>
 		</xsd:complexType>
@@ -1026,9 +1035,9 @@
     <xsd:element name="level">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:tracked" maxOccurs="unbounded"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:tracked" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -1044,9 +1053,9 @@
 	<xsd:element name="action">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:tracked" maxOccurs="unbounded"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:tracked" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -1061,9 +1070,9 @@
 	<xsd:element name="process">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:tracked" maxOccurs="unbounded"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:tracked" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -1079,8 +1088,8 @@
     <xsd:element name="implementation">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -1095,8 +1104,8 @@
 	<xsd:element name="quarter">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -1113,7 +1122,7 @@
     <xsd:element name="langs">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:lang" maxOccurs="unbounded"/>
+                <xsd:element ref="js:lang" maxOccurs="unbounded"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
@@ -1127,7 +1136,7 @@
     <xsd:element name="descriptions">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:description" maxOccurs="unbounded"/>
+                <xsd:element ref="js:description" maxOccurs="unbounded"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>

@@ -163,27 +163,23 @@ public class XmlStatusQuery
 	
 	public static Descriptions descriptions()
 	{
-		Descriptions xml = new Descriptions();
-		
 		Description d = new Description();
 		d.setKey("");
 		d.setValue("");
 		
+		Descriptions xml = new Descriptions();
 		xml.getDescription().add(d);
-		
     	return xml;
 	}
 	
 	public static Langs langs()
 	{
-		Langs xml = new Langs();
-		
 		Lang l = new Lang();
 		l.setKey("");
 		l.setTranslation("");
 		
+		Langs xml = new Langs();
 		xml.getLang().add(l);
-		
     	return xml;
 	}
 	

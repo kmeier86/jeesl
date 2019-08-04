@@ -10,7 +10,7 @@ import org.openfuxml.content.list.List;
 import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.content.ofx.Paragraph;
 import org.openfuxml.exception.OfxAuthoringException;
-import org.openfuxml.factory.xml.list.OfxListFactory;
+import org.openfuxml.factory.xml.list.XmlListFactory;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.interfaces.configuration.ConfigurationProvider;
 import org.openfuxml.renderer.latex.content.list.LatexListRenderer;
@@ -75,7 +75,7 @@ public class OfxSecurityCategoryListFactory extends AbstractUtilsOfxDocumentatio
 		Comment comment = XmlCommentFactory.build();
 		OfxCommentBuilder.doNotModify(comment);
 		
-		List list = OfxListFactory.unordered();
+		List list = XmlListFactory.unordered();
 		list.setComment(comment);
 		
 		for(Category category : lRc)
@@ -90,7 +90,7 @@ public class OfxSecurityCategoryListFactory extends AbstractUtilsOfxDocumentatio
 	
 	public List descriptionList(java.util.List<net.sf.ahtutils.xml.security.Category> categories) throws OfxAuthoringException
 	{
-		List list = OfxListFactory.description();
+		List list = XmlListFactory.description();
 		
 		for(net.sf.ahtutils.xml.security.Category category : categories)
 		{

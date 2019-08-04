@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import net.sf.ahtutils.xml.status.Contexts;
 
 
 /**
@@ -19,6 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
+ *         &lt;element ref="{http://ahtutils.aht-group.com/status}contexts"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/workflow}processes"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
@@ -30,6 +32,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
+    "contexts",
     "processes"
 })
 @XmlRootElement(name = "workflow")
@@ -38,8 +41,38 @@ public class Workflow
 {
 
     private final static long serialVersionUID = 1L;
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
+    protected Contexts contexts;
     @XmlElement(required = true)
     protected Processes processes;
+
+    /**
+     * Gets the value of the contexts property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Contexts }
+     *     
+     */
+    public Contexts getContexts() {
+        return contexts;
+    }
+
+    /**
+     * Sets the value of the contexts property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Contexts }
+     *     
+     */
+    public void setContexts(Contexts value) {
+        this.contexts = value;
+    }
+
+    public boolean isSetContexts() {
+        return (this.contexts!= null);
+    }
 
     /**
      * Gets the value of the processes property.
