@@ -79,18 +79,18 @@ public abstract class AbstractCmsCacheBean <L extends UtilsLang,D extends UtilsD
 		if(mapSection.containsKey(section)) {mapSection.remove(section);}
 	}
 	
-	public Section build(String localeCode, long id) throws UtilsNotFoundException
+	public Section buildById(String localeCode, long id) throws UtilsNotFoundException
 	{
-		if(mapId.containsKey(id)) {return build(localeCode,mapId.get(id));}
+		if(mapId.containsKey(id)) {return buildBySection(localeCode,mapId.get(id));}
 		else
 		{
 			S section = fCms.find(fbCms.getClassSection(),id);
 			mapId.put(id,section);
-			return build(localeCode,section);
+			return buildBySection(localeCode,section);
 		}
 	}
 	
-	public Section build(String localeCode, S section)
+	public Section buildBySection(String localeCode, S section)
 	{
 		if(section==null) {logger.warn("Section is NULL"); return new Section();}
 		else
