@@ -23,11 +23,11 @@ public class XmlCalendarFactory <L extends UtilsLang, D extends UtilsDescription
 	final static Logger logger = LoggerFactory.getLogger(XmlCalendarFactory.class);
 	
 	@SuppressWarnings("unused")
-	private XmlTypeFactory<CT,L,D> xfType;
+	private XmlTypeFactory<L,D,CT> xfType;
 	
 	public XmlCalendarFactory(String localeCode, Calendar q)
 	{
-		if(q.isSetType()){xfType = new XmlTypeFactory<CT,L,D>(localeCode,q.getType());}
+		if(q.isSetType()){xfType = new XmlTypeFactory<>(localeCode,q.getType());}
 	}
 	
 	public Calendar build(CALENDAR calendar)

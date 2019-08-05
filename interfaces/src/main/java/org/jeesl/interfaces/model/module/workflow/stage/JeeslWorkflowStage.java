@@ -1,8 +1,10 @@
 package org.jeesl.interfaces.model.module.workflow.stage;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
+import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.with.EjbWithGraphic;
 import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
@@ -19,8 +21,9 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 
 public interface JeeslWorkflowStage <L extends UtilsLang, D extends UtilsDescription,
-									WP extends JeeslWorkflowProcess<L,D,?>,
-									AST extends JeeslWorkflowStageType<AST,?,?,?>,
+									WP extends JeeslWorkflowProcess<L,D,?,?>,
+									WST extends JeeslWorkflowStageType<L,D,WST,?>,
+									WT extends JeeslWorkflowTransition<L,D,?,?,?,?>,
 									G extends JeeslGraphic<L,D,?,?,?>
 									>
 		extends Serializable,EjbPersistable,EjbRemoveable,EjbSaveable,
@@ -32,6 +35,9 @@ public interface JeeslWorkflowStage <L extends UtilsLang, D extends UtilsDescrip
 	WP getProcess();
 	void setProcess(WP process);
 	
-	AST getType();
-	void setType(AST type);
+	WST getType();
+	void setType(WST type);
+	
+	List<WT> getTransitions();
+	void setTransitions(List<WT> transitions);
 }

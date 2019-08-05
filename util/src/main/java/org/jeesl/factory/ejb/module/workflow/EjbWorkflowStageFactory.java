@@ -8,22 +8,22 @@ import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbWorkflowStageFactory<P extends JeeslWorkflowProcess<?,?,?>,
-									AS extends JeeslWorkflowStage<?,?,P,?,?>
+public class EjbWorkflowStageFactory<P extends JeeslWorkflowProcess<?,?,?,WS>,
+										WS extends JeeslWorkflowStage<?,?,P,?,?,?>
 >
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbWorkflowStageFactory.class);
 	
-	final Class<AS> cStage;
+	final Class<WS> cStage;
     
-	public EjbWorkflowStageFactory(final Class<AS> cStage)
+	public EjbWorkflowStageFactory(final Class<WS> cStage)
 	{       
         this.cStage = cStage;
 	}
 	    
-	public AS build(P process, List<AS> list)
+	public WS build(P process, List<WS> list)
 	{
-		AS ejb = null;
+		WS ejb = null;
 		try
 		{
 			ejb = cStage.newInstance();

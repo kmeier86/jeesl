@@ -12,8 +12,8 @@ import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
 import net.sf.ahtutils.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface JeeslApprovalWorkflow <WP extends JeeslWorkflowProcess<?,?,?>,
-										WS extends JeeslWorkflowStage<?,?,WP,?,?>,
+public interface JeeslApprovalWorkflow <WP extends JeeslWorkflowProcess<?,?,?,WS>,
+										WS extends JeeslWorkflowStage<?,?,WP,?,?,?>,
 										WY extends JeeslApprovalActivity<?,?,?,?>
 									
 									>

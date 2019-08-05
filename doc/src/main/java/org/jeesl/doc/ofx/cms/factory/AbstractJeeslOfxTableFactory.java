@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.JeeslLocaleProvider;
 import org.jeesl.model.json.system.translation.JsonTranslation;
 import org.openfuxml.content.ofx.Paragraph;
@@ -19,12 +20,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.status.Translations;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-public class AbstractJeeslOfxTableFactory<L extends UtilsLang, LOC extends UtilsStatus<LOC,L,?>>
-													extends AbstractJeeslOfxFactory<L,LOC>
+public class AbstractJeeslOfxTableFactory<L extends UtilsLang, LOC extends JeeslLocale<L,?,LOC,?>>
+								extends AbstractJeeslOfxFactory<L,LOC>
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractJeeslOfxTableFactory.class);
 	

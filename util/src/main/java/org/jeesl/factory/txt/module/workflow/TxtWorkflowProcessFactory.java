@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 
-public class TxtWorkflowProcessFactory<WP extends JeeslWorkflowProcess<?,?,?>,
-										WS extends JeeslWorkflowStage<?,?,WP,?,?>,
+public class TxtWorkflowProcessFactory<WP extends JeeslWorkflowProcess<?,?,?,WS>,
+										WS extends JeeslWorkflowStage<?,?,WP,?,WT,?>,
 										WT extends JeeslWorkflowTransition<?,?,WS,?,?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(TxtWorkflowProcessFactory.class);

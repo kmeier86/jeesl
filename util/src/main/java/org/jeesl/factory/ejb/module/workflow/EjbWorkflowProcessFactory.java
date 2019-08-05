@@ -4,7 +4,7 @@ import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbWorkflowProcessFactory<PROCESS extends JeeslWorkflowProcess<?,?,?>
+public class EjbWorkflowProcessFactory<PROCESS extends JeeslWorkflowProcess<?,?,?,?>
 >
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbWorkflowProcessFactory.class);

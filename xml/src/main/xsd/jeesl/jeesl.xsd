@@ -9,7 +9,7 @@
 	xmlns:jatt="http://www.jeesl.org/io/attribute"
 	xmlns:f="http://www.jeesl.org/finance"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-	<xsd:import namespace="http://ahtutils.aht-group.com/status" schemaLocation="../aht/status.xsd"/>
+	<xsd:import namespace="http://ahtutils.aht-group.com/status" schemaLocation="../jeesl/status.xsd"/>
 	<xsd:import namespace="http://www.jeesl.org/finance" schemaLocation="../aht/finance.xsd"/>
 	<xsd:import namespace="http://ahtutils.aht-group.com/survey" schemaLocation="module/survey.xsd"/>
 	<xsd:import namespace="http://www.jeesl.org/io/attribute" schemaLocation="io/attribute.xsd"/>
@@ -68,6 +68,7 @@
 		<xsd:complexType>
 			<xsd:sequence>
 				<xsd:element ref="wf:process" maxOccurs="1"/>
+				<xsd:element ref="wf:stage" maxOccurs="1"/>
 			</xsd:sequence>
 			<xsd:attribute name="localeCode" type="xsd:string"/>
 		</xsd:complexType>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema targetNamespace="http://www.jeesl.org/workflow"
-    xmlns:wf="http://www.jeesl.org/workflow"
-    xmlns:sec="http://ahtutils.aht-group.com/security"
-    xmlns:jt="http://www.jeesl.org/text"
-    xmlns:js="http://ahtutils.aht-group.com/status"
+	xmlns:wf="http://www.jeesl.org/workflow"
+	xmlns:sec="http://ahtutils.aht-group.com/security"
+	xmlns:jt="http://www.jeesl.org/text"
+	xmlns:js="http://ahtutils.aht-group.com/status"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<xsd:import namespace="http://ahtutils.aht-group.com/security" schemaLocation="../../aht/security.xsd"/>
-	<xsd:import namespace="http://ahtutils.aht-group.com/status"   schemaLocation="../../aht/status.xsd"/>
+	<xsd:import namespace="http://ahtutils.aht-group.com/status"   schemaLocation="../../jeesl/status.xsd"/>
 	<xsd:import namespace="http://www.jeesl.org/text" schemaLocation="../text.xsd"/>
 	
 	<xsd:element name="workflow">
@@ -22,15 +22,39 @@
 				<xsd:element ref="wf:process" maxOccurs="unbounded"/>
             </xsd:sequence>
         </xsd:complexType>
-    </xsd:element>
+	</xsd:element>
 	<xsd:element name="process">
-        <xsd:complexType>
+		<xsd:complexType>
         	<xsd:sequence>
         		<xsd:element ref="js:context" maxOccurs="1"/>
         		<xsd:element ref="js:langs" maxOccurs="1"/>
-                <xsd:element ref="js:descriptions" maxOccurs="1"/>
-            </xsd:sequence>
-            <xsd:attribute name="id" type="xsd:long"/>
+				<xsd:element ref="js:descriptions" maxOccurs="1"/>
+				<xsd:element ref="wf:stage" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="id" type="xsd:long"/>
+		</xsd:complexType>
+    </xsd:element>
+    <xsd:element name="stage">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="js:type" maxOccurs="1"/>
+        		<xsd:element ref="js:langs" maxOccurs="1"/>
+				<xsd:element ref="js:descriptions" maxOccurs="1"/>
+				<xsd:element ref="wf:transition" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="id" type="xsd:long"/>
+			<xsd:attribute name="position" type="xsd:int"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="transition">
+		<xsd:complexType>
+			<xsd:sequence>
+        		<xsd:element ref="js:langs" maxOccurs="1"/>
+				<xsd:element ref="js:descriptions" maxOccurs="1"/>
+				<xsd:element ref="wf:stage" maxOccurs="1"/>
+			</xsd:sequence>
+			<xsd:attribute name="id" type="xsd:long"/>
+			<xsd:attribute name="position" type="xsd:int"/>
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>

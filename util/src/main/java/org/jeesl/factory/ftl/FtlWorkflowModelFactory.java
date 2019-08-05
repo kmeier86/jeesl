@@ -17,11 +17,11 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.exlp.util.io.StringUtil;
 
 public class FtlWorkflowModelFactory <L extends UtilsLang, D extends UtilsDescription,
-										WP extends JeeslWorkflowProcess<L,D,?>,
-										AS extends JeeslWorkflowStage<L,D,WP,?,?>,
-										AT extends JeeslWorkflowTransition<L,D,AS,?,?,?>,
-										WF extends JeeslApprovalWorkflow<WP,AS,WY>,
-										WY extends JeeslApprovalActivity<AT,WF,?,USER>,
+										WP extends JeeslWorkflowProcess<L,D,?,WS>,
+										WS extends JeeslWorkflowStage<L,D,WP,?,WT,?>,
+										WT extends JeeslWorkflowTransition<L,D,WS,?,?,?>,
+										WF extends JeeslApprovalWorkflow<WP,WS,WY>,
+										WY extends JeeslApprovalActivity<WT,WF,?,USER>,
 										USER extends JeeslUser<?>
 >
 {

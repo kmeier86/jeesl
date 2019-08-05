@@ -15,7 +15,7 @@ import net.sf.ahtutils.xml.aht.Query;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.status.Type;
 
-public class XmlTypeFactory<S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription>
+public class XmlTypeFactory<L extends UtilsLang, D extends UtilsDescription,S extends UtilsStatus<S,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlTypeFactory.class);
 		

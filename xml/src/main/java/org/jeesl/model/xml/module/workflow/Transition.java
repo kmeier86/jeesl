@@ -2,15 +2,12 @@
 package org.jeesl.model.xml.module.workflow;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import net.sf.ahtutils.xml.status.Context;
 import net.sf.ahtutils.xml.status.Descriptions;
 import net.sf.ahtutils.xml.status.Langs;
 
@@ -25,12 +22,12 @@ import net.sf.ahtutils.xml.status.Langs;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element ref="{http://ahtutils.aht-group.com/status}context"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}langs"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}descriptions"/&gt;
- *         &lt;element ref="{http://www.jeesl.org/workflow}stage" maxOccurs="unbounded"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/workflow}stage"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" /&gt;
+ *       &lt;attribute name="position" type="{http://www.w3.org/2001/XMLSchema}int" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -40,55 +37,26 @@ import net.sf.ahtutils.xml.status.Langs;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "context",
     "langs",
     "descriptions",
     "stage"
 })
-@XmlRootElement(name = "process")
-public class Process
+@XmlRootElement(name = "transition")
+public class Transition
     implements Serializable
 {
 
     private final static long serialVersionUID = 1L;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
-    protected Context context;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
     protected Langs langs;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
     protected Descriptions descriptions;
     @XmlElement(required = true)
-    protected List<Stage> stage;
+    protected Stage stage;
     @XmlAttribute(name = "id")
     protected Long id;
-
-    /**
-     * Gets the value of the context property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Context }
-     *     
-     */
-    public Context getContext() {
-        return context;
-    }
-
-    /**
-     * Sets the value of the context property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Context }
-     *     
-     */
-    public void setContext(Context value) {
-        this.context = value;
-    }
-
-    public boolean isSetContext() {
-        return (this.context!= null);
-    }
+    @XmlAttribute(name = "position")
+    protected Integer position;
 
     /**
      * Gets the value of the langs property.
@@ -149,38 +117,29 @@ public class Process
     /**
      * Gets the value of the stage property.
      * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the stage property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getStage().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Stage }
-     * 
-     * 
+     * @return
+     *     possible object is
+     *     {@link Stage }
+     *     
      */
-    public List<Stage> getStage() {
-        if (stage == null) {
-            stage = new ArrayList<Stage>();
-        }
-        return this.stage;
+    public Stage getStage() {
+        return stage;
+    }
+
+    /**
+     * Sets the value of the stage property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Stage }
+     *     
+     */
+    public void setStage(Stage value) {
+        this.stage = value;
     }
 
     public boolean isSetStage() {
-        return ((this.stage!= null)&&(!this.stage.isEmpty()));
-    }
-
-    public void unsetStage() {
-        this.stage = null;
+        return (this.stage!= null);
     }
 
     /**
@@ -213,6 +172,38 @@ public class Process
 
     public void unsetId() {
         this.id = null;
+    }
+
+    /**
+     * Gets the value of the position property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public int getPosition() {
+        return position;
+    }
+
+    /**
+     * Sets the value of the position property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
+     */
+    public void setPosition(int value) {
+        this.position = value;
+    }
+
+    public boolean isSetPosition() {
+        return (this.position!= null);
+    }
+
+    public void unsetPosition() {
+        this.position = null;
     }
 
 }

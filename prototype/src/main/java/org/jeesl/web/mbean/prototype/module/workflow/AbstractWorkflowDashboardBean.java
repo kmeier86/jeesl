@@ -54,16 +54,16 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public abstract class AbstractWorkflowDashboardBean <L extends UtilsLang, D extends UtilsDescription, LOC extends UtilsStatus<LOC,L,D>,
 											AX extends JeeslWorkflowContext<L,D,AX,?>,
-											AP extends JeeslWorkflowProcess<L,D,AX>,
-											AS extends JeeslWorkflowStage<L,D,AP,AST,?>,
-											AST extends JeeslWorkflowStageType<AST,?,?,?>,
-											ASP extends JeeslWorkflowStagePermission<AS,APT,WML,SR>,
+											AP extends JeeslWorkflowProcess<L,D,AX,WS>,
+											WS extends JeeslWorkflowStage<L,D,AP,WST,WT,?>,
+											WST extends JeeslWorkflowStageType<L,D,WST,?>,
+											ASP extends JeeslWorkflowStagePermission<WS,APT,WML,SR>,
 											APT extends JeeslWorkflowPermissionType<APT,L,D,?>,
 											WML extends JeeslWorkflowModificationLevel<WML,?,?,?>,
-											AT extends JeeslWorkflowTransition<L,D,AS,ATT,SR,?>,
-											ATT extends JeeslWorkflowTransitionType<ATT,L,D,?>,
-											AC extends JeeslWorkflowCommunication<AT,MT,MC,SR,RE>,
-											AA extends JeeslWorkflowAction<AT,AB,AO,RE,RA>,
+											WT extends JeeslWorkflowTransition<L,D,WS,WTT,SR,?>,
+											WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
+											AC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
+											AA extends JeeslWorkflowAction<WT,AB,AO,RE,RA>,
 											AB extends JeeslWorkflowBot<AB,L,D,?>,
 											AO extends EjbWithId,
 											MT extends JeeslIoTemplate<L,D,?,?,MD,?>,
@@ -73,8 +73,8 @@ public abstract class AbstractWorkflowDashboardBean <L extends UtilsLang, D exte
 											RE extends JeeslRevisionEntity<L,D,?,?,RA>,
 											RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
 											AL extends JeeslApprovalLink<AW,RE>,
-											AW extends JeeslApprovalWorkflow<AP,AS,AY>,
-											AY extends JeeslApprovalActivity<AT,AW,FRC,USER>,
+											AW extends JeeslApprovalWorkflow<AP,WS,AY>,
+											AY extends JeeslApprovalActivity<WT,AW,FRC,USER>,
 											FRC extends JeeslFileContainer<?,?>,
 											WCS extends JeeslConstraint<L,D,?,?,?,?,?,?>,
 											USER extends JeeslUser<SR>,
@@ -85,15 +85,15 @@ public abstract class AbstractWorkflowDashboardBean <L extends UtilsLang, D exte
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractWorkflowDashboardBean.class);
 
-	private JeeslWorkflowFacade<L,D,LOC,AX,AP,AS,AST,ASP,APT,WML,AT,ATT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,AW,AY,FRC,USER> fWorkflow;
+	private JeeslWorkflowFacade<L,D,LOC,AX,AP,WS,WST,ASP,APT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,AW,AY,FRC,USER> fWorkflow;
 	private JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?> fRevision;
 	
-	private final WorkflowFactoryBuilder<L,D,AX,AP,AS,AST,ASP,APT,WML,AT,ATT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,AW,AY,FRC,USER> fbApproval;
+	private final WorkflowFactoryBuilder<L,D,AX,AP,WS,WST,ASP,APT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,AW,AY,FRC,USER> fbApproval;
 	private final IoTemplateFactoryBuilder<L,D,?,?,MT,?,?,?,?> fbTemplate;
 	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?> fbRevision;
 	private final SecurityFactoryBuilder<L,D,?,SR,?,?,?,?,?,?,?> fbSecurity;
 	
-	private JeeslWorkflowEngine<L,D,LOC,AX,AP,AS,AST,ASP,APT,WML,AT,ATT,AC,AA,AB,AO,MT,MC,MD,SR,RE,RA,AL,AW,AY,FRC,WCS,USER> wfEngine;
+	private JeeslWorkflowEngine<L,D,LOC,AX,AP,WS,WST,ASP,APT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,MD,SR,RE,RA,AL,AW,AY,FRC,WCS,USER> wfEngine;
 	
 	private final SbSingleHandler<AX> sbhContext; public SbSingleHandler<AX> getSbhContext() {return sbhContext;}
 	private final SbSingleHandler<AP> sbhProcess; public SbSingleHandler<AP> getSbhProcess() {return sbhProcess;}
@@ -102,7 +102,7 @@ public abstract class AbstractWorkflowDashboardBean <L extends UtilsLang, D exte
 	
 	protected AW workflow; public AW getWorkflow() {return workflow;} public void setProcess(AW workflow) {this.workflow = workflow;}
 
-	public AbstractWorkflowDashboardBean(final WorkflowFactoryBuilder<L,D,AX,AP,AS,AST,ASP,APT,WML,AT,ATT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,AW,AY,FRC,USER> fbApproval,
+	public AbstractWorkflowDashboardBean(final WorkflowFactoryBuilder<L,D,AX,AP,WS,WST,ASP,APT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,AW,AY,FRC,USER> fbApproval,
 											final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?> fbRevision,
 											final SecurityFactoryBuilder<L,D,?,SR,?,?,?,?,?,?,?> fbSecurity,
 											final IoTemplateFactoryBuilder<L,D,?,?,MT,?,?,?,?> fbTemplate)
@@ -120,9 +120,9 @@ public abstract class AbstractWorkflowDashboardBean <L extends UtilsLang, D exte
 	}
 	
 	protected void postConstructProcess(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-										JeeslWorkflowFacade<L,D,LOC,AX,AP,AS,AST,ASP,APT,WML,AT,ATT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,AW,AY,FRC,USER> fWorkflow,
+										JeeslWorkflowFacade<L,D,LOC,AX,AP,WS,WST,ASP,APT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,AW,AY,FRC,USER> fWorkflow,
 										JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?> fRevision,
-										JeeslWorkflowEngine<L,D,LOC,AX,AP,AS,AST,ASP,APT,WML,AT,ATT,AC,AA,AB,AO,MT,MC,MD,SR,RE,RA,AL,AW,AY,FRC,WCS,USER> wfEngine)
+										JeeslWorkflowEngine<L,D,LOC,AX,AP,WS,WST,ASP,APT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,MD,SR,RE,RA,AL,AW,AY,FRC,WCS,USER> wfEngine)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fWorkflow=fWorkflow;

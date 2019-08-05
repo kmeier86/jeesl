@@ -22,14 +22,14 @@ public class XmlGraphicFactory <L extends UtilsLang,D extends UtilsDescription,
 	
 	private Graphic q;
 	
-	private XmlTypeFactory<GT,L,D> xfType;
+	private XmlTypeFactory<L,D,GT> xfType;
 	private XmlSymbolFactory<L,D,G,GT,F,FS> xfSymbol;
 	
 	public XmlGraphicFactory(Query query){this(query.getLang(),query.getGraphic());}
 	public XmlGraphicFactory(String localeCode, Graphic q)
 	{
 		this.q=q;
-		if(q.isSetType()){xfType = new XmlTypeFactory<GT,L,D>(q.getType());}
+		if(q.isSetType()){xfType = new XmlTypeFactory<>(q.getType());}
 		if(q.isSetSymbol()){xfSymbol = new XmlSymbolFactory<L,D,G,GT,F,FS>(localeCode,q.getSymbol());}
 	}
 	

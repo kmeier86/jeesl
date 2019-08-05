@@ -7,7 +7,7 @@
 	xmlns:jt="http://www.jeesl.org/text"
 	xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-	<xsd:import namespace="http://ahtutils.aht-group.com/status" schemaLocation="status.xsd"/>
+	<xsd:import namespace="http://ahtutils.aht-group.com/status" schemaLocation="../jeesl/status.xsd"/>
 	<xsd:import namespace="http://www.jeesl.org/symbol" schemaLocation="../jeesl/symbol.xsd"/>
 	<xsd:import namespace="http://www.jeesl.org/timeseries" schemaLocation="../jeesl/module/timeseries.xsd"/>
 	<xsd:import namespace="http://www.jeesl.org/text" schemaLocation="../jeesl/text.xsd"/>

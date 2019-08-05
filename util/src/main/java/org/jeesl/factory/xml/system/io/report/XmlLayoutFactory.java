@@ -45,14 +45,14 @@ public class XmlLayoutFactory<L extends UtilsLang,D extends UtilsDescription,
 	
 	private Layout q;
 	
-	private XmlTypeFactory<CW,L,D> xfType;
+	private XmlTypeFactory<L,D,CW> xfType;
 	private XmlStylesFactory<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS> xfStyles;
 	private XmlFontFactory<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS> xfFont;
 	
 	public XmlLayoutFactory(String localeCode, Layout q)
 	{
 		this.q=q;
-		if(q.isSetSize()){xfType = new XmlTypeFactory<CW,L,D>(localeCode,q.getSize().get(0).getType());}
+		if(q.isSetSize()){xfType = new XmlTypeFactory<>(localeCode,q.getSize().get(0).getType());}
 		if(q.isSetStyles()){xfStyles = new XmlStylesFactory<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS>(localeCode,q.getStyles());}
 		if(q.isSetFont()){xfFont = new XmlFontFactory<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS>(q.getFont());}
 	}

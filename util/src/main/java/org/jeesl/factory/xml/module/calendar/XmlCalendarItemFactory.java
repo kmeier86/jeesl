@@ -28,7 +28,7 @@ public class XmlCalendarItemFactory <L extends UtilsLang, D extends UtilsDescrip
 	
 	private final TimeZoneProcessor tzp;
 	@SuppressWarnings("unused")
-	private XmlTypeFactory<IT,L,D> xfType;
+	private XmlTypeFactory<L,D,IT> xfType;
 	
 	public XmlCalendarItemFactory(String localeCode, Item q)
 	{
@@ -37,7 +37,7 @@ public class XmlCalendarItemFactory <L extends UtilsLang, D extends UtilsDescrip
 	public XmlCalendarItemFactory(String localeCode, Item q, TimeZoneProcessor tzp)
 	{
 		this.tzp=tzp;
-		if(q.isSetType()){xfType = new XmlTypeFactory<IT,L,D>(localeCode,q.getType());}
+		if(q.isSetType()){xfType = new XmlTypeFactory<>(localeCode,q.getType());}
 	}
 	
 	public Item build(ITEM item)

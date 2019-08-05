@@ -19,6 +19,7 @@ import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsSection;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsVisiblity;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.openfuxml.content.ofx.Section;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.slf4j.Logger;
@@ -31,7 +32,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.exlp.util.io.StringUtil;
 import net.sf.exlp.util.xml.JaxbUtil;
 
-public abstract class AbstractCmsCacheBean <L extends UtilsLang,D extends UtilsDescription,LOC extends UtilsStatus<LOC,L,D>,
+public abstract class AbstractCmsCacheBean <L extends UtilsLang,D extends UtilsDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 										CAT extends JeeslIoCmsCategory<L,D,CAT,?>,
 										CMS extends JeeslIoCms<L,D,CAT,S,LOC>,
 										V extends JeeslIoCmsVisiblity,
