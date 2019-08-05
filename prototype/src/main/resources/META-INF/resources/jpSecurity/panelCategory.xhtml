@@ -25,8 +25,8 @@
 			</f:facet>
 			<p:panelGrid columns="2" columnClasses="jeeslGrid30,jeeslGrid70">
 				<p:outputLabel value="#{msg.jeeslSecurityCode}"/>
-				<h:outputText rendered="#{!cc.attrs.withAdd}" value="#{cc.attrs.bean.category.code}"/>
-				<h:inputText rendered="#{cc.attrs.withAdd}" value="#{cc.attrs.bean.category.code}"/>
+				<h:outputText rendered="#{not cc.attrs.withAdd}" value="#{cc.attrs.bean.category.code}"/>
+				<p:inputText rendered="#{cc.attrs.withAdd}" value="#{cc.attrs.bean.category.code}"/>
 				
 				<p:outputLabel rendered="#{cc.attrs.bean.uiShowInvisible}" value="#{msg.aupSecurityVisible}"/>
 				<p:selectBooleanCheckbox rendered="#{cc.attrs.bean.uiShowInvisible}" value="#{cc.attrs.bean.category.visible}"/>
