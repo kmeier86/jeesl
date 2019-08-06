@@ -66,6 +66,7 @@ public class AbstractErDiagram
 		
 		Graph2DotConverter gdc = new Graph2DotConverter("b");
 		gdc.setColorScheme(xml);
+		gdc.setSubSet(subset);
 		
 		gdc.setOverlap(false);
 		gdc.setRatio(0.7);
