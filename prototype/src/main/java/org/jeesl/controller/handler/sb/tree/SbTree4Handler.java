@@ -23,7 +23,6 @@ public class SbTree4Handler <L1 extends EjbWithId, L2 extends EjbWithId, L3 exte
 	
 	protected boolean showLevel4; public boolean isShowLevel4() {return showLevel4;} public void setShowLevel4(boolean showLevel4) {this.showLevel4 = showLevel4;}
 	
-	
 	protected final Set<L4> allowChild4;
 	protected final Set<L4> allowPath4;
 	protected final Set<L4> ignore4;

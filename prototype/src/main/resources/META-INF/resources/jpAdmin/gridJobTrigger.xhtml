@@ -38,9 +38,9 @@
 					</h:form>
 				</aht:slot>
 				<aht:slot id="sTemplate" width="5">
-					<h:form id="fTemplate">
-						<p:panel header="#{cc.attrs.bean.template.name[localeCode].lang}" rendered="#{not empty cc.attrs.bean.template}" styleClass="auPanelWithGrid">
-							<p:panelGrid columns="2" columnClasses="auPwg20,auPwg80">
+					<h:form id="fTemplate" rendered="#{not empty cc.attrs.bean.template}">
+						<p:panel header="#{cc.attrs.bean.template.name[localeCode].lang}" styleClass="jeeslPanel">
+							<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
 							
 								<p:outputLabel value="#{msg.jeeslJobCategory}"/>
 								<h:outputText value="#{cc.attrs.bean.template.category.name[localeCode].lang}"/>
@@ -53,8 +53,10 @@
 								
 								<p:outputLabel value="#{msg.jeeslDescription}"/>
 								<h:outputText value="#{cc.attrs.bean.template.description[localeCode].lang}"/>
+								
+								<p:outputLabel value=""/>
+								<p:commandButton value="#{msg.jeeslJobTrigger}" actionListener="#{cc.attrs.bean.trigger()}" update=":#{cc.id}:sTemplate" />
 							</p:panelGrid>
-							<p:commandButton value="#{msg.jeeslJobTrigger}" actionListener="#{cc.attrs.bean.trigger()}" update=":#{cc.id}:sTemplate" />
 						</p:panel>
 					</h:form>
 				</aht:slot>
