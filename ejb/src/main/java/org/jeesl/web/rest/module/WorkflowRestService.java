@@ -6,6 +6,8 @@ import org.jeesl.factory.builder.module.WorkflowFactoryBuilder;
 import org.jeesl.factory.xml.module.workflow.XmlProcessFactory;
 import org.jeesl.factory.xml.module.workflow.XmlProcessesFactory;
 import org.jeesl.factory.xml.module.workflow.XmlWorkflowFactory;
+import org.jeesl.factory.xml.system.status.XmlContextFactory;
+import org.jeesl.factory.xml.system.status.XmlContextsFactory;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowAction;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowBot;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunication;
@@ -21,8 +23,6 @@ import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStagePermis
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStageType;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransitionType;
-import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
-import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicType;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
@@ -83,6 +83,7 @@ public class WorkflowRestService <L extends UtilsLang, D extends UtilsDescriptio
 		super(fWorkflow,fbWorkflow.getClassL(),fbWorkflow.getClassD());
 		this.fWorkflow=fWorkflow;
 		this.fbWorkflow=fbWorkflow;
+		
 		xfProcess = new XmlProcessFactory<>(XmlWorkflowQuery.get(XmlWorkflowQuery.Key.xProcess)); xfProcess.lazy(fbWorkflow, fWorkflow);
 	}
 	
@@ -122,13 +123,16 @@ public class WorkflowRestService <L extends UtilsLang, D extends UtilsDescriptio
 	@Override
 	public Workflow exportWorkflowProcesses()
 	{
-		Processes xml = XmlProcessesFactory.build();
+		Workflow xml = XmlWorkflowFactory.build();
+		xml.setContexts(XmlContextsFactory.build(exportWorkflowContext().getStatus()));
 		
+		Processes processes = XmlProcessesFactory.build();
 		for(WP process : fWorkflow.all(fbWorkflow.getClassProcess()))
 		{
-			xml.getProcess().add(xfProcess.build(process));
+			processes.getProcess().add(xfProcess.build(process));
 		}
+		xml.setProcesses(processes);
 		
-		return XmlWorkflowFactory.build(xml);
+		return xml;
 	}
 }

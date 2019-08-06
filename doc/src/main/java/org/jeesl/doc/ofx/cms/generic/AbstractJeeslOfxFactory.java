@@ -1,4 +1,4 @@
-package org.jeesl.doc.ofx.cms.factory;
+package org.jeesl.doc.ofx.cms.generic;
 
 import org.jeesl.doc.ofx.OfxMultiLangFactory;
 import org.jeesl.doc.ofx.OfxMultiLocaleFactory;
@@ -15,14 +15,14 @@ public class AbstractJeeslOfxFactory<L extends UtilsLang, LOC extends JeeslLocal
 	
 	protected OfxTranslationProvider tp;
 	
-	protected final OfxMultiLangFactory<L> ofxMultiLang;
+	protected OfxMultiLangFactory<L> ofxMultiLang;
 	protected final OfxMultiLocaleFactory<L,LOC> ofxMultiLocale;
 	
 	public AbstractJeeslOfxFactory(OfxTranslationProvider tp)
 	{	
 		this.tp=tp;
 
-		ofxMultiLang = new OfxMultiLangFactory<>(tp.getLocaleCodes());
+		if(tp!=null && tp.getLocaleCodes()!=null) {ofxMultiLang = new OfxMultiLangFactory<>(tp.getLocaleCodes());}
 		ofxMultiLocale = new OfxMultiLocaleFactory<>();
 	}
 }

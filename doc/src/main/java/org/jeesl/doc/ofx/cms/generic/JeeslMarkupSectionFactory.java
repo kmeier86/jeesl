@@ -1,4 +1,4 @@
-package org.jeesl.doc.ofx.cms.jeesl;
+package org.jeesl.doc.ofx.cms.generic;
 
 import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
 import org.openfuxml.content.ofx.Section;

@@ -342,6 +342,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Contexts }
+     * 
+     */
+    public Contexts createContexts() {
+        return new Contexts();
+    }
+
+    /**
      * Create an instance of {@link Context }
      * 
      */

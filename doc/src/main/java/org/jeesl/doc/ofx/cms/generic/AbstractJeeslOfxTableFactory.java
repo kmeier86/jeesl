@@ -1,4 +1,4 @@
-package org.jeesl.doc.ofx.cms.factory;
+package org.jeesl.doc.ofx.cms.generic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +21,6 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.xml.status.Translations;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 public class AbstractJeeslOfxTableFactory<L extends UtilsLang, LOC extends JeeslLocale<L,?,LOC,?>>
 								extends AbstractJeeslOfxFactory<L,LOC>
@@ -102,17 +101,16 @@ public class AbstractJeeslOfxTableFactory<L extends UtilsLang, LOC extends Jeesl
 	protected Head buildTableHeader(JeeslLocaleProvider<LOC> lp)
 	{
 		Row row = new Row();
-		logger.info("Building Head with headers:"+tableHeaders.size()+" locales:"+tp.getLocaleCodes().size());
+//		logger.info("Building Head with headers:"+tableHeaders.size()+" locales:"+tp.getLocaleCodes().size());
 		for(JsonTranslation json : tableHeaders)
 		{
 			Cell cell = OfxCellFactory.build();
 			if(json.getEntity()!=null)
 			{
-				logger.info("Building via TP "+json.getEntity()+" "+json.getCode());
+				logger.trace("Building via TP "+json.getEntity()+" "+json.getCode());
 				for(String localeCode : lp.getLocaleCodes())
 				{
 					Paragraph p = XmlParagraphFactory.build(localeCode,tp.toTranslation(localeCode,json.getEntity(),json.getCode()));
-					JaxbUtil.info(p);
 					cell.getContent().add(p);
 				}
 			}

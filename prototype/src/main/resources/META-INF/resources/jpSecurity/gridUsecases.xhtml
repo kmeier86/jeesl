@@ -36,14 +36,11 @@
 							<p:ajax event="rowSelect"  listener="#{cc.attrs.bean.selectUsecase}" update=":#{cc.id}:fUsecase :#{cc.id}:sUsecase"/>
 							<p:ajax event="rowReorder" listener="#{cc.attrs.bean.reorderUsecases()}" update="@form"/>
 							<p:column>  
-								<h:outputText value="#{u.position}" />  
+								<h:graphicImage rendered="#{not u.visible}" name="12/ui/status/ghost.png"  library="jeeslPrototypeGfx"/>
+								<h:outputText rendered="#{u.visible}" value="#{u.position}"/>
 				            </p:column>
 				            <p:column headerText="#{msg.aupSecurityUsecase}">  
 								<h:outputText value="#{u.name[userBean.localeCode].lang}" />  
-				            </p:column>
-							<p:column rendered="#{cc.attrs.bean.uiShowInvisible}">  
-								<h:graphicImage rendered="#{u.visible}" name="#{iconBean.icon12['securityVisible']}" library="gfx"/>
-				                <h:graphicImage rendered="#{not u.visible}" name="#{iconBean.icon12['securityInvisible']}" library="gfx"/>
 				            </p:column>
 							<p:column rendered="#{cc.attrs.bean.uiShowDocumentation}">  
 								<h:graphicImage rendered="#{u.documentation}" name="#{iconBean.icon12['aupSecurityDocumentation']}" library="gfx"/>
@@ -64,7 +61,7 @@
 									<f:selectItems value="#{cc.attrs.bean.categories}" var="c" itemLabel="#{c.name[userBean.localeCode].lang}" itemValue="#{c}"/>
 								</p:selectOneMenu>
 								<p:outputLabel value="#{msg.jeeslSecurityCode}"/>
-								<h:inputText value="#{cc.attrs.bean.usecase.code}"/>
+								<p:inputText value="#{cc.attrs.bean.usecase.code}"/>
 								
 								<p:outputLabel rendered="#{cc.attrs.bean.uiShowInvisible}" value="#{msg.aupSecurityVisible}"/>
 								<p:selectBooleanCheckbox rendered="#{cc.attrs.bean.uiShowInvisible}" value="#{cc.attrs.bean.usecase.visible}"/>
