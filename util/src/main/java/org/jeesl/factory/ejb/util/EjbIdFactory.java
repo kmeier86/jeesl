@@ -159,6 +159,11 @@ public class EjbIdFactory
 		if(index>=0)
 		{
 			list.set(index,ejb);
+			logger.info("List updated on position "+index+" with "+ejb.toString());
+		}
+		else
+		{
+			logger.warn("List not updated (index="+index+")with "+ejb.toString());
 		}
 	}
 }
