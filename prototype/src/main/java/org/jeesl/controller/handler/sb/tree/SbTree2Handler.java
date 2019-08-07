@@ -159,9 +159,13 @@ public class SbTree2Handler <L1 extends EjbWithId, L2 extends EjbWithId> extends
 		
 		if(viewIsGlobal)
 		{
+			if(debugOnInfo) {logger.info("Generating listAllowed2");}
 			for(L1 l1 : list1)
 			{
-				result.addAll(cache2.getCachedChildsForL1(l1));
+				if(debugOnInfo) {logger.info("\t"+l1.toString());}
+				List<L2> childs = cache2.getCachedChildsForL1(l1);
+				if(debugOnInfo) {for(L2 child : childs) {logger.info("\t\t"+child.toString());}}
+				result.addAll(childs);
 			}
 		}
 		else

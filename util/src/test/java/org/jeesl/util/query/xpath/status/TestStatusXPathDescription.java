@@ -3,6 +3,7 @@ package org.jeesl.util.query.xpath.status;
 import org.jeesl.AbstractJeeslUtilTest;
 import org.jeesl.model.xml.system.status.TestXmlDescription;
 import org.jeesl.model.xml.system.status.TestXmlDescriptions;
+import org.jeesl.util.query.xpath.StatusXpath;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.status.Descriptions;
-import net.sf.ahtutils.xml.xpath.StatusXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 

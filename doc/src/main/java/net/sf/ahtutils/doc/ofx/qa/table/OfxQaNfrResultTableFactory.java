@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.configuration.Configuration;
+import org.jeesl.util.query.xpath.StatusXpath;
 import org.openfuxml.content.media.Image;
 import org.openfuxml.content.media.Media;
 import org.openfuxml.content.table.Body;
@@ -30,7 +31,6 @@ import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Translations;
 import net.sf.ahtutils.xml.survey.Answer;
 import net.sf.ahtutils.xml.survey.Question;
-import net.sf.ahtutils.xml.xpath.StatusXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.xml.JaxbUtil;

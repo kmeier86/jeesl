@@ -14,11 +14,12 @@ import net.sf.ahtutils.xml.report.XlsTransformation;
 import net.sf.ahtutils.xml.report.XlsWorkbook;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
-import net.sf.ahtutils.xml.xpath.ReportXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.io.resourceloader.MultiResourceLoader;
 import net.sf.exlp.util.xml.JaxbUtil;
+
+import org.jeesl.util.query.xpath.ReportXpath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

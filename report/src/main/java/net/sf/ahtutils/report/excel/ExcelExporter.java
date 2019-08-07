@@ -22,6 +22,8 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jeesl.factory.xls.system.io.report.XlsRowFactory;
 import org.jeesl.factory.xls.system.io.report.XlsSheetFactory;
+import org.jeesl.util.query.xpath.ReportXpath;
+import org.jeesl.util.query.xpath.StatusXpath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,8 +36,6 @@ import net.sf.ahtutils.xml.report.XlsTransformation;
 import net.sf.ahtutils.xml.report.XlsWorkbook;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
-import net.sf.ahtutils.xml.xpath.ReportXpath;
-import net.sf.ahtutils.xml.xpath.StatusXpath;
 import net.sf.exlp.util.io.StringUtil;
 
 @Deprecated // Use JeeslExcelDomainExporter

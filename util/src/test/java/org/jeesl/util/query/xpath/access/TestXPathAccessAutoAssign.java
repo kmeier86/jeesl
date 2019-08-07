@@ -1,6 +1,7 @@
 package org.jeesl.util.query.xpath.access;
 
 import org.jeesl.AbstractJeeslUtilTest;
+import org.jeesl.util.query.xpath.AccessXpath;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.xml.access.AclContainer;
 import net.sf.ahtutils.xml.access.Group;
 import net.sf.ahtutils.xml.access.RoleAutoAssign;
-import net.sf.ahtutils.xml.xpath.AccessXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 

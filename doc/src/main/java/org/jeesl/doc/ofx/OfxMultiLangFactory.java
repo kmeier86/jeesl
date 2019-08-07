@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jeesl.model.xml.jeesl.Container;
+import org.jeesl.util.query.xpath.StatusXpath;
 import org.openfuxml.content.layout.Font;
 import org.openfuxml.content.list.Item;
 import org.openfuxml.content.ofx.Paragraph;
@@ -28,7 +29,6 @@ import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Langs;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.status.Translations;
-import net.sf.ahtutils.xml.xpath.StatusXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 

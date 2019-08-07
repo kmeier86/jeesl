@@ -16,7 +16,9 @@ import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 
 public class XmlTransitionFactory<L extends UtilsLang, D extends UtilsDescription,
-									WT extends JeeslWorkflowTransition<L,D,?,WTT,?,?>,
+									WS extends JeeslWorkflowStage<L,D,?,WST,WT,?>,
+									WST extends JeeslWorkflowStageType<L,D,WST,?>,
+									WT extends JeeslWorkflowTransition<L,D,WS,WTT,?,?>,
 									WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlTransitionFactory.class);
@@ -27,6 +29,7 @@ public class XmlTransitionFactory<L extends UtilsLang, D extends UtilsDescriptio
 	
 	private XmlLangsFactory<L> xfLangs;
 	private XmlDescriptionsFactory<D> xfDescription;
+	private XmlStageFactory<L,D,WS,WST,WT,WTT> xfStage;
 	
 //	public XmlTransitionFactory(QueryWf query) {this(query.getLocaleCode(),query.getStage());}
 	public XmlTransitionFactory(String localeCode, Transition q)
@@ -35,6 +38,7 @@ public class XmlTransitionFactory<L extends UtilsLang, D extends UtilsDescriptio
 		this.q=q;
 		if(q.isSetLangs()) {xfLangs = new XmlLangsFactory<>(q.getLangs());}
 		if(q.isSetDescriptions()) {xfDescription = new XmlDescriptionsFactory<>(q.getDescriptions());}
+		if(q.isSetStage()) {xfStage = new XmlStageFactory<>(localeCode,q.getStage());}
 	}
 	
 	public static Transition build(){return new Transition();}
@@ -46,6 +50,7 @@ public class XmlTransitionFactory<L extends UtilsLang, D extends UtilsDescriptio
 		if(q.isSetPosition()) {xml.setPosition(transition.getPosition());}
 		if(q.isSetLangs()) {xml.setLangs(xfLangs.getUtilsLangs(transition.getName()));}
 		if(q.isSetDescriptions()) {xml.setDescriptions(xfDescription.create(transition.getDescription()));}
+		if(q.isSetStage()) {xml.setStage(xfStage.build(transition.getDestination()));}
 		return xml;
 	}
 }

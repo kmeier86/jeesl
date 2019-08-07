@@ -33,6 +33,7 @@
 				<xsd:element ref="wf:stage" maxOccurs="unbounded"/>
 			</xsd:sequence>
 			<xsd:attribute name="id" type="xsd:long"/>
+			<xsd:attribute name="position" type="xsd:int"/>
 		</xsd:complexType>
     </xsd:element>
     <xsd:element name="stage">

@@ -35,7 +35,7 @@ public class XmlStageFactory<L extends UtilsLang, D extends UtilsDescription,
 	private XmlTypeFactory<L,D,WST> xfType;
 	private XmlLangsFactory<L> xfLangs;
 	private XmlDescriptionsFactory<D> xfDescription;
-	private XmlTransitionFactory<L,D,WT,WTT> xfTransition;
+	private XmlTransitionFactory<L,D,WS,WST,WT,WTT> xfTransition;
 	
 	private WorkflowFactoryBuilder<L,D,  ?,?,WS,WST,?,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow;
 	private JeeslWorkflowFacade<L,D,?,?,?,WS,WST,?,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fWorkflow;

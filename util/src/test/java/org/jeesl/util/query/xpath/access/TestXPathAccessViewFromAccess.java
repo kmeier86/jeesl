@@ -1,6 +1,7 @@
 package org.jeesl.util.query.xpath.access;
 
 import org.jeesl.AbstractJeeslUtilTest;
+import org.jeesl.util.query.xpath.AccessXpath;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +13,6 @@ import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.TestXmlView;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.ahtutils.xml.access.Views;
-import net.sf.ahtutils.xml.xpath.AccessXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 

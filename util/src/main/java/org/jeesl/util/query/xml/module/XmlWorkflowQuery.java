@@ -38,6 +38,7 @@ public class XmlWorkflowQuery
 	{		
 		org.jeesl.model.xml.module.workflow.Process xml = new org.jeesl.model.xml.module.workflow.Process();
 		xml.setId(0);
+		xml.setPosition(0);
 		xml.setLangs(XmlStatusQuery.langs());
 		xml.setDescriptions(XmlStatusQuery.descriptions());
 		xml.setContext(XmlContextFactory.build("",""));
@@ -59,11 +60,15 @@ public class XmlWorkflowQuery
 	
 	private static Transition xTransition()
 	{		
+		Stage stage = new Stage();
+		stage.setId(0);
+		
 		Transition xml = new Transition();
 		xml.setId(0);
 		xml.setPosition(0);
 		xml.setLangs(XmlStatusQuery.langs());
 		xml.setDescriptions(XmlStatusQuery.descriptions());
+		xml.setStage(stage);
 		return xml;
 	}
 }

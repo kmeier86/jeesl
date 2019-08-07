@@ -31,6 +31,7 @@ import net.sf.ahtutils.xml.status.Langs;
  *         &lt;element ref="{http://www.jeesl.org/workflow}stage" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" /&gt;
+ *       &lt;attribute name="position" type="{http://www.w3.org/2001/XMLSchema}int" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -61,6 +62,8 @@ public class Process
     protected List<Stage> stage;
     @XmlAttribute(name = "id")
     protected Long id;
+    @XmlAttribute(name = "position")
+    protected Integer position;
 
     /**
      * Gets the value of the context property.
@@ -213,6 +216,38 @@ public class Process
 
     public void unsetId() {
         this.id = null;
+    }
+
+    /**
+     * Gets the value of the position property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public int getPosition() {
+        return position;
+    }
+
+    /**
+     * Sets the value of the position property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
+     */
+    public void setPosition(int value) {
+        this.position = value;
+    }
+
+    public boolean isSetPosition() {
+        return (this.position!= null);
+    }
+
+    public void unsetPosition() {
+        this.position = null;
     }
 
 }

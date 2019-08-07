@@ -18,6 +18,7 @@ import org.jeesl.interfaces.model.system.io.report.JeeslReportTemplate;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportWorkbook;
 import org.jeesl.interfaces.model.system.io.report.type.JeeslReportQueryType;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
+import org.jeesl.util.query.xpath.ReportXpath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +31,6 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.xml.report.Row;
-import net.sf.ahtutils.xml.xpath.ReportXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 
 public class EjbIoReportRowFactory<L extends UtilsLang,D extends UtilsDescription,

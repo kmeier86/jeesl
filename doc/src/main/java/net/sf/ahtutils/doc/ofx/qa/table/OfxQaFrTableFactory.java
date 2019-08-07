@@ -1,6 +1,7 @@
 package net.sf.ahtutils.doc.ofx.qa.table;
 
 import org.apache.commons.configuration.Configuration;
+import org.jeesl.util.query.xpath.StatusXpath;
 import org.openfuxml.content.table.Body;
 import org.openfuxml.content.table.Cell;
 import org.openfuxml.content.table.Columns;
@@ -25,7 +26,6 @@ import net.sf.ahtutils.xml.qa.Groups;
 import net.sf.ahtutils.xml.qa.Test;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Translations;
-import net.sf.ahtutils.xml.xpath.StatusXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.xml.JaxbUtil;

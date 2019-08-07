@@ -3,13 +3,13 @@ package org.jeesl.util.query.xpath.mail;
 import org.jeesl.factory.xml.system.io.mail.XmlMailFactory;
 import org.jeesl.model.xml.system.io.mail.Mail;
 import org.jeesl.model.xml.system.io.mail.Mails;
+import org.jeesl.util.query.xpath.MailXpath;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.xml.xpath.MailXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.xml.JaxbUtil;

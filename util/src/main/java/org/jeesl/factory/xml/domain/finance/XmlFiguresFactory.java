@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.jeesl.util.query.xpath.FiguresXpath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +15,6 @@ import net.sf.ahtutils.xml.finance.Counter;
 import net.sf.ahtutils.xml.finance.Figures;
 import net.sf.ahtutils.xml.finance.Finance;
 import net.sf.ahtutils.xml.text.Remark;
-import net.sf.ahtutils.xml.xpath.FiguresXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 

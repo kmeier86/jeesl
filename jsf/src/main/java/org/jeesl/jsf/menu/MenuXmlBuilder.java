@@ -14,6 +14,7 @@ import org.jeesl.model.xml.system.navigation.Breadcrumb;
 import org.jeesl.model.xml.system.navigation.Menu;
 import org.jeesl.model.xml.system.navigation.MenuItem;
 import org.jeesl.model.xml.system.navigation.UrlMapping;
+import org.jeesl.util.query.xpath.NavigationXpath;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.alg.DijkstraShortestPath;
 import org.jgrapht.graph.DefaultDirectedGraph;
@@ -27,7 +28,6 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.security.Security;
 import net.sf.ahtutils.xml.status.Lang;
-import net.sf.ahtutils.xml.xpath.NavigationXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.util.xml.JaxbUtil;
 

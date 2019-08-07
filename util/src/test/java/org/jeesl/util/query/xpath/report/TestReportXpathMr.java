@@ -2,6 +2,7 @@ package org.jeesl.util.query.xpath.report;
 
 import org.jeesl.AbstractJeeslUtilTest;
 import org.jeesl.model.xml.system.io.report.TestXmlReport;
+import org.jeesl.util.query.xpath.ReportXpath;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -10,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.xml.report.Jr;
 import net.sf.ahtutils.xml.report.Report;
 import net.sf.ahtutils.xml.report.Reports;
-import net.sf.ahtutils.xml.xpath.ReportXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.xml.JaxbUtil;

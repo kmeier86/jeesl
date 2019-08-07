@@ -4,10 +4,10 @@ import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.ahtutils.xml.security.Security;
-import net.sf.ahtutils.xml.xpath.SecurityXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 
+import org.jeesl.util.query.xpath.SecurityXpath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

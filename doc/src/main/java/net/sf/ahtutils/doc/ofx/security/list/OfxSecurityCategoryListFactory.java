@@ -5,6 +5,7 @@ import java.io.StringWriter;
 
 import org.apache.commons.configuration.Configuration;
 import org.jeesl.doc.ofx.OfxMultiLangFactory;
+import org.jeesl.util.query.xpath.StatusXpath;
 import org.openfuxml.content.list.Item;
 import org.openfuxml.content.list.List;
 import org.openfuxml.content.ofx.Comment;
@@ -24,7 +25,6 @@ import net.sf.ahtutils.xml.access.Category;
 import net.sf.ahtutils.xml.status.Description;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Translations;
-import net.sf.ahtutils.xml.xpath.StatusXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 

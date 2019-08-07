@@ -1,4 +1,4 @@
-package net.sf.ahtutils.xml.xpath;
+package org.jeesl.util.query.xpath;
 
 import java.util.List;
 
@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
-import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 
 public class NavigationXpath
 {

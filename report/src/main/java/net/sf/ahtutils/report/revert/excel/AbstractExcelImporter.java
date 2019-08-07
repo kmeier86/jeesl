@@ -24,7 +24,6 @@ import net.sf.ahtutils.xml.report.DataAssociation;
 import net.sf.ahtutils.xml.report.ImportStructure;
 import net.sf.ahtutils.xml.report.ImportType;
 import net.sf.ahtutils.xml.report.XlsSheet;
-import net.sf.ahtutils.xml.xpath.ReportXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 import org.apache.commons.beanutils.BeanUtils;
@@ -39,6 +38,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jeesl.api.controller.ImportStrategy;
 import org.jeesl.api.controller.ValidationStrategy;
 import org.jeesl.util.ReflectionUtil;
+import org.jeesl.util.query.xpath.ReportXpath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -8,14 +8,14 @@ import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.xml.access.Access;
 import net.sf.ahtutils.xml.access.View;
 import net.sf.ahtutils.xml.status.Translations;
-import net.sf.ahtutils.xml.xpath.SecurityXpath;
-import net.sf.ahtutils.xml.xpath.StatusXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 
 import org.apache.commons.configuration.Configuration;
 import org.jeesl.model.xml.system.navigation.Menu;
 import org.jeesl.model.xml.system.navigation.MenuItem;
+import org.jeesl.util.query.xpath.SecurityXpath;
+import org.jeesl.util.query.xpath.StatusXpath;
 import org.openfuxml.content.graph.Node;
 import org.openfuxml.content.graph.Tree;
 import org.openfuxml.exception.OfxAuthoringException;

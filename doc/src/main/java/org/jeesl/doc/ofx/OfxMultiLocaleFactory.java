@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.interfaces.model.system.locale.JeeslLocaleProvider;
+import org.jeesl.util.query.xpath.StatusXpath;
 import org.openfuxml.content.list.Item;
 import org.openfuxml.content.ofx.Paragraph;
 import org.openfuxml.content.ofx.Title;
@@ -21,7 +22,6 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.status.Descriptions;
 import net.sf.ahtutils.xml.status.Langs;
-import net.sf.ahtutils.xml.xpath.StatusXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 

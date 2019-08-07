@@ -10,6 +10,7 @@ import java.util.Locale;
 
 import org.apache.commons.io.IOUtils;
 import org.jeesl.interfaces.controller.report.JeeslXlsReport;
+import org.jeesl.util.query.xpath.ReportXpath;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -27,7 +28,6 @@ import net.sf.ahtutils.xml.report.Info;
 import net.sf.ahtutils.xml.report.Report;
 import net.sf.ahtutils.xml.report.Reports;
 import net.sf.ahtutils.xml.report.Resources;
-import net.sf.ahtutils.xml.xpath.ReportXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.io.LoggerInit;

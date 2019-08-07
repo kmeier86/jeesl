@@ -3,6 +3,7 @@ package org.jeesl.util.query.xpath.finance;
 import org.jeesl.AbstractJeeslUtilTest;
 import org.jeesl.model.xml.domain.finance.TestXmlFigures;
 import org.jeesl.model.xml.domain.finance.TestXmlFinance;
+import org.jeesl.util.query.xpath.FiguresXpath;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.xml.finance.Figures;
 import net.sf.ahtutils.xml.finance.Finance;
-import net.sf.ahtutils.xml.xpath.FiguresXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 

@@ -1,4 +1,4 @@
-package net.sf.ahtutils.xml.xpath;
+package org.jeesl.util.query.xpath;
 
 import java.io.Serializable;
 import java.util.ArrayList;

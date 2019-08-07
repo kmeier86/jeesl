@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 
 import org.apache.commons.jxpath.JXPathContext;
 import org.jdom2.Namespace;
+import org.jeesl.util.query.xpath.ReportXpath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -25,7 +26,6 @@ import net.sf.ahtutils.xml.report.Reports;
 import net.sf.ahtutils.xml.report.Resource;
 import net.sf.ahtutils.xml.report.Resources;
 import net.sf.ahtutils.xml.report.Templates;
-import net.sf.ahtutils.xml.xpath.ReportXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.io.resourceloader.MultiResourceLoader;

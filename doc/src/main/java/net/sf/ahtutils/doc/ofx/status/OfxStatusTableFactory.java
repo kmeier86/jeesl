@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.commons.configuration.Configuration;
 import org.jeesl.doc.ofx.OfxMultiLangFactory;
+import org.jeesl.util.query.xpath.StatusXpath;
 import org.openfuxml.content.layout.Layout;
 import org.openfuxml.content.ofx.Comment;
 import org.openfuxml.content.ofx.Paragraph;
@@ -42,7 +43,6 @@ import net.sf.ahtutils.xml.aht.Aht;
 import net.sf.ahtutils.xml.status.Lang;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.status.Translations;
-import net.sf.ahtutils.xml.xpath.StatusXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.io.StringUtil;

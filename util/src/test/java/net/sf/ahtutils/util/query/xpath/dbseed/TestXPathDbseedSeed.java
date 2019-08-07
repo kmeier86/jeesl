@@ -4,13 +4,13 @@ import org.jeesl.factory.xml.system.io.db.XmlSeedFactory;
 import org.jeesl.model.xml.system.io.db.Db;
 import org.jeesl.model.xml.system.io.db.Seed;
 import org.jeesl.model.xml.system.io.db.TestDb;
+import org.jeesl.util.query.xpath.DbseedXpath;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.xml.xpath.DbseedXpath;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 
