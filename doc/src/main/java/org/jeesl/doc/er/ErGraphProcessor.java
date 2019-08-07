@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.io.filefilter.FileFilterUtils;
+import org.apache.commons.io.filefilter.IOFileFilter;
 import org.jeesl.util.ReflectionUtil;
 import org.metachart.xml.graph.Edge;
 import org.metachart.xml.graph.Edges;
@@ -58,9 +59,11 @@ public class ErGraphProcessor
 	{
 		Set<String> setSub = new HashSet<String>(subset);
 		
+		IOFileFilter suffixFileFilter = FileFilterUtils.suffixFileFilter(".java");
 		File fPackage = new File(fBase,sEjbPackage);
-		RecursiveFileFinder finder = new RecursiveFileFinder(FileFilterUtils.suffixFileFilter(".java"));
+		RecursiveFileFinder finder = new RecursiveFileFinder(suffixFileFilter);
 		List<File> list = finder.find(fPackage);
+		
 		for(File f : list)
 		{
 			createNode(f,setSub);
@@ -186,7 +189,7 @@ public class ErGraphProcessor
 			case OneToOne:  e.setDirected(false);break;
 			case OneToMany: e.setDirected(true);break;
 			case ManyToOne: e.setDirected(true);break;
-			case ManyToMany:e.setDirected(false);break;
+			case ManyToMany:e.setDirected(true);break;
 		}
 		
 		e.setFrom(source.getId());
