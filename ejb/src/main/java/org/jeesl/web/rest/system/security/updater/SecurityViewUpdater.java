@@ -49,7 +49,7 @@ public class SecurityViewUpdater <L extends UtilsLang,
 	private final JeeslDbCodeEjbUpdater<V> dbCleanerView;
 	private final JeeslDbCodeEjbUpdater<A> dbCleanerAction;
 	
-	public SecurityViewUpdater(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,USER> fbSecurity,JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity)
+	public SecurityViewUpdater(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,USER> fbSecurity, JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity)
 	{       
         super(fbSecurity,fSecurity);
 		dbCleanerView = JeeslDbCodeEjbUpdater.createFactory(fbSecurity.getClassView());
@@ -59,7 +59,6 @@ public class SecurityViewUpdater <L extends UtilsLang,
 	@Deprecated public DataUpdate iuViewsAccess(Access access)
 	{
 		logger.trace("iuViews starting ...");
-		
 		
 		dbCleanerView.clear();dbCleanerView.dbEjbs(fSecurity.all(fbSecurity.getClassView()));
 		dbCleanerAction.clear();dbCleanerAction.dbEjbs(fSecurity.all(fbSecurity.getClassAction()));

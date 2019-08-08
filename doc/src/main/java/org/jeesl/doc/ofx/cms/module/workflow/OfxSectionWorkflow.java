@@ -1,10 +1,5 @@
 package org.jeesl.doc.ofx.cms.module.workflow;
 
-import java.io.FileNotFoundException;
-
-import org.jboss.resteasy.client.jaxrs.ResteasyClient;
-import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
-import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.jeesl.doc.ofx.cms.generic.AbstractJeeslOfxFactory;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsElement;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
@@ -22,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.xml.status.Context;
 import net.sf.ahtutils.xml.status.Contexts;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 public class OfxSectionWorkflow <L extends UtilsLang, LOC extends JeeslLocale<L,?,LOC,?>,
 								E extends JeeslIoCmsElement<?,?,?,?,?,?>>
@@ -40,16 +34,17 @@ public class OfxSectionWorkflow <L extends UtilsLang, LOC extends JeeslLocale<L,
 	
 	public Section build(JeeslLocaleProvider<LOC> lp, E element) throws OfxAuthoringException
 	{
-		try
-		{
-			ResteasyClient client = new ResteasyClientBuilder().build();
-//			client.register(new BasicAuthentication(restUser, restPwd));
-			ResteasyWebTarget restTarget = client.target(element.getJson());
-			
-			Workflow workflow = JaxbUtil.loadJAXB("/Volumes/ramdisk/workflow.xml",Workflow.class);
-			return build(lp,workflow);
-		}
-		catch (FileNotFoundException e) {throw new OfxAuthoringException(e.getMessage());}
+//		try
+//		{
+//			ResteasyClient client = new ResteasyClientBuilder().build();
+////			client.register(new BasicAuthentication(restUser, restPwd));
+//			ResteasyWebTarget restTarget = client.target(element.getJson());
+//			
+//			Workflow workflow = JaxbUtil.loadJAXB("/Volumes/ramdisk/workflow.xml",Workflow.class);
+//			return build(lp,workflow);
+//		}
+//		catch (FileNotFoundException e) {throw new OfxAuthoringException(e.getMessage());}
+		return null;
 	}
 
 	public Section build(JeeslLocaleProvider<LOC> lp, Workflow workflow)
