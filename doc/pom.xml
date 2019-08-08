@@ -132,7 +132,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-		
 		<!-- REST -->
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
@@ -144,6 +143,12 @@
 					<groupId>commons-logging</groupId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+        	<groupId>org.jboss.resteasy</groupId>
+        	<artifactId>resteasy-client</artifactId>
+        	<version>3.0.14.Final</version>
+        	<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	

@@ -2,6 +2,9 @@ package org.jeesl.doc.ofx.cms.module.workflow;
 
 import java.io.FileNotFoundException;
 
+import org.jboss.resteasy.client.jaxrs.ResteasyClient;
+import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
+import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.jeesl.doc.ofx.cms.generic.AbstractJeeslOfxFactory;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsElement;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
@@ -39,6 +42,10 @@ public class OfxSectionWorkflow <L extends UtilsLang, LOC extends JeeslLocale<L,
 	{
 		try
 		{
+			ResteasyClient client = new ResteasyClientBuilder().build();
+//			client.register(new BasicAuthentication(restUser, restPwd));
+			ResteasyWebTarget restTarget = client.target(element.getJson());
+			
 			Workflow workflow = JaxbUtil.loadJAXB("/Volumes/ramdisk/workflow.xml",Workflow.class);
 			return build(lp,workflow);
 		}
