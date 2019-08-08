@@ -39,6 +39,7 @@
         		<xsd:element ref="us:langs" maxOccurs="1"/>
         		<xsd:element ref="us:descriptions" maxOccurs="1"/>
         		<xsd:element ref="ut:remark" maxOccurs="1"/>
+        		<xsd:element ref="rev:relation" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="position" type="xsd:int"/>
@@ -51,6 +52,15 @@
             <xsd:attribute name="ui" type="xsd:boolean"/>
             <xsd:attribute name="bean" type="xsd:boolean"/>
             <xsd:attribute name="construction" type="xsd:boolean"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="relation">
+        <xsd:complexType>
+        	<xsd:sequence>
+                <xsd:element ref="rev:attribute" maxOccurs="1"/>
+                <xsd:element ref="us:type" maxOccurs="1"/>
+            </xsd:sequence>
+            <xsd:attribute name="owner" type="xsd:boolean"/>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="revisions">

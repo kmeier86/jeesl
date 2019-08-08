@@ -15,7 +15,6 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public class XmlAttributeFactory <L extends UtilsLang,D extends UtilsDescription,
 								RA extends JeeslRevisionAttribute<L,D,?,?,RAT>,
-								
 								RAT extends UtilsStatus<RAT,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlAttributeFactory.class);
