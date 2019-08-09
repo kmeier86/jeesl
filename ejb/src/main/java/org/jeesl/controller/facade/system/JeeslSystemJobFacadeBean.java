@@ -93,6 +93,29 @@ public class JeeslSystemJobFacadeBean<L extends UtilsLang,D extends UtilsDescrip
 		catch (NonUniqueResultException ex){throw new UtilsNotFoundException("No unique results in "+fbJob.getClassTemplate().getSimpleName()+" for type="+type.toString()+" and code="+code);}
 	}
 	
+	@Override
+	public List<JOB> fJobs(TEMPLATE template, String code)
+	{
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<JOB> cQ = cB.createQuery(fbJob.getClassJob());
+		Root<JOB> job = cQ.from(fbJob.getClassJob());
+		
+		Join<JOB,TEMPLATE> jTemplate = job.join(JeeslJob.Attributes.template.toString());
+		Path<Date> pRecordCreation = job.get(JeeslJob.Attributes.recordCreation.toString());
+		Path<String> pCode = job.get(JeeslJob.Attributes.code.toString());
+		
+		predicates.add(jTemplate.in(template));
+		predicates.add(cB.equal(pCode,code));
+		
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.orderBy(cB.asc(pRecordCreation));
+		cQ.select(job);
+
+		TypedQuery<JOB> tQ = em.createQuery(cQ);
+		return tQ.getResultList();
+	}
+	
 	@Override public List<JOB> fJobs(List<CATEGORY> categories, List<TYPE> types, List<STATUS> status, Date from, Date to)
 	{
 		if(categories==null || categories.isEmpty()){return new ArrayList<JOB>();}

@@ -37,6 +37,7 @@ public interface JeeslJobFacade <L extends UtilsLang,D extends UtilsDescription,
 {	
 	<E extends Enum<E>> TEMPLATE fJobTemplate(E type, String code) throws UtilsNotFoundException;
 	List<JOB> fJobs(List<CATEGORY> categories, List<TYPE> type, List<STATUS> status, Date from, Date to);
+	List<JOB> fJobs(TEMPLATE template, String code);
 	
 	JOB fActiveJob(TEMPLATE template, String code) throws UtilsNotFoundException;
 	CACHE fJobCache(TEMPLATE template, String code) throws UtilsNotFoundException;
