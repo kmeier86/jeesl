@@ -28,6 +28,7 @@ import net.sf.ahtutils.xml.text.Remark;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}langs"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}descriptions"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/text}remark"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/revision}relation"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" /&gt;
  *       &lt;attribute name="position" type="{http://www.w3.org/2001/XMLSchema}int" /&gt;
@@ -52,7 +53,8 @@ import net.sf.ahtutils.xml.text.Remark;
     "type",
     "langs",
     "descriptions",
-    "remark"
+    "remark",
+    "relation"
 })
 @XmlRootElement(name = "attribute")
 public class Attribute
@@ -68,6 +70,8 @@ public class Attribute
     protected Descriptions descriptions;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/text", required = true)
     protected Remark remark;
+    @XmlElement(required = true)
+    protected Relation relation;
     @XmlAttribute(name = "id")
     protected Long id;
     @XmlAttribute(name = "position")
@@ -201,6 +205,34 @@ public class Attribute
 
     public boolean isSetRemark() {
         return (this.remark!= null);
+    }
+
+    /**
+     * Gets the value of the relation property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Relation }
+     *     
+     */
+    public Relation getRelation() {
+        return relation;
+    }
+
+    /**
+     * Sets the value of the relation property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Relation }
+     *     
+     */
+    public void setRelation(Relation value) {
+        this.relation = value;
+    }
+
+    public boolean isSetRelation() {
+        return (this.relation!= null);
     }
 
     /**
