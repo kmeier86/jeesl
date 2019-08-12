@@ -150,6 +150,14 @@
         	<version>3.0.14.Final</version>
         	<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<!--Aspose for WordRendering -->
+    		<groupId>com.aspose</groupId>
+    		<artifactId>aspose-words</artifactId>
+    		<version>19.7</version>
+    		<classifier>jdk17</classifier>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 	
 	<dependencyManagement>

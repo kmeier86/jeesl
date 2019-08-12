@@ -73,7 +73,7 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 	private final Class<RAT> cRAT;
 
 	private XmlContainerFactory xfContainer;
-	private XmlEntityFactory<L,D,RC,RE,RA,RAT> xfEntity;
+	private XmlEntityFactory<L,D,RC,RE,RER,RA,RAT> xfEntity;
 
 	private EjbLangFactory<L> efLang;
 	private EjbDescriptionFactory<D> efDescription;

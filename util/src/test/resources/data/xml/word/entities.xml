@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rev:entities xmlns:us="http://ahtutils.aht-group.com/status" xmlns:sec="http://ahtutils.aht-group.com/security" xmlns:un="http://ahtutils.aht-group.com/navigation" xmlns:io="http://exlp.sf.net/io" xmlns:symbol="http://www.jeesl.org/symbol" xmlns:ut="http://ahtutils.aht-group.com/text" xmlns:rev="http://www.jeesl.org/revision">
+    <rev:entity package="rw.gov.loda.meis.model.ejb.project" class="MeisProject">
+        <us:category code="project"/>
+        <us:langs>
+            <us:lang key="en" translation="Project"/>
+        </us:langs>
+        <us:descriptions>
+            <us:description key="en">Project Description</us:description>
+        </us:descriptions>
+        
+		<rev:attribute code="typeMain" bean="true" relation="many-to-one">
+			 <us:langs>
+			     <us:lang key="en" translation="Main Type"/>
+			 </us:langs>
+			 <us:descriptions>
+			     <us:description key="en">Attribute description</us:description>
+			 </us:descriptions>
+		</rev:attribute>
+		<rev:attribute code="typeMain" bean="true" relation="many-to-one">
+			 <us:langs>
+			     <us:lang key="en" translation="Main Type2"/>
+			 </us:langs>
+			 <us:descriptions>
+			     <us:description key="en">Attribute description2</us:description>
+			 </us:descriptions>
+		</rev:attribute>		     
+          
+    </rev:entity>
+</rev:entities>

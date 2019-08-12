@@ -18,6 +18,7 @@ import net.sf.ahtutils.xml.aht.Query;
 public class XmlEntityFactory <L extends UtilsLang,D extends UtilsDescription,
 								RC extends UtilsStatus<RC,L,D>,
 								RE extends JeeslRevisionEntity<L,D,RC,?,RA>,	
+								RER extends UtilsStatus<RER,L,D>,
 								RA extends JeeslRevisionAttribute<L,D,RE,?,RAT>,
 								RAT extends UtilsStatus<RAT,L,D>>
 {
@@ -28,7 +29,7 @@ public class XmlEntityFactory <L extends UtilsLang,D extends UtilsDescription,
 	private XmlCategoryFactory<RC,L,D> xfCategory;
 	private XmlLangsFactory<L> xfLangs;
 	private XmlDescriptionsFactory<D> xfDescriptions;
-	private XmlAttributeFactory<L,D,RA,RAT> xfAttribute;
+	private XmlAttributeFactory<L,D,RA,RER,RAT> xfAttribute;
 	
 	public XmlEntityFactory(Query q){this(q.getEntity());}
 	public XmlEntityFactory(Entity q)

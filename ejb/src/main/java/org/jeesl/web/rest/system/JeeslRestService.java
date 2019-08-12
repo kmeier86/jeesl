@@ -4,6 +4,7 @@ import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
 import org.jeesl.api.facade.system.graphic.JeeslGraphicFacade;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.factory.xml.system.revision.XmlEntityFactory;
+import org.jeesl.factory.xml.system.revision.XmlRelationFactory;
 import org.jeesl.factory.xml.system.symbol.XmlGraphicFactory;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
@@ -32,6 +33,7 @@ public class JeeslRestService <L extends UtilsLang,D extends UtilsDescription,
 								F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends UtilsStatus<FS,L,D>,
 								RC extends UtilsStatus<RC,L,D>,
 								RE extends JeeslRevisionEntity<L,D,RC,?,RA>,
+								RER extends UtilsStatus<RER,L,D>,
 								RA extends JeeslRevisionAttribute<L,D,RE,?,RAT>,
 								RAT extends UtilsStatus<RAT,L,D>>
 					extends AbstractJeeslRestService<L,D>
@@ -45,7 +47,7 @@ public class JeeslRestService <L extends UtilsLang,D extends UtilsDescription,
 	private final JeeslIoRevisionFacade<L,D,RC,?,?,?,?,RE,?,RA,?,RAT> fRevision;
 	
 	private final XmlGraphicFactory<L,D,G,GT,F,FS> xfGraphic;
-	private final XmlEntityFactory<L,D,RC,RE,RA,?> xfEntity;
+	private final XmlEntityFactory<L,D,RC,RE,RER,RA,?> xfEntity;
 	
 	private JeeslRestService(IoRevisionFactoryBuilder<L,D,RC,?,?,?,?,RE,?,RA,?,RAT> fbRevision,
 							JeeslGraphicFacade<L,D,S,G,GT,F,FS> fGraphic,
@@ -56,23 +58,24 @@ public class JeeslRestService <L extends UtilsLang,D extends UtilsDescription,
 		this.fRevision=fRevision;
 		this.fGraphic=fGraphic;
 		xfGraphic = new XmlGraphicFactory<L,D,G,GT,F,FS>(SymbolQuery.get(SymbolQuery.Key.GraphicExport));
-		xfEntity = new XmlEntityFactory<L,D,RC,RE,RA,RAT>(RevisionQuery.get(RevisionQuery.Key.exEntity));
+		xfEntity = new XmlEntityFactory<L,D,RC,RE,RER,RA,RAT>(RevisionQuery.get(RevisionQuery.Key.exEntity));
 	}
-	
+
 	public static <L extends UtilsLang,D extends UtilsDescription,
 						S extends EjbWithId,
 						G extends JeeslGraphic<L,D,GT,F,FS>, GT extends UtilsStatus<GT,L,D>,
 						F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends UtilsStatus<FS,L,D>,
 						RC extends UtilsStatus<RC,L,D>,
 						RE extends JeeslRevisionEntity<L,D,RC,?,RA>,
+						RER extends UtilsStatus<RER,L,D>,
 						RA extends JeeslRevisionAttribute<L,D,RE,?,RAT>,
 						RAT extends UtilsStatus<RAT,L,D>>
-	JeeslRestService<L,D,S,G,GT,F,FS,RC,RE,RA,RAT>
+	JeeslRestService<L,D,S,G,GT,F,FS,RC,RE,?,RA,RAT>
 		factory(IoRevisionFactoryBuilder<L,D,RC,?,?,?,?,RE,?,RA,?,RAT> fbRevision,
 				JeeslGraphicFacade<L,D,S,G,GT,F,FS> fGraphic,
 				JeeslIoRevisionFacade<L,D,RC,?,?,?,?,RE,?,RA,?,RAT> fRevision)
 	{
-		return new JeeslRestService<L,D,S,G,GT,F,FS,RC,RE,RA,RAT>(fbRevision,fGraphic,fRevision);
+		return new JeeslRestService<L,D,S,G,GT,F,FS,RC,RE,RER,RA,RAT>(fbRevision,fGraphic,fRevision);
 	}
 	
 

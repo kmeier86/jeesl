@@ -5,6 +5,7 @@ import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
 import org.jeesl.factory.xml.system.status.XmlTypeFactory;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionAttribute;
 import org.jeesl.model.xml.system.revision.Attribute;
+import org.jeesl.model.xml.system.revision.Relation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,6 +16,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public class XmlAttributeFactory <L extends UtilsLang,D extends UtilsDescription,
 								RA extends JeeslRevisionAttribute<L,D,?,?,RAT>,
+								RER extends UtilsStatus<RER,L,D>,
 								RAT extends UtilsStatus<RAT,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlAttributeFactory.class);
@@ -24,6 +26,7 @@ public class XmlAttributeFactory <L extends UtilsLang,D extends UtilsDescription
 	private XmlLangsFactory<L> xfLangs;
 	private XmlDescriptionsFactory<D> xfDescriptions;
 	private XmlTypeFactory<L,D,RAT> xfType;
+	private XmlRelationFactory<L,D,RA,RER,RAT> xfRelation;
 	
 	public XmlAttributeFactory(Attribute q)
 	{
@@ -68,6 +71,8 @@ public class XmlAttributeFactory <L extends UtilsLang,D extends UtilsDescription
 		if(q.isSetLangs()){xml.setLangs(xfLangs.getUtilsLangs(ejb.getName()));}
 		if(q.isSetDescriptions()){xml.setDescriptions(xfDescriptions.create(ejb.getDescription()));}
 		if(q.isSetRemark()){xml.setRemark(XmlRemarkFactory.build(ejb.getDeveloperInfo()));}
+		
+		if(q.isSetRelation()){xml.setRelation(xfRelation.build((Relation) ejb.getRelation()));}
 		
 		return xml;
 	}

@@ -185,6 +185,12 @@
 	
 	<repositories>
 		<repository>
+			<!--Aspose for WordRendering -->
+			<id>AsposeJavaAPI</id>
+			<name>Aspose Java API</name>
+			<url>https://repository.aspose.com/repo/</url>
+		</repository>
+		<repository>
 			<id>aht.3rd</id>
 			<name>AHT Nexus Third Party</name>
 			<url>https://www.aht-group.com/nexus/content/repositories/thirdparty</url>
