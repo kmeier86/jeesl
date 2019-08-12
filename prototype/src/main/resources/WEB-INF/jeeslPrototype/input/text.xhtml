@@ -6,8 +6,9 @@
     xmlns:p="http://primefaces.org/ui"
 >
 	<c:set var="maxlength"  value="#{not empty maxlength ? maxlength : 255}" />
-
-	<p:inputText rows="#{rows}" value="#{value}" autocomplete="off">
+	<c:set var="rendered"  value="#{not empty rendered ? rendered : true}" />
+	
+	<p:inputText rows="#{rows}" value="#{value}" autocomplete="off" rendered="#{rendered}">
 		<c:set var="id" value="#{id}" />
 	</p:inputText>
 </ui:composition>
