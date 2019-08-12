@@ -17,10 +17,10 @@ public class TestEntityWordRederer extends AbstractWordCli
 	
 	final static Logger logger = LoggerFactory.getLogger(TestEntityWordRederer.class);
 	
-	private static String xmlEntities = "../util/src/test/resources/data/xml/word/entities.xml";
+	private static String xmlEntities = "../util/src/test/resources/data/xml/word/entity.xml";
 	private static String savingDirectory = "target/TestEntitiesRender";
 	
-	Document templateDoc;
+	static Document templateDoc;
 	
 	public TestEntityWordRederer() throws Exception 
 	{
@@ -31,12 +31,12 @@ public class TestEntityWordRederer extends AbstractWordCli
 	{
 		Entities entities = JaxbUtil.loadJAXB(mrl.searchIs(xmlEntities), Entities.class);
 		JaxbUtil.info(entities);
-		EntityWordRenderer entityRenderer = new EntityWordRenderer(templateDoc);
 		
 		int count=0; 
 		for (Entity e : entities.getEntity())
 		{
-			entityRenderer.render(e, savingDirectory+count+".docx");			
+			EntityWordRenderer entityRenderer = new EntityWordRenderer(new Document("../util/src/test/resources/data/docx/templates/entity.dotx"));
+			entityRenderer.render(e, savingDirectory+e.getCode()+".docx");			
 			count++;
 			
 		}
