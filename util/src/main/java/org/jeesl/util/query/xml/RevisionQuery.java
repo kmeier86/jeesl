@@ -3,10 +3,12 @@ package org.jeesl.util.query.xml;
 import java.util.Hashtable;
 import java.util.Map;
 
+import org.jeesl.factory.xml.system.revision.XmlRelationFactory;
 import org.jeesl.factory.xml.system.status.XmlCategoryFactory;
 import org.jeesl.factory.xml.system.status.XmlTypeFactory;
 import org.jeesl.model.xml.system.revision.Attribute;
 import org.jeesl.model.xml.system.revision.Entity;
+import org.jeesl.model.xml.system.revision.Relation;
 
 import net.sf.ahtutils.factory.xml.text.XmlRemarkFactory;
 import net.sf.ahtutils.xml.aht.Query;
@@ -69,6 +71,11 @@ public class RevisionQuery
 		xml.setLangs(XmlStatusQuery.langs());
 		xml.setDescriptions(XmlStatusQuery.descriptions());
 		xml.setRemark(XmlRemarkFactory.build(""));
+		
+		Relation relation = XmlRelationFactory.build();
+		relation.setOwner(true);
+		xml.setRelation(relation);
+		
 		
 		return xml;
 	}
