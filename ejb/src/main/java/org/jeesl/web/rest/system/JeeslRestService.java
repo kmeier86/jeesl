@@ -70,7 +70,7 @@ public class JeeslRestService <L extends UtilsLang,D extends UtilsDescription,
 						RER extends UtilsStatus<RER,L,D>,
 						RA extends JeeslRevisionAttribute<L,D,RE,?,RAT>,
 						RAT extends UtilsStatus<RAT,L,D>>
-	JeeslRestService<L,D,S,G,GT,F,FS,RC,RE,?,RA,RAT>
+	JeeslRestService<L,D,S,G,GT,F,FS,RC,RE,RER,RA,RAT>
 		factory(IoRevisionFactoryBuilder<L,D,RC,?,?,?,?,RE,?,RA,?,RAT> fbRevision,
 				JeeslGraphicFacade<L,D,S,G,GT,F,FS> fGraphic,
 				JeeslIoRevisionFacade<L,D,RC,?,?,?,?,RE,?,RA,?,RAT> fRevision)
