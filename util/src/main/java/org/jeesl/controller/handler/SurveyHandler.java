@@ -223,6 +223,10 @@ public class SurveyHandler<L extends UtilsLang, D extends UtilsDescription,
 							{
 								if(SurveyHandler.debug){logger.warn("Building new Answer for Question"+q.toString());}
 								a = efAnswer.build(q, surveyData);
+								if(BooleanComparator.active(q.getShowSelectOne()) && BooleanComparator.inactive(q.getShowEmptyOption()) && bSurvey.getMapOption().containsKey(q) && !bSurvey.getMapOption().get(q).isEmpty())
+								{
+									a.setOption(bSurvey.getMapOption().get(q).get(0));
+								}
 							}
 							else
 							{

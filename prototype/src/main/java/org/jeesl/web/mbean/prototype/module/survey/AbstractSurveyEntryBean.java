@@ -3,6 +3,7 @@ package org.jeesl.web.mbean.prototype.module.survey;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.jeesl.api.bean.JeeslSurveyBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
@@ -111,8 +112,17 @@ public abstract class AbstractSurveyEntryBean <L extends UtilsLang, D extends Ut
 		initPageSettings();
 		try
 		{
-			SS status = fCore.fByCode(fbCore.getClassSurveyStatus(), JeeslSurvey.Status.open);
-			sbhSurvey.setList(fCore.fSurveysForCategories(sbhCategory.getList()));
+			List<SS> allowed = new ArrayList<SS>();
+			allowed.add(fCore.fByCode(fbCore.getClassSurveyStatus(), JeeslSurvey.Status.preparation));
+			allowed.add(fCore.fByCode(fbCore.getClassSurveyStatus(), JeeslSurvey.Status.open));
+			allowed.add(fCore.fByCode(fbCore.getClassSurveyStatus(), JeeslSurvey.Status.closed));
+			List<SURVEY> list = new ArrayList<>();
+			for(SURVEY s : fCore.fSurveysForCategories(sbhCategory.getList()))
+			{
+				if(allowed.contains(s.getStatus())){list.add(s);}
+			}
+			
+			sbhSurvey.setList(list);
 			logger.info(AbstractLogMessage.reloaded(fbCore.getClassSurvey(), sbhSurvey.getList()));
 		}
 		catch (UtilsNotFoundException e) {e.printStackTrace();}

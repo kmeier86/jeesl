@@ -7,6 +7,10 @@ public class BooleanComparator
 {
 	final static Logger logger = LoggerFactory.getLogger(BooleanComparator.class);
     
+	 public static boolean inactive(Boolean b)
+    {
+       return !active(b);
+    }
     public static boolean active(Boolean b)
     {
         if(b==null){return false;}
