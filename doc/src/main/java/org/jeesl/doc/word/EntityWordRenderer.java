@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
+import org.jeesl.model.xml.jeesl.Container;
 import org.jeesl.model.xml.system.revision.Attribute;
 import org.jeesl.model.xml.system.revision.Entity;
 import org.slf4j.Logger;
@@ -19,30 +20,39 @@ import com.aspose.words.FindReplaceOptions;
 import com.aspose.words.SaveFormat;
 import com.aspose.words.Table;
 
+import net.sf.ahtutils.interfaces.facade.UtilsFacade;
+import net.sf.ahtutils.xml.status.Categories;
+import net.sf.ahtutils.xml.status.Category;
+import net.sf.ahtutils.xml.status.Types;
+
+
 public class EntityWordRenderer 
 {
 	final static Logger logger = LoggerFactory.getLogger(EntityWordRenderer.class);
 	
 	final Document entityDoc;
+	final Categories categories;
+	final Types relationTypes;
+	UtilsFacade fUtils;
 
-	public EntityWordRenderer(Document templateDoc)
+	public EntityWordRenderer(Document templateDoc, Categories categories, Types relationTypes)
 	{
 		this.entityDoc=templateDoc;	
+		this.categories=categories;
+		this.relationTypes=relationTypes;
 	}
 	
 	public void render(Entity entity, String savingDirectory) throws Exception 
 	{
-	
-
 		DocumentBuilder docBuilder = new DocumentBuilder(entityDoc);
 						
 		Map<String, String> replacementTags = new HashMap<String, String>();	
 		List<String> keys= new ArrayList<>();
-		logger.info(entity.getCode());
-		logger.info( FilenameUtils.getExtension(entity.getCode()));
-		String input = entity.getCategory().getCode();
-		keys.add("_ENTITY_");replacementTags.put("_ENTITY_", FilenameUtils.getExtension(entity.getCode()));	
-		keys.add("_CATEGORY_");replacementTags.put("_CATEGORY_", input.substring(0, 1).toUpperCase() + input.substring(1));
+		
+		keys.add("_ENTITY_");replacementTags.put("_ENTITY_", FilenameUtils.getExtension(entity.getCode()));
+		
+		for (Category c : categories.getCategory()){if (c.getCode().contentEquals(entity.getCategory().getCode())){keys.add("_CATEGORY_");replacementTags.put("_CATEGORY_", "");}}
+
 		keys.add("_CLASS1_");replacementTags.put("_CLASS1_",entity.getCode().replace(FilenameUtils.getExtension(entity.getCode()), ""));
 		keys.add("_CLASS2_");replacementTags.put("_CLASS2_", FilenameUtils.getExtension(entity.getCode()));
 		keys.add("_DESCRIPTION_");replacementTags.put("_DESCRIPTION_", entity.getDescriptions().getDescription().get(0).getValue().toString());

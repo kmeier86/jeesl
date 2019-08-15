@@ -40,6 +40,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.aht.Aht;
+import net.sf.ahtutils.xml.status.Categories;
 import net.sf.ahtutils.xml.status.Status;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 
@@ -70,17 +71,19 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 	private final Class<RE> cRE;
 	@SuppressWarnings("unused") private final Class<REM> cREM;
 	private final Class<RA> cRA;
+	private final Class<RER> cRER;
 	private final Class<RAT> cRAT;
 
 	private XmlContainerFactory xfContainer;
-	private XmlEntityFactory<L,D,RC,RE,RER,RA,RAT> xfEntity;
+	private XmlEntityFactory<L,D,RC,REM,RE,RA,RER,RAT> xfEntity;
 
 	private EjbLangFactory<L> efLang;
 	private EjbDescriptionFactory<D> efDescription;
 	private EjbRevisionEntityFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> efEntity;
 	private EjbRevisionAttributeFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> efAttribute;
 	
-	private RevisionRestService(JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fRevision,final Class<L> cL, final Class<D> cD, Class<RC> cRC, final Class<RV> cRV, final Class<RVM> cRVM, final Class<RS> cRS, final Class<RST> cRST, final Class<RE> cRE, final Class<REM> cREM, final Class<RA> cRA, final Class<RAT> cRAT)
+	private RevisionRestService(JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fRevision
+			,final Class<L> cL, final Class<D> cD, Class<RC> cRC, final Class<RV> cRV, final Class<RVM> cRVM, final Class<RS> cRS, final Class<RST> cRST, final Class<RE> cRE, final Class<REM> cREM, final Class<RA> cRA, final Class<RER> cRER, final Class<RAT> cRAT)
 	{
 		this.fRevision=fRevision;
 		this.cL=cL;
@@ -94,6 +97,7 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 		this.cREM=cREM;
 		this.cRE=cRE;
 		this.cRA=cRA;
+		this.cRER=cRER;
 		this.cRAT=cRAT;
 	
 		xfContainer = new XmlContainerFactory(XmlStatusQuery.get(XmlStatusQuery.Key.StatusExport).getStatus());
@@ -116,15 +120,16 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 					RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>, RER extends UtilsStatus<RER,L,D>,
 					RAT extends UtilsStatus<RAT,L,D>>
 		RevisionRestService<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>
-			factory(JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fRevision,final Class<L> cL, final Class<D> cD, Class<RC> cRC, final Class<RV> cRV, final Class<RVM> cRVM, final Class<RS> cRS, final Class<RST> cRST, final Class<RE> cRE, final Class<REM> cREM, final Class<RA> cRA, final Class<RAT> cRAT)
+			factory(JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fRevision,final Class<L> cL, final Class<D> cD, Class<RC> cRC, final Class<RV> cRV, final Class<RVM> cRVM, final Class<RS> cRS, final Class<RST> cRST, final Class<RE> cRE, final Class<REM> cREM, final Class<RA> cRA, final Class<RER> cRER, final Class<RAT> cRAT)
 	{
-		return new RevisionRestService<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>(fRevision,cL,cD,cRC,cRV,cRVM,cRS,cRST,cRE,cREM,cRA,cRAT);
+		return new RevisionRestService<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>(fRevision,cL,cD,cRC,cRV,cRVM,cRS,cRST,cRE,cREM,cRA,cRER,cRAT);
 	}
 	
 	@Override public Container exportSystemIoRevisionAttributeTypes() {return xfContainer.build(fRevision.allOrderedPosition(cRAT));}
 	@Override public Container exportSystemIoRevisionScopeTypes() {return xfContainer.build(fRevision.allOrderedPosition(cRST));}
-	@Override public Container exportSystemRevisionCategories() {return xfContainer.build(fRevision.allOrderedPosition(cRC));}
-
+	@Override public Container exportSystemRevisionCategories(){return xfContainer.build(fRevision.allOrderedPosition(cRC));}
+	@Override public Container exportSystemRevisionRelationType() {return xfContainer.build(fRevision.allOrderedPosition(cRER));}
+	
 	@Override public Entities exportSystemRevisionEntities()
 	{
 		Entities entities = new Entities();

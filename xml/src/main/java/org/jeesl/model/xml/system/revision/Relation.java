@@ -21,7 +21,7 @@ import net.sf.ahtutils.xml.status.Type;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element ref="{http://www.jeesl.org/revision}attribute"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/revision}entity"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}type"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="owner" type="{http://www.w3.org/2001/XMLSchema}boolean" /&gt;
@@ -34,7 +34,7 @@ import net.sf.ahtutils.xml.status.Type;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "attribute",
+    "entity",
     "type"
 })
 @XmlRootElement(name = "relation")
@@ -44,38 +44,38 @@ public class Relation
 
     private final static long serialVersionUID = 1L;
     @XmlElement(required = true)
-    protected Attribute attribute;
+    protected Entity entity;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
     protected Type type;
     @XmlAttribute(name = "owner")
     protected Boolean owner;
 
     /**
-     * Gets the value of the attribute property.
+     * Gets the value of the entity property.
      * 
      * @return
      *     possible object is
-     *     {@link Attribute }
+     *     {@link Entity }
      *     
      */
-    public Attribute getAttribute() {
-        return attribute;
+    public Entity getEntity() {
+        return entity;
     }
 
     /**
-     * Sets the value of the attribute property.
+     * Sets the value of the entity property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Attribute }
+     *     {@link Entity }
      *     
      */
-    public void setAttribute(Attribute value) {
-        this.attribute = value;
+    public void setEntity(Entity value) {
+        this.entity = value;
     }
 
-    public boolean isSetAttribute() {
-        return (this.attribute!= null);
+    public boolean isSetEntity() {
+        return (this.entity!= null);
     }
 
     /**

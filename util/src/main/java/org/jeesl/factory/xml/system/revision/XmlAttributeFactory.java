@@ -4,8 +4,9 @@ import org.jeesl.factory.xml.system.lang.XmlDescriptionsFactory;
 import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
 import org.jeesl.factory.xml.system.status.XmlTypeFactory;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionAttribute;
+import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionEntityMapping;
 import org.jeesl.model.xml.system.revision.Attribute;
-import org.jeesl.model.xml.system.revision.Relation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,10 +15,15 @@ import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
+
 public class XmlAttributeFactory <L extends UtilsLang,D extends UtilsDescription,
-								RA extends JeeslRevisionAttribute<L,D,?,?,RAT>,
+								RC extends UtilsStatus<RC,L,D>,
+								REM extends JeeslRevisionEntityMapping<?,?,?>,
+								RE extends JeeslRevisionEntity<L,D,RC,REM,RA>,										
+								RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
 								RER extends UtilsStatus<RER,L,D>,
 								RAT extends UtilsStatus<RAT,L,D>>
+								
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlAttributeFactory.class);
 	
@@ -26,7 +32,7 @@ public class XmlAttributeFactory <L extends UtilsLang,D extends UtilsDescription
 	private XmlLangsFactory<L> xfLangs;
 	private XmlDescriptionsFactory<D> xfDescriptions;
 	private XmlTypeFactory<L,D,RAT> xfType;
-	private XmlRelationFactory<L,D,RA,RER,RAT> xfRelation;
+	private XmlRelationFactory<L,D,RC,REM,RE,RA,RER,RAT> xfRelation;
 	
 	public XmlAttributeFactory(Attribute q)
 	{
@@ -34,6 +40,7 @@ public class XmlAttributeFactory <L extends UtilsLang,D extends UtilsDescription
 		if(q.isSetLangs()){xfLangs = new XmlLangsFactory<>(q.getLangs());}
 		if(q.isSetDescriptions()){xfDescriptions = new XmlDescriptionsFactory<>(q.getDescriptions());}
 		if(q.isSetType()){xfType = new XmlTypeFactory<>(q.getType());}
+		if(q.isSetRelation()){xfRelation = new XmlRelationFactory<>(q.getRelation());}
 	}
 	
 	public Attribute build(RA ejb)
@@ -72,7 +79,7 @@ public class XmlAttributeFactory <L extends UtilsLang,D extends UtilsDescription
 		if(q.isSetDescriptions()){xml.setDescriptions(xfDescriptions.create(ejb.getDescription()));}
 		if(q.isSetRemark()){xml.setRemark(XmlRemarkFactory.build(ejb.getDeveloperInfo()));}
 		
-		if(q.isSetRelation()){xml.setRelation(xfRelation.build((Relation) ejb.getRelation()));}
+		if(q.isSetRelation()&&ejb.getRelation()!=null){xml.setRelation(xfRelation.build(ejb));}
 		
 		return xml;
 	}

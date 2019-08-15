@@ -3,9 +3,11 @@ package org.jeesl.util.query.xml;
 import java.util.Hashtable;
 import java.util.Map;
 
+import org.jeesl.factory.xml.system.revision.XmlEntityFactory;
 import org.jeesl.factory.xml.system.revision.XmlRelationFactory;
 import org.jeesl.factory.xml.system.status.XmlCategoryFactory;
 import org.jeesl.factory.xml.system.status.XmlTypeFactory;
+
 import org.jeesl.model.xml.system.revision.Attribute;
 import org.jeesl.model.xml.system.revision.Entity;
 import org.jeesl.model.xml.system.revision.Relation;
@@ -40,6 +42,7 @@ public class RevisionQuery
 	public static Entity exEntity()
 	{		
 		Entity xml = new Entity();
+		xml.setId(0);
 		xml.setCode("");
 		xml.setPosition(0);
 		xml.setVisible(true);
@@ -73,10 +76,22 @@ public class RevisionQuery
 		xml.setRemark(XmlRemarkFactory.build(""));
 		
 		Relation relation = XmlRelationFactory.build();
-		relation.setOwner(true);
+		relation.setOwner(true);		
+		relation.setEntity(exRelEntity());		
+		relation.setType(XmlTypeFactory.create(""));
 		xml.setRelation(relation);
-		
-		
+
 		return xml;
 	}
+	
+	public static Entity exRelEntity()
+	{		
+		Entity xml = new Entity();
+		
+		xml.setId(0);
+		xml.setCode("");
+	
+		return xml;
+	}
+	
 }

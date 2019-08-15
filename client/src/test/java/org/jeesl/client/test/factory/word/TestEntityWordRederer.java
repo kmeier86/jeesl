@@ -35,7 +35,7 @@ public class TestEntityWordRederer extends AbstractWordCli
 		int count=0; 
 		for (Entity e : entities.getEntity())
 		{
-			EntityWordRenderer entityRenderer = new EntityWordRenderer(new Document("../util/src/test/resources/data/docx/templates/entity.dotx"));
+			EntityWordRenderer entityRenderer = new EntityWordRenderer(new Document("../util/src/test/resources/data/docx/templates/entity.dotx"),null,null);
 			entityRenderer.render(e, savingDirectory+e.getCode()+".docx");			
 			count++;
 			

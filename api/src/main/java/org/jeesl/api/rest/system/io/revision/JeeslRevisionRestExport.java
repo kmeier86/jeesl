@@ -8,6 +8,8 @@ import javax.ws.rs.core.MediaType;
 import org.jeesl.model.xml.jeesl.Container;
 import org.jeesl.model.xml.system.revision.Entities;
 
+import net.sf.ahtutils.xml.status.Categories;
+
 public interface JeeslRevisionRestExport
 {
 	@GET @Path("/system/io/revision/category") @Produces(MediaType.APPLICATION_XML)
@@ -18,6 +20,9 @@ public interface JeeslRevisionRestExport
 	
 	@GET @Path("/system/io/revision/scope/type") @Produces(MediaType.APPLICATION_XML)
 	Container exportSystemIoRevisionScopeTypes();
+	
+	@GET @Path("/system/io/revision/relation/type") @Produces(MediaType.APPLICATION_XML)
+	Container exportSystemRevisionRelationType();
 	
 	@GET @Path("/system/revision/entities") @Produces(MediaType.APPLICATION_XML)
 	Entities exportSystemRevisionEntities();
