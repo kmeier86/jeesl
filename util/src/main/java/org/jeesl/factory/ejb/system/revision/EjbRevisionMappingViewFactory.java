@@ -33,21 +33,6 @@ public class EjbRevisionMappingViewFactory<L extends UtilsLang,D extends UtilsDe
 	{       
         this.cMapping = cMapping;
 	}
-	
-	public static <L extends UtilsLang,D extends UtilsDescription,
-					RC extends JeeslRevisionCategory<L,D,RC,?>,
-					RV extends JeeslRevisionView<L,D,RVM>,
-					RVM extends JeeslRevisionViewMapping<RV,RE,REM>,
-					RS extends JeeslRevisionScope<L,D,RC,RA>,
-					RST extends UtilsStatus<RST,L,D>,
-					RE extends JeeslRevisionEntity<L,D,RC,REM,RA>,
-					REM extends JeeslRevisionEntityMapping<RS,RST,RE>,
-					RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>, RER extends UtilsStatus<RER,L,D>,
-					RAT extends UtilsStatus<RAT,L,D>>
-	EjbRevisionMappingViewFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> factory(final Class<RVM> cMapping)
-	{
-		return new EjbRevisionMappingViewFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>(cMapping);
-	}
     
 	public RVM build(RV view, RE entity, REM entityMapping)
 	{
