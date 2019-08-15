@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.system.io.revision.er;
+package org.jeesl.interfaces.model.system.io.revision.core;
 
 import java.io.Serializable;
 
@@ -13,7 +13,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatusFixedCode;
 
-public interface JeeslErCategory <L extends UtilsLang, D extends UtilsDescription,
+public interface JeeslRevisionCategory <L extends UtilsLang, D extends UtilsDescription,
 								S extends UtilsStatus<S,L,D>,
 								G extends JeeslGraphic<L,D,?,?,?>>
 							extends Serializable,EjbPersistable,
