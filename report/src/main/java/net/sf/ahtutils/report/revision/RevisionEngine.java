@@ -15,6 +15,7 @@ import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionEntityMapping;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionScope;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionView;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionViewMapping;
+import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
@@ -31,7 +32,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.audit.Change;
 
 public class RevisionEngine<L extends UtilsLang,D extends UtilsDescription,
-							RC extends UtilsStatus<RC,L,D>,
+							RC extends JeeslRevisionCategory<L,D,RC,?>,
 							RV extends JeeslRevisionView<L,D,RVM>,
 							RVM extends JeeslRevisionViewMapping<RV,RE,REM>,
 							RS extends JeeslRevisionScope<L,D,RC,RA>,

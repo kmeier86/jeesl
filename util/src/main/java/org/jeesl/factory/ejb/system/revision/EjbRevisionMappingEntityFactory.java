@@ -6,6 +6,7 @@ import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionEntityMapping;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionScope;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionView;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionViewMapping;
+import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +15,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public class EjbRevisionMappingEntityFactory<L extends UtilsLang,D extends UtilsDescription,
-									RC extends UtilsStatus<RC,L,D>,
+									RC extends JeeslRevisionCategory<L,D,RC,?>,
 									RV extends JeeslRevisionView<L,D,RVM>,
 									RVM extends JeeslRevisionViewMapping<RV,RE,REM>,
 									RS extends JeeslRevisionScope<L,D,RC,RA>,
@@ -34,7 +35,7 @@ public class EjbRevisionMappingEntityFactory<L extends UtilsLang,D extends Utils
 	}
 	
 	public static <L extends UtilsLang,D extends UtilsDescription,
-					RC extends UtilsStatus<RC,L,D>,
+					RC extends JeeslRevisionCategory<L,D,RC,?>,
 					RV extends JeeslRevisionView<L,D,RVM>,
 					RVM extends JeeslRevisionViewMapping<RV,RE,REM>,
 					RS extends JeeslRevisionScope<L,D,RC,RA>,

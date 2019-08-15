@@ -1,7 +1,6 @@
 package org.jeesl.web.mbean.prototype.system.io.report;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -38,6 +37,7 @@ import org.jeesl.interfaces.model.system.io.report.JeeslReportTemplate;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportWorkbook;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.jeesl.interfaces.web.JeeslJsfSecurityHandler;
 import org.jeesl.util.comparator.ejb.system.io.report.IoReportColumnComparator;
@@ -84,7 +84,7 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 						TLS extends UtilsStatus<TLS,L,D>,
 						FILLING extends UtilsStatus<FILLING,L,D>,
 						TRANSFORMATION extends UtilsStatus<TRANSFORMATION,L,D>,
-						RCAT extends UtilsStatus<RCAT,L,D>,	
+						RCAT extends JeeslRevisionCategory<L,D,RCAT,?>,	
 						RE extends JeeslRevisionEntity<L,D,RCAT,?,RA>,
 						RA extends JeeslRevisionAttribute<L,D,RE,?,CDT>
 						>

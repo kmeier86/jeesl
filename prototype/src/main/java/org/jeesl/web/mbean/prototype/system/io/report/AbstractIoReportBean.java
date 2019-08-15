@@ -17,6 +17,7 @@ import org.jeesl.interfaces.model.system.io.report.JeeslReportTemplate;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportWorkbook;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
@@ -49,7 +50,7 @@ public class AbstractIoReportBean <L extends UtilsLang,D extends UtilsDescriptio
 							TLS extends UtilsStatus<TLS,L,D>,
 							FILLING extends UtilsStatus<FILLING,L,D>,
 							TRANSFORMATION extends UtilsStatus<TRANSFORMATION,L,D>,
-							RCAT extends UtilsStatus<RCAT,L,D>,
+							RCAT extends JeeslRevisionCategory<L,D,RCAT,?>,
 							RE extends JeeslRevisionEntity<L,D,RCAT,?,RA>,
 							RA extends JeeslRevisionAttribute<L,D,RE,?,CDT>
 							>

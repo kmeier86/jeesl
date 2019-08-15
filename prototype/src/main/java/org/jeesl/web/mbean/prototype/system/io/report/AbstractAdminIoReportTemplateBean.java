@@ -22,6 +22,7 @@ import org.jeesl.interfaces.model.system.io.report.JeeslReportTemplate;
 import org.jeesl.interfaces.model.system.io.report.JeeslReportWorkbook;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
 import org.jeesl.interfaces.model.system.util.JeeslTrafficLight;
 import org.jeesl.interfaces.web.JeeslJsfSecurityHandler;
 import org.jeesl.util.comparator.ejb.system.io.report.IoReportCellComparator;
@@ -59,7 +60,7 @@ public class AbstractAdminIoReportTemplateBean <L extends UtilsLang,D extends Ut
 										TLS extends UtilsStatus<TLS,L,D>,
 										FILLING extends UtilsStatus<FILLING,L,D>,
 										TRANSFORMATION extends UtilsStatus<TRANSFORMATION,L,D>,
-										RC extends UtilsStatus<RC,L,D>,
+										RC extends JeeslRevisionCategory<L,D,RC,?>,
 										RE extends JeeslRevisionEntity<L,D,RC,?,RA>,
 										RA extends JeeslRevisionAttribute<L,D,RE,?,CDT>
 										>

@@ -6,6 +6,7 @@ import org.jeesl.factory.xml.system.status.XmlTypeFactory;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionEntityMapping;
+import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
 import org.jeesl.model.xml.system.revision.Attribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 
 public class XmlAttributeFactory <L extends UtilsLang,D extends UtilsDescription,
-								RC extends UtilsStatus<RC,L,D>,
+								RC extends JeeslRevisionCategory<L,D,RC,?>,	
 								REM extends JeeslRevisionEntityMapping<?,?,?>,
 								RE extends JeeslRevisionEntity<L,D,RC,REM,RA>,										
 								RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
