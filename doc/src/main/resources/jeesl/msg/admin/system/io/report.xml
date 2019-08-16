@@ -63,6 +63,14 @@
 			<lang key="fr" translation="Show Web" />
 		</langs>
 	</translation>
+	<translation key="jeeslIoReportFilterBy">
+		<langs>
+			<lang key="de" translation="Filter" />
+			<lang key="en" translation="Filter By" />
+			<lang key="fr" translation="Filter By" />
+		</langs>
+	</translation>
+	
 	<translation key="jeeslIoReportShowHint">
 		<langs>
 			<lang key="de" translation="Hinweis Anzeigen" />

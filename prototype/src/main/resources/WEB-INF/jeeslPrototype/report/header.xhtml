@@ -19,7 +19,8 @@
         </p:row>
         <p:row rendered="#{report.showHeaderColumn}">
             <c:forEach var="c" items="#{report.columns}">
-                <p:column colspan="1" rendered="#{c.showLabel}" headerText="">
+                <p:column colspan="1" rendered="#{c.showLabel}" headerText="" filterFunction="#{report.filterBy}">
+                	<c:if test="#{c.filterBy}"><f:attribute name="filterBy" value="#{value}"/></c:if>
                     <f:facet name="header">
                         <h:outputText value="#{c.name[loc].lang}" title="#{c.description[loc].lang}" rendered="#{c.showHint}"/>
                         <h:outputText value="#{c.name[loc].lang}" rendered="#{not c.showHint}"/>

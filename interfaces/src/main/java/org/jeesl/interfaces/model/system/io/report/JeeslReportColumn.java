@@ -38,6 +38,9 @@ public interface JeeslReportColumn<L extends UtilsLang,D extends UtilsDescriptio
 	Boolean getShowHint();
 	void setShowHint(Boolean showHint);
 	
+	Boolean getFilterBy();
+	void setFilterBy(Boolean filterBy);
+	
 	CDT getDataType();
 	void setDataType(CDT dataType);
 	

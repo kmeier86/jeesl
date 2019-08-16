@@ -5,8 +5,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
+import org.apache.commons.jxpath.JXPathContext;
+import org.apache.commons.lang.StringUtils;
 import org.jeesl.api.facade.io.JeeslIoReportFacade;
 import org.jeesl.controller.processor.JobCodeProcessor;
 import org.jeesl.factory.builder.system.ReportFactoryBuilder;
@@ -35,6 +38,7 @@ import org.jeesl.util.comparator.ejb.system.io.report.IoReportColumnComparator;
 import org.jeesl.util.comparator.ejb.system.io.report.IoReportGroupComparator;
 import org.jeesl.util.comparator.ejb.system.io.report.IoReportRowComparator;
 import org.jeesl.util.comparator.ejb.system.io.report.IoReportSheetComparator;
+import org.jeesl.util.comparator.pojo.BooleanComparator;
 import org.metachart.model.json.pivot.PivotSettings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,17 +86,21 @@ public abstract class AbstractJeeslReport<L extends UtilsLang,D extends UtilsDes
 	protected String jobCode;
 	protected String jobName;
 	
-	protected List<String> headers; public List<String> getHeaders() {return headers;}
+	protected final List<String> headers; public List<String> getHeaders() {return headers;}
 	
 	private boolean showHeaderGroup; public boolean isShowHeaderGroup() {return showHeaderGroup;}
 	private boolean showHeaderColumn; public boolean isShowHeaderColumn() {return showHeaderColumn;}
 	
-	protected List<GROUP> groupsAll; public List<GROUP> getGroupsAll() {return groupsAll;}
-	protected List<GROUP> groups; public List<GROUP> getGroups() {return groups;}
-	protected List<COLUMN> columns; public List<COLUMN> getColumns() {return columns;}
+	private int filterCounter = 0;
+	
 	protected Map<GROUP,Integer> mapGroupChilds; public Map<GROUP,Integer> getMapGroupChilds() {return mapGroupChilds;}
 	protected Map<GROUP,List<COLUMN>> mapGroupColumns; public Map<GROUP,List<COLUMN>> getMapGroupColumns() {return mapGroupColumns;}
 	protected Map<GROUP,Boolean> mapGroupVisibilityToggle; public Map<GROUP, Boolean> getMapGroupVisibilityToggle() {return mapGroupVisibilityToggle;}
+	protected final Map<Integer,Integer> mapFilter;
+	protected List<GROUP> groupsAll; public List<GROUP> getGroupsAll() {return groupsAll;}
+	protected List<GROUP> groups; public List<GROUP> getGroups() {return groups;}
+	protected List<COLUMN> columns; public List<COLUMN> getColumns() {return columns;}
+	
 
 	protected REPORT ioReport; @Override public REPORT getIoReport() {return ioReport;}
 	protected SHEET ioSheet; public SHEET getIoSheet() {return ioSheet;}
@@ -141,13 +149,14 @@ public abstract class AbstractJeeslReport<L extends UtilsLang,D extends UtilsDes
 		comparatorRow = new IoReportRowComparator<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS>().factory(IoReportRowComparator.Type.position);
 		comparatorCell = new IoReportCellComparator<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS>().factory(IoReportCellComparator.Type.position);
 		
-		mapGroupVisibilityToggle = new HashMap<GROUP,Boolean>();
+		mapFilter = new HashMap<>();
+		mapGroupVisibilityToggle = new HashMap<>();
 		showHeaderGroup = true;
 		
 		jobCodeProcessor = new JobCodeProcessor();
 		jsonDataList = new ArrayList<Object>();
 		
-		buildHeaders();
+		headers = new ArrayList<String>();
 	}
 	
 	protected void initIo(JeeslIoReportFacade<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fReport, Class<?> classReport)
@@ -283,7 +292,18 @@ public abstract class AbstractJeeslReport<L extends UtilsLang,D extends UtilsDes
 					{showHeaderColumn=true;}
 				}
 			}
-		}		
+		}
+		
+		mapFilter.clear();
+		for(COLUMN c : columns)
+		{
+			if(BooleanComparator.active(c.getFilterBy()))
+			{
+				int position = mapFilter.size();
+				int index = columns.indexOf(c);
+				mapFilter.put(position,index);
+			}
+		}
 	}
 	
 	public void toggleGroupVisibility(GROUP g)
@@ -298,9 +318,33 @@ public abstract class AbstractJeeslReport<L extends UtilsLang,D extends UtilsDes
 		}
 	}
 	
-	private void buildHeaders()
+	public boolean filterBy(Object value, Object filter, Locale locale)
 	{
-		headers = new ArrayList<String>();
+		boolean show=true;
+		if(filter!=null)
+		{
+			String sFilter = (String)filter;
+			if(sFilter.trim().length()>0)
+			{
+				int indexFilter = filterCounter % mapFilter.size();
+				int indexColumn = mapFilter.get(indexFilter);
+				
+//				StringBuffer sb = new StringBuffer();
+//				sb.append("Value: ");
+//				if(value!=null) {sb.append(value.toString());}else {sb.append("null");}
+//				sb.append(" Filter: ").append(filter.toString());
+//				sb.append(" FilterIndex:").append(indexFilter);
+//				sb.append(" ColumnIndex:").append(indexColumn);
+//				logger.info(sb.toString());
+				
+				JXPathContext context = JXPathContext.newContext(value);
+				String sValue = (String)context.getValue(columns.get(indexColumn).getQueryCell());
+				show = StringUtils.containsIgnoreCase(sValue,sFilter);
+			}
+		}
+		
+		filterCounter++;
+		return show;
 	}
 	
 	public void buildJson()
