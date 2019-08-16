@@ -9,6 +9,7 @@ import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
 import org.jeesl.api.rest.system.io.revision.JeeslRevisionRestExport;
 import org.jeesl.api.rest.system.io.revision.JeeslRevisionRestImport;
 import org.jeesl.controller.monitor.DataUpdateTracker;
+import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.factory.ejb.system.revision.EjbRevisionAttributeFactory;
 import org.jeesl.factory.ejb.system.revision.EjbRevisionEntityFactory;
 import org.jeesl.factory.ejb.system.status.EjbDescriptionFactory;
@@ -59,9 +60,9 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 {
 	final static Logger logger = LoggerFactory.getLogger(RevisionRestService.class);
 	
+	private final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fbRevision;
 	private JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fRevision;
 	
-	private final Class<L> cL;
 	private final Class<D> cD;
 	private final Class<RC> cRC;
 	
@@ -83,11 +84,12 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 	private EjbRevisionEntityFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> efEntity;
 	private EjbRevisionAttributeFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> efAttribute;
 	
-	private RevisionRestService(JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fRevision
+	public RevisionRestService(IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fbRevision,
+									JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fRevision
 			,final Class<L> cL, final Class<D> cD, Class<RC> cRC, final Class<RV> cRV, final Class<RVM> cRVM, final Class<RS> cRS, final Class<RST> cRST, final Class<RE> cRE, final Class<REM> cREM, final Class<RA> cRA, final Class<RER> cRER, final Class<RAT> cRAT)
 	{
+		this.fbRevision=fbRevision;
 		this.fRevision=fRevision;
-		this.cL=cL;
 		this.cD=cD;
 		
 		this.cRC=cRC;
@@ -110,22 +112,6 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 		efAttribute = EjbRevisionAttributeFactory.factory(cRA);
 	}
 	
-	public static <L extends UtilsLang,D extends UtilsDescription,
-					RC extends JeeslRevisionCategory<L,D,RC,?>,	
-					RV extends JeeslRevisionView<L,D,RVM>,
-					RVM extends JeeslRevisionViewMapping<RV,RE,REM>,
-					RS extends JeeslRevisionScope<L,D,RC,RA>,
-					RST extends UtilsStatus<RST,L,D>,
-					RE extends JeeslRevisionEntity<L,D,RC,REM,RA>,
-					REM extends JeeslRevisionEntityMapping<RS,RST,RE>,
-					RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>, RER extends UtilsStatus<RER,L,D>,
-					RAT extends UtilsStatus<RAT,L,D>>
-		RevisionRestService<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>
-			factory(JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fRevision,final Class<L> cL, final Class<D> cD, Class<RC> cRC, final Class<RV> cRV, final Class<RVM> cRVM, final Class<RS> cRS, final Class<RST> cRST, final Class<RE> cRE, final Class<REM> cREM, final Class<RA> cRA, final Class<RER> cRER, final Class<RAT> cRAT)
-	{
-		return new RevisionRestService<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>(fRevision,cL,cD,cRC,cRV,cRVM,cRS,cRST,cRE,cREM,cRA,cRER,cRAT);
-	}
-	
 	@Override public Container exportSystemIoRevisionAttributeTypes() {return xfContainer.build(fRevision.allOrderedPosition(cRAT));}
 	@Override public Container exportSystemIoRevisionScopeTypes() {return xfContainer.build(fRevision.allOrderedPosition(cRST));}
 	@Override public Container exportSystemRevisionCategories(){return xfContainer.build(fRevision.allOrderedPosition(cRC));}
@@ -144,9 +130,9 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 		return entities;
 	}
 	
-	@Override public DataUpdate importSystemIoRevisionAttributeTypes(Container categories){return importStatus(cRAT,cL,cD,categories,null);}
-	@Override public DataUpdate importSystemIoRevisionScopeTypes(Container categories){return importStatus(cRST,cL,cD,categories,null);}
-	@Override public DataUpdate importSystemRevisionCategories(org.jeesl.model.xml.jeesl.Container categories){return importStatus(cRC,cL,cD,categories,null);}
+	@Override public DataUpdate importSystemIoRevisionAttributeTypes(Container categories){return importStatus(cRAT,fbRevision.getClassL(),cD,categories,null);}
+	@Override public DataUpdate importSystemIoRevisionScopeTypes(Container categories){return importStatus(cRST,fbRevision.getClassL(),cD,categories,null);}
+	@Override public DataUpdate importSystemRevisionCategories(org.jeesl.model.xml.jeesl.Container categories){return importStatus(cRC,fbRevision.getClassL(),cD,categories,null);}
 	
 	@Override public DataUpdate importSystemRevisionEntities(Entities entities)
 	{
@@ -180,7 +166,7 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 		{
 			logger.debug("Will delete in DB");
 			logger.debug("\t"+cRE.getSimpleName()+" "+inDbRevisionEntity.size());
-			logger.debug("\t"+cL.getSimpleName()+" "+dbDeleteL.size());
+			logger.debug("\t"+fbRevision.getClassL().getSimpleName()+" "+dbDeleteL.size());
 			logger.debug("\t"+cD.getSimpleName()+" "+dbDeleteD.size());
 		}
 		try
