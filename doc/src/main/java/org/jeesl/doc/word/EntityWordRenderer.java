@@ -8,7 +8,9 @@ import java.util.Map;
 import org.apache.commons.io.FilenameUtils;
 import org.jeesl.model.xml.jeesl.Container;
 import org.jeesl.model.xml.system.revision.Attribute;
+import org.jeesl.model.xml.system.revision.Entities;
 import org.jeesl.model.xml.system.revision.Entity;
+import org.jeesl.util.query.xpath.RevisionXpath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,9 +23,7 @@ import com.aspose.words.SaveFormat;
 import com.aspose.words.Table;
 
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
-import net.sf.ahtutils.xml.status.Categories;
-import net.sf.ahtutils.xml.status.Category;
-import net.sf.ahtutils.xml.status.Types;
+import net.sf.ahtutils.xml.status.Status;
 
 
 public class EntityWordRenderer 
@@ -31,15 +31,27 @@ public class EntityWordRenderer
 	final static Logger logger = LoggerFactory.getLogger(EntityWordRenderer.class);
 	
 	final Document entityDoc;
-	final Categories categories;
-	final Types relationTypes;
+	final Container categories;
+	final Container relationTypes;
+	final Entities entities;
 	UtilsFacade fUtils;
 
-	public EntityWordRenderer(Document templateDoc, Categories categories, Types relationTypes)
+	public EntityWordRenderer(Document templateDoc, Entities entities, Container categories, Container relationTypes)
 	{
 		this.entityDoc=templateDoc;	
 		this.categories=categories;
 		this.relationTypes=relationTypes;
+		this.entities=entities;
+	}
+	
+	private String categoryForCode(Container c, String code)
+	{
+		for(Status s:c.getStatus()){if(s.isSetCode()&&s.getCode()!=""&&s.getCode().equals(code)){return s.getLangs().getLang().get(0).getTranslation();}}return "";
+	}
+	
+	private String relationTypeForCode(Container c, String code)
+	{
+		for(Status s:c.getStatus()){if(s.isSetCode()&&s.getCode()!=""&&s.getCode().equals(code)){return s.getLangs().getLang().get(0).getTranslation();}}return "";
 	}
 	
 	public void render(Entity entity, String savingDirectory) throws Exception 
@@ -49,10 +61,9 @@ public class EntityWordRenderer
 		Map<String, String> replacementTags = new HashMap<String, String>();	
 		List<String> keys= new ArrayList<>();
 		
-		keys.add("_ENTITY_");replacementTags.put("_ENTITY_", FilenameUtils.getExtension(entity.getCode()));
-		
-		for (Category c : categories.getCategory()){if (c.getCode().contentEquals(entity.getCategory().getCode())){keys.add("_CATEGORY_");replacementTags.put("_CATEGORY_", "");}}
-
+		keys.add("_ENTITY_");replacementTags.put("_ENTITY_", entity.getLangs().getLang().get(0).getTranslation());
+			
+		keys.add("_CATEGORY_");replacementTags.put("_CATEGORY_", categoryForCode(categories, entity.getCategory().getCode()));
 		keys.add("_CLASS1_");replacementTags.put("_CLASS1_",entity.getCode().replace(FilenameUtils.getExtension(entity.getCode()), ""));
 		keys.add("_CLASS2_");replacementTags.put("_CLASS2_", FilenameUtils.getExtension(entity.getCode()));
 		keys.add("_DESCRIPTION_");replacementTags.put("_DESCRIPTION_", entity.getDescriptions().getDescription().get(0).getValue().toString());
@@ -72,9 +83,22 @@ public class EntityWordRenderer
 				
 				if (cellHelper==0) {docBuilder.write(a.getCode());}					
 				if (cellHelper==1) {docBuilder.write(a.getLangs().getLang().get(0).getTranslation().toString());}					
-				if (cellHelper==2) {docBuilder.write(a.getDescriptions().getDescription().get(0).getValue());}
-				if (cellHelper==3) {if (a.isSetRelation()) { docBuilder.write(a.getRelation().toString());}}
-
+				if (cellHelper==2)
+				{
+					docBuilder.write(a.getDescriptions().getDescription().get(0).getValue());
+					docBuilder.getFont().setItalic(true);
+					
+					if(a.getRelation()!=null)
+					{
+						docBuilder.write(relationTypeForCode(relationTypes, a.getRelation().getType().getCode())+": ");
+						if (a.getRelation().isSetEntity())
+						{
+							Entity e = RevisionXpath.getEntity(entities, a.getRelation().getEntity().getCode());
+							docBuilder.write(e.getLangs().getLang().get(0).getTranslation());
+						}
+						docBuilder.getFont().setItalic(false);
+				}
+				}
 				cellHelper++;
 			}
 			table.appendChild(table.getLastRow().deepClone(true));	
@@ -84,12 +108,12 @@ public class EntityWordRenderer
 		for (String s : keys)
 		{
 			docBuilder.moveToDocumentStart();
-			if (s.equals("_CLASS2_")) {docBuilder.getFont().setBold(true);logger.info("dddd_CLASS2_");};
-			logger.info(s + replacementTags.get(s).toString());
+			if (s.equals("_CLASS2_")) {docBuilder.getFont().setBold(true);/*logger.info("dddd_CLASS2_");*/};
+//			logger.info(s + replacementTags.get(s).toString());
 			try
 			{
-				logger.info("replacementTAG: "+s);
-				logger.info("replacementString: "+replacementTags.get(s).toString());
+//				logger.info("replacementTAG: "+s);
+//				logger.info("replacementString: "+replacementTags.get(s).toString());
 				entityDoc.getRange().replace(s, replacementTags.get(s).toString(),new FindReplaceOptions(FindReplaceDirection.FORWARD));
 
 			}
