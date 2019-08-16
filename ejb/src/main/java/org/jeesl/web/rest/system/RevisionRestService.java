@@ -62,19 +62,6 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 	
 	private final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fbRevision;
 	private JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fRevision;
-	
-	private final Class<D> cD;
-	private final Class<RC> cRC;
-	
-	@SuppressWarnings("unused") private final Class<RV> cRV;
-	@SuppressWarnings("unused") private final Class<RVM> cRVM;
-	@SuppressWarnings("unused") private final Class<RS> cRS;
-	private final Class<RST> cRST;
-	private final Class<RE> cRE;
-	@SuppressWarnings("unused") private final Class<REM> cREM;
-	private final Class<RA> cRA;
-	private final Class<RER> cRER;
-	private final Class<RAT> cRAT;
 
 	private XmlContainerFactory xfContainer;
 	private XmlEntityFactory<L,D,RC,REM,RE,RA,RER,RAT> xfEntity;
@@ -84,69 +71,55 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 	private EjbRevisionEntityFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> efEntity;
 	private EjbRevisionAttributeFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> efAttribute;
 	
-	public RevisionRestService(IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fbRevision,
-									JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fRevision
-			,final Class<L> cL, final Class<D> cD, Class<RC> cRC, final Class<RV> cRV, final Class<RVM> cRVM, final Class<RS> cRS, final Class<RST> cRST, final Class<RE> cRE, final Class<REM> cREM, final Class<RA> cRA, final Class<RER> cRER, final Class<RAT> cRAT)
+	public RevisionRestService(IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fbRevision, JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fRevision)
 	{
 		this.fbRevision=fbRevision;
 		this.fRevision=fRevision;
-		this.cD=cD;
-		
-		this.cRC=cRC;
-		this.cRV=cRV;
-		this.cRVM=cRVM;
-		this.cRS=cRS;
-		this.cRST=cRST;
-		this.cREM=cREM;
-		this.cRE=cRE;
-		this.cRA=cRA;
-		this.cRER=cRER;
-		this.cRAT=cRAT;
-	
+
 		xfContainer = new XmlContainerFactory(XmlStatusQuery.get(XmlStatusQuery.Key.StatusExport).getStatus());
 		xfEntity = new XmlEntityFactory<>(RevisionQuery.get(RevisionQuery.Key.exEntity));
-			
-		efLang = EjbLangFactory.factory(cL);
-		efDescription = EjbDescriptionFactory.factory(cD);
-		efEntity = EjbRevisionEntityFactory.factory(cL,cD,cRE);
-		efAttribute = EjbRevisionAttributeFactory.factory(cRA);
+		
+		efLang = EjbLangFactory.factory(fbRevision.getClassL());
+		efDescription = EjbDescriptionFactory.factory(fbRevision.getClassD());
+		efEntity = EjbRevisionEntityFactory.factory(fbRevision.getClassL(),fbRevision.getClassD(),fbRevision.getClassEntity());
+		efAttribute = EjbRevisionAttributeFactory.factory(fbRevision.getClassAttribute());
 	}
 	
-	@Override public Container exportSystemIoRevisionAttributeTypes() {return xfContainer.build(fRevision.allOrderedPosition(cRAT));}
-	@Override public Container exportSystemIoRevisionScopeTypes() {return xfContainer.build(fRevision.allOrderedPosition(cRST));}
-	@Override public Container exportSystemRevisionCategories(){return xfContainer.build(fRevision.allOrderedPosition(cRC));}
-	@Override public Container exportSystemRevisionRelationType() {return xfContainer.build(fRevision.allOrderedPosition(cRER));}
+	@Override public Container exportSystemIoRevisionAttributeTypes() {return xfContainer.build(fRevision.allOrderedPosition(fbRevision.getClassAttributeType()));}
+	@Override public Container exportSystemIoRevisionScopeTypes() {return xfContainer.build(fRevision.allOrderedPosition(fbRevision.getClassScopeType()));}
+	@Override public Container exportSystemRevisionCategories(){return xfContainer.build(fRevision.allOrderedPosition(fbRevision.getClassCategory()));}
+	@Override public Container exportSystemRevisionRelationType() {return xfContainer.build(fRevision.allOrderedPosition(fbRevision.getClassRelation()));}
 	
 	@Override public Entities exportSystemRevisionEntities()
 	{
 		Entities entities = new Entities();
 		
-		for(RE re : fRevision.all(cRE))
+		for(RE re : fRevision.all(fbRevision.getClassEntity()))
 		{
-			re = fRevision.load(cRE, re);
+			re = fRevision.load(fbRevision.getClassEntity(), re);
 			entities.getEntity().add(xfEntity.build(re));
 		}
 		
 		return entities;
 	}
 	
-	@Override public DataUpdate importSystemIoRevisionAttributeTypes(Container categories){return importStatus(cRAT,fbRevision.getClassL(),cD,categories,null);}
-	@Override public DataUpdate importSystemIoRevisionScopeTypes(Container categories){return importStatus(cRST,fbRevision.getClassL(),cD,categories,null);}
-	@Override public DataUpdate importSystemRevisionCategories(org.jeesl.model.xml.jeesl.Container categories){return importStatus(cRC,fbRevision.getClassL(),cD,categories,null);}
+	@Override public DataUpdate importSystemIoRevisionAttributeTypes(Container categories){return importStatus(fbRevision.getClassAttributeType(),fbRevision.getClassL(),fbRevision.getClassD(),categories,null);}
+	@Override public DataUpdate importSystemIoRevisionScopeTypes(Container categories){return importStatus(fbRevision.getClassScopeType(),fbRevision.getClassL(),fbRevision.getClassD(),categories,null);}
+	@Override public DataUpdate importSystemRevisionCategories(org.jeesl.model.xml.jeesl.Container categories){return importStatus(fbRevision.getClassCategory(),fbRevision.getClassL(),fbRevision.getClassD(),categories,null);}
 	
 	@Override public DataUpdate importSystemRevisionEntities(Entities entities)
 	{
 		DataUpdateTracker dut = new DataUpdateTracker(true);
-		dut.setType(XmlTypeFactory.build(cRE.getName(),"DB Import"));
+		dut.setType(XmlTypeFactory.build(fbRevision.getClassEntity().getName(),"DB Import"));
 		
-		Set<RE> inDbRevisionEntity = new HashSet<RE>(fRevision.all(cRE));
+		Set<RE> inDbRevisionEntity = new HashSet<RE>(fRevision.all(fbRevision.getClassEntity()));
 		List<L> dbDeleteL = new ArrayList<L>();
 		List<D> dbDeleteD = new ArrayList<D>();
 		
 		if(logger.isInfoEnabled())
 		{
 			logger.info("Importing Revision Entites");
-			logger.info("\tAlread in DB: "+cRE.getSimpleName()+" "+inDbRevisionEntity.size());
+			logger.info("\tAlread in DB: "+fbRevision.getClassEntity().getSimpleName()+" "+inDbRevisionEntity.size());
 			logger.info("\tUpdatinf from XML: "+Entity.class.getSimpleName()+" "+entities.getEntity().size());
 		}
 		
@@ -165,9 +138,9 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 		if(logger.isDebugEnabled())
 		{
 			logger.debug("Will delete in DB");
-			logger.debug("\t"+cRE.getSimpleName()+" "+inDbRevisionEntity.size());
+			logger.debug("\t"+fbRevision.getClassEntity().getSimpleName()+" "+inDbRevisionEntity.size());
 			logger.debug("\t"+fbRevision.getClassL().getSimpleName()+" "+dbDeleteL.size());
-			logger.debug("\t"+cD.getSimpleName()+" "+dbDeleteD.size());
+			logger.debug("\t"+fbRevision.getClassD().getSimpleName()+" "+dbDeleteD.size());
 		}
 		try
 		{
@@ -183,16 +156,16 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 		RE re;
 		try
 		{
-			re = fRevision.fByCode(cRE, xml.getCode());
+			re = fRevision.fByCode(fbRevision.getClassEntity(), xml.getCode());
 			inDbRevisionEntity.remove(re);
 		}
 		catch (UtilsNotFoundException e)
 		{
-			RC category = fRevision.fByCode(cRC, xml.getCategory().getCode());
+			RC category = fRevision.fByCode(fbRevision.getClassCategory(), xml.getCategory().getCode());
 			re = efEntity.build(category,xml);
 			re = fRevision.persist(re);
 		}
-		re = fRevision.load(cRE, re);
+		re = fRevision.load(fbRevision.getClassEntity(), re);
 		
 		dbDeleteL.addAll(re.getName().values());
 		dbDeleteD.addAll(re.getDescription().values());
@@ -212,7 +185,7 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 		}
 		for(RA ra : new ArrayList<RA>(set))
 		{
-			fRevision.rm(cRE,re,ra);
+			fRevision.rm(fbRevision.getClassEntity(),re,ra);
 		}
 	}
 	
@@ -228,7 +201,7 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 			
 			if(ra.getCode().equals(xml.getCode()))
 			{
-				ejbAttribute=fRevision.find(cRA, ra);
+				ejbAttribute=fRevision.find(fbRevision.getClassAttribute(), ra);
 				dbDeleteL.addAll(ejbAttribute.getName().values());
 				dbDeleteD.addAll(ejbAttribute.getDescription().values());
 					
@@ -239,15 +212,15 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 		
 		if(ejbAttribute==null)
 		{
-			RAT type = fRevision.fByCode(cRAT, xml.getType().getCode());
+			RAT type = fRevision.fByCode(fbRevision.getClassAttributeType(), xml.getType().getCode());
 			ejbAttribute = efAttribute.build(type,xml);
-			ejbAttribute = fRevision.save(cRE,ejbRevisionEntity,ejbAttribute);
+			ejbAttribute = fRevision.save(fbRevision.getClassEntity(),ejbRevisionEntity,ejbAttribute);
 		}
 		ejbAttribute.setName(efLang.getLangMap(xml.getLangs()));
 		ejbAttribute.setDescription(efDescription.create(xml.getDescriptions()));
 		efAttribute.applyValues(ejbAttribute, xml);
 		
-		ejbAttribute = fRevision.save(cRE,ejbRevisionEntity,ejbAttribute);
+		ejbAttribute = fRevision.save(fbRevision.getClassEntity(),ejbRevisionEntity,ejbAttribute);
 		return ejbAttribute;
 	}
 	
