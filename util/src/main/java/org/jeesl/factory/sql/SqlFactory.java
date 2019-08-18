@@ -75,4 +75,17 @@ public class SqlFactory
 			sb.append("\n");
 		}
 	}
+	
+	public static void valuesBool(boolean first, StringBuilder sb, boolean x)
+	{
+		if(!first) {sb.append(",");}
+		if(x) {sb.append("'t'");}
+		else {sb.append("'f'");}
+	}
+	
+	public static <T extends EjbWithId> void valuesId(boolean first, StringBuilder sb, T id)
+	{
+		if(!first) {sb.append(",");}
+		sb.append(id.getId());
+	}
 }
