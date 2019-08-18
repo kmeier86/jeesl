@@ -13,7 +13,7 @@ public class JeeslNsPrefixMapper extends NamespacePrefixMapper implements NsPref
     public String getPreferredPrefix(String namespaceUri, String suggestion, boolean requirePrefix)
     {
         if("http://ahtutils.aht-group.com".equals(namespaceUri) ){return "aht";}
-        if("http://ahtutils.aht-group.com/status".equals(namespaceUri) ){return "s";}
+        if("http://ahtutils.aht-group.com/status".equals(namespaceUri) ){return "js";}
         if("http://ahtutils.aht-group.com/symbol".equals(namespaceUri) ){return "sym";}
         if("http://ahtutils.aht-group.com/report".equals(namespaceUri) ){return "r";}
         if("http://ahtutils.aht-group.com/monitoring".equals(namespaceUri) ){return "mo";}

@@ -61,8 +61,11 @@ public class ErGraphProcessor
 		
 		IOFileFilter suffixFileFilter = FileFilterUtils.suffixFileFilter(".java");
 		File fPackage = new File(fBase,sEjbPackage);
+		
 		RecursiveFileFinder finder = new RecursiveFileFinder(suffixFileFilter);
 		List<File> list = finder.find(fPackage);
+		
+		logger.info("Found files "+list.size()+" in "+fPackage.getAbsolutePath());
 		
 		for(File f : list)
 		{

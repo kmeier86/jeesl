@@ -50,7 +50,7 @@ public class AbstractErDiagram
 		//buildSvg("neato",subset,new File(fSvg,key+".svg"),fPdf);
 	}
 	
-	protected void buildSvg(String type, List<String> subset,File fDst, File fPdf) throws ClassNotFoundException, IOException, TranscoderException
+	protected void buildSvg(String type, List<String> subset, File fDst, File fPdf) throws ClassNotFoundException, IOException, TranscoderException
 	{
 		ErAttributesProcessor eap = new ErAttributesProcessor(ofxWriter,config,fSrc);
 		eap.addPackages(packages);
@@ -59,10 +59,10 @@ public class AbstractErDiagram
 		egp.addPackages(packages,subset);
 		
 		Graph g = egp.create();
-		//JaxbUtil.info(g);System.exit(-1);
+//		JaxbUtil.info(g);System.exit(-1);
 		
 		Node xml = JaxbUtil.loadJAXB(colorScheme, Node.class);
-		JaxbUtil.info(xml);
+		JaxbUtil.trace(xml);
 		
 		Graph2DotConverter gdc = new Graph2DotConverter("b");
 		gdc.setColorScheme(xml);
