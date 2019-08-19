@@ -16272,6 +16272,20 @@ The last date of the month for which DS is being paid.</us:description>
         </us:descriptions>
         <ut:remark></ut:remark>
     </rev:entity>
+    <rev:entity code="rw.gov.loda.meis.model.ejb.system.erdiagram.SystemERDiagramCategory" position="21" visible="true">
+        <us:category code="system"/>
+        <us:langs>
+            <us:lang key="en" translation="Property Category"/>
+            <us:lang key="fr" translation="Property Category"/>
+            <us:lang key="kin" translation="Property Category"/>
+        </us:langs>
+        <us:descriptions>
+            <us:description key="en"></us:description>
+            <us:description key="fr"></us:description>
+            <us:description key="kin"></us:description>
+        </us:descriptions>
+        <ut:remark></ut:remark>
+    </rev:entity>
     <rev:entity code="rw.gov.loda.meis.model.ejb.sp.vup.nsds.visit.MeisNsdsVisit" position="33" visible="true">
         <us:category code="sp"/>
         <us:langs>
