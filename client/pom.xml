@@ -159,13 +159,12 @@
             <artifactId>jeesl-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-			<!--Aspose for WordRendering -->
+		<dependency>
     		<groupId>com.aspose</groupId>
     		<artifactId>aspose-words</artifactId>
-    		<version>19.7</version>
+    		<version>19.8</version>
+    		<scope>provided</scope>
     		<classifier>jdk17</classifier>
-			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
