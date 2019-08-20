@@ -16,10 +16,12 @@
         	    <xsd:element ref="js:interval" maxOccurs="1"/>        	    
         		<xsd:element ref="ts:transaction" maxOccurs="unbounded"/>
 				<xsd:element ref="ts:data" maxOccurs="unbounded"/>
+				<xsd:element ref="ts:ds" maxOccurs="unbounded"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
 	<xsd:element name="timeSeries">
+<!--	deprecated / use TS!!!!1 -->
         <xsd:complexType>
         	<xsd:sequence>
         		<xsd:element ref="ts:entity" maxOccurs="1"/>
@@ -41,7 +43,7 @@
     <xsd:element name="entity">
         <xsd:complexType>
         	<xsd:sequence>
-
+            	<xsd:element ref="jt:markups" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -57,6 +59,17 @@
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="record" type="xsd:dateTime"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="ds">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="ts:data" maxOccurs="unbounded"/>
+            	<xsd:element ref="ts:ds" maxOccurs="unbounded"/>
+            </xsd:sequence>
+			<xsd:attribute name="id" type="xsd:long"/>
+            <xsd:attribute name="code" type="xsd:string"/>
+            <xsd:attribute name="label" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>

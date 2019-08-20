@@ -28,6 +28,7 @@ import net.sf.ahtutils.xml.status.Scope;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}interval"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/timeseries}transaction" maxOccurs="unbounded"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/timeseries}data" maxOccurs="unbounded"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/timeseries}ds" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -42,7 +43,8 @@ import net.sf.ahtutils.xml.status.Scope;
     "scope",
     "interval",
     "transaction",
-    "data"
+    "data",
+    "ds"
 })
 @XmlRootElement(name = "ts")
 public class Ts
@@ -60,6 +62,8 @@ public class Ts
     protected List<Transaction> transaction;
     @XmlElement(required = true)
     protected List<Data> data;
+    @XmlElement(required = true)
+    protected List<Ds> ds;
 
     /**
      * Gets the value of the entity property.
@@ -217,6 +221,43 @@ public class Ts
 
     public void unsetData() {
         this.data = null;
+    }
+
+    /**
+     * Gets the value of the ds property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the ds property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getDs().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Ds }
+     * 
+     * 
+     */
+    public List<Ds> getDs() {
+        if (ds == null) {
+            ds = new ArrayList<Ds>();
+        }
+        return this.ds;
+    }
+
+    public boolean isSetDs() {
+        return ((this.ds!= null)&&(!this.ds.isEmpty()));
+    }
+
+    public void unsetDs() {
+        this.ds = null;
     }
 
 }
