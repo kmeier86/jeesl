@@ -35,13 +35,6 @@
     		<s:lang key="fr" translation="Reduction Amount"/>
     	</s:langs>
     </s:translation>
-	<s:translation key="aupAmountRetention1">
-    	<s:langs>
-    		<s:lang key="de" translation="Retention"/>
-    		<s:lang key="en" translation="Retention"/>
-    		<s:lang key="fr" translation="Retention"/>
-    	</s:langs>
-    </s:translation>
 	<s:translation key="aupAmountAvailable">
     	<s:langs>
     		<s:lang key="de" translation="Available Amount"/>

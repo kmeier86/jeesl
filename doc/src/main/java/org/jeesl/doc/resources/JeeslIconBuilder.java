@@ -25,11 +25,13 @@ public class JeeslIconBuilder
 	
 	private MultiResourceLoader mrl;
 	private File baseIcon;
+	private File baseSvg;
 	
 	public JeeslIconBuilder(Configuration config)
 	{
 		mrl = new MultiResourceLoader();
 		baseIcon = new File(config.getString(UtilsDocumentation.keyBaseIconDir));
+		baseSvg = new File(config.getString(UtilsDocumentation.keyBaseDirSvg));
 		logger.info("Using msg.dir ("+UtilsDocumentation.keyBaseIconDir+"): "+baseIcon.getAbsolutePath());
 		
 	}
@@ -76,26 +78,34 @@ public class JeeslIconBuilder
 	public void png(String prefix) throws UtilsConfigurationException
 	{
 		File base = new File(prefix+"/jeesl/prototype/src/main/resources/META-INF/resources/jeeslPrototypeGfx/12/ui");
-		copy(FilenameUtils.normalize(base.getAbsolutePath()),"control",   "delete","clone","download","filter","move","remove","save","search","upload","refresh","clean");
-		copy(FilenameUtils.normalize(base.getAbsolutePath()),"control/dm",   "circleMinusGrey","circleMinusRed","circleGrey","circleGreen");
-		copy(FilenameUtils.normalize(base.getAbsolutePath()),"security",   "check-mark","documentation","x-mark");
+		copy("png",FilenameUtils.normalize(base.getAbsolutePath()),"control",   "delete","clone","download","filter","move","remove","save","search","upload","refresh","clean");
+		copy("png",FilenameUtils.normalize(base.getAbsolutePath()),"control/dm",   "circleMinusGrey","circleMinusRed","circleGrey","circleGreen");
+		copy("png",FilenameUtils.normalize(base.getAbsolutePath()),"security",   "check-mark","documentation","x-mark");
 	}
 	
-	private void copy(String resourceDir, String targetDir, String... items) throws UtilsConfigurationException 
+	public void svg(String prefix) throws UtilsConfigurationException
+	{
+		File base = new File(prefix+"/jeesl/doc/src/main/resources/jeesl/svg");
+		copy("svg",FilenameUtils.normalize(base.getAbsolutePath()),"icon/ui/system", "home");
+	}
+	
+	private void copy(String suffix, String resourceDir, String targetDir, String... items) throws UtilsConfigurationException 
 	{
 		for(String item : items)
 		{
-			copyIcon(resourceDir,targetDir,item);
+			copyIcon(suffix,resourceDir,targetDir,item);
 		}
 	}
 	
-	private void copyIcon(String resourceDir, String targetDir, String item) throws UtilsConfigurationException 
+	private void copyIcon(String suffix, String resourceDir, String targetDir, String item) throws UtilsConfigurationException 
 	{
 		try
 		{
-			String src = resourceDir+"/"+targetDir+"/"+item+".png";
+			String src = resourceDir+"/"+targetDir+"/"+item+"."+suffix;
 			InputStream is = mrl.searchIs(src);
-			File fTarget = new File(baseIcon,targetDir+File.separator+item+".png");
+			File fTarget = null;
+			if(suffix.equals("png")){fTarget = new File(baseIcon,targetDir+File.separator+item+"."+suffix);}
+			else if(suffix.equals("svg")){fTarget = new File(baseSvg,targetDir+File.separator+item+"."+suffix);}
 			
 			if(!fTarget.getParentFile().exists()) {throw new UtilsConfigurationException("Directory "+fTarget.getParentFile().getAbsolutePath()+" does not exist");}
 			
