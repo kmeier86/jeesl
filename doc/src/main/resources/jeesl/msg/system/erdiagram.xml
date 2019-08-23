@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Do not modify this file, it is automatically generated!-->
+<translations xmlns="http://ahtutils.aht-group.com/status">
+ <translation key="jeeslERDiagrams">
+    <langs>
+      <lang key="de" translation="Entity relationship diagrams" />
+      <lang key="en" translation="Entity relationship diagrams" />
+      <lang key="fr" translation="Entity relationship diagrams" />
+    </langs>
+  </translation>
+  <translation key="jeeslDotGraph">
+    <langs>
+      <lang key="de" translation="Diagraph" />
+      <lang key="en" translation="Diagraph" />
+      <lang key="fr" translation="Diagraph" />
+    </langs>
+  </translation>
+  <translation key="jeeslERDiagram">
+    <langs>
+      <lang key="de" translation="ER Diagram" />
+      <lang key="en" translation="ER Diagram"" />
+      <lang key="fr" translation="ER Diagram"" />
+    </langs>
+  </translation>
+  
+</translations>
