@@ -13,7 +13,7 @@ import org.openfuxml.content.table.Cell;
 import org.openfuxml.factory.xml.list.OfxListItemFactory;
 import org.openfuxml.factory.xml.ofx.content.structure.XmlParagraphFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
-import org.openfuxml.factory.xml.table.OfxCellFactory;
+import org.openfuxml.factory.xml.table.XmlCellFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,10 +34,10 @@ public class OfxMultiLocaleFactory<L extends UtilsLang, LOC extends JeeslLocale<
 		
 	}
 	
-	public Cell cell(JeeslLocaleProvider<LOC> lp, Langs langs) {return OfxCellFactory.build(paragraphs(lp,langs,false));}
+	public Cell cell(JeeslLocaleProvider<LOC> lp, Langs langs) {return XmlCellFactory.build(paragraphs(lp,langs,false));}
 	public <S extends UtilsStatus<S,L,D>, D extends UtilsDescription> Cell cellLabel(JeeslLocaleProvider<LOC> lp, UtilsStatus<S,L,D> status)
 	{
-		Cell cell = OfxCellFactory.build();
+		Cell cell = XmlCellFactory.build();
 //		if(font!=null){cell.getContent().add(font);}
 		cell.getContent().addAll(paragraphLabels(lp,status));
 		return cell;

@@ -20,8 +20,8 @@ import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.layout.XmlFloatFactory;
 import org.openfuxml.factory.xml.layout.XmlHeightFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
-import org.openfuxml.factory.xml.table.OfxCellFactory;
-import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.table.XmlCellFactory;
+import org.openfuxml.factory.xml.table.XmlColumnFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,13 +74,13 @@ public class OfxQaNfrResultTableFactory extends AbstractUtilsOfxDocumentationFac
 	private Specification createTableSpecifications(net.sf.ahtutils.xml.survey.Section section)
 	{
 		Columns cols = new Columns();
-		cols.getColumn().add(OfxColumnFactory.flex(30));
+		cols.getColumn().add(XmlColumnFactory.flex(30));
 		for(Question q : section.getQuestion())
 		{
 			JaxbUtil.trace(q);
 			if(q.isVisible())
 			{
-				cols.getColumn().add(OfxColumnFactory.flex(10,true));
+				cols.getColumn().add(XmlColumnFactory.flex(10,true));
 			}
 		}
 		
@@ -95,12 +95,12 @@ public class OfxQaNfrResultTableFactory extends AbstractUtilsOfxDocumentationFac
 	{
 		Row row = new Row();
 //		row.getCell().add(OfxCellFactory.createParagraphCell("Date"));
-		row.getCell().add(OfxCellFactory.createParagraphCell("User"));
+		row.getCell().add(XmlCellFactory.createParagraphCell("User"));
 		for(Question q : section.getQuestion())
 		{
 			if(q.isVisible())
 			{
-				row.getCell().add(OfxCellFactory.createParagraphCell(q.getPosition()));
+				row.getCell().add(XmlCellFactory.createParagraphCell(q.getPosition()));
 			}
 		}
 		return row;
@@ -154,7 +154,7 @@ public class OfxQaNfrResultTableFactory extends AbstractUtilsOfxDocumentationFac
 		JaxbUtil.trace(staff);
 		Row row = new Row();
 		
-		row.getCell().add(OfxCellFactory.createParagraphCell(staff.getUser().getLastName()));
+		row.getCell().add(XmlCellFactory.createParagraphCell(staff.getUser().getLastName()));
 		for(Question q : section.getQuestion())
 		{
 			if(q.isVisible())
@@ -165,13 +165,13 @@ public class OfxQaNfrResultTableFactory extends AbstractUtilsOfxDocumentationFac
 					
 					if(answer.isSetValueBoolean())
 					{
-						if(answer.isValueBoolean()){row.getCell().add(OfxCellFactory.image(image("check")));}
-						else{row.getCell().add(OfxCellFactory.image(image("cross")));}
+						if(answer.isValueBoolean()){row.getCell().add(XmlCellFactory.image(image("check")));}
+						else{row.getCell().add(XmlCellFactory.image(image("cross")));}
 					}
 				}
 				else
 				{
-					row.getCell().add(OfxCellFactory.createParagraphCell(""));
+					row.getCell().add(XmlCellFactory.createParagraphCell(""));
 				}
 			}
 		}

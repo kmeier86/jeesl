@@ -18,8 +18,8 @@ import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.layout.XmlFloatFactory;
 import org.openfuxml.factory.xml.ofx.layout.XmlLayoutFactory;
 import org.openfuxml.factory.xml.ofx.layout.XmlLineFactory;
-import org.openfuxml.factory.xml.table.OfxCellFactory;
-import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.table.XmlCellFactory;
+import org.openfuxml.factory.xml.table.XmlColumnFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,11 +65,11 @@ public class OfxSecurityActionTableFactory extends AbstractUtilsOfxDocumentation
 		Specification spec = new Specification();
 		spec.setFloat(XmlFloatFactory.build(false));
 		spec.setColumns(new Columns());
-		spec.getColumns().getColumn().add(OfxColumnFactory.flex(30,true));
-		spec.getColumns().getColumn().add(OfxColumnFactory.flex((100-30-(3*roles)),false));
+		spec.getColumns().getColumn().add(XmlColumnFactory.flex(30,true));
+		spec.getColumns().getColumn().add(XmlColumnFactory.flex((100-30-(3*roles)),false));
 		for(int i=1;i<=roles;i++)
 		{
-			spec.getColumns().getColumn().add(OfxColumnFactory.flex(3,false));
+			spec.getColumns().getColumn().add(XmlColumnFactory.flex(3,false));
 		}
 		
 		return spec;
@@ -83,7 +83,7 @@ public class OfxSecurityActionTableFactory extends AbstractUtilsOfxDocumentation
 		{
 			for(int i=1;i<=view.getRoles().getRole().size();i++)
 			{
-				head.getRow().get(0).getCell().add(OfxCellFactory.createParagraphCell(i));
+				head.getRow().get(0).getCell().add(XmlCellFactory.createParagraphCell(i));
 			}
 		}
 		
@@ -110,14 +110,14 @@ public class OfxSecurityActionTableFactory extends AbstractUtilsOfxDocumentation
 		layout.getLine().add(XmlLineFactory.bottom());
 		row.setLayout(layout);
 		
-		row.getCell().add(OfxCellFactory.createParagraphCell("Page"));
-		row.getCell().add(OfxCellFactory.createParagraphCell("User is allowed to access the page."));
+		row.getCell().add(XmlCellFactory.createParagraphCell("Page"));
+		row.getCell().add(XmlCellFactory.createParagraphCell("User is allowed to access the page."));
 		
 		if(view.isSetRoles())
 		{
 			for(Role role : view.getRoles().getRole())
 			{
-				row.getCell().add(OfxCellFactory.createParagraphCell("X"));
+				row.getCell().add(XmlCellFactory.createParagraphCell("X"));
 			}
 		}
 		return row;
@@ -143,8 +143,8 @@ public class OfxSecurityActionTableFactory extends AbstractUtilsOfxDocumentation
 					}
 				}
 				
-				if(active){row.getCell().add(OfxCellFactory.createParagraphCell("X"));}
-				else {row.getCell().add(OfxCellFactory.createParagraphCell(""));}
+				if(active){row.getCell().add(XmlCellFactory.createParagraphCell("X"));}
+				else {row.getCell().add(XmlCellFactory.createParagraphCell(""));}
 			}
 		}
 		

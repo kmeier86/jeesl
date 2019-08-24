@@ -15,8 +15,8 @@ import org.openfuxml.content.table.Row;
 import org.openfuxml.content.table.Specification;
 import org.openfuxml.content.table.Table;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
-import org.openfuxml.factory.xml.table.OfxCellFactory;
-import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.table.XmlCellFactory;
+import org.openfuxml.factory.xml.table.XmlColumnFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,8 +74,8 @@ public class OfxClassAttributesTableFactory extends AbstractUtilsOfxDocumentatio
 	private Specification createSpecifications()
 	{
 		Columns cols = new Columns();	
-		cols.getColumn().add(OfxColumnFactory.flex(25));
-		cols.getColumn().add(OfxColumnFactory.flex(75));
+		cols.getColumn().add(XmlColumnFactory.flex(25));
+		cols.getColumn().add(XmlColumnFactory.flex(75));
 		Specification specification = new Specification();
 		specification.setColumns(cols);
 		return specification;
@@ -84,8 +84,8 @@ public class OfxClassAttributesTableFactory extends AbstractUtilsOfxDocumentatio
 	private Head buildHead()
 	{
 		Row row = new Row();
-		row.getCell().add(OfxCellFactory.createParagraphCell("Attribute"));
-		row.getCell().add(OfxCellFactory.createParagraphCell("Type"));
+		row.getCell().add(XmlCellFactory.createParagraphCell("Attribute"));
+		row.getCell().add(XmlCellFactory.createParagraphCell("Type"));
 		
 		Head head = new Head();
 		head.getRow().add(row);
@@ -96,8 +96,8 @@ public class OfxClassAttributesTableFactory extends AbstractUtilsOfxDocumentatio
 	private Row httpMethod(Field field)
 	{		
 		Row row = new Row();
-		row.getCell().add(OfxCellFactory.createParagraphCell(field.getName()));
-		row.getCell().add(OfxCellFactory.createParagraphCell(field.getType().getSimpleName()));
+		row.getCell().add(XmlCellFactory.createParagraphCell(field.getName()));
+		row.getCell().add(XmlCellFactory.createParagraphCell(field.getType().getSimpleName()));
 		return row;
 	}
 }

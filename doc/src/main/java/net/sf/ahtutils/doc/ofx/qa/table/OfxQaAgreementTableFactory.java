@@ -31,8 +31,8 @@ import org.openfuxml.factory.xml.layout.XmlAlignmentFactory;
 import org.openfuxml.factory.xml.layout.XmlFloatFactory;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
-import org.openfuxml.factory.xml.table.OfxCellFactory;
-import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.table.XmlCellFactory;
+import org.openfuxml.factory.xml.table.XmlColumnFactory;
 import org.openfuxml.util.OfxCommentBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -100,10 +100,10 @@ public class OfxQaAgreementTableFactory extends AbstractUtilsOfxDocumentationFac
 	private Specification createSpecifications()
 	{
 		Columns cols = new Columns();
-		cols.getColumn().add(OfxColumnFactory.build(XmlAlignmentFactory.Horizontal.left));
-		cols.getColumn().add(OfxColumnFactory.flex(80));
-		cols.getColumn().add(OfxColumnFactory.build(XmlAlignmentFactory.Horizontal.center));
-		cols.getColumn().add(OfxColumnFactory.build(XmlAlignmentFactory.Horizontal.center));
+		cols.getColumn().add(XmlColumnFactory.build(XmlAlignmentFactory.Horizontal.left));
+		cols.getColumn().add(XmlColumnFactory.flex(80));
+		cols.getColumn().add(XmlColumnFactory.build(XmlAlignmentFactory.Horizontal.center));
+		cols.getColumn().add(XmlColumnFactory.build(XmlAlignmentFactory.Horizontal.center));
 			
 		Specification specification = new Specification();
 		specification.setColumns(cols);
@@ -116,8 +116,8 @@ public class OfxQaAgreementTableFactory extends AbstractUtilsOfxDocumentationFac
 	{
 		Head head = new Head();
 		head.getRow().add(createHeaderRow(headerKeys));
-		head.getRow().get(0).getCell().add(OfxCellFactory.createParagraphCell(category.getQa().getClient()));
-		head.getRow().get(0).getCell().add(OfxCellFactory.createParagraphCell(category.getQa().getDeveloper()));
+		head.getRow().get(0).getCell().add(XmlCellFactory.createParagraphCell(category.getQa().getClient()));
+		head.getRow().get(0).getCell().add(XmlCellFactory.createParagraphCell(category.getQa().getDeveloper()));
 		
 		Body body = new Body();
 		for(Test staff : category.getTest())
@@ -141,10 +141,10 @@ public class OfxQaAgreementTableFactory extends AbstractUtilsOfxDocumentationFac
 		
 		try
 		{
-			row.getCell().add(OfxCellFactory.createParagraphCell(staff.getCode()));
-			row.getCell().add(OfxCellFactory.createParagraphCell(staff.getName()));
-			row.getCell().add(OfxCellFactory.image(OfxStatusImageFactory.build(imagePathPrefix,StatusXpath.getStatus(testStatus.getStatus(), staff.getStatus().getCode()))));
-			row.getCell().add(OfxCellFactory.image(OfxStatusImageFactory.build(imagePathPrefix,StatusXpath.getStatus(testStatus.getStatus(), staff.getStatement().getCode()))));
+			row.getCell().add(XmlCellFactory.createParagraphCell(staff.getCode()));
+			row.getCell().add(XmlCellFactory.createParagraphCell(staff.getName()));
+			row.getCell().add(XmlCellFactory.image(OfxStatusImageFactory.build(imagePathPrefix,StatusXpath.getStatus(testStatus.getStatus(), staff.getStatus().getCode()))));
+			row.getCell().add(XmlCellFactory.image(OfxStatusImageFactory.build(imagePathPrefix,StatusXpath.getStatus(testStatus.getStatus(), staff.getStatement().getCode()))));
 		}
 		catch (ExlpXpathNotFoundException e) {e.printStackTrace();}
 		catch (ExlpXpathNotUniqueException e) {e.printStackTrace();}

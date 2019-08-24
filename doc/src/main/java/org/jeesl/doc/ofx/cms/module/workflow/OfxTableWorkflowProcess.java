@@ -25,12 +25,12 @@ import org.openfuxml.factory.xml.list.XmlListFactory;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.factory.xml.ofx.content.structure.XmlParagraphFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
-import org.openfuxml.factory.xml.table.OfxBodyFactory;
-import org.openfuxml.factory.xml.table.OfxCellFactory;
-import org.openfuxml.factory.xml.table.OfxColumnFactory;
-import org.openfuxml.factory.xml.table.OfxColumnsFactory;
-import org.openfuxml.factory.xml.table.OfxContentFactory;
-import org.openfuxml.factory.xml.table.OfxRowFactory;
+import org.openfuxml.factory.xml.table.XmlBodyFactory;
+import org.openfuxml.factory.xml.table.XmlCellFactory;
+import org.openfuxml.factory.xml.table.XmlColumnFactory;
+import org.openfuxml.factory.xml.table.XmlColumnsFactory;
+import org.openfuxml.factory.xml.table.XmlContentFactory;
+import org.openfuxml.factory.xml.table.XmlRowFactory;
 import org.openfuxml.factory.xml.text.OfxEmphasisFactory;
 import org.openfuxml.interfaces.configuration.OfxTranslationProvider;
 import org.openfuxml.util.OfxCommentBuilder;
@@ -83,10 +83,10 @@ public class OfxTableWorkflowProcess <L extends UtilsLang, LOC extends JeeslLoca
 	
 	private Specification createSpecifications()
 	{
-		Columns cols = OfxColumnsFactory.build();
-		OfxColumnFactory.add(cols,XmlAlignmentFactory.Horizontal.left);
-		cols.getColumn().add(OfxColumnFactory.flex(80));
-		cols.getColumn().add(OfxColumnFactory.flex(80));
+		Columns cols = XmlColumnsFactory.build();
+		XmlColumnFactory.add(cols,XmlAlignmentFactory.Horizontal.left);
+		cols.getColumn().add(XmlColumnFactory.flex(80));
+		cols.getColumn().add(XmlColumnFactory.flex(80));
 			
 		Specification specification = new Specification();
 		specification.setLong(true);
@@ -98,25 +98,25 @@ public class OfxTableWorkflowProcess <L extends UtilsLang, LOC extends JeeslLoca
 	
 	private Content createContent(JeeslLocaleProvider<LOC> lp, org.jeesl.model.xml.module.workflow.Process process)
 	{
-		Body body = OfxBodyFactory.build();
+		Body body = XmlBodyFactory.build();
 		
 		for(Stage stage : process.getStage())
 		{
 			body.getRow().add(createRow(lp,process,stage));
 		}
 		
-		return OfxContentFactory.build(super.buildTableHeader(lp),body);
+		return XmlContentFactory.build(super.buildTableHeader(lp),body);
 	}
 	
 	private Row createRow(JeeslLocaleProvider<LOC> lp, org.jeesl.model.xml.module.workflow.Process process, Stage stage)
 	{		
-		Row row = OfxRowFactory.build();
+		Row row = XmlRowFactory.build();
 		row.getCell().add(ofxMultiLocale.cell(lp, stage.getLangs()));
 		
-		row.getCell().add(OfxCellFactory.createParagraphCell("role"));
+		row.getCell().add(XmlCellFactory.createParagraphCell("role"));
 		
-		if(stage.isSetTransition()) {row.getCell().add(OfxCellFactory.list(transitions(lp,process,stage.getTransition())));}
-		else {row.getCell().add(OfxCellFactory.createParagraphCell(""));}
+		if(stage.isSetTransition()) {row.getCell().add(XmlCellFactory.list(transitions(lp,process,stage.getTransition())));}
+		else {row.getCell().add(XmlCellFactory.createParagraphCell(""));}
 		
 		return row;
 	}

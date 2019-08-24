@@ -20,8 +20,8 @@ import org.openfuxml.factory.xml.layout.XmlFloatFactory;
 import org.openfuxml.factory.xml.layout.XmlFontFactory;
 import org.openfuxml.factory.xml.ofx.layout.XmlLayoutFactory;
 import org.openfuxml.factory.xml.ofx.layout.XmlLineFactory;
-import org.openfuxml.factory.xml.table.OfxCellFactory;
-import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.table.XmlCellFactory;
+import org.openfuxml.factory.xml.table.XmlColumnFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,9 +71,9 @@ public class OfxSecurityUsecaseTableFactory extends AbstractUtilsOfxDocumentatio
 		Specification spec = new Specification();
 		spec.setFloat(XmlFloatFactory.build(false));
 		spec.setColumns(new Columns());
-		spec.getColumns().getColumn().add(OfxColumnFactory.flex(15,true));
-		spec.getColumns().getColumn().add(OfxColumnFactory.flex(30,true));
-		spec.getColumns().getColumn().add(OfxColumnFactory.flex(55,false));
+		spec.getColumns().getColumn().add(XmlColumnFactory.flex(15,true));
+		spec.getColumns().getColumn().add(XmlColumnFactory.flex(30,true));
+		spec.getColumns().getColumn().add(XmlColumnFactory.flex(55,false));
 		
 		return spec;
 	}
@@ -127,7 +127,7 @@ public class OfxSecurityUsecaseTableFactory extends AbstractUtilsOfxDocumentatio
 					}
 					else
 					{
-						row.getCell().add(OfxCellFactory.createParagraphCell(""));
+						row.getCell().add(XmlCellFactory.createParagraphCell(""));
 					}
 					row.getCell().add(OfxMultiLangFactory.cell(langs, XmlActionFactory.toLangs(action)));
 					row.getCell().add(OfxMultiLangFactory.cell(langs, XmlActionFactory.toDescriptions(action)));
@@ -152,8 +152,8 @@ public class OfxSecurityUsecaseTableFactory extends AbstractUtilsOfxDocumentatio
 	{
 		Row row = new Row();
 		row.getCell().add(OfxMultiLangFactory.cell(langs, view.getLangs()));
-		row.getCell().add(OfxCellFactory.createParagraphCell(""));
-		row.getCell().add(OfxCellFactory.createParagraphCell(""));
+		row.getCell().add(XmlCellFactory.createParagraphCell(""));
+		row.getCell().add(XmlCellFactory.createParagraphCell(""));
 		return row;
 	}
 }

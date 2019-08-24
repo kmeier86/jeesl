@@ -18,8 +18,8 @@ import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.layout.XmlFloatFactory;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
-import org.openfuxml.factory.xml.table.OfxCellFactory;
-import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.table.XmlCellFactory;
+import org.openfuxml.factory.xml.table.XmlColumnFactory;
 import org.openfuxml.interfaces.configuration.DefaultSettingsManager;
 import org.openfuxml.interfaces.media.CrossMediaManager;
 import org.openfuxml.util.OfxCommentBuilder;
@@ -75,9 +75,9 @@ public class OfxXlsDefinitionFactory extends AbstractUtilsOfxDocumentationFactor
 	private Specification createSpecifications()
 	{
 		Columns cols = new Columns();
-		cols.getColumn().add(OfxColumnFactory.flex(15,true));
-		cols.getColumn().add(OfxColumnFactory.flex(35,true));
-		cols.getColumn().add(OfxColumnFactory.flex(50));
+		cols.getColumn().add(XmlColumnFactory.flex(15,true));
+		cols.getColumn().add(XmlColumnFactory.flex(35,true));
+		cols.getColumn().add(XmlColumnFactory.flex(50));
 			
 		
 		Specification specification = new Specification();
@@ -114,7 +114,7 @@ public class OfxXlsDefinitionFactory extends AbstractUtilsOfxDocumentationFactor
 		sb.append(xlsColumn.getColumn());
 		if(xlsColumn.isRequired()){sb.append(" (required)");}
 		
-		row.getCell().add(OfxCellFactory.createParagraphCell(sb.toString()));
+		row.getCell().add(XmlCellFactory.createParagraphCell(sb.toString()));
 		row.getCell().add(OfxMultiLangFactory.cell(langs, xlsColumn.getLangs()));
 		row.getCell().add(OfxMultiLangFactory.cell(langs, xlsColumn.getDescriptions()));
 		

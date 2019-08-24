@@ -14,7 +14,7 @@ import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.ofx.content.structure.XmlParagraphFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
 import org.openfuxml.factory.xml.ofx.list.XmlListItemFactory;
-import org.openfuxml.factory.xml.table.OfxCellFactory;
+import org.openfuxml.factory.xml.table.XmlCellFactory;
 import org.openfuxml.factory.xml.text.OfxTextFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,7 +56,7 @@ public class OfxMultiLangFactory<L extends UtilsLang>
 	
 	public <S extends UtilsStatus<S,L,D>, D extends UtilsDescription> Cell cellLabel(UtilsStatus<S,L,D> status)
 	{
-		Cell cell = OfxCellFactory.build();
+		Cell cell = XmlCellFactory.build();
 //		if(font!=null){cell.getContent().add(font);}
 		cell.getContent().addAll(paragraphLabels(status));
 		return cell;
@@ -96,7 +96,7 @@ public class OfxMultiLangFactory<L extends UtilsLang>
 	
 	public static Cell cell(String[] keys, Translations translations, String key) throws OfxAuthoringException
 	{
-		Cell cell = OfxCellFactory.build();
+		Cell cell = XmlCellFactory.build();
 		for(String lang : keys)
 		{
 			try
@@ -143,7 +143,7 @@ public class OfxMultiLangFactory<L extends UtilsLang>
 			catch (ExlpXpathNotFoundException e) {logger.warn(e.getMessage());}
 			catch (ExlpXpathNotUniqueException e) {logger.warn(e.getMessage());}
 		}
-		return OfxCellFactory.createParagraphCell(code);
+		return XmlCellFactory.createParagraphCell(code);
 	}
 	public static Cell cell(String[] langs, String code, Container container)
 	{
@@ -157,7 +157,7 @@ public class OfxMultiLangFactory<L extends UtilsLang>
 			catch (ExlpXpathNotFoundException e) {logger.warn(e.getMessage());}
 			catch (ExlpXpathNotUniqueException e) {logger.warn(e.getMessage());}
 		}
-		return OfxCellFactory.createParagraphCell(code);
+		return XmlCellFactory.createParagraphCell(code);
 	}
 	
 	
@@ -165,7 +165,7 @@ public class OfxMultiLangFactory<L extends UtilsLang>
 
 	public static Cell cell(String[] keys, Langs langs, Font font)
 	{
-		Cell cell = OfxCellFactory.build();
+		Cell cell = XmlCellFactory.build();
 		if(font!=null){cell.getContent().add(font);}
 		cell.getContent().addAll(paragraph(keys,langs));
 		return cell;
@@ -174,7 +174,7 @@ public class OfxMultiLangFactory<L extends UtilsLang>
 	public static Cell cell(String[] keys, Descriptions descriptions) throws OfxAuthoringException {return cell(keys,descriptions,null);}
 	public static Cell cell(String[] keys, Descriptions descriptions, Font font) throws OfxAuthoringException
 	{
-		Cell cell = OfxCellFactory.build();
+		Cell cell = XmlCellFactory.build();
 		if(font!=null){cell.getContent().add(font);}
 		cell.getContent().addAll(paragraph(keys,descriptions));
 		return cell;

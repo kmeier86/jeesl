@@ -27,8 +27,8 @@ import org.openfuxml.factory.xml.layout.XmlAlignmentFactory;
 import org.openfuxml.factory.xml.layout.XmlFloatFactory;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
-import org.openfuxml.factory.xml.table.OfxCellFactory;
-import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.table.XmlCellFactory;
+import org.openfuxml.factory.xml.table.XmlColumnFactory;
 import org.openfuxml.util.OfxCommentBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,8 +85,8 @@ public class OfxQaRoleTableFactory extends AbstractUtilsOfxDocumentationFactory
 	{
 		Specification specification = new Specification();
 		Columns cols = new Columns();
-		OfxColumnFactory.add(cols,XmlAlignmentFactory.Horizontal.left);
-		cols.getColumn().add(OfxColumnFactory.flex(80));
+		XmlColumnFactory.add(cols,XmlAlignmentFactory.Horizontal.left);
+		cols.getColumn().add(XmlColumnFactory.flex(80));
 		specification.setColumns(cols);
 		specification.setFloat(XmlFloatFactory.build(false));
 		return specification;
@@ -125,8 +125,8 @@ public class OfxQaRoleTableFactory extends AbstractUtilsOfxDocumentationFactory
 		catch (ExlpXpathNotUniqueException e){roleName = e.getMessage();}
 
 		Row row = new Row();
-		row.getCell().add(OfxCellFactory.createParagraphCell(roleName));
-		row.getCell().add(OfxCellFactory.createParagraphCell(roleDesc));
+		row.getCell().add(XmlCellFactory.createParagraphCell(roleName));
+		row.getCell().add(XmlCellFactory.createParagraphCell(roleDesc));
 		
 		return row;
 	}	

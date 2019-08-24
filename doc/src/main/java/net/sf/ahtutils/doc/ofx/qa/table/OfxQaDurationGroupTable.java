@@ -18,8 +18,8 @@ import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.layout.XmlFloatFactory;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
-import org.openfuxml.factory.xml.table.OfxCellFactory;
-import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.table.XmlCellFactory;
+import org.openfuxml.factory.xml.table.XmlColumnFactory;
 import org.openfuxml.util.OfxCommentBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,9 +83,9 @@ public class OfxQaDurationGroupTable extends AbstractUtilsOfxDocumentationFactor
 	private Specification createSpecifications()
 	{
 		Columns cols = new Columns();
-		cols.getColumn().add(OfxColumnFactory.flex(45,false));
-		cols.getColumn().add(OfxColumnFactory.flex(15,true));
-		cols.getColumn().add(OfxColumnFactory.flex(40,true));
+		cols.getColumn().add(XmlColumnFactory.flex(45,false));
+		cols.getColumn().add(XmlColumnFactory.flex(15,true));
+		cols.getColumn().add(XmlColumnFactory.flex(40,true));
 		
 		Specification specification = new Specification();
 		specification.setColumns(cols);
@@ -116,11 +116,11 @@ public class OfxQaDurationGroupTable extends AbstractUtilsOfxDocumentationFactor
 	{
 		Row row = new Row();
 		JaxbUtil.trace(group);
-		row.getCell().add(OfxCellFactory.createParagraphCell(group.getName()));		
+		row.getCell().add(XmlCellFactory.createParagraphCell(group.getName()));		
 		
 		int[] total = getSumForGroup(categories,group);
-		row.getCell().add(OfxCellFactory.createParagraphCell(""+total[0]));
-		row.getCell().add(OfxCellFactory.createParagraphCell(""+tfPeriod.debug(total[1])));
+		row.getCell().add(XmlCellFactory.createParagraphCell(""+total[0]));
+		row.getCell().add(XmlCellFactory.createParagraphCell(""+tfPeriod.debug(total[1])));
 		
 		return row;
 	}

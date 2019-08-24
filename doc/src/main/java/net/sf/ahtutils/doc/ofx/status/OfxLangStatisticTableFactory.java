@@ -21,8 +21,8 @@ import org.openfuxml.content.table.Specification;
 import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.ConfigurationProviderFacotry;
-import org.openfuxml.factory.xml.table.OfxCellFactory;
-import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.table.XmlCellFactory;
+import org.openfuxml.factory.xml.table.XmlColumnFactory;
 import org.openfuxml.interfaces.configuration.ConfigurationProvider;
 import org.openfuxml.interfaces.configuration.DefaultSettingsManager;
 import org.openfuxml.interfaces.media.CrossMediaManager;
@@ -84,10 +84,10 @@ public class OfxLangStatisticTableFactory
 	private Specification createSpecifications()
 	{
 		Columns cols = new Columns();
-		cols.getColumn().add(OfxColumnFactory.relative(30));
-		cols.getColumn().add(OfxColumnFactory.relative(10));
-		cols.getColumn().add(OfxColumnFactory.relative(10));
-		cols.getColumn().add(OfxColumnFactory.relative(10));
+		cols.getColumn().add(XmlColumnFactory.relative(30));
+		cols.getColumn().add(XmlColumnFactory.relative(10));
+		cols.getColumn().add(XmlColumnFactory.relative(10));
+		cols.getColumn().add(XmlColumnFactory.relative(10));
 		
 		Specification specification = new Specification();
 		specification.setColumns(cols);
@@ -100,7 +100,7 @@ public class OfxLangStatisticTableFactory
 		Row row = new Row();
 		for(String headerKey : headerKeys)
 		{
-			row.getCell().add(OfxCellFactory.createParagraphCell(StatusXpath.getLang(translations, headerKey, lang).getTranslation()));
+			row.getCell().add(XmlCellFactory.createParagraphCell(StatusXpath.getLang(translations, headerKey, lang).getTranslation()));
 		}
 		
 		Head head = new Head();
@@ -122,10 +122,10 @@ public class OfxLangStatisticTableFactory
 	private Row createRow(TranslationStatistic stat) throws ExlpXpathNotFoundException, ExlpXpathNotUniqueException
 	{		
 		Row row = new Row();
-		row.getCell().add(OfxCellFactory.createParagraphCell(stat.getFile()));
-		row.getCell().add(OfxCellFactory.createParagraphCell(stat.getAllTranslations()));
-		row.getCell().add(OfxCellFactory.createParagraphCell(stat.getVersionOutdated()));
-		row.getCell().add(OfxCellFactory.createParagraphCell(stat.getMissing()));
+		row.getCell().add(XmlCellFactory.createParagraphCell(stat.getFile()));
+		row.getCell().add(XmlCellFactory.createParagraphCell(stat.getAllTranslations()));
+		row.getCell().add(XmlCellFactory.createParagraphCell(stat.getVersionOutdated()));
+		row.getCell().add(XmlCellFactory.createParagraphCell(stat.getMissing()));
 		return row;
 	}	
 }

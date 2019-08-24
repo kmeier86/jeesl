@@ -17,7 +17,7 @@ import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.layout.XmlFloatFactory;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
-import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.table.XmlColumnFactory;
 import org.openfuxml.util.OfxCommentBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,9 +76,9 @@ public class OfxConstraintTableFactory extends AbstractUtilsOfxDocumentationFact
 	private Specification createSpecifications()
 	{
 		Columns cols = new Columns();
-		cols.getColumn().add(OfxColumnFactory.flex(20,true));
+		cols.getColumn().add(XmlColumnFactory.flex(20,true));
 //		cols.getColumn().add(OfxColumnFactory.flex(20,true));
-		cols.getColumn().add(OfxColumnFactory.flex(60));
+		cols.getColumn().add(XmlColumnFactory.flex(60));
 			
 		Specification specification = new Specification();
 		specification.setColumns(cols);

@@ -18,8 +18,8 @@ import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.layout.XmlFloatFactory;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
-import org.openfuxml.factory.xml.table.OfxCellFactory;
-import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.table.XmlCellFactory;
+import org.openfuxml.factory.xml.table.XmlColumnFactory;
 import org.openfuxml.util.OfxCommentBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,9 +82,9 @@ public class OfxQaDurationFrCategoryTable extends AbstractUtilsOfxDocumentationF
 	private Specification createSpecifications()
 	{
 		Columns cols = new Columns();
-		cols.getColumn().add(OfxColumnFactory.flex(15,true));
-		cols.getColumn().add(OfxColumnFactory.flex(65,false));
-		cols.getColumn().add(OfxColumnFactory.flex(20,true));
+		cols.getColumn().add(XmlColumnFactory.flex(15,true));
+		cols.getColumn().add(XmlColumnFactory.flex(65,false));
+		cols.getColumn().add(XmlColumnFactory.flex(20,true));
 		
 		Specification specification = new Specification();
 		specification.setColumns(cols);
@@ -118,9 +118,9 @@ public class OfxQaDurationFrCategoryTable extends AbstractUtilsOfxDocumentationF
 	{
 		Row row = new Row();
 		JaxbUtil.trace(test);
-		row.getCell().add(OfxCellFactory.createParagraphCell(test.getCode()));
-		row.getCell().add(OfxCellFactory.createParagraphCell(test.getName()));
-		row.getCell().add(OfxCellFactory.createParagraphCell(tfPeriod.debug(test.getDuration())));
+		row.getCell().add(XmlCellFactory.createParagraphCell(test.getCode()));
+		row.getCell().add(XmlCellFactory.createParagraphCell(test.getName()));
+		row.getCell().add(XmlCellFactory.createParagraphCell(tfPeriod.debug(test.getDuration())));
 		
 		return row;
 	}

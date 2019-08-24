@@ -28,8 +28,8 @@ import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
 import org.openfuxml.factory.xml.ofx.layout.XmlLayoutFactory;
 import org.openfuxml.factory.xml.ofx.layout.XmlLineFactory;
-import org.openfuxml.factory.xml.table.OfxCellFactory;
-import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.table.XmlCellFactory;
+import org.openfuxml.factory.xml.table.XmlColumnFactory;
 import org.openfuxml.factory.xml.text.OfxTextFactory;
 import org.openfuxml.util.OfxCommentBuilder;
 import org.slf4j.Logger;
@@ -174,7 +174,7 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 				
 				if(headers.containsKey(code))
 				{
-					Cell cell = OfxCellFactory.build();
+					Cell cell = XmlCellFactory.build();
 					for(String lang : langs)
 					{
 						try
@@ -191,7 +191,7 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 				}
 				else
 				{
-					row.getCell().add(OfxCellFactory.build());
+					row.getCell().add(XmlCellFactory.build());
 				}
 			}
 		}
@@ -246,16 +246,16 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 		
 		if(parentString!=null)
 		{
-			row.getCell().add(OfxCellFactory.createParagraphCell(parentString));
+			row.getCell().add(XmlCellFactory.createParagraphCell(parentString));
 		}
 		
 		if(renderColumn.get(Code.icon))
 		{
-			row.getCell().add(OfxCellFactory.image(OfxStatusImageFactory.build(imagePathPrefix,status)));
+			row.getCell().add(XmlCellFactory.image(OfxStatusImageFactory.build(imagePathPrefix,status)));
 		}
 		
-		Cell cellLabel = OfxCellFactory.build();
-		Cell cellDescription = OfxCellFactory.build();
+		Cell cellLabel = XmlCellFactory.build();
+		Cell cellDescription = XmlCellFactory.build();
 		
 		for(String lang : langs)
 		{
@@ -292,17 +292,17 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 		if(renderColumn.get(Code.parent))
 		{
 			int w=20;flexWidth=flexWidth+w;
-			cols.getColumn().add(OfxColumnFactory.flex(w));
+			cols.getColumn().add(XmlColumnFactory.flex(w));
 		}
 		
 		if(renderColumn.get(Code.icon))
 		{
-			OfxColumnFactory.add(cols,XmlAlignmentFactory.Horizontal.center);
+			XmlColumnFactory.add(cols,XmlAlignmentFactory.Horizontal.center);
 		}
 		
 		if(renderColumn.get(Code.code))
 		{
-			OfxColumnFactory.add(cols,XmlAlignmentFactory.Horizontal.left);
+			XmlColumnFactory.add(cols,XmlAlignmentFactory.Horizontal.left);
 		}
 		
 		Code code = Code.name;
@@ -315,7 +315,7 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 			else
 			{
 				int w=30;flexWidth=flexWidth+w;
-				Column c = OfxColumnFactory.flex(w);
+				Column c = XmlColumnFactory.flex(w);
 				c.getWidth().setNarrow(true);
 				cols.getColumn().add(c);
 			}		
@@ -323,7 +323,7 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 		
 		if(renderColumn.get(Code.description))
 		{
-			cols.getColumn().add(OfxColumnFactory.flex(100-flexWidth));
+			cols.getColumn().add(XmlColumnFactory.flex(100-flexWidth));
 		}
 		
 		Specification specification = new Specification();
@@ -417,7 +417,7 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 				
 				if(previousParentCode.equals(actualParentcode))
 				{
-					row.getCell().add(OfxCellFactory.createParagraphCell(""));
+					row.getCell().add(XmlCellFactory.createParagraphCell(""));
 				}
 				else
 				{
@@ -438,11 +438,11 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 			}
 			else if(code.equals(Code.icon))
 			{
-				row.getCell().add(OfxCellFactory.image(OfxStatusImageFactory.build(imagePathPrefix,status)));
+				row.getCell().add(XmlCellFactory.image(OfxStatusImageFactory.build(imagePathPrefix,status)));
 			}
 			else if(code.equals(Code.code))
 			{
-				row.getCell().add(OfxCellFactory.createParagraphCell(status.getCode()));
+				row.getCell().add(XmlCellFactory.createParagraphCell(status.getCode()));
 			}
 			else if(code.equals(Code.name))
 			{
@@ -475,31 +475,31 @@ public class OfxStatusTableFactory extends AbstractUtilsOfxDocumentationFactory
 			{
 				headerKey = "auStatusTableParent"+StringUtil.slash2Camel(parentKey);
 				head.getRow().get(0).getCell().add(OfxMultiLangFactory.cell(langs, translations, headerKey));
-				specs.getColumns().getColumn().add(OfxColumnFactory.flex(20,code.equals(narrowColumn)));
+				specs.getColumns().getColumn().add(XmlColumnFactory.flex(20,code.equals(narrowColumn)));
 			}
 			else if(code.equals(Code.icon))
 			{
 				headerKey = null;
-				head.getRow().get(0).getCell().add(OfxCellFactory.build());
-				OfxColumnFactory.add(specs.getColumns(),XmlAlignmentFactory.Horizontal.center);
+				head.getRow().get(0).getCell().add(XmlCellFactory.build());
+				XmlColumnFactory.add(specs.getColumns(),XmlAlignmentFactory.Horizontal.center);
 			}
 			else if(code.equals(Code.code))
 			{
 				headerKey = "auStatusTableCode";
 				head.getRow().get(0).getCell().add(OfxMultiLangFactory.cell(langs, translations, headerKey));
-				specs.getColumns().getColumn().add(OfxColumnFactory.flex(10,code.equals(narrowColumn)));
+				specs.getColumns().getColumn().add(XmlColumnFactory.flex(10,code.equals(narrowColumn)));
 			}
 			else if(code.equals(Code.name))
 			{
 				headerKey = "auStatusTableName";
 				head.getRow().get(0).getCell().add(OfxMultiLangFactory.cell(langs, translations, headerKey));
-				specs.getColumns().getColumn().add(OfxColumnFactory.flex(30,code.equals(narrowColumn)));
+				specs.getColumns().getColumn().add(XmlColumnFactory.flex(30,code.equals(narrowColumn)));
 			}
 			else if(code.equals(Code.description))
 			{
 				headerKey = "auStatusTableDescription";
 				head.getRow().get(0).getCell().add(OfxMultiLangFactory.cell(langs, translations, headerKey));
-				specs.getColumns().getColumn().add(OfxColumnFactory.flex(60,code.equals(narrowColumn)));
+				specs.getColumns().getColumn().add(XmlColumnFactory.flex(60,code.equals(narrowColumn)));
 			}
 			if(headerKey!=null){DocumentationCommentBuilder.tableKey(comment,headerKey,"Table Header ("+headerNr+")");}
 			headerNr++;

@@ -11,7 +11,7 @@ import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.exception.OfxConfigurationException;
 import org.openfuxml.factory.xml.layout.XmlAlignmentFactory;
-import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.table.XmlColumnFactory;
 import org.openfuxml.interfaces.configuration.ConfigurationProvider;
 import org.openfuxml.renderer.latex.OfxMultiLangLatexWriter;
 import org.slf4j.Logger;
@@ -107,7 +107,7 @@ public class LatexQaWriter
 	public void writeQaStatusResult(Aht aht, String id, String file) throws OfxAuthoringException, UtilsConfigurationException, IOException
 	{
 		ofStatus.renderColumn(Code.icon, true);
-		ofStatus.renderColumn(Code.name, true,OfxColumnFactory.build(XmlAlignmentFactory.Horizontal.left));
+		ofStatus.renderColumn(Code.name, true,XmlColumnFactory.build(XmlAlignmentFactory.Horizontal.left));
 		
 		Table table = ofStatus.buildLatexTable(id,aht);
 		ofxMlw.table("qa/status/"+file, table, "table");

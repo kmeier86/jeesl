@@ -18,8 +18,8 @@ import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.layout.XmlAlignmentFactory;
 import org.openfuxml.factory.xml.layout.XmlFloatFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
-import org.openfuxml.factory.xml.table.OfxCellFactory;
-import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.table.XmlCellFactory;
+import org.openfuxml.factory.xml.table.XmlColumnFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -80,9 +80,9 @@ public class OfxQaNfrQuestionTableFactory extends AbstractUtilsOfxDocumentationF
 		spec.setFloat(XmlFloatFactory.build(false));
 		
 		spec.setColumns(new Columns());
-		OfxColumnFactory.add(spec.getColumns(),XmlAlignmentFactory.Horizontal.left);
-		spec.getColumns().getColumn().add(OfxColumnFactory.flex(80));
-		OfxColumnFactory.add(spec.getColumns(),XmlAlignmentFactory.Horizontal.center);
+		XmlColumnFactory.add(spec.getColumns(),XmlAlignmentFactory.Horizontal.left);
+		spec.getColumns().getColumn().add(XmlColumnFactory.flex(80));
+		XmlColumnFactory.add(spec.getColumns(),XmlAlignmentFactory.Horizontal.center);
 		
 		return spec;
 	}
@@ -112,8 +112,8 @@ public class OfxQaNfrQuestionTableFactory extends AbstractUtilsOfxDocumentationF
 	{
 		Row row = new Row();
 		
-		row.getCell().add(OfxCellFactory.createParagraphCell(q.getPosition()));
-		row.getCell().add(OfxCellFactory.createParagraphCell(q.getQuestion().getValue()));
+		row.getCell().add(XmlCellFactory.createParagraphCell(q.getPosition()));
+		row.getCell().add(XmlCellFactory.createParagraphCell(q.getQuestion().getValue()));
 		row.getCell().add(OfxMultiLangFactory.cell(langs, q.getUnit().getCode(), units));
 		
 		return row;

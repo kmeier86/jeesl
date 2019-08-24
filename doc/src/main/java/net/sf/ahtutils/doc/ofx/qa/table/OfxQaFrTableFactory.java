@@ -14,8 +14,8 @@ import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.layout.XmlAlignmentFactory;
 import org.openfuxml.factory.xml.layout.XmlFloatFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
-import org.openfuxml.factory.xml.table.OfxCellFactory;
-import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.table.XmlCellFactory;
+import org.openfuxml.factory.xml.table.XmlColumnFactory;
 import org.openfuxml.trancoder.html.HtmlTranscoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,8 +64,8 @@ public class OfxQaFrTableFactory extends AbstractUtilsOfxDocumentationFactory
 	private Specification createTableSpecifications()
 	{
 		Columns cols = new Columns();
-		OfxColumnFactory.add(cols,XmlAlignmentFactory.Horizontal.left);
-		cols.getColumn().add(OfxColumnFactory.flex(80));
+		XmlColumnFactory.add(cols,XmlAlignmentFactory.Horizontal.left);
+		cols.getColumn().add(XmlColumnFactory.flex(80));
 		
 		Specification specification = new Specification();
 		specification.setFloat(XmlFloatFactory.build(false));
@@ -77,8 +77,8 @@ public class OfxQaFrTableFactory extends AbstractUtilsOfxDocumentationFactory
 	protected Row createHeaderRow(Test test)
 	{
 		Row row = new Row();
-		row.getCell().add(OfxCellFactory.createParagraphCell("Test Case"));
-		row.getCell().add(OfxCellFactory.createParagraphCell(test.getCode()));
+		row.getCell().add(XmlCellFactory.createParagraphCell("Test Case"));
+		row.getCell().add(XmlCellFactory.createParagraphCell(test.getCode()));
 		
 		return row;
 	}
@@ -108,22 +108,22 @@ public class OfxQaFrTableFactory extends AbstractUtilsOfxDocumentationFactory
 	private Row buildTitle(Test test)
 	{
 		Row row = new Row();
-		row.getCell().add(OfxCellFactory.createParagraphCell("Title"));
-		row.getCell().add(OfxCellFactory.createParagraphCell(test.getName()));
+		row.getCell().add(XmlCellFactory.createParagraphCell("Title"));
+		row.getCell().add(XmlCellFactory.createParagraphCell(test.getName()));
 		return row;
 	}
 	
 	private Row buildReference(Test test)
 	{
 		Row row = new Row();
-		row.getCell().add(OfxCellFactory.createParagraphCell("Reference"));
+		row.getCell().add(XmlCellFactory.createParagraphCell("Reference"));
 		if(test.isSetReference() && test.getReference().isSetValue())
 		{
-			row.getCell().add(OfxCellFactory.createParagraphCell(test.getReference().getValue()));
+			row.getCell().add(XmlCellFactory.createParagraphCell(test.getReference().getValue()));
 		}
 		else
 		{
-			row.getCell().add(OfxCellFactory.createParagraphCell(""));
+			row.getCell().add(XmlCellFactory.createParagraphCell(""));
 		}
 		return row;
 	}
@@ -131,15 +131,15 @@ public class OfxQaFrTableFactory extends AbstractUtilsOfxDocumentationFactory
 	private Row buildDuration(Test test)
 	{
 		Row row = new Row();
-		row.getCell().add(OfxCellFactory.createParagraphCell("Duration"));
-		row.getCell().add(OfxCellFactory.createParagraphCell(test.getDuration()+" minutes"));
+		row.getCell().add(XmlCellFactory.createParagraphCell("Duration"));
+		row.getCell().add(XmlCellFactory.createParagraphCell(test.getDuration()+" minutes"));
 		return row;
 	}
 	
 	private Row buildGroups(Groups groups)
 	{
 		Row row = new Row();
-		row.getCell().add(OfxCellFactory.createParagraphCell("Groups"));
+		row.getCell().add(XmlCellFactory.createParagraphCell("Groups"));
 		
 		StringBuffer sb = new StringBuffer();
 		for(Group g : groups.getGroup())
@@ -148,21 +148,21 @@ public class OfxQaFrTableFactory extends AbstractUtilsOfxDocumentationFactory
 		}
 		if(sb.length()>0){sb = new StringBuffer(sb.substring(0, sb.length()-2));}
 		
-		row.getCell().add(OfxCellFactory.createParagraphCell(sb.toString()));
+		row.getCell().add(XmlCellFactory.createParagraphCell(sb.toString()));
 		return row;
 	}
 	
 	private Row buildPreCondition(Test test)
 	{
 		Row row = new Row();
-		row.getCell().add(OfxCellFactory.createParagraphCell("Pre-Condition"));
+		row.getCell().add(XmlCellFactory.createParagraphCell("Pre-Condition"));
 		if(test.isSetPreCondition() && test.getPreCondition().isSetValue())
 		{
-			row.getCell().add(OfxCellFactory.createParagraphCell(test.getPreCondition().getValue()));
+			row.getCell().add(XmlCellFactory.createParagraphCell(test.getPreCondition().getValue()));
 		}
 		else
 		{
-			row.getCell().add(OfxCellFactory.createParagraphCell(""));
+			row.getCell().add(XmlCellFactory.createParagraphCell(""));
 		}
 		return row;
 	}
@@ -170,19 +170,19 @@ public class OfxQaFrTableFactory extends AbstractUtilsOfxDocumentationFactory
 	private Row buildSteps(Test test)
 	{
 		Row row = new Row();
-		row.getCell().add(OfxCellFactory.createParagraphCell("Test Steps"));
+		row.getCell().add(XmlCellFactory.createParagraphCell("Test Steps"));
 		if(test.isSetSteps() && test.getSteps().isSetValue())
 		{
 			logger.trace("Steps");
 			HtmlTranscoder transcoder = new HtmlTranscoder();
 			transcoder.transcode(test.getSteps().getValue());
-			Cell cell = OfxCellFactory.build();
+			Cell cell = XmlCellFactory.build();
 			cell.getContent().addAll(transcoder.transcode(test.getSteps().getValue()).getContent());
 			row.getCell().add(cell);
 		}
 		else
 		{
-			row.getCell().add(OfxCellFactory.createParagraphCell(""));
+			row.getCell().add(XmlCellFactory.createParagraphCell(""));
 		}
 		return row;
 	}

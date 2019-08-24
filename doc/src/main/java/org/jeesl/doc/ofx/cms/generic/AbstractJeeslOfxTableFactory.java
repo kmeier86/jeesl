@@ -13,8 +13,8 @@ import org.openfuxml.content.table.Cell;
 import org.openfuxml.content.table.Head;
 import org.openfuxml.content.table.Row;
 import org.openfuxml.factory.xml.ofx.content.structure.XmlParagraphFactory;
-import org.openfuxml.factory.xml.table.OfxCellFactory;
-import org.openfuxml.factory.xml.table.OfxHeadFactory;
+import org.openfuxml.factory.xml.table.XmlCellFactory;
+import org.openfuxml.factory.xml.table.XmlHeadFactory;
 import org.openfuxml.interfaces.configuration.OfxTranslationProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -87,7 +87,7 @@ public class AbstractJeeslOfxTableFactory<L extends UtilsLang, LOC extends Jeesl
 		logger.info("Building Head with keys:"+tableHeaderKeys.size()+" locales:"+tp.getLocaleCodes().size());
 		for(String headerKey : tableHeaderKeys)
 		{
-			Cell cell = OfxCellFactory.build();
+			Cell cell = XmlCellFactory.build();
 			for(String localeCode : tp.getLocaleCodes())
 			{
 				cell.getContent().add(XmlParagraphFactory.build(localeCode,tp.toTranslation(localeCode, headerKey)));
@@ -95,7 +95,7 @@ public class AbstractJeeslOfxTableFactory<L extends UtilsLang, LOC extends Jeesl
 			row.getCell().add(cell);
 		}
 		
-		return OfxHeadFactory.build(row);
+		return XmlHeadFactory.build(row);
 	}
 	
 	protected Head buildTableHeader(JeeslLocaleProvider<LOC> lp)
@@ -104,7 +104,7 @@ public class AbstractJeeslOfxTableFactory<L extends UtilsLang, LOC extends Jeesl
 //		logger.info("Building Head with headers:"+tableHeaders.size()+" locales:"+tp.getLocaleCodes().size());
 		for(JsonTranslation json : tableHeaders)
 		{
-			Cell cell = OfxCellFactory.build();
+			Cell cell = XmlCellFactory.build();
 			if(json.getEntity()!=null)
 			{
 				logger.trace("Building via TP "+json.getEntity()+" "+json.getCode());
@@ -128,6 +128,6 @@ public class AbstractJeeslOfxTableFactory<L extends UtilsLang, LOC extends Jeesl
 			row.getCell().add(cell);
 		}
 		
-		return OfxHeadFactory.build(row);
+		return XmlHeadFactory.build(row);
 	}
 }

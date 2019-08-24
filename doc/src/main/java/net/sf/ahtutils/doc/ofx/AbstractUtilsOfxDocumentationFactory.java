@@ -8,7 +8,7 @@ import org.jeesl.util.query.xpath.StatusXpath;
 import org.openfuxml.content.ofx.Paragraph;
 import org.openfuxml.content.table.Cell;
 import org.openfuxml.content.table.Row;
-import org.openfuxml.factory.xml.table.OfxCellFactory;
+import org.openfuxml.factory.xml.table.XmlCellFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +45,7 @@ public class AbstractUtilsOfxDocumentationFactory
 		Row row = new Row();
 		for(String headerKey : headerKeys)
 		{
-			Cell cell = OfxCellFactory.build();
+			Cell cell = XmlCellFactory.build();
 			for(String lang : langs)
 			{
 				StringBuffer sb = new StringBuffer();

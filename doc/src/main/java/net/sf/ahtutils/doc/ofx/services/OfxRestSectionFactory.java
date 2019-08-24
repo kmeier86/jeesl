@@ -34,8 +34,8 @@ import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
 import org.openfuxml.factory.xml.ofx.list.XmlListFactory;
 import org.openfuxml.factory.xml.ofx.list.XmlListFactory.Ordering;
 import org.openfuxml.factory.xml.ofx.list.XmlListItemFactory;
-import org.openfuxml.factory.xml.table.OfxCellFactory;
-import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.table.XmlCellFactory;
+import org.openfuxml.factory.xml.table.XmlColumnFactory;
 import org.openfuxml.factory.xml.text.OfxEmphasisFactory;
 import org.openfuxml.util.OfxCommentBuilder;
 import org.slf4j.Logger;
@@ -203,8 +203,8 @@ public class OfxRestSectionFactory extends AbstractUtilsOfxDocumentationFactory
 	private Specification createSpecifications()
 	{
 		Columns cols = new Columns();	
-		cols.getColumn().add(OfxColumnFactory.flex(25));
-		cols.getColumn().add(OfxColumnFactory.flex(75));
+		cols.getColumn().add(XmlColumnFactory.flex(25));
+		cols.getColumn().add(XmlColumnFactory.flex(75));
 		Specification specification = new Specification();
 		specification.setColumns(cols);
 		return specification;
@@ -213,8 +213,8 @@ public class OfxRestSectionFactory extends AbstractUtilsOfxDocumentationFactory
 	private Head buildHead()
 	{
 		Row row = new Row();
-		row.getCell().add(OfxCellFactory.createParagraphCell("Type"));
-		row.getCell().add(OfxCellFactory.createParagraphCell("Description"));
+		row.getCell().add(XmlCellFactory.createParagraphCell("Type"));
+		row.getCell().add(XmlCellFactory.createParagraphCell("Description"));
 		
 		Head head = new Head();
 		head.getRow().add(row);
@@ -225,19 +225,19 @@ public class OfxRestSectionFactory extends AbstractUtilsOfxDocumentationFactory
 	private Row httpMethod(String value)
 	{		
 		Row row = new Row();
-		row.getCell().add(OfxCellFactory.createParagraphCell("HTTP Method"));
-		row.getCell().add(OfxCellFactory.createParagraphCell(value));
+		row.getCell().add(XmlCellFactory.createParagraphCell("HTTP Method"));
+		row.getCell().add(XmlCellFactory.createParagraphCell(value));
 		return row;
 	}
 	
 	private Row path(Path value)
 	{		
 		Row row = new Row();
-		row.getCell().add(OfxCellFactory.createParagraphCell("Path"));
+		row.getCell().add(XmlCellFactory.createParagraphCell("Path"));
 		
 		Paragraph p = XmlParagraphFactory.build();
 		p.getContent().add(OfxEmphasisFactory.typewriter(value.value()));
-		Cell cell = OfxCellFactory.build();
+		Cell cell = XmlCellFactory.build();
 		cell.getContent().add(p);
 		row.getCell().add(cell);
 		
@@ -247,16 +247,16 @@ public class OfxRestSectionFactory extends AbstractUtilsOfxDocumentationFactory
 	private Row consumes(Consumes value)
 	{		
 		Row row = new Row();
-		row.getCell().add(OfxCellFactory.createParagraphCell("Consumes"));
-		row.getCell().add(OfxCellFactory.createParagraphCell(value.value()[0]));
+		row.getCell().add(XmlCellFactory.createParagraphCell("Consumes"));
+		row.getCell().add(XmlCellFactory.createParagraphCell(value.value()[0]));
 		return row;
 	}
 	
 	private Row produces(Produces value)
 	{		
 		Row row = new Row();
-		row.getCell().add(OfxCellFactory.createParagraphCell("Produces"));
-		row.getCell().add(OfxCellFactory.createParagraphCell(value.value()[0]));
+		row.getCell().add(XmlCellFactory.createParagraphCell("Produces"));
+		row.getCell().add(XmlCellFactory.createParagraphCell(value.value()[0]));
 		return row;
 	}
 }

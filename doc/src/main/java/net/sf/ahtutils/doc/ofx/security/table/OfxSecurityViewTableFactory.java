@@ -14,7 +14,7 @@ import org.openfuxml.content.table.Specification;
 import org.openfuxml.content.table.Table;
 import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.layout.XmlFloatFactory;
-import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.table.XmlColumnFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,8 +70,8 @@ final static Logger logger = LoggerFactory.getLogger(OfxSecurityUsecaseTableFact
 		Specification spec = new Specification();
 		spec.setFloat(XmlFloatFactory.build(false));
 		spec.setColumns(new Columns());
-		spec.getColumns().getColumn().add(OfxColumnFactory.flex(30,true));
-		spec.getColumns().getColumn().add(OfxColumnFactory.flex(70,false));
+		spec.getColumns().getColumn().add(XmlColumnFactory.flex(30,true));
+		spec.getColumns().getColumn().add(XmlColumnFactory.flex(70,false));
 		
 		return spec;
 	}

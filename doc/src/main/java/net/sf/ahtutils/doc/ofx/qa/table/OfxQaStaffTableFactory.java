@@ -19,8 +19,8 @@ import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.layout.XmlAlignmentFactory;
 import org.openfuxml.factory.xml.layout.XmlFloatFactory;
 import org.openfuxml.factory.xml.ofx.content.XmlCommentFactory;
-import org.openfuxml.factory.xml.table.OfxCellFactory;
-import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.table.XmlCellFactory;
+import org.openfuxml.factory.xml.table.XmlColumnFactory;
 import org.openfuxml.util.OfxCommentBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -107,22 +107,22 @@ public class OfxQaStaffTableFactory extends AbstractUtilsOfxDocumentationFactory
 		Columns cols = new Columns();
 		if(this.columns.length==2)
 		{
-			OfxColumnFactory.add(cols,XmlAlignmentFactory.Horizontal.left);
-			cols.getColumn().add(OfxColumnFactory.flex(60));
+			XmlColumnFactory.add(cols,XmlAlignmentFactory.Horizontal.left);
+			cols.getColumn().add(XmlColumnFactory.flex(60));
 		}
 		else if(this.columns.length==3)
 		{
-			OfxColumnFactory.add(cols,XmlAlignmentFactory.Horizontal.left);
-			cols.getColumn().add(OfxColumnFactory.flex(35));
-			cols.getColumn().add(OfxColumnFactory.flex(40));
+			XmlColumnFactory.add(cols,XmlAlignmentFactory.Horizontal.left);
+			cols.getColumn().add(XmlColumnFactory.flex(35));
+			cols.getColumn().add(XmlColumnFactory.flex(40));
 		}
 		else if(this.columns.length==4)
 		{
 			
-			cols.getColumn().add(OfxColumnFactory.flex(30));
-			cols.getColumn().add(OfxColumnFactory.flex(15));
-			cols.getColumn().add(OfxColumnFactory.flex(35));
-			cols.getColumn().add(OfxColumnFactory.flex(20));
+			cols.getColumn().add(XmlColumnFactory.flex(30));
+			cols.getColumn().add(XmlColumnFactory.flex(15));
+			cols.getColumn().add(XmlColumnFactory.flex(35));
+			cols.getColumn().add(XmlColumnFactory.flex(20));
 		}
 		else {logger.warn("Columns "+columns+" NYI");}
 			
@@ -163,18 +163,18 @@ public class OfxQaStaffTableFactory extends AbstractUtilsOfxDocumentationFactory
 	{
 		switch(column)
 		{
-			case organisation: return OfxCellFactory.createParagraphCell(staff.getStatus().getLabel());
-			case department: if(staff.isSetType()){return OfxCellFactory.createParagraphCell(staff.getType().getLabel());}
+			case organisation: return XmlCellFactory.createParagraphCell(staff.getStatus().getLabel());
+			case department: if(staff.isSetType()){return XmlCellFactory.createParagraphCell(staff.getType().getLabel());}
 			case organisationDepartment: StringBuffer sb = new StringBuffer();
 											if(staff.isSetStatus()){sb.append(staff.getStatus().getLabel());}
 											if(staff.isSetType() && staff.isSetStatus()){sb.append(", ");}
 											if(staff.isSetType()){sb.append(staff.getType().getLabel());}
-											return OfxCellFactory.createParagraphCell(sb.toString());
+											return XmlCellFactory.createParagraphCell(sb.toString());
 			case role: return OfxMultiLangFactory.cell(langs, staff.getRole().getLangs());
 			case responsibility: return cellResponsibility(staff);
-			case name: return OfxCellFactory.createParagraphCell(staff.getUser().getFirstName()+" "+staff.getUser().getLastName());
+			case name: return XmlCellFactory.createParagraphCell(staff.getUser().getFirstName()+" "+staff.getUser().getLastName());
 		}
-		return OfxCellFactory.createParagraphCell("");
+		return XmlCellFactory.createParagraphCell("");
 	}
 	
 	private String header(ColumCode column)
@@ -208,11 +208,11 @@ public class OfxQaStaffTableFactory extends AbstractUtilsOfxDocumentationFactory
 	{
 		if(staff.isSetResponsible() && staff.getResponsible().isSetLabel())
 		{
-			return OfxCellFactory.createParagraphCell(staff.getResponsible().getLabel());
+			return XmlCellFactory.createParagraphCell(staff.getResponsible().getLabel());
 		}
 		else
 		{
-			return OfxCellFactory.createParagraphCell("");
+			return XmlCellFactory.createParagraphCell("");
 		}
 	}
 }

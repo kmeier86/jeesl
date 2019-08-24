@@ -26,8 +26,8 @@ import org.openfuxml.exception.OfxAuthoringException;
 import org.openfuxml.factory.xml.layout.XmlAlignmentFactory;
 import org.openfuxml.factory.xml.layout.XmlFloatFactory;
 import org.openfuxml.factory.xml.ofx.content.text.XmlTitleFactory;
-import org.openfuxml.factory.xml.table.OfxCellFactory;
-import org.openfuxml.factory.xml.table.OfxColumnFactory;
+import org.openfuxml.factory.xml.table.XmlCellFactory;
+import org.openfuxml.factory.xml.table.XmlColumnFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,11 +69,11 @@ public class OfxQaFrResultTableFactory extends AbstractUtilsOfxDocumentationFact
 	private Specification createTableSpecifications()
 	{
 		Columns cols = new Columns();
-		cols.getColumn().add(OfxColumnFactory.flex(20,true));
-		cols.getColumn().add(OfxColumnFactory.flex(20,true));
-		cols.getColumn().add(OfxColumnFactory.build(XmlAlignmentFactory.Horizontal.left));
-		cols.getColumn().add(OfxColumnFactory.flex(20,true));
-		cols.getColumn().add(OfxColumnFactory.flex(60));
+		cols.getColumn().add(XmlColumnFactory.flex(20,true));
+		cols.getColumn().add(XmlColumnFactory.flex(20,true));
+		cols.getColumn().add(XmlColumnFactory.build(XmlAlignmentFactory.Horizontal.left));
+		cols.getColumn().add(XmlColumnFactory.flex(20,true));
+		cols.getColumn().add(XmlColumnFactory.flex(60));
 		
 		Specification specification = new Specification();
 		specification.setFloat(XmlFloatFactory.build(false));
@@ -85,11 +85,11 @@ public class OfxQaFrResultTableFactory extends AbstractUtilsOfxDocumentationFact
 	protected Row createHeaderRow(Test test)
 	{
 		Row row = new Row();
-		row.getCell().add(OfxCellFactory.createParagraphCell("Date"));
-		row.getCell().add(OfxCellFactory.createParagraphCell("User"));
-		row.getCell().add(OfxCellFactory.createParagraphCell("Result"));
-		row.getCell().add(OfxCellFactory.createParagraphCell("Actual"));
-		row.getCell().add(OfxCellFactory.createParagraphCell("Comment"));
+		row.getCell().add(XmlCellFactory.createParagraphCell("Date"));
+		row.getCell().add(XmlCellFactory.createParagraphCell("User"));
+		row.getCell().add(XmlCellFactory.createParagraphCell("Result"));
+		row.getCell().add(XmlCellFactory.createParagraphCell("Actual"));
+		row.getCell().add(XmlCellFactory.createParagraphCell("Comment"));
 		
 		return row;
 	}
@@ -120,13 +120,13 @@ public class OfxQaFrResultTableFactory extends AbstractUtilsOfxDocumentationFact
 		JaxbUtil.trace(result);
 		Row row = new Row();
 		
-		if(result.isSetRecord()){row.getCell().add(OfxCellFactory.createParagraphCell(df.format(result.getRecord().toGregorianCalendar().getTime())));}
-		else{row.getCell().add(OfxCellFactory.createParagraphCell(""));}
+		if(result.isSetRecord()){row.getCell().add(XmlCellFactory.createParagraphCell(df.format(result.getRecord().toGregorianCalendar().getTime())));}
+		else{row.getCell().add(XmlCellFactory.createParagraphCell(""));}
 		
-		row.getCell().add(OfxCellFactory.createParagraphCell(result.getStaff().getUser().getLastName()));
-		row.getCell().add(OfxCellFactory.image(OfxStatusImageFactory.build(imagePathPrefix,result.getStatus())));
-		row.getCell().add(OfxCellFactory.createParagraphCell(result.getActual().getValue()));
-		row.getCell().add(OfxCellFactory.createParagraphCell(result.getComment().getValue()));
+		row.getCell().add(XmlCellFactory.createParagraphCell(result.getStaff().getUser().getLastName()));
+		row.getCell().add(XmlCellFactory.image(OfxStatusImageFactory.build(imagePathPrefix,result.getStatus())));
+		row.getCell().add(XmlCellFactory.createParagraphCell(result.getActual().getValue()));
+		row.getCell().add(XmlCellFactory.createParagraphCell(result.getComment().getValue()));
 		return row;
 	}
 }
