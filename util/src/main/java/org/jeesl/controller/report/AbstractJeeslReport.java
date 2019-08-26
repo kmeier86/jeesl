@@ -83,8 +83,8 @@ public abstract class AbstractJeeslReport<L extends UtilsLang,D extends UtilsDes
 	protected boolean developmentMode; public void activateDevelopmenetMode() {developmentMode=true;}
 
 	protected String localeCode;
-	protected String jobCode;
-	protected String jobName;
+	protected String jobCode; public String getJobCode() {return jobCode;}
+	protected String jobName; public String getJobName() {return jobName;}
 	
 	protected final List<String> headers; public List<String> getHeaders() {return headers;}
 	
