@@ -13,10 +13,12 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatusFixedCode;
 import net.sf.ahtutils.interfaces.model.status.UtilsWithSymbol;
 
-public interface JeeslRevisionEntityRelation <S extends UtilsStatus<S,L,D>,
-												L extends UtilsLang, D extends UtilsDescription,
+public interface JeeslRevisionEntityRelation <L extends UtilsLang, D extends UtilsDescription,
+												S extends UtilsStatus<S,L,D>,
 												G extends JeeslGraphic<L,D,?,?,?>>
-		extends Serializable,EjbPersistable,UtilsWithSymbol,JeeslOptionRestDownload,EjbWithCodeGraphic<G>,UtilsStatusFixedCode
+		extends Serializable,EjbPersistable,UtilsWithSymbol,
+					JeeslOptionRestDownload,EjbWithCodeGraphic<G>,
+					UtilsStatusFixedCode,UtilsStatus<S,L,D>
 {	
 	public enum Code{MtoO,OtoO,OtoM,MtoM}
 }
