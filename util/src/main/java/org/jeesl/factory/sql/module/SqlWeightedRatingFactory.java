@@ -19,7 +19,10 @@ public class SqlWeightedRatingFactory
 	final static Logger logger = LoggerFactory.getLogger(SqlWeightedRatingFactory.class);
 
 
-	public static <L extends UtilsLang, D extends UtilsDescription, CATEGORY extends UtilsStatus<CATEGORY,L,D>, DOMAIN extends EjbWithId, RATING extends JeeslRating<L,D,CATEGORY,DOMAIN>>
+	public static <L extends UtilsLang, D extends UtilsDescription,
+					CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+					DOMAIN extends EjbWithId,
+					RATING extends JeeslRating<L,D,CATEGORY,DOMAIN>>
 					String build(String table, String category, String domain, Collection<RATING> ratings)
 	{
 		StringBuilder sb = new StringBuilder();
@@ -29,13 +32,15 @@ public class SqlWeightedRatingFactory
 		sb.append("FROM ").append(table).append(System.lineSeparator());
 		sb.append("INNER JOIN weights ON ").append(category.toString()).append("_id=weights.id").append(System.lineSeparator()); 
 		sb.append("GROUP BY ").append(domain).append("_id").append(System.lineSeparator());
-		sb.append("HAVING rate>0").append(System.lineSeparator());
-		sb.append("ORDER BY rate DESC");
+		sb.append("HAVING SUM(rating*weight)>0").append(System.lineSeparator());
+		sb.append("ORDER BY SUM(rating*weight) DESC");
 		sb.append(";");
 		return sb.toString();
 	}
 	
-	private static <L extends UtilsLang, D extends UtilsDescription, CATEGORY extends UtilsStatus<CATEGORY,L,D>, DOMAIN extends EjbWithId, RATING extends JeeslRating<L,D,CATEGORY,DOMAIN>>
+	private static <L extends UtilsLang, D extends UtilsDescription,
+				CATEGORY extends UtilsStatus<CATEGORY,L,D>, DOMAIN extends EjbWithId,
+				RATING extends JeeslRating<L,D,CATEGORY,DOMAIN>>
 				String weightValues(Collection<RATING> ratings)
 	{
 		List<String> pairs = new ArrayList<String>();

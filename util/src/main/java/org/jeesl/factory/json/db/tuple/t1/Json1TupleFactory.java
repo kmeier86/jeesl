@@ -1,6 +1,5 @@
 package org.jeesl.factory.json.db.tuple.t1;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +8,7 @@ import javax.persistence.Tuple;
 
 import org.jeesl.model.json.db.tuple.JsonTuple;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuple;
+import org.jeesl.util.query.sql.SqlNativeQueryHelper;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
@@ -53,8 +53,9 @@ public class Json1TupleFactory<A extends EjbWithId>
 	public Json1Tuple<A> buildCountNative(Object object)
 	{
 		Object[] array = (Object[])object;
+		SqlNativeQueryHelper.debugDataTypes(false,this.getClass().getSimpleName()+":buildCountNative", array);
         long id = ((BigInteger)array[0]).longValue();
-        long count = ((BigDecimal)array[1]).longValue();
+        long count = ((BigInteger)array[1]).longValue();
         
         Json1Tuple<A> json = new Json1Tuple<A>();
         json.setId(id);

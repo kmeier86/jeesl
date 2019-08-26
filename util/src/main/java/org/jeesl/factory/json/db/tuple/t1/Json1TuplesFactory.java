@@ -13,7 +13,6 @@ import org.jeesl.factory.ejb.util.EjbIdFactory;
 import org.jeesl.model.json.db.tuple.JsonTuple;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuple;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
-import org.jeesl.model.json.db.tuple.two.Json2Tuple;
 
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
@@ -135,6 +134,19 @@ public class Json1TuplesFactory <A extends EjbWithId>
 	}
 	
 	public Json1Tuples<A> buildCountNative(List<Object> list)
+	{
+		Json1Tuples<A> json = new Json1Tuples<A>();
+		for(Object o : list)
+		{
+			Json1Tuple<A> j = jtf.buildCountNative(o);
+			setId.add(j.getId());
+        	json.getTuples().add(j);
+		}
+		ejb1Load(json);
+		return json;
+	}
+	
+	public Json1Tuples<A> buildSumNative(List<Object> list)
 	{
 		Json1Tuples<A> json = new Json1Tuples<A>();
 		for(Object o : list)
