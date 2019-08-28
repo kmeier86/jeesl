@@ -223,6 +223,7 @@ public abstract class AbstractSurveyReportBean <L extends UtilsLang, D extends U
 	
 	private void reloadSurvey()
 	{
+		if(debugOnInfo) {logger.info("Reload Survey: "+sbhSurvey.getSelection().toString());}
 		mapDsOption.clear();
 		sections.clear();
 		mapQuestion.clear();
