@@ -68,17 +68,26 @@ public class OfxMultiLocaleFactory<L extends UtilsLang, LOC extends JeeslLocale<
 		
 		return XmlTitleFactory.build(lp.getPrimaryLocaleCode(), sb.toString());
 	}
-	public List<Title> title(JeeslLocaleProvider<LOC> lp, Langs langs)
+	public Title title(JeeslLocaleProvider<LOC> lp, Langs langs)
+	{
+		try
+		{
+			return XmlTitleFactory.build(StatusXpath.getLang(langs, lp.getPrimaryLocaleCode()).getTranslation());
+		}
+		catch (ExlpXpathNotFoundException | ExlpXpathNotUniqueException e)
+		{
+			return XmlTitleFactory.build(e.getMessage());
+		}
+	}
+	public List<Title> titles(JeeslLocaleProvider<LOC> lp, Langs langs)
 	{
 		List<Title> titles = new ArrayList<Title>();
 		for(String localeCode : lp.getLocaleCodes())
 		{
-			try {
+			try
+			{
 				titles.add(XmlTitleFactory.build(localeCode, StatusXpath.getLang(langs, localeCode).getTranslation()));
-			} catch (ExlpXpathNotFoundException | ExlpXpathNotUniqueException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} catch (ExlpXpathNotFoundException | ExlpXpathNotUniqueException e) {e.printStackTrace();}
 		}
 		return titles;
 	}

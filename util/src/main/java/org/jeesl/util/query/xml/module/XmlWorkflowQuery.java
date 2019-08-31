@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.jeesl.factory.xml.module.workflow.XmlPermissionFactory;
 import org.jeesl.factory.xml.module.workflow.XmlPermissionsFactory;
-import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
 import org.jeesl.factory.xml.system.security.XmlRoleFactory;
 import org.jeesl.factory.xml.system.status.XmlContextFactory;
 import org.jeesl.factory.xml.system.status.XmlTypeFactory;

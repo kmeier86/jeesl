@@ -87,7 +87,7 @@ public class JeeslCmsImageFactory<E extends JeeslIoCmsElement<?,?,?,?,C,FC>,
 		catch (UtilsConstraintViolationException e) {e.printStackTrace();}
 		catch (UtilsLockingException e) {e.printStackTrace();}
 		
-		JaxbUtil.info(xml);
+		JaxbUtil.trace(xml);
 		return xml;
 	}
 }
