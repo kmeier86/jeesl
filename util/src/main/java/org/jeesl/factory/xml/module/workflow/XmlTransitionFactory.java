@@ -2,10 +2,14 @@ package org.jeesl.factory.xml.module.workflow;
 
 import org.jeesl.factory.xml.system.lang.XmlDescriptionsFactory;
 import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
+import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowModificationLevel;
+import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowPermissionType;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStage;
+import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStagePermission;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStageType;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransitionType;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.model.xml.jeesl.QueryWf;
 import org.jeesl.model.xml.module.workflow.Stage;
 import org.jeesl.model.xml.module.workflow.Transition;
@@ -18,8 +22,12 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 public class XmlTransitionFactory<L extends UtilsLang, D extends UtilsDescription,
 									WS extends JeeslWorkflowStage<L,D,?,WST,WT,?>,
 									WST extends JeeslWorkflowStageType<L,D,WST,?>,
+									WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
+									WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
+									WML extends JeeslWorkflowModificationLevel<?,?,WML,?>,
 									WT extends JeeslWorkflowTransition<L,D,WS,WTT,?,?>,
-									WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>>
+									WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
+									SR extends JeeslSecurityRole<L,D,?,?,?,?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlTransitionFactory.class);
 	
@@ -29,7 +37,7 @@ public class XmlTransitionFactory<L extends UtilsLang, D extends UtilsDescriptio
 	
 	private XmlLangsFactory<L> xfLangs;
 	private XmlDescriptionsFactory<D> xfDescription;
-	private XmlStageFactory<L,D,WS,WST,WT,WTT> xfStage;
+	private XmlStageFactory<L,D,WS,WST,WSP,WPT,WML,WT,WTT,SR> xfStage;
 	
 //	public XmlTransitionFactory(QueryWf query) {this(query.getLocaleCode(),query.getStage());}
 	public XmlTransitionFactory(String localeCode, Transition q)

@@ -11,10 +11,14 @@ import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
 import org.jeesl.factory.xml.system.status.XmlContextFactory;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowContext;
 import org.jeesl.interfaces.model.module.workflow.process.JeeslWorkflowProcess;
+import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowModificationLevel;
+import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowPermissionType;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStage;
+import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStagePermission;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStageType;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransitionType;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.model.xml.jeesl.QueryWf;
 import org.jeesl.util.comparator.ejb.PositionComparator;
 import org.slf4j.Logger;
@@ -28,8 +32,12 @@ public class XmlProcessFactory<L extends UtilsLang, D extends UtilsDescription,
 								WP extends JeeslWorkflowProcess<L,D,WX,WS>,
 								WS extends JeeslWorkflowStage<L,D,WP,WST,WT,?>,
 								WST extends JeeslWorkflowStageType<L,D,WST,?>,
+								WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
+								WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
+								WML extends JeeslWorkflowModificationLevel<?,?,WML,?>,
 								WT extends JeeslWorkflowTransition<L,D,WS,WTT,?,?>,
-								WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>>
+								WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
+								SR extends JeeslSecurityRole<L,D,?,?,?,?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlProcessFactory.class);
 	
@@ -38,7 +46,7 @@ public class XmlProcessFactory<L extends UtilsLang, D extends UtilsDescription,
 	private XmlLangsFactory<L> xfLangs;
 	private XmlDescriptionsFactory<D> xfDescription;
 	private XmlContextFactory<L,D,WX> xfContext;
-	private XmlStageFactory<L,D,WS,WST,WT,WTT> xfStage;
+	private XmlStageFactory<L,D,WS,WST,WSP,WPT,WML,WT,WTT,SR> xfStage;
 	
 	private WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,?,?,?,WT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow;
 	private JeeslWorkflowFacade<L,D,?,WX,WP,WS,WST,?,?,?,WT,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fWorkflow;

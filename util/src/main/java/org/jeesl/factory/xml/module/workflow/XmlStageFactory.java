@@ -9,10 +9,14 @@ import org.jeesl.factory.builder.module.WorkflowFactoryBuilder;
 import org.jeesl.factory.xml.system.lang.XmlDescriptionsFactory;
 import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
 import org.jeesl.factory.xml.system.status.XmlTypeFactory;
+import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowModificationLevel;
+import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowPermissionType;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStage;
+import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStagePermission;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStageType;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransitionType;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.model.xml.jeesl.QueryWf;
 import org.jeesl.model.xml.module.workflow.Stage;
 import org.jeesl.util.comparator.ejb.PositionComparator;
@@ -25,8 +29,12 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 public class XmlStageFactory<L extends UtilsLang, D extends UtilsDescription,
 								WS extends JeeslWorkflowStage<L,D,?,WST,WT,?>,
 								WST extends JeeslWorkflowStageType<L,D,WST,?>,
+								WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
+								WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
+								WML extends JeeslWorkflowModificationLevel<?,?,WML,?>,
 								WT extends JeeslWorkflowTransition<L,D,WS,WTT,?,?>,
-								WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>>
+								WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
+								SR extends JeeslSecurityRole<L,D,?,?,?,?,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlStageFactory.class);
 	
@@ -35,7 +43,7 @@ public class XmlStageFactory<L extends UtilsLang, D extends UtilsDescription,
 	private XmlTypeFactory<L,D,WST> xfType;
 	private XmlLangsFactory<L> xfLangs;
 	private XmlDescriptionsFactory<D> xfDescription;
-	private XmlTransitionFactory<L,D,WS,WST,WT,WTT> xfTransition;
+	private XmlTransitionFactory<L,D,WS,WST,WSP,WPT,WML,WT,WTT,SR> xfTransition;
 	
 	private WorkflowFactoryBuilder<L,D,  ?,?,WS,WST,?,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow;
 	private JeeslWorkflowFacade<L,D,?,?,?,WS,WST,?,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fWorkflow;
