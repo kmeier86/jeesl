@@ -9,7 +9,7 @@ import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class XmlLevelFactory <S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription>
+public class XmlLevelFactory <L extends UtilsLang, D extends UtilsDescription,S extends UtilsStatus<S,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlLevelFactory.class);
 		

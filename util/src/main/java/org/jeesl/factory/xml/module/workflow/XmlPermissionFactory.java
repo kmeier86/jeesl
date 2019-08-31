@@ -26,13 +26,14 @@ public class XmlPermissionFactory<L extends UtilsLang, D extends UtilsDescriptio
 	private final Permission q;
 	
 	private XmlTypeFactory<L,D,WPT> xfType;
-	private XmlLevelFactory<WML,L,D> xfLevel;
+	private XmlLevelFactory<L,D,WML> xfLevel;
 	
 //	public XmlPermissionFactory(QueryWf query) {this(query.getLocaleCode(),query.getStage());}
 	public XmlPermissionFactory(String localeCode, Permission q)
 	{
 		this.q=q;
 		if(q.isSetType()) {xfType = new XmlTypeFactory<>(localeCode,q.getType());}
+		if(q.isSetLevel()) {xfLevel = new XmlLevelFactory<>(localeCode,q.getLevel());}
 //		if(q.isSetLangs()) {xfLangs = new XmlLangsFactory<>(q.getLangs());}
 //		if(q.isSetDescriptions()) {xfDescription = new XmlDescriptionsFactory<>(q.getDescriptions());}
 	}
@@ -45,6 +46,7 @@ public class XmlPermissionFactory<L extends UtilsLang, D extends UtilsDescriptio
 		if(q.isSetId()) {xml.setId(permission.getId());}
 		if(q.isSetPosition()) {xml.setPosition(permission.getPosition());}
 		if(q.isSetType()) {xml.setType(xfType.build(permission.getType()));}
+		if(q.isSetLevel()) {xml.setLevel(xfLevel.build(permission.getModificationLevel()));}
 		
 		return xml;
 	}

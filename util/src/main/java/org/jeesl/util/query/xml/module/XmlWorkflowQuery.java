@@ -15,6 +15,7 @@ import org.jeesl.model.xml.module.workflow.Stage;
 import org.jeesl.model.xml.module.workflow.Transition;
 import org.jeesl.util.query.xml.XmlStatusQuery;
 
+import net.sf.ahtutils.factory.xml.status.XmlLevelFactory;
 import net.sf.ahtutils.xml.security.Category;
 import net.sf.ahtutils.xml.security.Role;
 
@@ -73,6 +74,7 @@ public class XmlWorkflowQuery
 		xml.setId(0);
 		xml.setPosition(0);
 		xml.setType(XmlTypeFactory.build("",""));
+		xml.setLevel(XmlLevelFactory.build("",""));
 		xml.setRole(role());
 		return XmlPermissionsFactory.build(xml);
 	}
