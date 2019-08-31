@@ -64,7 +64,7 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extends UtilsDescription, LOC extends UtilsStatus<LOC,L,D>,
 											AX extends JeeslWorkflowContext<L,D,AX,G>,
 											WP extends JeeslWorkflowProcess<L,D,AX,AS>,
-											AS extends JeeslWorkflowStage<L,D,WP,WST,WT,G>,
+											AS extends JeeslWorkflowStage<L,D,WP,WST,WSP,WT,G>,
 											WST extends JeeslWorkflowStageType<L,D,WST,?>,
 											WSP extends JeeslWorkflowStagePermission<AS,WPT,WML,SR>,
 											WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,

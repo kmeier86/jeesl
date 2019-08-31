@@ -46,7 +46,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 public class WorkflowRestService <L extends UtilsLang, D extends UtilsDescription, LOC extends UtilsStatus<LOC,L,D>,
 									WX extends JeeslWorkflowContext<L,D,WX,?>,
 									WP extends JeeslWorkflowProcess<L,D,WX,WS>,
-									WS extends JeeslWorkflowStage<L,D,WP,WST,WT,?>,
+									WS extends JeeslWorkflowStage<L,D,WP,WST,WSP,WT,?>,
 									WST extends JeeslWorkflowStageType<L,D,WST,?>,
 									WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
 									WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
@@ -91,9 +91,9 @@ public class WorkflowRestService <L extends UtilsLang, D extends UtilsDescriptio
 	public static <L extends UtilsLang, D extends UtilsDescription, LOC extends UtilsStatus<LOC,L,D>,
 						WX extends JeeslWorkflowContext<L,D,WX,?>,
 						WP extends JeeslWorkflowProcess<L,D,WX,WS>,
-						WS extends JeeslWorkflowStage<L,D,WP,WST,WT,?>,
+						WS extends JeeslWorkflowStage<L,D,WP,WST,WSP,WT,?>,
 						WST extends JeeslWorkflowStageType<L,D,WST,?>,
-						ASP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
+						WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
 						WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
 						WML extends JeeslWorkflowModificationLevel<?,?,WML,?>,
 						WT extends JeeslWorkflowTransition<L,D,WS,WTT,SR,?>,
@@ -112,9 +112,9 @@ public class WorkflowRestService <L extends UtilsLang, D extends UtilsDescriptio
 						WY extends JeeslApprovalActivity<WT,AW,FRC,USER>,
 						FRC extends JeeslFileContainer<?,?>,
 						USER extends JeeslUser<SR>>
-			WorkflowRestService<L,D,LOC,WX,WP,WS,WST,ASP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER>
-			factory(WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,ASP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbWorkflow,
-					JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,ASP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fWorkflow)
+			WorkflowRestService<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER>
+			factory(WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fbWorkflow,
+					JeeslWorkflowFacade<L,D,LOC,WX,WP,WS,WST,WSP,WPT,WML,WT,WTT,AC,WA,AB,AO,MT,MC,SR,RE,RA,AL,AW,WY,FRC,USER> fWorkflow)
 	{
 		return new WorkflowRestService<>(fbWorkflow,fWorkflow);
 	}

@@ -18,7 +18,7 @@ import net.sf.exlp.util.io.StringUtil;
 
 public class FtlWorkflowModelFactory <L extends UtilsLang, D extends UtilsDescription,
 										WP extends JeeslWorkflowProcess<L,D,?,WS>,
-										WS extends JeeslWorkflowStage<L,D,WP,?,WT,?>,
+										WS extends JeeslWorkflowStage<L,D,WP,?,?,WT,?>,
 										WT extends JeeslWorkflowTransition<L,D,WS,?,?,?>,
 										WF extends JeeslApprovalWorkflow<WP,WS,WY>,
 										WY extends JeeslApprovalActivity<WT,WF,?,USER>,

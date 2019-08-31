@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbWorkflowFactory<AP extends JeeslWorkflowProcess<?,?,?,WS>,
-								WS extends JeeslWorkflowStage<?,?,AP,?,?,?>,
+								WS extends JeeslWorkflowStage<?,?,AP,?,?,?,?>,
 								AW extends JeeslApprovalWorkflow<AP,WS,?>
 
 >

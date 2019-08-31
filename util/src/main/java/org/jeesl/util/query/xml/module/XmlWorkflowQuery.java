@@ -3,11 +3,14 @@ package org.jeesl.util.query.xml.module;
 import java.util.Hashtable;
 import java.util.Map;
 
+import org.jeesl.factory.xml.module.workflow.XmlPermissionFactory;
+import org.jeesl.factory.xml.module.workflow.XmlPermissionsFactory;
 import org.jeesl.factory.xml.system.security.XmlRoleFactory;
-import org.jeesl.factory.xml.system.security.XmlRolesFactory;
 import org.jeesl.factory.xml.system.status.XmlContextFactory;
 import org.jeesl.factory.xml.system.status.XmlTypeFactory;
 import org.jeesl.model.xml.jeesl.QueryWf;
+import org.jeesl.model.xml.module.workflow.Permission;
+import org.jeesl.model.xml.module.workflow.Permissions;
 import org.jeesl.model.xml.module.workflow.Stage;
 import org.jeesl.model.xml.module.workflow.Transition;
 import org.jeesl.util.query.xml.XmlStatusQuery;
@@ -60,8 +63,15 @@ public class XmlWorkflowQuery
 		xml.setLangs(XmlStatusQuery.langs());
 		xml.setDescriptions(XmlStatusQuery.descriptions());
 		xml.getTransition().add(xTransition());
-		xml.setRoles(XmlRolesFactory.build(role()));
+		xml.setPermissions(permissions());
 		return xml;
+	}
+	
+	private static Permissions permissions()
+	{
+		Permission xml = XmlPermissionFactory.build();
+		xml.setRole(role());
+		return XmlPermissionsFactory.build(xml);
 	}
 	
 	private static Role role()

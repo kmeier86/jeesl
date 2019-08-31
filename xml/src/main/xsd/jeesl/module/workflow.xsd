@@ -42,8 +42,25 @@
 				<xsd:element ref="js:type" maxOccurs="1"/>
         		<xsd:element ref="js:langs" maxOccurs="1"/>
 				<xsd:element ref="js:descriptions" maxOccurs="1"/>
-				<xsd:element ref="sec:roles" maxOccurs="1"/>
+				<xsd:element ref="wf:permissions" maxOccurs="1"/>
 				<xsd:element ref="wf:transition" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="id" type="xsd:long"/>
+			<xsd:attribute name="position" type="xsd:int"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="permissions">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="wf:permission" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="id" type="xsd:long"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="permission">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="sec:role" maxOccurs="1"/>
 			</xsd:sequence>
 			<xsd:attribute name="id" type="xsd:long"/>
 			<xsd:attribute name="position" type="xsd:int"/>

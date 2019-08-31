@@ -30,7 +30,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 public class XmlProcessFactory<L extends UtilsLang, D extends UtilsDescription,
 								WX extends JeeslWorkflowContext<L,D,WX,?>,
 								WP extends JeeslWorkflowProcess<L,D,WX,WS>,
-								WS extends JeeslWorkflowStage<L,D,WP,WST,WT,?>,
+								WS extends JeeslWorkflowStage<L,D,WP,WST,WSP,WT,?>,
 								WST extends JeeslWorkflowStageType<L,D,WST,?>,
 								WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
 								WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,

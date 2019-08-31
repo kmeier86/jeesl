@@ -23,6 +23,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 public interface JeeslWorkflowStage <L extends UtilsLang, D extends UtilsDescription,
 									WP extends JeeslWorkflowProcess<L,D,?,?>,
 									WST extends JeeslWorkflowStageType<L,D,WST,?>,
+									WSP extends JeeslWorkflowStagePermission<?,?,?,?>,
 									WT extends JeeslWorkflowTransition<L,D,?,?,?,?>,
 									G extends JeeslGraphic<L,D,?,?,?>
 									>

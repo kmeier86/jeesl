@@ -12,7 +12,9 @@ public class SqlWorkflowFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(SqlWorkflowFactory.class);
 	
-	public static <WS extends JeeslWorkflowStage<?,?,?,?,?,?>, WF extends JeeslApprovalWorkflow<?,WS,?>> String updateCurrentStage(Class<WF> c, WF workflow, WS stage)
+	public static <WS extends JeeslWorkflowStage<?,?,?,?,?,?,?>,
+					WF extends JeeslApprovalWorkflow<?,WS,?>>
+						String updateCurrentStage(Class<WF> c, WF workflow, WS stage)
 	{
 		StringBuffer sb = new StringBuffer();
 		sb.append("UPDATE ");

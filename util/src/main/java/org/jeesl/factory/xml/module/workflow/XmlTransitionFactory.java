@@ -10,8 +10,6 @@ import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowStageType;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransitionType;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
-import org.jeesl.model.xml.jeesl.QueryWf;
-import org.jeesl.model.xml.module.workflow.Stage;
 import org.jeesl.model.xml.module.workflow.Transition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +18,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 
 public class XmlTransitionFactory<L extends UtilsLang, D extends UtilsDescription,
-									WS extends JeeslWorkflowStage<L,D,?,WST,WT,?>,
+									WS extends JeeslWorkflowStage<L,D,?,WST,WSP,WT,?>,
 									WST extends JeeslWorkflowStageType<L,D,WST,?>,
 									WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
 									WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
@@ -32,6 +30,7 @@ public class XmlTransitionFactory<L extends UtilsLang, D extends UtilsDescriptio
 	final static Logger logger = LoggerFactory.getLogger(XmlTransitionFactory.class);
 	
 
+	@SuppressWarnings("unused")
 	private final String localeCode;
 	private final Transition q;
 	

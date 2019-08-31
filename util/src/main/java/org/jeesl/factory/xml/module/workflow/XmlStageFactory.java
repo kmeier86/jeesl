@@ -18,6 +18,7 @@ import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransi
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransitionType;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.jeesl.model.xml.jeesl.QueryWf;
+import org.jeesl.model.xml.module.workflow.Permissions;
 import org.jeesl.model.xml.module.workflow.Stage;
 import org.jeesl.util.comparator.ejb.PositionComparator;
 import org.slf4j.Logger;
@@ -27,7 +28,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 
 public class XmlStageFactory<L extends UtilsLang, D extends UtilsDescription,
-								WS extends JeeslWorkflowStage<L,D,?,WST,WT,?>,
+								WS extends JeeslWorkflowStage<L,D,?,WST,WSP,WT,?>,
 								WST extends JeeslWorkflowStageType<L,D,WST,?>,
 								WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
 								WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
@@ -44,6 +45,7 @@ public class XmlStageFactory<L extends UtilsLang, D extends UtilsDescription,
 	private XmlLangsFactory<L> xfLangs;
 	private XmlDescriptionsFactory<D> xfDescription;
 	private XmlTransitionFactory<L,D,WS,WST,WSP,WPT,WML,WT,WTT,SR> xfTransition;
+	private XmlPermissionFactory<L,D,WS,WSP,WPT,WML,SR> xfPermission;
 	
 	private WorkflowFactoryBuilder<L,D,  ?,?,WS,WST,?,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow;
 	private JeeslWorkflowFacade<L,D,?,?,?,WS,WST,?,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fWorkflow;
@@ -56,6 +58,7 @@ public class XmlStageFactory<L extends UtilsLang, D extends UtilsDescription,
 		if(q.isSetLangs()) {xfLangs = new XmlLangsFactory<>(q.getLangs());}
 		if(q.isSetDescriptions()) {xfDescription = new XmlDescriptionsFactory<>(q.getDescriptions());}
 		if(q.isSetTransition()) {xfTransition = new XmlTransitionFactory<>(localeCode,q.getTransition().get(0));}
+		if(q.isSetPermissions() && q.getPermissions().isSetPermission()) {xfPermission = new XmlPermissionFactory<>(localeCode,q.getPermissions().getPermission().get(0));}
 	}
 	
 	public void lazy(WorkflowFactoryBuilder<L,D,  ?,?,WS,WST,?,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow,
@@ -86,6 +89,23 @@ public class XmlStageFactory<L extends UtilsLang, D extends UtilsDescription,
 			{
 				xml.getTransition().add(xfTransition.build(transition));
 			}
+		}
+		
+		if(q.isSetPermissions())
+		{
+			Permissions xPermissions = XmlPermissionsFactory.build();
+			if(q.getPermissions().isSetPermission())
+			{
+				
+				List<WSP> ePermissions = new ArrayList<WSP>();
+				
+				for(WSP permission : ePermissions)
+				{
+					xPermissions.getPermission().add(xfPermission.build(permission));
+				}
+				
+			}
+			xml.setPermissions(xPermissions);
 		}
 		
 		return xml;
