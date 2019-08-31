@@ -1,5 +1,7 @@
 package org.jeesl.factory.xml.module.workflow;
 
+import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
+import org.jeesl.factory.xml.system.security.XmlRoleFactory;
 import org.jeesl.factory.xml.system.status.XmlTypeFactory;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowModificationLevel;
 import org.jeesl.interfaces.model.module.workflow.stage.JeeslWorkflowPermissionType;
@@ -13,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.factory.xml.status.XmlLevelFactory;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
+import net.sf.ahtutils.xml.security.Role;
 
 public class XmlPermissionFactory<L extends UtilsLang, D extends UtilsDescription,
 								WS extends JeeslWorkflowStage<L,D,?,?,WSP,?,?>,
@@ -23,18 +26,22 @@ public class XmlPermissionFactory<L extends UtilsLang, D extends UtilsDescriptio
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlPermissionFactory.class);
 	
+	private final String localeCode;
 	private final Permission q;
 	
 	private XmlTypeFactory<L,D,WPT> xfType;
 	private XmlLevelFactory<L,D,WML> xfLevel;
+	private XmlLangsFactory<L> xfLangs;
 	
 //	public XmlPermissionFactory(QueryWf query) {this(query.getLocaleCode(),query.getStage());}
 	public XmlPermissionFactory(String localeCode, Permission q)
 	{
+		this.localeCode=localeCode;
 		this.q=q;
 		if(q.isSetType()) {xfType = new XmlTypeFactory<>(localeCode,q.getType());}
 		if(q.isSetLevel()) {xfLevel = new XmlLevelFactory<>(localeCode,q.getLevel());}
-//		if(q.isSetLangs()) {xfLangs = new XmlLangsFactory<>(q.getLangs());}
+		
+		if(q.isSetRole() && q.getRole().isSetLangs()) {xfLangs = new XmlLangsFactory<>(q.getRole().getLangs());}
 //		if(q.isSetDescriptions()) {xfDescription = new XmlDescriptionsFactory<>(q.getDescriptions());}
 	}
 	
@@ -47,7 +54,13 @@ public class XmlPermissionFactory<L extends UtilsLang, D extends UtilsDescriptio
 		if(q.isSetPosition()) {xml.setPosition(permission.getPosition());}
 		if(q.isSetType()) {xml.setType(xfType.build(permission.getType()));}
 		if(q.isSetLevel()) {xml.setLevel(xfLevel.build(permission.getModificationLevel()));}
-		
+		if(q.isSetRole())
+		{
+			Role role = XmlRoleFactory.build(permission.getRole().getCode());
+			if(q.getRole().isSetLangs()) {role.setLangs(xfLangs.getUtilsLangs(permission.getRole().getName()));}
+			
+			xml.setRole(role);
+		}		
 		return xml;
 	}
 }

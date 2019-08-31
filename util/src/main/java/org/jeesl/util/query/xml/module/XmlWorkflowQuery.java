@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.jeesl.factory.xml.module.workflow.XmlPermissionFactory;
 import org.jeesl.factory.xml.module.workflow.XmlPermissionsFactory;
+import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
 import org.jeesl.factory.xml.system.security.XmlRoleFactory;
 import org.jeesl.factory.xml.system.status.XmlContextFactory;
 import org.jeesl.factory.xml.system.status.XmlTypeFactory;
@@ -85,7 +86,8 @@ public class XmlWorkflowQuery
 		cat.setCode("");
 		cat.setLabel("");
 		
-		Role role = XmlRoleFactory.create("","");
+		Role role = XmlRoleFactory.build("");
+		role.setLangs(XmlStatusQuery.langs());
 		role.setCategory(cat);
 		return role;
 	}

@@ -46,14 +46,14 @@ public class XmlRoleFactory<L extends UtilsLang, D extends UtilsDescription,
 		
 	public Role build(R role)
 	{
-	    	if(logger.isTraceEnabled())
-	    	{
-	    		logger.info(StringUtil.stars());
-	    		logger.info(role.toString());
-	    		logger.info("Query: "+q.isSetDocumentation());
-	    		logger.info("\t"+(role.getDocumentation()!=null));
-	    		if(role.getDocumentation()!=null){logger.info("\t"+role.getDocumentation());}
-	    	}
+    	if(logger.isTraceEnabled())
+    	{
+    		logger.info(StringUtil.stars());
+    		logger.info(role.toString());
+    		logger.info("Query: "+q.isSetDocumentation());
+    		logger.info("\t"+(role.getDocumentation()!=null));
+    		if(role.getDocumentation()!=null){logger.info("\t"+role.getDocumentation());}
+    	}
 		
 		Role xml = new Role();
 		if(q.isSetId()){xml.setId(role.getId());}
@@ -63,7 +63,6 @@ public class XmlRoleFactory<L extends UtilsLang, D extends UtilsDescription,
 		if(q.isSetDocumentation() && role.getDocumentation()!=null){xml.setDocumentation(role.getDocumentation());}
 		
 		if(q.isSetLangs()){xml.setLangs(xfLangs.getUtilsLangs(role.getName()));}
-		
 		if(q.isSetDescriptions()) {xml.setDescriptions(xfDescriptions.create(role.getDescription()));}
 		
 		if(q.isSetViews())
