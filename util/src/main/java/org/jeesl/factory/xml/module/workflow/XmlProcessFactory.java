@@ -34,7 +34,7 @@ public class XmlProcessFactory<L extends UtilsLang, D extends UtilsDescription,
 								WST extends JeeslWorkflowStageType<L,D,WST,?>,
 								WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
 								WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
-								WML extends JeeslWorkflowModificationLevel<?,?,WML,?>,
+								WML extends JeeslWorkflowModificationLevel<L,D,WML,?>,
 								WT extends JeeslWorkflowTransition<L,D,WS,WTT,?,?>,
 								WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
 								SR extends JeeslSecurityRole<L,D,?,?,?,?,?>>
@@ -61,7 +61,7 @@ public class XmlProcessFactory<L extends UtilsLang, D extends UtilsDescription,
 		if(q.isSetStage()) {xfStage = new XmlStageFactory<>(localeCode,q.getStage().get(0));}
 	}
 	
-	public void lazy(WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,?,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow, JeeslWorkflowFacade<L,D,?,WX,WP,WS,WST,?,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fWorkflow)
+	public void lazy(WorkflowFactoryBuilder<L,D,WX,WP,WS,WST,WSP,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow, JeeslWorkflowFacade<L,D,?,WX,WP,WS,WST,WSP,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fWorkflow)
 	{
 		this.fbWorkflow=fbWorkflow;
 		this.fWorkflow=fWorkflow;

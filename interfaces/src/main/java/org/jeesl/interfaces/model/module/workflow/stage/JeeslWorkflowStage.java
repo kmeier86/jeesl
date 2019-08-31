@@ -41,4 +41,7 @@ public interface JeeslWorkflowStage <L extends UtilsLang, D extends UtilsDescrip
 	
 	List<WT> getTransitions();
 	void setTransitions(List<WT> transitions);
+	
+	List<WSP> getPermissions();
+	void setPermissions(List<WSP> permissions);
 }

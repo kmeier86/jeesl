@@ -60,6 +60,8 @@
     <xsd:element name="permission">
 		<xsd:complexType>
 			<xsd:sequence>
+				<xsd:element ref="js:type" maxOccurs="1"/>
+				<xsd:element ref="js:level" maxOccurs="1"/>
 				<xsd:element ref="sec:role" maxOccurs="1"/>
 			</xsd:sequence>
 			<xsd:attribute name="id" type="xsd:long"/>

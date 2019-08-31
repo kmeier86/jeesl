@@ -9,6 +9,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import net.sf.ahtutils.xml.security.Role;
+import net.sf.ahtutils.xml.status.Level;
+import net.sf.ahtutils.xml.status.Type;
 
 
 /**
@@ -21,6 +23,8 @@ import net.sf.ahtutils.xml.security.Role;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
+ *         &lt;element ref="{http://ahtutils.aht-group.com/status}type"/&gt;
+ *         &lt;element ref="{http://ahtutils.aht-group.com/status}level"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/security}role"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" /&gt;
@@ -34,6 +38,8 @@ import net.sf.ahtutils.xml.security.Role;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
+    "type",
+    "level",
     "role"
 })
 @XmlRootElement(name = "permission")
@@ -42,12 +48,72 @@ public class Permission
 {
 
     private final static long serialVersionUID = 1L;
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
+    protected Type type;
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
+    protected Level level;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/security", required = true)
     protected Role role;
     @XmlAttribute(name = "id")
     protected Long id;
     @XmlAttribute(name = "position")
     protected Integer position;
+
+    /**
+     * Gets the value of the type property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Type }
+     *     
+     */
+    public Type getType() {
+        return type;
+    }
+
+    /**
+     * Sets the value of the type property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Type }
+     *     
+     */
+    public void setType(Type value) {
+        this.type = value;
+    }
+
+    public boolean isSetType() {
+        return (this.type!= null);
+    }
+
+    /**
+     * Gets the value of the level property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Level }
+     *     
+     */
+    public Level getLevel() {
+        return level;
+    }
+
+    /**
+     * Sets the value of the level property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Level }
+     *     
+     */
+    public void setLevel(Level value) {
+        this.level = value;
+    }
+
+    public boolean isSetLevel() {
+        return (this.level!= null);
+    }
 
     /**
      * Gets the value of the role property.

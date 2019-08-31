@@ -70,6 +70,9 @@ public class XmlWorkflowQuery
 	private static Permissions permissions()
 	{
 		Permission xml = XmlPermissionFactory.build();
+		xml.setId(0);
+		xml.setPosition(0);
+		xml.setType(XmlTypeFactory.build("",""));
 		xml.setRole(role());
 		return XmlPermissionsFactory.build(xml);
 	}

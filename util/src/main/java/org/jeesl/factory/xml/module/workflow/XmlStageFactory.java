@@ -32,7 +32,7 @@ public class XmlStageFactory<L extends UtilsLang, D extends UtilsDescription,
 								WST extends JeeslWorkflowStageType<L,D,WST,?>,
 								WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
 								WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
-								WML extends JeeslWorkflowModificationLevel<?,?,WML,?>,
+								WML extends JeeslWorkflowModificationLevel<L,D,WML,?>,
 								WT extends JeeslWorkflowTransition<L,D,WS,WTT,?,?>,
 								WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
 								SR extends JeeslSecurityRole<L,D,?,?,?,?,?>>
@@ -47,8 +47,8 @@ public class XmlStageFactory<L extends UtilsLang, D extends UtilsDescription,
 	private XmlTransitionFactory<L,D,WS,WST,WSP,WPT,WML,WT,WTT,SR> xfTransition;
 	private XmlPermissionFactory<L,D,WS,WSP,WPT,WML,SR> xfPermission;
 	
-	private WorkflowFactoryBuilder<L,D,  ?,?,WS,WST,?,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow;
-	private JeeslWorkflowFacade<L,D,?,?,?,WS,WST,?,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fWorkflow;
+	private WorkflowFactoryBuilder<L,D,?,?,WS,WST,WSP,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow;
+	private JeeslWorkflowFacade<L,D,?,?,?,WS,WST,WSP,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fWorkflow;
 	
 	public XmlStageFactory(QueryWf query) {this(query.getLocaleCode(),query.getStage());}
 	public XmlStageFactory(String localeCode, Stage q)
@@ -61,8 +61,8 @@ public class XmlStageFactory<L extends UtilsLang, D extends UtilsDescription,
 		if(q.isSetPermissions() && q.getPermissions().isSetPermission()) {xfPermission = new XmlPermissionFactory<>(localeCode,q.getPermissions().getPermission().get(0));}
 	}
 	
-	public void lazy(WorkflowFactoryBuilder<L,D,  ?,?,WS,WST,?,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow,
-						JeeslWorkflowFacade<L,D,?,?,?,WS,WST,?,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fWorkflow)
+	public void lazy(WorkflowFactoryBuilder<L,D,  ?,?,WS,WST,WSP,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fbWorkflow,
+						JeeslWorkflowFacade<L,D,?,?,?,WS,WST,WSP,?,?,WT,WTT,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fWorkflow)
 	{
 		this.fbWorkflow=fbWorkflow;
 		this.fWorkflow=fWorkflow;
@@ -98,7 +98,8 @@ public class XmlStageFactory<L extends UtilsLang, D extends UtilsDescription,
 			{
 				
 				List<WSP> ePermissions = new ArrayList<WSP>();
-				
+				if(fbWorkflow!=null && fWorkflow!=null) {ePermissions.addAll(fWorkflow.allForParent(fbWorkflow.getClassPermission(), stage));}
+				else {ePermissions.addAll(stage.getPermissions());}
 				for(WSP permission : ePermissions)
 				{
 					xPermissions.getPermission().add(xfPermission.build(permission));
