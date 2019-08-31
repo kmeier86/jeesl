@@ -38,7 +38,7 @@ public interface JeeslWorkflowFacade <L extends UtilsLang, D extends UtilsDescri
 										WST extends JeeslWorkflowStageType<L,D,WST,?>,
 										ASP extends JeeslWorkflowStagePermission<WS,APT,WML,SR>,
 										APT extends JeeslWorkflowPermissionType<L,D,APT,?>,
-										WML extends JeeslWorkflowModificationLevel<WML,?,?,?>,
+										WML extends JeeslWorkflowModificationLevel<?,?,WML,?>,
 										WT extends JeeslWorkflowTransition<L,D,WS,WTT,SR,?>,
 										WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
 										AC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,

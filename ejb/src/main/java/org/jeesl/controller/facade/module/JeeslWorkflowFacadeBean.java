@@ -49,9 +49,9 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 									AP extends JeeslWorkflowProcess<L,D,AX,WS>,
 									WS extends JeeslWorkflowStage<L,D,AP,WST,WT,?>,
 									WST extends JeeslWorkflowStageType<L,D,WST,?>,
-									ASP extends JeeslWorkflowStagePermission<WS,APT,WML,SR>,
-									APT extends JeeslWorkflowPermissionType<L,D,APT,?>,
-									WML extends JeeslWorkflowModificationLevel<WML,?,?,?>,
+									WSP extends JeeslWorkflowStagePermission<WS,WPT,WML,SR>,
+									WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
+									WML extends JeeslWorkflowModificationLevel<?,?,WML,?>,
 									WT extends JeeslWorkflowTransition<L,D,WS,WTT,SR,?>,
 									WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
 									AC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,
@@ -69,15 +69,15 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 									FRC extends JeeslFileContainer<?,?>,
 									USER extends JeeslUser<SR>>
 					extends UtilsFacadeBean
-					implements JeeslWorkflowFacade<L,D,LOC,AX,AP,WS,WST,ASP,APT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,AW,WY,FRC,USER>
+					implements JeeslWorkflowFacade<L,D,LOC,AX,AP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,AW,WY,FRC,USER>
 {	
 	private static final long serialVersionUID = 1L;
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslWorkflowFacadeBean.class);
 	
-	private final WorkflowFactoryBuilder<L,D,AX,AP,WS,WST,ASP,APT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,AW,WY,FRC,USER> fbWorkflow;
+	private final WorkflowFactoryBuilder<L,D,AX,AP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,AW,WY,FRC,USER> fbWorkflow;
 	
-	public JeeslWorkflowFacadeBean(EntityManager em, final WorkflowFactoryBuilder<L,D,AX,AP,WS,WST,ASP,APT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,AW,WY,FRC,USER> fbApproval)
+	public JeeslWorkflowFacadeBean(EntityManager em, final WorkflowFactoryBuilder<L,D,AX,AP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,AW,WY,FRC,USER> fbApproval)
 	{
 		super(em);
 		this.fbWorkflow=fbApproval;

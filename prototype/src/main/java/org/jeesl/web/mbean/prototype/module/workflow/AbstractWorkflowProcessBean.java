@@ -68,7 +68,7 @@ public abstract class AbstractWorkflowProcessBean <L extends UtilsLang, D extend
 											WST extends JeeslWorkflowStageType<L,D,WST,?>,
 											WSP extends JeeslWorkflowStagePermission<AS,WPT,WML,SR>,
 											WPT extends JeeslWorkflowPermissionType<L,D,WPT,?>,
-											WML extends JeeslWorkflowModificationLevel<WML,?,?,?>,
+											WML extends JeeslWorkflowModificationLevel<?,?,WML,?>,
 											WT extends JeeslWorkflowTransition<L,D,AS,WTT,SR,G>,
 											WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
 											AC extends JeeslWorkflowCommunication<WT,MT,MC,SR,RE>,

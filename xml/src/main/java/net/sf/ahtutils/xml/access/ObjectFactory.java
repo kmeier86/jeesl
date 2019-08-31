@@ -38,14 +38,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Role }
-     * 
-     */
-    public Role createRole() {
-        return new Role();
-    }
-
-    /**
      * Create an instance of {@link Views }
      * 
      */
@@ -75,6 +67,14 @@ public class ObjectFactory {
      */
     public Action createAction() {
         return new Action();
+    }
+
+    /**
+     * Create an instance of {@link Role }
+     * 
+     */
+    public Role createRole() {
+        return new Role();
     }
 
     /**
