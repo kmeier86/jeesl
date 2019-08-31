@@ -7,7 +7,8 @@ import java.util.List;
 
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.commons.configuration.Configuration;
-import org.metachart.processor.graph.Graph2DotConverter;
+import org.metachart.processor.graph.ColorSchemeManager;
+import org.metachart.processor.graph.Graph1DotConverter;
 import org.metachart.xml.graph.Graph;
 import org.metachart.xml.graph.Node;
 import org.openfuxml.media.transcode.Svg2PdfTranscoder;
@@ -64,8 +65,7 @@ public class AbstractErDiagram
 		Node xml = JaxbUtil.loadJAXB(colorScheme, Node.class);
 		JaxbUtil.trace(xml);
 		
-		Graph2DotConverter gdc = new Graph2DotConverter("b");
-		gdc.setColorScheme(xml);
+		Graph1DotConverter gdc = new Graph1DotConverter(new ColorSchemeManager(xml),"b");
 		gdc.setSubSet(subset);
 		
 		gdc.setOverlap(false);

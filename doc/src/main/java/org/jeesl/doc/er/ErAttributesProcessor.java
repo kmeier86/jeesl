@@ -44,6 +44,7 @@ public class ErAttributesProcessor
     	List<File> list = finder.find(fPackage);
 		for(File f : list)
 		{
+			logger.info(f.getAbsolutePath());
 			Class<?> c = ClassUtil.forFile(fBase, f);
 			cl(c);
 		}
