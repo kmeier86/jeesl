@@ -84,8 +84,8 @@ public class OfxTableWorkflowProcess <L extends UtilsLang, LOC extends JeeslLoca
 	private Specification createSpecifications()
 	{
 		Columns cols = XmlColumnsFactory.build();
-		XmlColumnFactory.add(cols,XmlAlignmentFactory.Horizontal.left);
-		cols.getColumn().add(XmlColumnFactory.flex(80));
+		cols.getColumn().add(XmlColumnFactory.flex(20));
+		cols.getColumn().add(XmlColumnFactory.flex(40));
 		cols.getColumn().add(XmlColumnFactory.flex(80));
 			
 		Specification specification = new Specification();
@@ -144,7 +144,7 @@ public class OfxTableWorkflowProcess <L extends UtilsLang, LOC extends JeeslLoca
 				}
 				catch (ExlpXpathNotFoundException | ExlpXpathNotUniqueException e) {e.printStackTrace();}
 			}
-			list.getItem().addAll(ofxMultiLocale.listItem(lp,t.getLangs()));
+//			list.getItem().addAll(ofxMultiLocale.listItem(lp,t.getLangs()));
 		}
 		
 		return list;

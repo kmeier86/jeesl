@@ -54,27 +54,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Views }
+     * Create an instance of {@link Category }
      * 
      */
-    public Views createViews() {
-        return new Views();
+    public Category createCategory() {
+        return new Category();
     }
 
     /**
-     * Create an instance of {@link View }
+     * Create an instance of {@link Roles }
      * 
      */
-    public View createView() {
-        return new View();
-    }
-
-    /**
-     * Create an instance of {@link Access }
-     * 
-     */
-    public Access createAccess() {
-        return new Access();
+    public Roles createRoles() {
+        return new Roles();
     }
 
     /**
@@ -94,11 +86,35 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link View }
+     * 
+     */
+    public View createView() {
+        return new View();
+    }
+
+    /**
+     * Create an instance of {@link Access }
+     * 
+     */
+    public Access createAccess() {
+        return new Access();
+    }
+
+    /**
      * Create an instance of {@link Template }
      * 
      */
     public Template createTemplate() {
         return new Template();
+    }
+
+    /**
+     * Create an instance of {@link Templates }
+     * 
+     */
+    public Templates createTemplates() {
+        return new Templates();
     }
 
     /**
@@ -118,35 +134,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Staff }
+     * Create an instance of {@link Views }
      * 
      */
-    public Staff createStaff() {
-        return new Staff();
-    }
-
-    /**
-     * Create an instance of {@link Roles }
-     * 
-     */
-    public Roles createRoles() {
-        return new Roles();
-    }
-
-    /**
-     * Create an instance of {@link Category }
-     * 
-     */
-    public Category createCategory() {
-        return new Category();
-    }
-
-    /**
-     * Create an instance of {@link Templates }
-     * 
-     */
-    public Templates createTemplates() {
-        return new Templates();
+    public Views createViews() {
+        return new Views();
     }
 
     /**
@@ -155,6 +147,14 @@ public class ObjectFactory {
      */
     public Tmp createTmp() {
         return new Tmp();
+    }
+
+    /**
+     * Create an instance of {@link Staff }
+     * 
+     */
+    public Staff createStaff() {
+        return new Staff();
     }
 
     /**

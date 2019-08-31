@@ -2,7 +2,7 @@
 <xsd:schema targetNamespace="http://ahtutils.aht-group.com/security"
     xmlns:sec="http://ahtutils.aht-group.com/security"
     xmlns:a="http://ahtutils.aht-group.com/access"
-    xmlns:us="http://ahtutils.aht-group.com/status"
+    xmlns:js="http://ahtutils.aht-group.com/status"
     xmlns:n="http://ahtutils.aht-group.com/navigation"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <xsd:import namespace="http://ahtutils.aht-group.com/access" schemaLocation="access.xsd"/>
@@ -11,7 +11,7 @@
 	<xsd:element name="security">
         <xsd:complexType>
             <xsd:sequence>
-            		<xsd:element ref="n:menu" maxOccurs="1"/>
+            	<xsd:element ref="n:menu" maxOccurs="1"/>
                 <xsd:element ref="sec:category" maxOccurs="unbounded"/>
             </xsd:sequence>
         </xsd:complexType>
@@ -19,8 +19,8 @@
     <xsd:element name="category">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
                 <xsd:element ref="sec:roles" maxOccurs="1"/>
                 <xsd:element ref="sec:actions" maxOccurs="1"/>
                 <xsd:element ref="sec:templates" maxOccurs="1"/>
@@ -67,8 +67,9 @@
     <xsd:element name="role">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
+                <xsd:element ref="sec:category" maxOccurs="1"/>
                 <xsd:element ref="sec:views" maxOccurs="1"/>
                 <xsd:element ref="sec:actions" maxOccurs="1"/>
                 <xsd:element ref="sec:usecases" maxOccurs="1"/>
@@ -93,8 +94,8 @@
 	<xsd:element name="action">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
                 <xsd:element ref="sec:view" maxOccurs="1"/>
                 <xsd:element ref="sec:template" maxOccurs="1"/>
             </xsd:sequence>
@@ -116,8 +117,8 @@
 	<xsd:element name="template">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>
@@ -131,7 +132,7 @@
 	<xsd:element name="staffs">
 		<xsd:complexType>
 			<xsd:sequence>
-				<xsd:element ref="us:domain" maxOccurs="1"/>
+				<xsd:element ref="js:domain" maxOccurs="1"/>
 				<xsd:element ref="sec:role" maxOccurs="1"/>
 				<xsd:element ref="sec:staff" maxOccurs="unbounded"/>
 				<xsd:element ref="sec:staffs" maxOccurs="unbounded"/>
@@ -143,11 +144,11 @@
             <xsd:sequence>
                 <xsd:element ref="sec:role" maxOccurs="1"/>
                 <xsd:element ref="sec:user" maxOccurs="1"/>
-                <xsd:element ref="us:domain" maxOccurs="1"/> <!-- Possibility to use this individually -->
-                <xsd:element ref="us:status" maxOccurs="1"/> <!-- Possibility to use this individually -->
-                <xsd:element ref="us:type" maxOccurs="1"/> <!-- Possibility to use this individually -->
-                <xsd:element ref="us:responsible" maxOccurs="1"/> <!-- Possibility to use this individually -->
-                <xsd:element ref="us:level" maxOccurs="1"/> <!-- Possibility to use this individually -->
+                <xsd:element ref="js:domain" maxOccurs="1"/> <!-- Possibility to use this individually -->
+                <xsd:element ref="js:status" maxOccurs="1"/> <!-- Possibility to use this individually -->
+                <xsd:element ref="js:type" maxOccurs="1"/> <!-- Possibility to use this individually -->
+                <xsd:element ref="js:responsible" maxOccurs="1"/> <!-- Possibility to use this individually -->
+                <xsd:element ref="js:level" maxOccurs="1"/> <!-- Possibility to use this individually -->
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
         </xsd:complexType>
@@ -170,8 +171,8 @@
 	<xsd:element name="view">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
                 <xsd:element ref="sec:access" maxOccurs="1"/>
                 <xsd:element ref="n:navigation" maxOccurs="1"/>
                 <xsd:element ref="sec:actions" maxOccurs="1"/>
@@ -201,8 +202,8 @@
 	<xsd:element name="usecase">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="us:descriptions" maxOccurs="1"/>
-                <xsd:element ref="us:langs" maxOccurs="1"/>
+                <xsd:element ref="js:descriptions" maxOccurs="1"/>
+                <xsd:element ref="js:langs" maxOccurs="1"/>
                 <xsd:element ref="sec:actions" maxOccurs="1"/>
                 <xsd:element ref="sec:views" maxOccurs="1"/>
             </xsd:sequence>

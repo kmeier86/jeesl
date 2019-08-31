@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.commons.configuration.Configuration;
 import org.metachart.processor.graph.ColorSchemeManager;
+import org.metachart.processor.graph.GraphFileWriter;
 import org.metachart.processor.graph.Graph1DotConverter;
 import org.metachart.xml.graph.Graph;
 import org.metachart.xml.graph.Node;
@@ -75,7 +76,7 @@ public class AbstractErDiagram
 		gdc.convert(g);
 		gdc.save(fDot);
 		
-		ErImageWriter w = new ErImageWriter(type);
+		GraphFileWriter w = new GraphFileWriter(type);
 		w.svg(fDot, fDst);
 		
 		if(fPdf!=null)

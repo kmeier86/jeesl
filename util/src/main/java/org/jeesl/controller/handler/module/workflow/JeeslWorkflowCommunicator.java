@@ -57,7 +57,7 @@ public class JeeslWorkflowCommunicator <L extends UtilsLang, D extends UtilsDesc
 										WS extends JeeslWorkflowStage<L,D,WP,WST,WT,?>,
 										WST extends JeeslWorkflowStageType<L,D,WST,?>,
 										ASP extends JeeslWorkflowStagePermission<WS,APT,WML,SR>,
-										APT extends JeeslWorkflowPermissionType<APT,L,D,?>,
+										APT extends JeeslWorkflowPermissionType<L,D,APT,?>,
 										WML extends JeeslWorkflowModificationLevel<WML,?,?,?>,
 										WT extends JeeslWorkflowTransition<L,D,WS,WTT,SR,?>,
 										WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,

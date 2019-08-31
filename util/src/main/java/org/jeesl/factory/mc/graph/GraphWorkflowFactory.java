@@ -1,8 +1,5 @@
 package org.jeesl.factory.mc.graph;
 
-import java.util.Hashtable;
-import java.util.Map;
-
 import org.jeesl.model.xml.module.workflow.Stage;
 import org.jeesl.model.xml.module.workflow.Transition;
 import org.jeesl.util.query.xpath.StatusXpath;
@@ -24,22 +21,14 @@ public class GraphWorkflowFactory
 	
 	private final String localeCode;
 	
-	private Map<String,Node> mapNodes;
-	private Map<String,Edge> mapEdges;
-	private Map<String,Boolean> mapChilds;
-	private Graph graph;
-	
 	public GraphWorkflowFactory(String localeCode)
 	{
 		this.localeCode=localeCode;
-		mapNodes = new Hashtable<String,Node>();
-		mapEdges = new Hashtable<String,Edge>();
-		mapChilds = new Hashtable<String,Boolean>();
 	}
 	
 	public Graph build(org.jeesl.model.xml.module.workflow.Process process)
 	{
-		graph = new Graph();
+		Graph graph = new Graph();
 		graph.setNodes(new Nodes());
 		graph.setEdges(new Edges());
 		
@@ -48,12 +37,8 @@ public class GraphWorkflowFactory
 			Node node = new Node();
 			node.setId(s.getId());
 			node.setCode(s.getId()+"");
-			try {
-				node.setLabel(StatusXpath.getLang(s.getLangs(),localeCode).getTranslation());
-			} catch (ExlpXpathNotFoundException | ExlpXpathNotUniqueException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			try {node.setLabel(StatusXpath.getLang(s.getLangs(),localeCode).getTranslation());}
+			catch (ExlpXpathNotFoundException | ExlpXpathNotUniqueException e) {e.printStackTrace();}
 			
 			node.setSizeRelative(true);
 			node.setSizeAdjustsColor(true);
@@ -62,11 +47,12 @@ public class GraphWorkflowFactory
 			
 			for(Transition t : s.getTransition())
 			{
-				Edge e = XmlEdgeFactory.build(s.getId(), t.getStage().getId(), true);
-				graph.getEdges().getEdge().add(e);
+				Edge edge = XmlEdgeFactory.build(s.getId(), t.getStage().getId(), true);
+				try {edge.setLabel(StatusXpath.getLang(t.getLangs(),localeCode).getTranslation());}
+				catch (ExlpXpathNotFoundException | ExlpXpathNotUniqueException e) {e.printStackTrace();}
+				graph.getEdges().getEdge().add(edge);
 			}
 		}
-		
 		
 		return graph;
 	}

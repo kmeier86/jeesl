@@ -49,7 +49,7 @@ public class WorkflowRestService <L extends UtilsLang, D extends UtilsDescriptio
 									WS extends JeeslWorkflowStage<L,D,WP,WST,WT,?>,
 									WST extends JeeslWorkflowStageType<L,D,WST,?>,
 									ASP extends JeeslWorkflowStagePermission<WS,APT,WML,SR>,
-									APT extends JeeslWorkflowPermissionType<APT,L,D,?>,
+									APT extends JeeslWorkflowPermissionType<L,D,APT,?>,
 									WML extends JeeslWorkflowModificationLevel<WML,?,?,?>,
 									WT extends JeeslWorkflowTransition<L,D,WS,WTT,SR,?>,
 									WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,
@@ -84,7 +84,8 @@ public class WorkflowRestService <L extends UtilsLang, D extends UtilsDescriptio
 		this.fWorkflow=fWorkflow;
 		this.fbWorkflow=fbWorkflow;
 		
-		xfProcess = new XmlProcessFactory<>(XmlWorkflowQuery.get(XmlWorkflowQuery.Key.xProcess)); xfProcess.lazy(fbWorkflow, fWorkflow);
+		xfProcess = new XmlProcessFactory<>(XmlWorkflowQuery.get(XmlWorkflowQuery.Key.xProcess));
+		xfProcess.lazy(fbWorkflow, fWorkflow);
 	}
 	
 	public static <L extends UtilsLang, D extends UtilsDescription, LOC extends UtilsStatus<LOC,L,D>,
@@ -93,7 +94,7 @@ public class WorkflowRestService <L extends UtilsLang, D extends UtilsDescriptio
 						WS extends JeeslWorkflowStage<L,D,WP,WST,WT,?>,
 						WST extends JeeslWorkflowStageType<L,D,WST,?>,
 						ASP extends JeeslWorkflowStagePermission<WS,APT,WML,SR>,
-						APT extends JeeslWorkflowPermissionType<APT,L,D,?>,
+						APT extends JeeslWorkflowPermissionType<L,D,APT,?>,
 						WML extends JeeslWorkflowModificationLevel<WML,?,?,?>,
 						WT extends JeeslWorkflowTransition<L,D,WS,WTT,SR,?>,
 						WTT extends JeeslWorkflowTransitionType<L,D,WTT,?>,

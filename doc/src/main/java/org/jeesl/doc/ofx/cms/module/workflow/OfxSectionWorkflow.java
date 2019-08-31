@@ -24,12 +24,12 @@ public class OfxSectionWorkflow <L extends UtilsLang, LOC extends JeeslLocale<L,
 {
 	final static Logger logger = LoggerFactory.getLogger(OfxSectionWorkflow.class);
 	
-	private final OfxTableWorkflowProcess<L,LOC> ofxProcess;
+	private final OfxTableWorkflowProcess<L,LOC> ofxTableProcess;
 	
 	public OfxSectionWorkflow(OfxTranslationProvider tp)
 	{
 		super(tp);
-		ofxProcess = new OfxTableWorkflowProcess<>(tp);
+		ofxTableProcess = new OfxTableWorkflowProcess<>(tp);
 	}
 	
 	public Section build(JeeslLocaleProvider<LOC> lp, E element) throws OfxAuthoringException
@@ -88,7 +88,7 @@ public class OfxSectionWorkflow <L extends UtilsLang, LOC extends JeeslLocale<L,
 				Section sub = XmlSectionFactory.build();
 				sub.getContent().addAll(ofxMultiLocale.title(lp, process.getLangs()));
 				xml.getContent().addAll(ofxMultiLocale.paragraphs(lp,process.getDescriptions(),false));
-				sub.getContent().add(ofxProcess.build(lp,process));
+				sub.getContent().add(ofxTableProcess.build(lp,process));
 				xml.getContent().add(sub);
 			}
 		}

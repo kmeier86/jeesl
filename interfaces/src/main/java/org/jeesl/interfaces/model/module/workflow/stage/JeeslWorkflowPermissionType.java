@@ -14,7 +14,9 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatusFixedCode;
 
-public interface JeeslWorkflowPermissionType <S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription,G extends JeeslGraphic<L,D,?,?,?>>
+public interface JeeslWorkflowPermissionType <L extends UtilsLang, D extends UtilsDescription,
+												S extends UtilsStatus<S,L,D>,
+												G extends JeeslGraphic<L,D,?,?,?>>
 									extends Serializable,EjbPersistable,
 											EjbWithCode,UtilsStatusFixedCode,
 											JeeslOptionRestDescription,JeeslOptionRestDownload,

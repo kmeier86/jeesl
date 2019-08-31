@@ -24,6 +24,7 @@ import net.sf.ahtutils.xml.status.Langs;
  *       &lt;sequence&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}descriptions"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}langs"/&gt;
+ *         &lt;element ref="{http://ahtutils.aht-group.com/security}category"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/security}views"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/security}actions"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/security}usecases"/&gt;
@@ -46,6 +47,7 @@ import net.sf.ahtutils.xml.status.Langs;
 @XmlType(name = "", propOrder = {
     "descriptions",
     "langs",
+    "category",
     "views",
     "actions",
     "usecases",
@@ -61,6 +63,8 @@ public class Role
     protected Descriptions descriptions;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
     protected Langs langs;
+    @XmlElement(required = true)
+    protected Category category;
     @XmlElement(required = true)
     protected Views views;
     @XmlElement(required = true)
@@ -136,6 +140,34 @@ public class Role
 
     public boolean isSetLangs() {
         return (this.langs!= null);
+    }
+
+    /**
+     * Gets the value of the category property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Category }
+     *     
+     */
+    public Category getCategory() {
+        return category;
+    }
+
+    /**
+     * Sets the value of the category property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Category }
+     *     
+     */
+    public void setCategory(Category value) {
+        this.category = value;
+    }
+
+    public boolean isSetCategory() {
+        return (this.category!= null);
     }
 
     /**

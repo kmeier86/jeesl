@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import net.sf.ahtutils.xml.security.Roles;
 import net.sf.ahtutils.xml.status.Descriptions;
 import net.sf.ahtutils.xml.status.Langs;
 import net.sf.ahtutils.xml.status.Type;
@@ -28,6 +29,7 @@ import net.sf.ahtutils.xml.status.Type;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}type"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}langs"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}descriptions"/&gt;
+ *         &lt;element ref="{http://ahtutils.aht-group.com/security}roles"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/workflow}transition" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" /&gt;
@@ -44,6 +46,7 @@ import net.sf.ahtutils.xml.status.Type;
     "type",
     "langs",
     "descriptions",
+    "roles",
     "transition"
 })
 @XmlRootElement(name = "stage")
@@ -58,6 +61,8 @@ public class Stage
     protected Langs langs;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
     protected Descriptions descriptions;
+    @XmlElement(namespace = "http://ahtutils.aht-group.com/security", required = true)
+    protected Roles roles;
     @XmlElement(required = true)
     protected List<Transition> transition;
     @XmlAttribute(name = "id")
@@ -147,6 +152,34 @@ public class Stage
 
     public boolean isSetDescriptions() {
         return (this.descriptions!= null);
+    }
+
+    /**
+     * Gets the value of the roles property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Roles }
+     *     
+     */
+    public Roles getRoles() {
+        return roles;
+    }
+
+    /**
+     * Sets the value of the roles property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Roles }
+     *     
+     */
+    public void setRoles(Roles value) {
+        this.roles = value;
+    }
+
+    public boolean isSetRoles() {
+        return (this.roles!= null);
     }
 
     /**
