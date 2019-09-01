@@ -25,16 +25,14 @@ import com.aspose.words.Table;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.xml.status.Status;
 
-
 public class EntityWordRenderer 
 {
 	final static Logger logger = LoggerFactory.getLogger(EntityWordRenderer.class);
 	
-	final Document entityDoc;
-	final Container categories;
-	final Container relationTypes;
-	final Entities entities;
-	UtilsFacade fUtils;
+	private final Document entityDoc;
+	private final Container categories;
+	private final Container relationTypes;
+	private final Entities entities;
 
 	public EntityWordRenderer(Document templateDoc, Entities entities, Container categories, Container relationTypes)
 	{
@@ -46,7 +44,7 @@ public class EntityWordRenderer
 	
 	private String categoryForCode(Container c, String code)
 	{
-		for(Status s:c.getStatus()){if(s.isSetCode()&&s.getCode()!=""&&s.getCode().equals(code)){return s.getLangs().getLang().get(0).getTranslation();}}return "";
+		for(Status s:c.getStatus()){if(s.isSetCode()&& s.getCode()!=""&&s.getCode().equals(code)){return s.getLangs().getLang().get(0).getTranslation();}}return "";
 	}
 	
 	private String relationTypeForCode(Container c, String code)

@@ -75,6 +75,7 @@ public class XmlProcessFactory<L extends UtilsLang, D extends UtilsDescription,
 		org.jeesl.model.xml.module.workflow.Process xml = build();
 		if(q.isSetId()) {xml.setId(process.getId());}
 		if(q.isSetPosition()) {xml.setPosition(process.getPosition());}
+		if(q.isSetCode()) {xml.setCode(process.getCode());}
 		if(q.isSetLangs()) {xml.setLangs(xfLangs.getUtilsLangs(process.getName()));}
 		if(q.isSetDescriptions()) {xml.setDescriptions(xfDescription.create(process.getDescription()));}
 		if(q.isSetContext()) {xml.setContext(xfContext.build(process.getContext()));}

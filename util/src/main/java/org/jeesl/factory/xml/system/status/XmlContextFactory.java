@@ -79,6 +79,7 @@ public class XmlContextFactory<L extends UtilsLang, D extends UtilsDescription,S
 	{
 		Context xml = new Context();
 		xml.setCode(status.getCode());
+		xml.setPosition(status.getPosition());
 		xml.setDescriptions(status.getDescriptions());
 		xml.setLangs(status.getLangs());
 //		if(status.isSetParent()){xml.setParent(status.getParent());}

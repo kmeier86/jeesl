@@ -1,6 +1,7 @@
 package org.jeesl.doc.er;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import org.apache.batik.transcoder.TranscoderException;
 import org.apache.commons.configuration.Configuration;
 import org.jeesl.api.rest.system.io.revision.JeeslRevisionRestExport;
 import org.jeesl.api.rest.system.io.revision.JeeslRevisionRestImport;
+import org.jeesl.model.xml.system.revision.Entities;
 import org.metachart.factory.xml.graph.XmlDotFactory;
 import org.metachart.factory.xml.graph.XmlGraphFactory;
 import org.metachart.processor.graph.ColorSchemeManager;
@@ -36,18 +38,27 @@ public class AbstractErDiagram
 	protected String packages;
 	protected String colorScheme;
 	
+	protected String localeCode;
 	private String dotGraph; public String getDotGraph() {return dotGraph;}
-
+	private Entities entities;
+	
 	private OfxMultiLangLatexWriter ofxWriter;
-	private JeeslRevisionRestImport restUpload; public void setRestUpload(JeeslRevisionRestImport restUpload) {this.restUpload = restUpload;}
-	private JeeslRevisionRestExport restDownload; public void setRestUpload(JeeslRevisionRestExport restDownload) {this.restDownload = restDownload;}
+	private JeeslRevisionRestImport restUpload; public void setRest(JeeslRevisionRestImport restUpload) {this.restUpload = restUpload;}
+	private JeeslRevisionRestExport restDownload; public void setRest(JeeslRevisionRestExport restDownload) {this.restDownload = restDownload;}
 
 	public AbstractErDiagram(Configuration config,OfxMultiLangLatexWriter ofxWriter)
 	{
 		this.ofxWriter=ofxWriter;
+		localeCode = "en";
 		
 		fTmp = new File(config.getString(ConfigKey.dirTmp));
 		logger.info("Using Tmp: "+fTmp);
+	}
+	
+	protected void loadEntites(String path)
+	{
+		try {entities = JaxbUtil.loadJAXB(new File(path).getAbsoluteFile(), Entities.class);}
+		catch (FileNotFoundException e) {e.printStackTrace();}
 	}
 	
 	protected void create(String key, boolean upload) throws ClassNotFoundException, IOException, TranscoderException
@@ -71,6 +82,7 @@ public class AbstractErDiagram
 //		eap.addPackages(packages);
 		
 		ErGraphProcessor egp = new ErGraphProcessor(fSrc);
+		if(entities!=null) {egp.activateEntities(localeCode,entities);}
 		egp.addPackages(packages,subset);
 		
 		Graph g = egp.create();
@@ -102,7 +114,7 @@ public class AbstractErDiagram
 		}
 	}
 	
-	public void buildDocumentation(boolean upload) throws ClassNotFoundException, IOException, TranscoderException
+	public void buildDocumentation(String localeCode, boolean upload) throws ClassNotFoundException, IOException, TranscoderException
 	{
 		if(restDownload!=null)
 		{
@@ -111,7 +123,6 @@ public class AbstractErDiagram
 			{
 				create(g.getCode(),upload);
 			}
-
 		}
 	}
 }

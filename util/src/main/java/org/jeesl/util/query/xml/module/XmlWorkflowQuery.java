@@ -47,6 +47,7 @@ public class XmlWorkflowQuery
 	{		
 		org.jeesl.model.xml.module.workflow.Process xml = new org.jeesl.model.xml.module.workflow.Process();
 		xml.setId(0);
+		xml.setCode("");
 		xml.setPosition(0);
 		xml.setLangs(XmlStatusQuery.langs());
 		xml.setDescriptions(XmlStatusQuery.descriptions());

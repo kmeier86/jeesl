@@ -14,7 +14,11 @@ import java.util.Set;
 
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
+import org.jeesl.model.xml.system.revision.Entities;
+import org.jeesl.model.xml.system.revision.Entity;
 import org.jeesl.util.ReflectionUtil;
+import org.jeesl.util.query.xpath.RevisionXpath;
+import org.jeesl.util.query.xpath.StatusXpath;
 import org.metachart.xml.graph.Edge;
 import org.metachart.xml.graph.Edges;
 import org.metachart.xml.graph.Graph;
@@ -24,14 +28,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.model.qualifier.EjbErNode;
+import net.sf.exlp.exception.ExlpXpathNotFoundException;
+import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.io.ClassUtil;
 import net.sf.exlp.util.io.dir.RecursiveFileFinder;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 public class ErGraphProcessor
 {
 	private static enum Cardinality {OneToOne,OneToMany,ManyToOne,ManyToMany}
 	final static Logger logger = LoggerFactory.getLogger(ErGraphProcessor.class);
 	
+	private String localeCode;
+	private Entities entities;
+
 	private File fBase;
 	
 	private Map<String,Node> mapNodes;
@@ -49,6 +59,13 @@ public class ErGraphProcessor
 		graph = new Graph();
 		graph.setNodes(new Nodes());
 		graph.setEdges(new Edges());
+	}
+	
+	public void activateEntities(String localeCode, Entities entities)
+	{
+		logger.info("Activating Entites "+localeCode);
+		this.localeCode=localeCode;
+		this.entities=entities;
 	}
 	
 	public void addPackages(String sEjbPackage) throws IOException, ClassNotFoundException
@@ -106,7 +123,22 @@ public class ErGraphProcessor
 			EjbErNode er = (EjbErNode)a;
 			Node node = new Node();
 			node.setCode(c.getName());
-			node.setLabel(er.name());
+			
+			if(localeCode!=null && entities!=null)
+			{
+				try
+				{
+					Entity entity = RevisionXpath.getEntity(entities,node.getCode());
+					node.setLabel(StatusXpath.getLang(entity.getLangs(),localeCode).getTranslation());
+//					logger.error("node.Label: "+node.getLabel());
+				}
+				catch (ExlpXpathNotFoundException | ExlpXpathNotUniqueException e)
+				{
+					logger.warn(e.getMessage());
+				}
+			}
+			if(node.getLabel()==null){node.setLabel("** "+er.name());}			
+			
 			if(er.category().length()>0)
 			{
 				node.setCategory(er.category());
@@ -181,8 +213,7 @@ public class ErGraphProcessor
 			}			
 		}
 	}
-	
-	
+
 	
 	private void createEdge(Node source, Cardinality cardinality,Node target,boolean targetIsChild)
 	{
