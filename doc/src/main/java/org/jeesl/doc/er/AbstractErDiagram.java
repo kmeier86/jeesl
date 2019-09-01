@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.commons.configuration.Configuration;
+import org.jeesl.api.rest.system.io.revision.JeeslRevisionRestExport;
 import org.jeesl.api.rest.system.io.revision.JeeslRevisionRestImport;
 import org.metachart.factory.xml.graph.XmlDotFactory;
 import org.metachart.factory.xml.graph.XmlGraphFactory;
@@ -14,6 +15,7 @@ import org.metachart.processor.graph.ColorSchemeManager;
 import org.metachart.processor.graph.Graph1DotConverter;
 import org.metachart.processor.graph.GraphFileWriter;
 import org.metachart.xml.graph.Graph;
+import org.metachart.xml.graph.Graphs;
 import org.metachart.xml.graph.Node;
 import org.openfuxml.media.transcode.Svg2PdfTranscoder;
 import org.openfuxml.renderer.latex.OfxMultiLangLatexWriter;
@@ -37,7 +39,8 @@ public class AbstractErDiagram
 	private String dotGraph; public String getDotGraph() {return dotGraph;}
 
 	private OfxMultiLangLatexWriter ofxWriter;
-	private JeeslRevisionRestImport rest; public void setRest(JeeslRevisionRestImport rest) {this.rest = rest;}
+	private JeeslRevisionRestImport restUpload; public void setRestUpload(JeeslRevisionRestImport restUpload) {this.restUpload = restUpload;}
+	private JeeslRevisionRestExport restDownload; public void setRestUpload(JeeslRevisionRestExport restDownload) {this.restDownload = restDownload;}
 
 	public AbstractErDiagram(Configuration config,OfxMultiLangLatexWriter ofxWriter)
 	{
@@ -47,18 +50,18 @@ public class AbstractErDiagram
 		logger.info("Using Tmp: "+fTmp);
 	}
 	
-	protected void create(String key) throws ClassNotFoundException, IOException, TranscoderException
+	protected void create(String key, boolean upload) throws ClassNotFoundException, IOException, TranscoderException
 	{
 		List<String> subset = new ArrayList<String>();
 		subset.add(key);
 		File fPdf = null; if(dPdf!=null){fPdf = new File(dPdf,key+".pdf");}
 		buildSvg("dot",subset,new File(fSvg,key+".svg"),fPdf);
-		if(rest!=null)
+		if(upload && restUpload!=null)
 		{
 			Graph g = XmlGraphFactory.build(key);
 			g.setDot(XmlDotFactory.build(dotGraph));
 			JaxbUtil.info(g);
-			rest.importSystemRevisionDiagram(g);
+			restUpload.importSystemRevisionDiagram(g);
 		}
 	}
 	
@@ -89,13 +92,26 @@ public class AbstractErDiagram
 		gdc.save(fDot);
 		
 		GraphFileWriter w = new GraphFileWriter(type);
-		w.svg(fDot, fDst);
+		w.svg(fDot,fDst);
 		
 		if(fPdf!=null)
 		{
 			logger.info("SVG-PDF");
 			Svg2PdfTranscoder.transcode(fDst,fPdf);
 			logger.info("SVG-PDF done");
+		}
+	}
+	
+	public void buildDocumentation(boolean upload) throws ClassNotFoundException, IOException, TranscoderException
+	{
+		if(restDownload!=null)
+		{
+			Graphs graphs = restDownload.exportSystemRevisionGraphs();
+			for(Graph g : graphs.getGraph())
+			{
+				create(g.getCode(),upload);
+			}
+
 		}
 	}
 }

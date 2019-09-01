@@ -133,6 +133,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.metachart</groupId>
+				<artifactId>metachart-util</artifactId>
+				<version>0.0.3-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.metachart</groupId>
 				<artifactId>metachart-jsf</artifactId>
 				<version>0.0.3-SNAPSHOT</version>
 			</dependency>

@@ -17,6 +17,7 @@ import org.jeesl.factory.ejb.system.status.EjbLangFactory;
 import org.jeesl.factory.ejb.system.status.EjbStatusFactory;
 import org.jeesl.factory.xml.jeesl.XmlContainerFactory;
 import org.jeesl.factory.xml.system.io.sync.XmlDataUpdateFactory;
+import org.jeesl.factory.xml.system.io.sync.XmlResultFactory;
 import org.jeesl.factory.xml.system.revision.XmlEntityFactory;
 import org.jeesl.factory.xml.system.status.XmlTypeFactory;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionScope;
@@ -34,7 +35,11 @@ import org.jeesl.model.xml.system.revision.Entity;
 import org.jeesl.util.db.JeeslStatusDbUpdater;
 import org.jeesl.util.query.xml.RevisionQuery;
 import org.jeesl.util.query.xml.XmlStatusQuery;
+import org.metachart.factory.xml.graph.XmlDotFactory;
+import org.metachart.factory.xml.graph.XmlGraphFactory;
+import org.metachart.factory.xml.graph.XmlGraphsFactory;
 import org.metachart.xml.graph.Graph;
+import org.metachart.xml.graph.Graphs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -107,6 +112,32 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 		}
 		
 		return entities;
+	}
+	
+	@Override public Graphs exportSystemRevisionGraphs()
+	{
+		Graphs xml = XmlGraphsFactory.build();
+		for(ERD diagram : fRevision.all(fbRevision.getClassDiagram()))
+		{
+			if(diagram.isDocumentation())
+			{
+				xml.getGraph().add(XmlGraphFactory.build(diagram.getCode()));
+			}
+		}
+		return xml;
+	}
+	
+	@Override public Graph exportSystemRevisionGraph(String code)
+	{
+		Graph g = XmlGraphFactory.build(code);
+		try
+		{
+			ERD diagram = fRevision.fByCode(fbRevision.getClassDiagram(),code);
+			g.setDot(XmlDotFactory.build(diagram.getDotGraph()));
+		}
+		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		
+		return g;
 	}
 	
 	@Override public DataUpdate importSystemIoRevisionAttributeTypes(Container categories){return importStatus(fbRevision.getClassAttributeType(),fbRevision.getClassL(),fbRevision.getClassD(),categories,null);}
@@ -257,7 +288,38 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 	@Override
 	public DataUpdate importSystemRevisionDiagram(Graph graph)
 	{
-
-		return XmlDataUpdateFactory.build();
+		try
+		{
+			ERD diagram = fRevision.fByCode(fbRevision.getClassDiagram(),graph.getCode());
+			if(!diagram.isDotManual())
+			{
+				
+				try
+				{
+					diagram.setDotGraph(graph.getDot().getValue());
+					diagram = fRevision.save(diagram);
+					return XmlDataUpdateFactory.build(XmlResultFactory.buildOk());
+				}
+				catch (UtilsConstraintViolationException | UtilsLockingException e)
+				{
+					return XmlDataUpdateFactory.build(XmlResultFactory.buildFail());
+				}
+			}
+			else {return XmlDataUpdateFactory.build(XmlResultFactory.buildFail());}
+		}
+		catch (UtilsNotFoundException e)
+		{	
+			try
+			{
+				RC category = fRevision.all(fbRevision.getClassCategory(),1).get(0);
+				ERD diagram = fbRevision.ejbDiagram().build(category,graph.getCode(),graph.getDot().getValue());
+				diagram = fRevision.save(diagram);
+				return XmlDataUpdateFactory.build(XmlResultFactory.buildOk());
+			}
+			catch (UtilsConstraintViolationException | UtilsLockingException e1)
+			{
+				return XmlDataUpdateFactory.build(XmlResultFactory.buildOk());
+			}
+		}
 	}
 }

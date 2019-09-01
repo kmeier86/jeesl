@@ -31,7 +31,7 @@ public class CliErDiagram extends AbstractErDiagram
 //		create("security");
 //		create("status");
 //		create("symbol");
-		create("ts");
+		create("ts",false);
 //		create("revision");
 //		create("io");
 	}

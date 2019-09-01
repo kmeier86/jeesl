@@ -2,6 +2,7 @@ package org.jeesl.factory.builder.io;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.revision.EjbRevisionAttributeFactory;
+import org.jeesl.factory.ejb.system.io.revision.EjbRevisionDiagramFactory;
 import org.jeesl.factory.ejb.system.io.revision.EjbRevisionEntityFactory;
 import org.jeesl.factory.ejb.system.io.revision.EjbRevisionMappingEntityFactory;
 import org.jeesl.factory.ejb.system.io.revision.EjbRevisionMappingViewFactory;
@@ -106,5 +107,10 @@ public class IoRevisionFactoryBuilder<L extends UtilsLang, D extends UtilsDescri
 	public EjbRevisionAttributeFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> ejbAttribute()
 	{
 		return new EjbRevisionAttributeFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>(cAttribute);
+	}
+	
+	public EjbRevisionDiagramFactory<L,D,RC,ERD> ejbDiagram()
+	{
+		return new EjbRevisionDiagramFactory<>(cErd);
 	}
 }
