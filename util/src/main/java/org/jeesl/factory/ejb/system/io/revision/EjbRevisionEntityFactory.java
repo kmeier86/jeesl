@@ -1,4 +1,4 @@
-package org.jeesl.factory.ejb.system.revision;
+package org.jeesl.factory.ejb.system.io.revision;
 
 import java.util.ArrayList;
 import java.util.List;

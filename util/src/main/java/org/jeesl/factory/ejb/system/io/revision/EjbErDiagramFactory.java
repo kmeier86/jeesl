@@ -1,4 +1,4 @@
-package org.jeesl.factory.ejb.system.erdiagram;
+package org.jeesl.factory.ejb.system.io.revision;
 
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
 import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;

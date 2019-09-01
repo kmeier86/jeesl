@@ -1,4 +1,4 @@
-package org.jeesl.factory.ejb.system.revision;
+package org.jeesl.factory.ejb.system.io.revision;
 
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionScope;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;

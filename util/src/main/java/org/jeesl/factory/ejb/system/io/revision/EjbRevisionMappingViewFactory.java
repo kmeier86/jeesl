@@ -1,4 +1,4 @@
-package org.jeesl.factory.ejb.system.revision;
+package org.jeesl.factory.ejb.system.io.revision;
 
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionScope;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
@@ -14,7 +14,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
-public class EjbRevisionMappingEntityFactory<L extends UtilsLang,D extends UtilsDescription,
+public class EjbRevisionMappingViewFactory<L extends UtilsLang,D extends UtilsDescription,
 									RC extends JeeslRevisionCategory<L,D,RC,?>,
 									RV extends JeeslRevisionView<L,D,RVM>,
 									RVM extends JeeslRevisionViewMapping<RV,RE,REM>,
@@ -25,26 +25,26 @@ public class EjbRevisionMappingEntityFactory<L extends UtilsLang,D extends Utils
 									RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>, RER extends UtilsStatus<RER,L,D>,
 									RAT extends UtilsStatus<RAT,L,D>>
 {
-	final static Logger logger = LoggerFactory.getLogger(EjbRevisionMappingEntityFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(EjbRevisionMappingViewFactory.class);
 	
-	final Class<REM> cMapping;
+	final Class<RVM> cMapping;
     
-	public EjbRevisionMappingEntityFactory(final Class<REM> cMapping)
+	public EjbRevisionMappingViewFactory(final Class<RVM> cMapping)
 	{       
         this.cMapping = cMapping;
 	}
     
-	public REM build (RE entity, RS scope, RST type)
+	public RVM build(RV view, RE entity, REM entityMapping)
 	{
-		REM ejb = null;
+		RVM ejb = null;
 		try
 		{
 			ejb = cMapping.newInstance();
 			ejb.setPosition(1);
 			ejb.setVisible(true);
+			ejb.setView(view);
 			ejb.setEntity(entity);
-			ejb.setScope(scope);
-			ejb.setType(type);
+			ejb.setEntityMapping(entityMapping);
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}

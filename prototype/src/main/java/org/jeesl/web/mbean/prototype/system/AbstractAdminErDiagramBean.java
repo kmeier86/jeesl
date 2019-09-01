@@ -10,7 +10,7 @@ import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
 import org.jeesl.controller.handler.sb.SbMultiHandler;
 import org.jeesl.factory.builder.system.erdiagram.ErDiagramFactoryBuilder;
-import org.jeesl.factory.ejb.system.erdiagram.EjbErDiagramFactory;
+import org.jeesl.factory.ejb.system.io.revision.EjbErDiagramFactory;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
 import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
