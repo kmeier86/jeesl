@@ -7,7 +7,7 @@ import java.util.Map;
 import org.apache.commons.jxpath.JXPathContext;
 import org.apache.commons.jxpath.JXPathNotFoundException;
 import org.jeesl.api.bean.JeeslLabelResolver;
-import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.metachart.factory.json.pivot.McPivotFactory;
 import org.metachart.model.json.pivot.PivotField;
 import org.slf4j.Logger;

@@ -1,16 +1,16 @@
 package org.jeesl.factory.ejb.system.erdiagram;
 
-import org.jeesl.interfaces.model.system.io.revision.er.JeeslErDiagram;
+import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
+import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public class EjbErDiagramFactory<L extends UtilsLang, D extends UtilsDescription,
-								C extends UtilsStatus<C,L,D>,
-								ERD extends JeeslErDiagram<L,D,C,ERD>>
+								C extends JeeslRevisionCategory<L,D,C,?>,
+								ERD extends JeeslRevisionDiagram<L,D,C>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbErDiagramFactory.class);
 
@@ -22,8 +22,8 @@ public class EjbErDiagramFactory<L extends UtilsLang, D extends UtilsDescription
 	}
 
 	public static <L extends UtilsLang, D extends UtilsDescription,
-					C extends UtilsStatus<C,L,D>,
-					ERD extends JeeslErDiagram<L,D,C,ERD>>
+					C extends JeeslRevisionCategory<L,D,C,?>,
+					ERD extends JeeslRevisionDiagram<L,D,C>>
 			EjbErDiagramFactory<L,D,C,ERD> factory(final Class<ERD> cErDiagram)
 	{
 		return new EjbErDiagramFactory<L,D,C,ERD>(cErDiagram);

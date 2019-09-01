@@ -17,8 +17,8 @@ import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalWorkflow
 import org.jeesl.interfaces.model.module.workflow.instance.JeeslWithWorkflow;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
 import org.jeesl.interfaces.model.system.constraint.JeeslConstraint;
-import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionAttribute;
-import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
+import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.util.comparator.pojo.BooleanComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

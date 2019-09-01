@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.system.io.revision;
+package org.jeesl.interfaces.model.system.io.revision.core;
 
 import java.io.Serializable;
 import java.util.List;

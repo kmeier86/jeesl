@@ -3,7 +3,7 @@ package org.jeesl.interfaces.model.module.survey.analysis;
 import java.io.Serializable;
 
 import org.jeesl.interfaces.model.system.io.domain.JeeslDomainQuery;
-import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionAttribute;
+import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;

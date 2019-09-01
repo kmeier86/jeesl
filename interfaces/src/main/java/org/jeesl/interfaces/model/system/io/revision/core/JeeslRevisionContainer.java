@@ -1,6 +1,7 @@
-package org.jeesl.interfaces.model.system.io.revision;
+package org.jeesl.interfaces.model.system.io.revision.core;
 
 import org.hibernate.envers.RevisionType;
+import org.jeesl.interfaces.model.system.io.revision.JeeslRevision;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;

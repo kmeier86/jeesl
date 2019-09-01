@@ -1,6 +1,8 @@
-package org.jeesl.interfaces.model.system.io.revision;
+package org.jeesl.interfaces.model.system.io.revision.entity;
 
 import java.io.Serializable;
+
+import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionScope;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbPersistable;

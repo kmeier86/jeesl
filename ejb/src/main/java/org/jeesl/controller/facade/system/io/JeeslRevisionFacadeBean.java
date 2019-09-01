@@ -17,13 +17,13 @@ import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.factory.json.system.revision.JsonRevisionFactory;
 import org.jeesl.interfaces.model.system.io.revision.EjbWithRevisionAttributes;
-import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionAttribute;
-import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionEntity;
-import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionEntityMapping;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionScope;
-import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionView;
-import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionViewMapping;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
+import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionView;
+import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionViewMapping;
+import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
+import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
 import org.jeesl.util.query.sql.SqlNativeQueryHelper;
 import org.jeesl.util.query.sql.SqlRevisionQueries;
 

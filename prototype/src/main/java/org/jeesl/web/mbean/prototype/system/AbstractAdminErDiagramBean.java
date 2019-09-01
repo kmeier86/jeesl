@@ -13,7 +13,7 @@ import org.jeesl.factory.builder.system.erdiagram.ErDiagramFactoryBuilder;
 import org.jeesl.factory.ejb.system.erdiagram.EjbErDiagramFactory;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
-import org.jeesl.interfaces.model.system.io.revision.er.JeeslErDiagram;
+import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.util.comparator.ejb.system.erdiagram.ErDiagramComparator;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
@@ -29,7 +29,7 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 											RC extends JeeslRevisionCategory<L,D,RC,?>,
-											ERD extends JeeslErDiagram<L,D,RC,ERD>>
+											ERD extends JeeslRevisionDiagram<L,D,RC>>
 		extends AbstractAdminBean<L,D>
 		implements Serializable,SbToggleBean
 {

@@ -7,7 +7,7 @@ import java.util.List;
 import org.jeesl.api.facade.io.JeeslIoSsiFacade;
 import org.jeesl.controller.handler.tuple.JsonTuple1Handler;
 import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
-import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiData;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiMapping;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;

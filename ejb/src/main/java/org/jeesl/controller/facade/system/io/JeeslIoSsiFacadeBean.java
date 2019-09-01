@@ -19,7 +19,7 @@ import javax.persistence.criteria.Root;
 import org.jeesl.api.facade.io.JeeslIoSsiFacade;
 import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
 import org.jeesl.factory.json.db.tuple.t1.Json1TuplesFactory;
-import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiData;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiMapping;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;

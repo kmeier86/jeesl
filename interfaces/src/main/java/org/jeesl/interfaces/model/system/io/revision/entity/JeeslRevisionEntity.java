@@ -1,8 +1,9 @@
-package org.jeesl.interfaces.model.system.io.revision;
+package org.jeesl.interfaces.model.system.io.revision.entity;
 
 import java.io.Serializable;
 import java.util.List;
 
+import org.jeesl.interfaces.model.system.io.revision.EjbWithRevisionAttributes;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
 import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
 

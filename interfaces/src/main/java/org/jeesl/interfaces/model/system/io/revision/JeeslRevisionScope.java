@@ -2,6 +2,7 @@ package org.jeesl.interfaces.model.system.io.revision;
 
 import java.io.Serializable;
 
+import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
