@@ -179,5 +179,40 @@
     	</s:langs>
     </s:translation>
     
+    <s:translation key="jeeslRevisionDiagrams">
+    	<s:langs>
+    		<s:lang key="de" translation="Entity Relationship Diagrams"/>
+    		<s:lang key="en" translation="Entity Relationship Diagrams"/>
+    		<s:lang key="fr" translation="Entity Relationship Diagrams"/>
+    	</s:langs>
+    </s:translation>
+     <s:translation key="jeeslRevisionDiagram">
+    	<s:langs>
+    		<s:lang key="de" translation="Entity Relationship Diagram"/>
+    		<s:lang key="en" translation="Entity Relationship Diagram"/>
+    		<s:lang key="fr" translation="Entity Relationship Diagram"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslRevisionDotGraph">
+    	<s:langs>
+    		<s:lang key="de" translation="Diagraph"/>
+    		<s:lang key="en" translation="Diagraph"/>
+    		<s:lang key="fr" translation="Diagraph"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslRevisionDiagramManual">
+    	<s:langs>
+    		<s:lang key="de" translation="Manual DOT"/>
+    		<s:lang key="en" translation="Manual DOT"/>
+    		<s:lang key="fr" translation="Manual DOT"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslRevisionDiagramDocumentation">
+    	<s:langs>
+    		<s:lang key="de" translation="Documentation"/>
+    		<s:lang key="en" translation="Documentation"/>
+    		<s:lang key="fr" translation="Documentation"/>
+    	</s:langs>
+    </s:translation>
     
 </s:translations>

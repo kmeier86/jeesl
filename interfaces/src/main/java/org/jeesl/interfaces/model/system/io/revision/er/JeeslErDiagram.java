@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.system.erdiagram;
+package org.jeesl.interfaces.model.system.io.revision.er;
 
 import java.io.Serializable;
 
@@ -23,6 +23,9 @@ public interface JeeslErDiagram <L extends UtilsLang, D extends UtilsDescription
 	String getDotGraph();
 	void setDotGraph(String value);
 
-	Boolean getDocumentation();
-	void setDocumentation(Boolean documentation);
+	boolean isDocumentation();
+	void setDocumentation(boolean documentation);
+	
+	boolean isDotManual();
+	void setDotManual(boolean dotManual);
 }

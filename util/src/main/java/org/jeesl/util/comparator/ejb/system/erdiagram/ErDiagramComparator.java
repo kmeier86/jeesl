@@ -3,7 +3,7 @@ package org.jeesl.util.comparator.ejb.system.erdiagram;
 import java.util.Comparator;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
-import org.jeesl.interfaces.model.system.erdiagram.JeeslErDiagram;
+import org.jeesl.interfaces.model.system.io.revision.er.JeeslErDiagram;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

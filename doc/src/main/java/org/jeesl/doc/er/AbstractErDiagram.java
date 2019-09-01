@@ -7,9 +7,12 @@ import java.util.List;
 
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.commons.configuration.Configuration;
+import org.jeesl.api.rest.system.io.revision.JeeslRevisionRestImport;
+import org.metachart.factory.xml.graph.XmlDotFactory;
+import org.metachart.factory.xml.graph.XmlGraphFactory;
 import org.metachart.processor.graph.ColorSchemeManager;
-import org.metachart.processor.graph.GraphFileWriter;
 import org.metachart.processor.graph.Graph1DotConverter;
+import org.metachart.processor.graph.GraphFileWriter;
 import org.metachart.xml.graph.Graph;
 import org.metachart.xml.graph.Node;
 import org.openfuxml.media.transcode.Svg2PdfTranscoder;
@@ -31,12 +34,13 @@ public class AbstractErDiagram
 	protected String packages;
 	protected String colorScheme;
 	
-	private Configuration config;
+	private String dotGraph; public String getDotGraph() {return dotGraph;}
+
 	private OfxMultiLangLatexWriter ofxWriter;
-	
+	private JeeslRevisionRestImport rest; public void setRest(JeeslRevisionRestImport rest) {this.rest = rest;}
+
 	public AbstractErDiagram(Configuration config,OfxMultiLangLatexWriter ofxWriter)
 	{
-		this.config=config;
 		this.ofxWriter=ofxWriter;
 		
 		fTmp = new File(config.getString(ConfigKey.dirTmp));
@@ -47,15 +51,21 @@ public class AbstractErDiagram
 	{
 		List<String> subset = new ArrayList<String>();
 		subset.add(key);
-		File fPdf = null;if(dPdf!=null){fPdf = new File(dPdf,key+".pdf");}
+		File fPdf = null; if(dPdf!=null){fPdf = new File(dPdf,key+".pdf");}
 		buildSvg("dot",subset,new File(fSvg,key+".svg"),fPdf);
-		//buildSvg("neato",subset,new File(fSvg,key+".svg"),fPdf);
+		if(rest!=null)
+		{
+			Graph g = XmlGraphFactory.build(key);
+			g.setDot(XmlDotFactory.build(dotGraph));
+			JaxbUtil.info(g);
+			rest.importSystemRevisionDiagram(g);
+		}
 	}
 	
 	protected void buildSvg(String type, List<String> subset, File fDst, File fPdf) throws ClassNotFoundException, IOException, TranscoderException
 	{
-		ErAttributesProcessor eap = new ErAttributesProcessor(ofxWriter,config,fSrc);
-		eap.addPackages(packages);
+//		ErAttributesProcessor eap = new ErAttributesProcessor(ofxWriter,config,fSrc);
+//		eap.addPackages(packages);
 		
 		ErGraphProcessor egp = new ErGraphProcessor(fSrc);
 		egp.addPackages(packages,subset);
@@ -74,6 +84,8 @@ public class AbstractErDiagram
 		gdc.setRanksep(0.5);
 		
 		gdc.convert(g);
+		dotGraph = gdc.getDot();
+	
 		gdc.save(fDot);
 		
 		GraphFileWriter w = new GraphFileWriter(type);

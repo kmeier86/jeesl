@@ -16,6 +16,7 @@ import org.jeesl.factory.ejb.system.status.EjbDescriptionFactory;
 import org.jeesl.factory.ejb.system.status.EjbLangFactory;
 import org.jeesl.factory.ejb.system.status.EjbStatusFactory;
 import org.jeesl.factory.xml.jeesl.XmlContainerFactory;
+import org.jeesl.factory.xml.system.io.sync.XmlDataUpdateFactory;
 import org.jeesl.factory.xml.system.revision.XmlEntityFactory;
 import org.jeesl.factory.xml.system.status.XmlTypeFactory;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionAttribute;
@@ -25,6 +26,7 @@ import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionScope;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionView;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionViewMapping;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
+import org.jeesl.interfaces.model.system.io.revision.er.JeeslErDiagram;
 import org.jeesl.model.xml.jeesl.Container;
 import org.jeesl.model.xml.system.revision.Attribute;
 import org.jeesl.model.xml.system.revision.Entities;
@@ -32,6 +34,7 @@ import org.jeesl.model.xml.system.revision.Entity;
 import org.jeesl.util.db.JeeslStatusDbUpdater;
 import org.jeesl.util.query.xml.RevisionQuery;
 import org.jeesl.util.query.xml.XmlStatusQuery;
+import org.metachart.xml.graph.Graph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,7 +58,9 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 								REM extends JeeslRevisionEntityMapping<RS,RST,RE>,
 								RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
 								RER extends UtilsStatus<RER,L,D>,
-								RAT extends UtilsStatus<RAT,L,D>>
+								RAT extends UtilsStatus<RAT,L,D>
+//,ERD extends JeeslErDiagram<L,D,RC,ERD>
+>
 					implements JeeslRevisionRestExport,JeeslRevisionRestImport
 {
 	final static Logger logger = LoggerFactory.getLogger(RevisionRestService.class);
@@ -248,4 +253,11 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
         asdi.deleteUnusedStatus(clStatus, clLang, clDescription);
         return dataUpdate;
     }
+
+	@Override
+	public DataUpdate importSystemRevisionDiagram(Graph graph)
+	{
+
+		return XmlDataUpdateFactory.build();
+	}
 }

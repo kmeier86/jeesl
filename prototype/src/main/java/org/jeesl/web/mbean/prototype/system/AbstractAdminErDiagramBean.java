@@ -7,13 +7,13 @@ import java.util.List;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
-import org.jeesl.api.facade.system.JeeslErDiagramFacade;
+import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
 import org.jeesl.controller.handler.sb.SbMultiHandler;
 import org.jeesl.factory.builder.system.erdiagram.ErDiagramFactoryBuilder;
 import org.jeesl.factory.ejb.system.erdiagram.EjbErDiagramFactory;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
-import org.jeesl.interfaces.model.system.erdiagram.JeeslErDiagram;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
+import org.jeesl.interfaces.model.system.io.revision.er.JeeslErDiagram;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.util.comparator.ejb.system.erdiagram.ErDiagramComparator;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
@@ -36,8 +36,8 @@ public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDes
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAdminErDiagramBean.class);
 
-	private JeeslErDiagramFacade<L,D,RC,ERD> fErDiagram;
-	private final ErDiagramFactoryBuilder<L,D,RC,ERD> fbErDiagram;
+	private JeeslIoRevisionFacade<L,D,RC,?,?,?,?,?,?,?,?,?> fRevision;
+	private final ErDiagramFactoryBuilder<L,D,RC,ERD> fbErd;
 
 	private EjbErDiagramFactory<L,D,RC,ERD> efErDiagram;
 
@@ -46,41 +46,32 @@ public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDes
 
 	protected List<ERD> erDiagrams; public List<ERD> getErDiagrams() {return erDiagrams;}
 
-	protected ERD erDiagram;
-
-	public ERD getErDiagram() {
-		return erDiagram;
-	}
-
-	public void setErDiagram(ERD erDiagram) {
-		this.erDiagram = erDiagram;
-	}
-
-	public AbstractAdminErDiagramBean(final ErDiagramFactoryBuilder<L,D,RC,ERD> fbERDiagram)
+	private ERD diagram; public ERD getDiagram() {return diagram;} public void setDiagram(ERD diagram) {this.diagram = diagram;}
+	private String dot; public String getDot() {return dot;} public void setDot(String dot) {this.dot = dot;}
+	
+	public AbstractAdminErDiagramBean(final ErDiagramFactoryBuilder<L,D,RC,ERD> fbErd)
 	{
-		super(fbERDiagram.getClassL(),fbERDiagram.getClassD());
-		this.fbErDiagram = fbERDiagram;
-		this.efErDiagram = this.fbErDiagram.erDiagram();
-		sbhCategory = new SbMultiHandler<RC>(fbERDiagram.getClassCategory(),this);
+		super(fbErd.getClassL(),fbErd.getClassD());
+		this.fbErd = fbErd;
+		this.efErDiagram = this.fbErd.erDiagram();
+		sbhCategory = new SbMultiHandler<RC>(fbErd.getClassCategory(),this);
 		comparatorERDiagram = (new ErDiagramComparator<L,D,RC,ERD>()).factory(ErDiagramComparator.Type.category);
 	}
 
-
-	public void initSuper(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslErDiagramFacade<L,D,RC,ERD> fErDiagram)
+	public void initSuper(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslIoRevisionFacade<L,D,RC,?,?,?,?,?,?,?,?,?> fRevision)
 	{
 		super.initJeeslAdmin(bTranslation, bMessage);
-		this.fErDiagram=fErDiagram;
+		this.fRevision=fRevision;
 
-		sbhCategory.setList(fErDiagram.allOrderedPositionVisible(fbErDiagram.getClassCategory()));
+		sbhCategory.setList(fRevision.allOrderedPositionVisible(fbErd.getClassCategory()));
 		sbhCategory.selectAll();
-		if(debugOnInfo){logger.info(SbMultiHandler.class.getSimpleName()+": "+fbErDiagram.getClassCategory().getSimpleName()+" "+sbhCategory.getSelected().size()+"/"+sbhCategory.getList().size());}
+		if(debugOnInfo){logger.info(SbMultiHandler.class.getSimpleName()+": "+fbErd.getClassCategory().getSimpleName()+" "+sbhCategory.getSelected().size()+"/"+sbhCategory.getList().size());}
 		refreshList();
 	}
 
-
 	private void refreshList()
 	{
-		erDiagrams = fErDiagram.all(fbErDiagram.getClassErDiagram());
+		erDiagrams = fRevision.all(fbErd.getClassErDiagram());
 		Collections.sort(erDiagrams,comparatorERDiagram);
 	}
 
@@ -90,24 +81,37 @@ public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDes
 		if(debugOnInfo){logger.info(SbMultiHandler.class.getSimpleName()+" toggled, but NYI");}
 	}
 
-	public void selectERDiagram() throws UtilsNotFoundException
+	public void selectDiagram() throws UtilsNotFoundException
 	{
-		if(debugOnInfo) {logger.info(AbstractLogMessage.selectEntity(erDiagram));}
-		erDiagram = fErDiagram.find(fbErDiagram.getClassErDiagram(), erDiagram);
+		if(debugOnInfo) {logger.info(AbstractLogMessage.selectEntity(diagram));}
+		reloadDiagram();
+		
+	}
+	
+	private void reloadDiagram()
+	{
+		diagram = fRevision.find(fbErd.getClassErDiagram(), diagram);
+		if(diagram.isDotManual()) {dot = diagram.getDotGraph();}
+		else
+		{
+			
+		}
 	}
 
-	public void saveERDiagram() throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException
+	public void saveDiagram() throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException
 	{
-		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(erDiagram));}
-		if(erDiagram.getCategory()!=null){erDiagram.setCategory(fErDiagram.find(fbErDiagram.getClassCategory(),erDiagram.getCategory()));}
-		erDiagram = fErDiagram.save(erDiagram);
+		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(diagram));}
+		if(diagram.getCategory()!=null){diagram.setCategory(fRevision.find(fbErd.getClassCategory(),diagram.getCategory()));}
+		diagram = fRevision.save(diagram);
 		refreshList();
+		reloadDiagram();
 	}
 
-	public void addErDiagram() {
-		if(debugOnInfo){logger.info(AbstractLogMessage.addEntity(fbErDiagram.getClassErDiagram()));}
-		erDiagram = efErDiagram.build(null, null);
-		erDiagram.setName(efLang.createEmpty(localeCodes));
-		erDiagram.setDescription(efDescription.createEmpty(localeCodes));
+	public void addErDiagram()
+	{
+		if(debugOnInfo){logger.info(AbstractLogMessage.addEntity(fbErd.getClassErDiagram()));}
+		diagram = efErDiagram.build(null, null);
+		diagram.setName(efLang.createEmpty(localeCodes));
+		diagram.setDescription(efDescription.createEmpty(localeCodes));
 	}
 }

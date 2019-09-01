@@ -1,6 +1,6 @@
 package org.jeesl.factory.ejb.system.erdiagram;
 
-import org.jeesl.interfaces.model.system.erdiagram.JeeslErDiagram;
+import org.jeesl.interfaces.model.system.io.revision.er.JeeslErDiagram;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

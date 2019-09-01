@@ -2,7 +2,7 @@ package org.jeesl.factory.builder.system.erdiagram;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
 import org.jeesl.factory.ejb.system.erdiagram.EjbErDiagramFactory;
-import org.jeesl.interfaces.model.system.erdiagram.JeeslErDiagram;
+import org.jeesl.interfaces.model.system.io.revision.er.JeeslErDiagram;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
