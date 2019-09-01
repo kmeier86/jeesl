@@ -11,6 +11,7 @@ import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionViewMappi
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
+import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
 
 import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
@@ -32,7 +33,8 @@ public interface JeeslIoRevisionFacade <L extends UtilsLang,D extends UtilsDescr
 									REM extends JeeslRevisionEntityMapping<RS,RST,RE>,
 									RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
 									RER extends UtilsStatus<RER,L,D>,
-									RAT extends UtilsStatus<RAT,L,D>>
+									RAT extends UtilsStatus<RAT,L,D>,
+									ERD extends JeeslRevisionDiagram<L,D,RC>>
 			extends UtilsFacade
 {	
 	public static int typeCreate = 0;

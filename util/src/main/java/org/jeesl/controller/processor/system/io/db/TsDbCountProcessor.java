@@ -44,11 +44,11 @@ public class TsDbCountProcessor<RE extends JeeslRevisionEntity<?,?,?,?,?>,
 {
 	final static Logger logger = LoggerFactory.getLogger(TsDbCountProcessor.class);
 	
-	private final IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?> fbRevision;
+	private final IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?,?> fbRevision;
 		
 	private final JeeslIoDbFacade<?,?,?,?,?,?,?> fDb;
 	
-	public TsDbCountProcessor(IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?> fbRevision,
+	public TsDbCountProcessor(IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?,?> fbRevision,
 									TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,DATA,POINT,?,?,WS,?> fbTs,
 									JeeslIoDbFacade<?,?,?,?,?,?,?> fDb,
 									JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,DATA,POINT,?,?,WS,?> fTs)

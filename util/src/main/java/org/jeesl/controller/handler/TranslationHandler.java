@@ -27,7 +27,7 @@ public class TranslationHandler<L extends UtilsLang,D extends UtilsDescription,
 	
 	private final Class<RE> cRE;
 	
-	private final JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?> fRevision;
+	private final JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fRevision;
 	
 	private final Map<String,Map<String,L>> entities; public Map<String,Map<String,L>> getEntities() {return entities;}
 	private final Map<String,Map<String,Map<String,L>>> labels; public Map<String, Map<String, Map<String,L>>> getLabels() {return labels;}
@@ -35,7 +35,7 @@ public class TranslationHandler<L extends UtilsLang,D extends UtilsDescription,
 
 	public final Map<String,RE> mapEntities; public Map<String,RE> getMapEntities() {return mapEntities;}
 	
-	public TranslationHandler(JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?> fRevision, final Class<RE> cRE)
+	public TranslationHandler(JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fRevision, final Class<RE> cRE)
 	{
 		this.cRE = cRE;
 		this.fRevision=fRevision;

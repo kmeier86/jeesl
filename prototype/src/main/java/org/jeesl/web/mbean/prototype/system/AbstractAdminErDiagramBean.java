@@ -36,7 +36,7 @@ public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDes
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAdminErDiagramBean.class);
 
-	private JeeslIoRevisionFacade<L,D,RC,?,?,?,?,?,?,?,?,?> fRevision;
+	private JeeslIoRevisionFacade<L,D,RC,?,?,?,?,?,?,?,?,?,ERD> fRevision;
 	private final ErDiagramFactoryBuilder<L,D,RC,ERD> fbErd;
 
 	private EjbErDiagramFactory<L,D,RC,ERD> efErDiagram;
@@ -58,7 +58,8 @@ public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDes
 		comparatorERDiagram = (new ErDiagramComparator<L,D,RC,ERD>()).factory(ErDiagramComparator.Type.category);
 	}
 
-	public void initSuper(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslIoRevisionFacade<L,D,RC,?,?,?,?,?,?,?,?,?> fRevision)
+	public void initSuper(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+							JeeslIoRevisionFacade<L,D,RC,?,?,?,?,?,?,?,?,?,ERD> fRevision)
 	{
 		super.initJeeslAdmin(bTranslation, bMessage);
 		this.fRevision=fRevision;

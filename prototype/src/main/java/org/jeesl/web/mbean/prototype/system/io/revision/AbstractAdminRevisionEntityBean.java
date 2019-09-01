@@ -16,6 +16,7 @@ import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionViewMappi
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
+import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
 import org.jeesl.interfaces.web.JeeslJsfSecurityHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,8 +39,9 @@ public class AbstractAdminRevisionEntityBean <L extends UtilsLang, D extends Uti
 											RE extends JeeslRevisionEntity<L,D,RC,REM,RA>,
 											REM extends JeeslRevisionEntityMapping<RS,RST,RE>,
 											RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>, RER extends UtilsStatus<RER,L,D>,
-											RAT extends UtilsStatus<RAT,L,D>>
-					extends AbstractAdminRevisionBean<L,D,LOC,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>
+											RAT extends UtilsStatus<RAT,L,D>,
+											ERD extends JeeslRevisionDiagram<L,D,RC>>
+					extends AbstractAdminRevisionBean<L,D,LOC,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -54,9 +56,9 @@ public class AbstractAdminRevisionEntityBean <L extends UtilsLang, D extends Uti
 	
 	private String className; public String getClassName() {return className;}
 	
-	public AbstractAdminRevisionEntityBean(final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fbRevision){super(fbRevision);}
+	public AbstractAdminRevisionEntityBean(final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fbRevision){super(fbRevision);}
 	
-	protected void postConstructRevisionEntity(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fRevision, JeeslLabelBean<RE> bLabel)
+	protected void postConstructRevisionEntity(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fRevision, JeeslLabelBean<RE> bLabel)
 	{
 		String[] langs = bTranslation.getLangKeys().toArray(new String[0]);
 		super.initRevisionSuper(langs,bMessage,fRevision);

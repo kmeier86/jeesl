@@ -30,7 +30,7 @@ public class AbstractLabelBean <L extends UtilsLang,D extends UtilsDescription,
 	final static Logger logger = LoggerFactory.getLogger(AbstractLabelBean.class);
 	
 	private TranslationHandler<L,D,RE,RA> th;
-	private final IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?> fbRevision;
+	private final IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?,?> fbRevision;
 	private FacadeLabelResolver<RE,RA> flr;
 
 	private final Map<RE,Map<MultiKey,String>> mapXpath;
@@ -41,13 +41,13 @@ public class AbstractLabelBean <L extends UtilsLang,D extends UtilsDescription,
 	public Map<String,RE> getMapEntities() {return th.getMapEntities();}
 	@Override public List<RE> allEntities() {return th.allEntities();}
 	
-	public AbstractLabelBean(IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?> fbRevision)
+	public AbstractLabelBean(IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?,?> fbRevision)
 	{
 		this.fbRevision=fbRevision;
 		mapXpath = new HashMap<RE,Map<MultiKey,String>>();
 	}
 	
-	protected void init(JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?> fRevision, final Class<RE> cRE)
+	protected void init(JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fRevision, final Class<RE> cRE)
 	{		
 		th = new TranslationHandler<L,D,RE,RA>(fRevision,cRE);
 		if(fbRevision!=null)

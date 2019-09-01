@@ -24,6 +24,7 @@ import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionViewMappi
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
+import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
 import org.jeesl.util.query.sql.SqlNativeQueryHelper;
 import org.jeesl.util.query.sql.SqlRevisionQueries;
 
@@ -46,24 +47,27 @@ public class JeeslRevisionFacadeBean<L extends UtilsLang,D extends UtilsDescript
 									RST extends UtilsStatus<RST,L,D>,
 									RE extends JeeslRevisionEntity<L,D,RC,REM,RA>,
 									REM extends JeeslRevisionEntityMapping<RS,RST,RE>,
-									RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>, RER extends UtilsStatus<RER,L,D>,
-									RAT extends UtilsStatus<RAT,L,D>>
+									RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
+									RER extends UtilsStatus<RER,L,D>,
+									RAT extends UtilsStatus<RAT,L,D>,
+									ERD extends JeeslRevisionDiagram<L,D,RC>>
 					extends UtilsFacadeBean
-					implements JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>
+					implements JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD>
 {
 	private static final long serialVersionUID = 1L;
 	
-	private final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fbRevision;
+	private final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fbRevision;
 	
 	private String revisionPrefix;
 	private String revisionTable;
 
-	public JeeslRevisionFacadeBean(EntityManager em, final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fbRevision)
+	public JeeslRevisionFacadeBean(EntityManager em, final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fbRevision)
 	{
 		this("_at_","auditinfo",em,fbRevision);
 	}
 	
-	public JeeslRevisionFacadeBean(String revisionPrefix, String revisionTable, EntityManager em, final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fbRevision)
+	public JeeslRevisionFacadeBean(String revisionPrefix, String revisionTable, EntityManager em,
+								final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fbRevision)
 	{
 		super(em);
 		this.fbRevision=fbRevision;

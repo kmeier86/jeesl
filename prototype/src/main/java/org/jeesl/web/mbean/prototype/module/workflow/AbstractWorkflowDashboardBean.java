@@ -86,11 +86,11 @@ public abstract class AbstractWorkflowDashboardBean <L extends UtilsLang, D exte
 	final static Logger logger = LoggerFactory.getLogger(AbstractWorkflowDashboardBean.class);
 
 	private JeeslWorkflowFacade<L,D,LOC,AX,AP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,AW,AY,FRC,USER> fWorkflow;
-	private JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?> fRevision;
+	private JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fRevision;
 	
 	private final WorkflowFactoryBuilder<L,D,AX,AP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,AW,AY,FRC,USER> fbApproval;
 	private final IoTemplateFactoryBuilder<L,D,?,?,MT,?,?,?,?> fbTemplate;
-	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?> fbRevision;
+	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fbRevision;
 	private final SecurityFactoryBuilder<L,D,?,SR,?,?,?,?,?,?,?> fbSecurity;
 	
 	private JeeslWorkflowEngine<L,D,LOC,AX,AP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,MD,SR,RE,RA,AL,AW,AY,FRC,WCS,USER> wfEngine;
@@ -103,7 +103,7 @@ public abstract class AbstractWorkflowDashboardBean <L extends UtilsLang, D exte
 	protected AW workflow; public AW getWorkflow() {return workflow;} public void setProcess(AW workflow) {this.workflow = workflow;}
 
 	public AbstractWorkflowDashboardBean(final WorkflowFactoryBuilder<L,D,AX,AP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,AW,AY,FRC,USER> fbApproval,
-											final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?> fbRevision,
+											final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fbRevision,
 											final SecurityFactoryBuilder<L,D,?,SR,?,?,?,?,?,?,?> fbSecurity,
 											final IoTemplateFactoryBuilder<L,D,?,?,MT,?,?,?,?> fbTemplate)
 	{
@@ -121,7 +121,7 @@ public abstract class AbstractWorkflowDashboardBean <L extends UtilsLang, D exte
 	
 	protected void postConstructProcess(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 										JeeslWorkflowFacade<L,D,LOC,AX,AP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,AL,AW,AY,FRC,USER> fWorkflow,
-										JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?> fRevision,
+										JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fRevision,
 										JeeslWorkflowEngine<L,D,LOC,AX,AP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,MD,SR,RE,RA,AL,AW,AY,FRC,WCS,USER> wfEngine)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);

@@ -14,6 +14,7 @@ import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionViewMappi
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
+import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +32,9 @@ public class IoRevisionFactoryBuilder<L extends UtilsLang, D extends UtilsDescri
 									REM extends JeeslRevisionEntityMapping<RS,RST,RE>,
 									RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
 									RER extends UtilsStatus<RER,L,D>,
-									RAT extends UtilsStatus<RAT,L,D>>
+									RAT extends UtilsStatus<RAT,L,D>,
+									ERD extends JeeslRevisionDiagram<L,D,RC>
+>
 				extends AbstractFactoryBuilder<L,D>
 {
 	final static Logger logger = LoggerFactory.getLogger(IoRevisionFactoryBuilder.class);
@@ -46,8 +49,20 @@ public class IoRevisionFactoryBuilder<L extends UtilsLang, D extends UtilsDescri
 	private final Class<RA> cAttribute; public Class<RA> getClassAttribute(){return cAttribute;}
 	private final Class<RER> cRelation; public Class<RER> getClassRelation(){return cRelation;}
 	private final Class<RAT> cRat; public Class<RAT> getClassAttributeType(){return cRat;}
+	private final Class<ERD> cErd; public Class<ERD> getClassDiagram(){return cErd;}
     
-	public IoRevisionFactoryBuilder(final Class<L> cL, final Class<D> cD, Class<RC> cCategory,Class<RV> cView,Class<RVM> cViewMapping, Class<RS> cScope, Class<RST> cScopeType, Class<RE> cEntity, Class<REM> cMappingEntity, Class<RA> cAttribute, final Class<RER> cRelation, Class<RAT> cRat)
+	public IoRevisionFactoryBuilder(final Class<L> cL, final Class<D> cD,
+									Class<RC> cCategory,
+									Class<RV> cView,
+									Class<RVM> cViewMapping,
+									Class<RS> cScope,
+									Class<RST> cScopeType,
+									Class<RE> cEntity,
+									Class<REM> cMappingEntity,
+									Class<RA> cAttribute,
+									final Class<RER> cRelation,
+									Class<RAT> cRat,
+									final Class<ERD> cErd)
 	{
 		super(cL,cD);
 		this.cCategory=cCategory;
@@ -60,6 +75,7 @@ public class IoRevisionFactoryBuilder<L extends UtilsLang, D extends UtilsDescri
 		this.cAttribute=cAttribute;
 		this.cRelation=cRelation;
 		this.cRat=cRat;
+		this.cErd=cErd;
 	}
 	
 	public EjbRevisionViewFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> ejbView()

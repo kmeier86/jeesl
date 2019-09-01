@@ -85,7 +85,7 @@ public class AbstractOptionTableBean <L extends UtilsLang, D extends UtilsDescri
 	
 	private final StatusFactoryBuilder<L,D,LOC> fbStatus;
 	private final SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg;
-	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,?,?,?> fbRevision;
+	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,?,?,?,?> fbRevision;
 	
 	private final JeeslGraphicDbUpdater<G,GT> dbuGraphic;
 	
@@ -128,7 +128,7 @@ public class AbstractOptionTableBean <L extends UtilsLang, D extends UtilsDescri
 	
 	public AbstractOptionTableBean(StatusFactoryBuilder<L,D,LOC> fbStatus,
 									SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg,
-									IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,?,?,?> fbRevision)
+									IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,?,?,?,?> fbRevision)
 	{
 		super(fbStatus.getClassL(),fbStatus.getClassD());
 		this.fbStatus=fbStatus;

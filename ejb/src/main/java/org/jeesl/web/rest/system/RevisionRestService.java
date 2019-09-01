@@ -58,15 +58,15 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 								REM extends JeeslRevisionEntityMapping<RS,RST,RE>,
 								RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
 								RER extends UtilsStatus<RER,L,D>,
-								RAT extends UtilsStatus<RAT,L,D>
-//,ERD extends JeeslErDiagram<L,D,RC,ERD>
+								RAT extends UtilsStatus<RAT,L,D>,
+								ERD extends JeeslRevisionDiagram<L,D,RC>
 >
 					implements JeeslRevisionRestExport,JeeslRevisionRestImport
 {
 	final static Logger logger = LoggerFactory.getLogger(RevisionRestService.class);
 	
-	private final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fbRevision;
-	private JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fRevision;
+	private final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fbRevision;
+	private JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fRevision;
 
 	private XmlContainerFactory xfContainer;
 	private XmlEntityFactory<L,D,RC,REM,RE,RA,RER,RAT> xfEntity;
@@ -76,8 +76,8 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 	private EjbRevisionEntityFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> efEntity;
 	private EjbRevisionAttributeFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> efAttribute;
 	
-	public RevisionRestService(IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fbRevision,
-								JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> fRevision)
+	public RevisionRestService(IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fbRevision,
+								JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fRevision)
 	{
 		this.fbRevision=fbRevision;
 		this.fRevision=fRevision;
