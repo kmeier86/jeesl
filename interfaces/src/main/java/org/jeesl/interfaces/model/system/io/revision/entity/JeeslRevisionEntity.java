@@ -32,6 +32,9 @@ public interface JeeslRevisionEntity<L extends UtilsLang, D extends UtilsDescrip
 	Boolean getTimeseries();
 	void setTimeseries(Boolean timeseries);
 	
+	Boolean getDocumentation();
+	void setDocumentation(Boolean documentation);
+	
 	List<REM> getMaps();
 	void setMaps(List<REM> maps);
 	

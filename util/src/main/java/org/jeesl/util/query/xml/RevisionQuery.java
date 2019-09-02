@@ -3,8 +3,8 @@ package org.jeesl.util.query.xml;
 import java.util.Hashtable;
 import java.util.Map;
 
-import org.jeesl.factory.xml.system.revision.XmlEntityFactory;
-import org.jeesl.factory.xml.system.revision.XmlRelationFactory;
+import org.jeesl.factory.xml.system.io.revision.XmlEntityFactory;
+import org.jeesl.factory.xml.system.io.revision.XmlRelationFactory;
 import org.jeesl.factory.xml.system.status.XmlCategoryFactory;
 import org.jeesl.factory.xml.system.status.XmlTypeFactory;
 

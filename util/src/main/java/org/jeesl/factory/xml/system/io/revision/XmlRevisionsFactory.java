@@ -1,4 +1,4 @@
-package org.jeesl.factory.xml.system.revision;
+package org.jeesl.factory.xml.system.io.revision;
 
 import org.jeesl.model.xml.system.revision.Revisions;
 import org.slf4j.Logger;

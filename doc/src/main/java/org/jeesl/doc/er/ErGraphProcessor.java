@@ -134,7 +134,7 @@ public class ErGraphProcessor
 				}
 				catch (ExlpXpathNotFoundException | ExlpXpathNotUniqueException e)
 				{
-					logger.warn(e.getMessage());
+//					logger.warn(e.getMessage());
 				}
 			}
 			if(node.getLabel()==null){node.setLabel("** "+er.name());}			

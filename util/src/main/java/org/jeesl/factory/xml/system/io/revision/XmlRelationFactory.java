@@ -1,4 +1,4 @@
-package org.jeesl.factory.xml.system.revision;
+package org.jeesl.factory.xml.system.io.revision;
 
 import org.jeesl.factory.xml.system.status.XmlTypeFactory;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;

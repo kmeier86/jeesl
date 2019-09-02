@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.jeesl.factory.ejb.system.status.EjbDescriptionFactory;
 import org.jeesl.factory.ejb.system.status.EjbLangFactory;
+import org.jeesl.factory.ejb.util.EjbPositionFactory;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionScope;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionView;
@@ -83,8 +84,9 @@ public class EjbRevisionEntityFactory<L extends UtilsLang,D extends UtilsDescrip
 			ejb = cEntity.newInstance();
 			ejb.setCategory(category);
 			ejb.setVisible(true);
-			if(list==null) {ejb.setPosition(1);}
-			else {ejb.setPosition(list.size()+1);}
+			ejb.setTimeseries(false);
+			ejb.setDocumentation(false);
+			EjbPositionFactory.next(ejb, list);
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}

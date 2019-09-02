@@ -1,4 +1,4 @@
-package org.jeesl.factory.xml.system.revision;
+package org.jeesl.factory.xml.system.io.revision;
 
 import java.util.Date;
 

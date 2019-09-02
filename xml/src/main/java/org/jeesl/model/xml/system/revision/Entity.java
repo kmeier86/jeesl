@@ -36,6 +36,8 @@ import net.sf.ahtutils.xml.text.Remark;
  *       &lt;attribute name="code" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
  *       &lt;attribute name="position" type="{http://www.w3.org/2001/XMLSchema}int" /&gt;
  *       &lt;attribute name="visible" type="{http://www.w3.org/2001/XMLSchema}boolean" /&gt;
+ *       &lt;attribute name="timeseries" type="{http://www.w3.org/2001/XMLSchema}boolean" /&gt;
+ *       &lt;attribute name="documentation" type="{http://www.w3.org/2001/XMLSchema}boolean" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -75,6 +77,10 @@ public class Entity
     protected Integer position;
     @XmlAttribute(name = "visible")
     protected Boolean visible;
+    @XmlAttribute(name = "timeseries")
+    protected Boolean timeseries;
+    @XmlAttribute(name = "documentation")
+    protected Boolean documentation;
 
     /**
      * Gets the value of the category property.
@@ -347,6 +353,70 @@ public class Entity
 
     public void unsetVisible() {
         this.visible = null;
+    }
+
+    /**
+     * Gets the value of the timeseries property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public boolean isTimeseries() {
+        return timeseries;
+    }
+
+    /**
+     * Sets the value of the timeseries property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setTimeseries(boolean value) {
+        this.timeseries = value;
+    }
+
+    public boolean isSetTimeseries() {
+        return (this.timeseries!= null);
+    }
+
+    public void unsetTimeseries() {
+        this.timeseries = null;
+    }
+
+    /**
+     * Gets the value of the documentation property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public boolean isDocumentation() {
+        return documentation;
+    }
+
+    /**
+     * Sets the value of the documentation property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setDocumentation(boolean value) {
+        this.documentation = value;
+    }
+
+    public boolean isSetDocumentation() {
+        return (this.documentation!= null);
+    }
+
+    public void unsetDocumentation() {
+        this.documentation = null;
     }
 
 }

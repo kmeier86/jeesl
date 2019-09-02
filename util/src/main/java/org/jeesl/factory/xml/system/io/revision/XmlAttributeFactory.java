@@ -1,13 +1,13 @@
-package org.jeesl.factory.xml.system.revision;
+package org.jeesl.factory.xml.system.io.revision;
 
 import org.jeesl.factory.xml.system.lang.XmlDescriptionsFactory;
 import org.jeesl.factory.xml.system.lang.XmlLangsFactory;
-import org.jeesl.factory.xml.system.status.XmlCategoryFactory;
+import org.jeesl.factory.xml.system.status.XmlTypeFactory;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
-import org.jeesl.model.xml.system.revision.Entity;
+import org.jeesl.model.xml.system.revision.Attribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,60 +15,73 @@ import net.sf.ahtutils.factory.xml.text.XmlRemarkFactory;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-import net.sf.ahtutils.xml.aht.Query;
 
-public class XmlEntityFactory <L extends UtilsLang,D extends UtilsDescription,
+
+public class XmlAttributeFactory <L extends UtilsLang,D extends UtilsDescription,
 								RC extends JeeslRevisionCategory<L,D,RC,?>,	
 								REM extends JeeslRevisionEntityMapping<?,?,?>,
-								RE extends JeeslRevisionEntity<L,D,RC,REM,RA>,	
+								RE extends JeeslRevisionEntity<L,D,RC,REM,RA>,										
 								RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
 								RER extends UtilsStatus<RER,L,D>,
 								RAT extends UtilsStatus<RAT,L,D>>
+								
 {
-	final static Logger logger = LoggerFactory.getLogger(XmlEntityFactory.class);
+	final static Logger logger = LoggerFactory.getLogger(XmlAttributeFactory.class);
 	
-	private Entity q;
+	private Attribute q;
 	
-	private XmlCategoryFactory<RC,L,D> xfCategory;
 	private XmlLangsFactory<L> xfLangs;
 	private XmlDescriptionsFactory<D> xfDescriptions;
-	private XmlAttributeFactory<L,D,RC,REM,RE,RA,RER,RAT> xfAttribute;
+	private XmlTypeFactory<L,D,RAT> xfType;
+	private XmlRelationFactory<L,D,RC,REM,RE,RA,RER,RAT> xfRelation;
 	
-	public XmlEntityFactory(Query q){this(q.getEntity());}
-	public XmlEntityFactory(Entity q)
+	public XmlAttributeFactory(Attribute q)
 	{
 		this.q=q;
-		if(q.isSetCategory()){xfCategory = new XmlCategoryFactory<>(q.getCategory());}
 		if(q.isSetLangs()){xfLangs = new XmlLangsFactory<>(q.getLangs());}
 		if(q.isSetDescriptions()){xfDescriptions = new XmlDescriptionsFactory<>(q.getDescriptions());}
-		if(q.isSetAttribute()){xfAttribute = new XmlAttributeFactory<>(q.getAttribute().get(0));}
+		if(q.isSetType()){xfType = new XmlTypeFactory<>(q.getType());}
+		if(q.isSetRelation()){xfRelation = new XmlRelationFactory<>(q.getRelation());}
 	}
 	
-	public static Entity build() {return new Entity();}
-	
-	public Entity build(RE ejb)
+	public Attribute build(RA ejb)
 	{
-		Entity xml = build();
+		Attribute xml = new Attribute();
 		
 		if(q.isSetId()){xml.setId(ejb.getId());}
-		if(q.isSetCode()&&ejb.getCode()!=""){xml.setCode(ejb.getCode());}
 		if(q.isSetPosition()){xml.setPosition(ejb.getPosition());}
-		if(q.isSetVisible()){xml.setVisible(ejb.isVisible());}
-		if(q.isSetCategory()){xml.setCategory(xfCategory.build(ejb.getCategory()));}		
+		if(q.isSetCode()){xml.setCode(ejb.getCode());}
+		if(q.isSetType()){xml.setType(xfType.build(ejb.getType()));}
+		
+		if(q.isSetXpath()){xml.setXpath(ejb.getXpath());}
+//		if(q.isSetJpa()){xml.setJpa(ejb.get);
+		
+		if(q.isSetWeb()){xml.setWeb(ejb.isShowWeb());}
+		if(q.isSetPrint()){xml.setPrint(ejb.isShowPrint());}
+		if(q.isSetName()){xml.setName(ejb.isShowName());}
+		if(q.isSetEnclosure()){xml.setEnclosure(ejb.isShowEnclosure());}
+		if(q.isSetUi())
+		{
+			if(ejb.getUi()==null){xml.setUi(false);}
+			else{xml.setUi(ejb.getUi());}
+		}
+		if(q.isSetBean())
+		{
+			if(ejb.getBean()==null){xml.setBean(false);}
+			else {xml.setBean(ejb.getBean());}
+		}
+		if(q.isSetConstruction())
+		{
+			if(ejb.getConstruction()==null){xml.setConstruction(false);}
+			else {xml.setConstruction(ejb.getConstruction());}
+		}
 		
 		if(q.isSetLangs()){xml.setLangs(xfLangs.getUtilsLangs(ejb.getName()));}
 		if(q.isSetDescriptions()){xml.setDescriptions(xfDescriptions.create(ejb.getDescription()));}
 		if(q.isSetRemark()){xml.setRemark(XmlRemarkFactory.build(ejb.getDeveloperInfo()));}
 		
-		if(q.isSetAttribute())
-		{
-			for(RA attribute : ejb.getAttributes())
-			{
-				xml.getAttribute().add(xfAttribute.build(attribute));
-			}
-		}
+		if(q.isSetRelation()&&ejb.getRelation()!=null){xml.setRelation(xfRelation.build(ejb));}
 		
 		return xml;
 	}
-
 }
