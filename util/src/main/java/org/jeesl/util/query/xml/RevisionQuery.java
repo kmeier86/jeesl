@@ -46,6 +46,8 @@ public class RevisionQuery
 		xml.setCode("");
 		xml.setPosition(0);
 		xml.setVisible(true);
+		xml.setTimeseries(true);
+		xml.setDocumentation(true);
 		xml.setCategory(XmlCategoryFactory.create(""));
 		xml.setLangs(XmlStatusQuery.langs());
 		xml.setDescriptions(XmlStatusQuery.descriptions());

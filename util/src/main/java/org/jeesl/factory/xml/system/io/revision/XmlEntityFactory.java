@@ -8,6 +8,7 @@ import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribu
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
 import org.jeesl.model.xml.system.revision.Entity;
+import org.jeesl.util.comparator.pojo.BooleanComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,8 +55,8 @@ public class XmlEntityFactory <L extends UtilsLang,D extends UtilsDescription,
 		if(q.isSetCode()&&ejb.getCode()!=""){xml.setCode(ejb.getCode());}
 		if(q.isSetPosition()){xml.setPosition(ejb.getPosition());}
 		if(q.isSetVisible()){xml.setVisible(ejb.isVisible());}
-		if(q.isSetTimeseries()) {xml.setTimeseries(ejb.getTimeseries());}
-		if(q.isSetDocumentation()) {xml.setDocumentation(ejb.getDocumentation());}
+		if(q.isSetTimeseries()) {xml.setTimeseries(BooleanComparator.active(ejb.getTimeseries()));}
+		if(q.isSetDocumentation()) {xml.setDocumentation(BooleanComparator.active(ejb.getDocumentation()));}
 		if(q.isSetCategory()){xml.setCategory(xfCategory.build(ejb.getCategory()));}		
 		
 		if(q.isSetLangs()){xml.setLangs(xfLangs.getUtilsLangs(ejb.getName()));}
