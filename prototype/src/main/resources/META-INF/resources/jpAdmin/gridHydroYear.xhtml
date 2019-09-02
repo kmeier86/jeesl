@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:j="http://www.jeesl.org/jsf"
+        xmlns:jp="http://jsf.jeesl.org/prototype"
+        xmlns:mcg="http://www.metachart.org/graph"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+	
+	<composite:interface>
+            <composite:attribute name="bean" required="true"/>
+            <composite:attribute name="localeKeys" required="false" default="#{appTranslationBean.langKeys}"/>
+	</composite:interface>
+	
+	<composite:implementation>
+            <jp:grid id="grid">
+			<j:row id="row1">
+				<j:slot id="sHydroYears" width="7">
+					<h:form id="fHydroYears">
+						<p:dataTable var="hYear" value="#{cc.attrs.bean.hydroYears}"
+								selection="#{cc.attrs.bean.hydroYear}" selectionMode="single" rowKey="#{hYear.id}">
+							<f:facet name="header">
+								<j:dtHeader title="#{msg.jeeslHydroYears}">
+									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addHydroYear()}" update=":#{cc.id}:sHydroYear"/>
+								</j:dtHeader>
+							</f:facet>
+							<p:ajax event="rowSelect" update=":#{cc.id}:sHydroYears :#{cc.id}:sHydroYear" listener="#{cc.attrs.bean.selectHydroYear}"/>
+				            <p:column headerText="#{msg.jeeslCategory}" >  
+								<h:outputText value="#{hYear.category.name[localeCode].lang}" />  
+				            </p:column>
+				            <p:column headerText="#{msg.jeeslCode}" >  
+								<h:outputText value="#{hYear.code}" />  
+				            </p:column>
+				            <p:column headerText="#{msg.jeeslName}">  
+								<h:outputText value="#{hYear.name[localeCode].lang}"/>
+				            </p:column>
+						</p:dataTable>
+					</h:form>
+				</j:slot>
+				<j:slot id="sHydroYear" width="5">
+					<h:form id="fHydroYear">
+						<p:panel header="#{msg.jeeslHydroYear}" rendered="#{not empty cc.attrs.bean.hydroYear}" styleClass="jeeslPanel">
+							<f:facet name="actions">
+								<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.cancelHydroYear()}" update=":#{cc.id}:sHydroYear" mayDisappear="true"/>
+								<j:icon type="jeeslSave" listener="#{cc.attrs.bean.saveHydroYear()}" update=":#{cc.id}:sHydroYears :#{cc.id}:sHydroYear" tooltip="#{msg.ttSave}"/>
+								<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteHydroYear()}" update=":#{cc.id}:sHydroYears :#{cc.id}:sHydroYear" rendered="#{cc.attrs.bean.hydroYear.id gt 0}" mayDisappear="true"/>
+							</f:facet>
+							<p:messages redisplay="false" severity="warn,error" showSummary="false" showDetail="true" closable="true"/>
+							<p:panelGrid columns="2" columnClasses="jeeslGrid30,jeeslGrid70">
+							
+								<p:outputLabel value="#{msg.jeeslCategory}"/>
+								<p:selectOneMenu value="#{cc.attrs.bean.hydroYear.decade}" effect="fade" >
+									<f:selectItems value="#{cc.attrs.bean.sbhDecade.list}" var="t" itemLabel="#{t.name[userBean.localeCode].lang}" itemValue="#{t}"/>
+								</p:selectOneMenu>
+							
+								<p:outputLabel value="#{msg.jeeslCode}"/>
+                                <p:inputText value="#{cc.attrs.bean.hydroYear.code}" autocomplete="off"/>
+                                
+                                <p:outputLabel value="#{msg.aupDateFrom}"/>
+								<h:panelGroup styleClass="datePickerContainer" layout="block" style="width: 100%">
+									<p:calendar value="#{cc.attrs.bean.hydroYear.validFrom}" showOn="button" pattern="dd.MM.yyyy"/>
+								</h:panelGroup>
+								
+								<p:outputLabel value="#{msg.aupDateUntil}"/>
+								<h:panelGroup styleClass="datePickerContainer" layout="block" style="width: 100%">
+									<p:calendar value="#{cc.attrs.bean.hydroYear.validUntil}" showOn="button" pattern="dd.MM.yyyy"/>
+								</h:panelGroup>                                                               
+							</p:panelGrid>
+							<j:tabTranslationEditor value="#{cc.attrs.bean.hydroYear}" keys="#{cc.attrs.localeKeys}" withDescription="true"/>
+						</p:panel>
+					</h:form>
+				</j:slot>
+			</j:row>
+	    </jp:grid>
+            
+	</composite:implementation>
+</html>
