@@ -2,13 +2,12 @@ package net.sf.ahtutils.report.revert.excel.strategies;
 
 import java.util.Hashtable;
 
-
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
-import net.sf.ahtutils.xml.text.Remark;
-
 import org.jeesl.api.controller.ImportStrategy;
+import org.jeesl.model.xml.text.Remark;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 
 public class AddRemarkStrategy implements ImportStrategy {
 	

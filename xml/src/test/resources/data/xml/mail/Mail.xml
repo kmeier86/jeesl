@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<mail:mail xmlns:mail="http://www.jeesl.org/io/mail" xmlns:io="http://exlp.sf.net/io" id="123" code="myCode" lang="myLang" type="myType" msgId="myMsgID" dir="myDir" test="true">
-    <example>myExample</example>
+<mail:mail xmlns:mail="http://www.jeesl.org/io/mail" xmlns:io="http://exlp.sf.net/io" xmlns:text="http://www.jeesl.org/text" id="123" code="myCode" lang="myLang" type="myType" msgId="myMsgID" dir="myDir" test="true">
     <mail:mail id="123" code="myCode" lang="myLang" type="myType" msgId="myMsgID" dir="myDir" test="true">
-        <example>myExample</example>
+        <text:example version="1" key="myKey">myValue</text:example>
     </mail:mail>
     <mail:header>
         <subject>mySubject</subject>
@@ -13,4 +12,5 @@
     <mail:attachment/>
     <mail:image cid="myCid"/>
     <mail:image cid="myCid"/>
+    <text:example version="1" key="myKey">myValue</text:example>
 </mail:mail>

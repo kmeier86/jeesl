@@ -1,6 +1,7 @@
 package org.jeesl.model.xml.system.io.mail;
 
 import org.jeesl.JeeslXmlTestBootstrap;
+import org.jeesl.model.xml.system.util.text.TestXmlExample;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +21,7 @@ public class TestXmlMail extends AbstractXmlMailTest<Mail>
     	xml.setType("myType");
     	xml.setMsgId("myMsgID");
     	xml.setDir("myDir");
-    	xml.setExample("myExample");
+    	xml.setExample(TestXmlExample.create(false));
     	xml.setTest(true);
     	
     	if(withChilds)

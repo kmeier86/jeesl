@@ -2,8 +2,10 @@
 <xsd:schema targetNamespace="http://www.jeesl.org/io/mail"
     xmlns:m="http://www.jeesl.org/io/mail"
     xmlns:io="http://exlp.sf.net/io"
+    xmlns:t="http://www.jeesl.org/text"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <xsd:import namespace="http://exlp.sf.net/io" schemaLocation="../../../../../../../exlp/xml/src/main/xsd/util/io.xsd"/>
+    <xsd:import namespace="http://www.jeesl.org/text" schemaLocation="../text.xsd"/>
     <xsd:element name="mails">
 	    <xsd:complexType>
             <xsd:sequence>
@@ -16,17 +18,14 @@
     <xsd:element name="mail">
         <xsd:complexType>
             <xsd:sequence>
-	           	<xsd:element name="example">
-	           		<xsd:simpleType>
-		               	<xsd:restriction base="xsd:string"/>
-		            </xsd:simpleType>
-		        </xsd:element>
+
 		        <xsd:element ref="m:mail" maxOccurs="1"/>
                 <xsd:element ref="m:header" maxOccurs="1"/>
 		        <xsd:element ref="m:template" maxOccurs="unbounded"/>
 		        <xsd:element ref="m:text" maxOccurs="1"/>
 		        <xsd:element ref="m:attachment" maxOccurs="unbounded"/>
 		        <xsd:element ref="m:image" maxOccurs="unbounded"/>
+		        <xsd:element ref="t:example" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
             <xsd:attribute name="code" type="xsd:string"/>

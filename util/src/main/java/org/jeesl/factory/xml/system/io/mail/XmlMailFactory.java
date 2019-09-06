@@ -3,6 +3,7 @@ package org.jeesl.factory.xml.system.io.mail;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 
+import org.jeesl.factory.xml.system.util.text.XmlExampleFactory;
 import org.jeesl.model.xml.system.io.mail.EmailAddress;
 import org.jeesl.model.xml.system.io.mail.Header;
 import org.jeesl.model.xml.system.io.mail.Mail;
@@ -39,7 +40,7 @@ public class XmlMailFactory
     {   	   	
     	Mail mail = new Mail();
     	mail.setHeader(header);
-    	mail.setExample(content);
+    	mail.setExample(XmlExampleFactory.build(content));
     	return mail;
     }
     
@@ -55,7 +56,7 @@ public class XmlMailFactory
     {    	
     	Mail mail = new Mail();
     	mail.setHeader(XmlHeaderFactory.create(subject, emailFrom, emailTo));
-    	mail.setExample(content);
+    	mail.setExample(XmlExampleFactory.build(content));
     	return mail;
     }
     

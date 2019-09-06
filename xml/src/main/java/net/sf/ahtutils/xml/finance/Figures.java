@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import net.sf.ahtutils.xml.text.Remark;
+import org.jeesl.model.xml.text.Remark;
 
 
 /**
@@ -23,7 +23,7 @@ import net.sf.ahtutils.xml.text.Remark;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element ref="{http://ahtutils.aht-group.com/text}remark" maxOccurs="unbounded"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/text}remark" maxOccurs="unbounded"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/finance}finance" maxOccurs="unbounded"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/finance}time" maxOccurs="unbounded"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/finance}counter" maxOccurs="unbounded"/&gt;
@@ -53,7 +53,7 @@ public class Figures
 {
 
     private final static long serialVersionUID = 1L;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/text", required = true)
+    @XmlElement(namespace = "http://www.jeesl.org/text", required = true)
     protected List<Remark> remark;
     @XmlElement(required = true)
     protected List<Finance> finance;

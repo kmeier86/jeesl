@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import org.jeesl.model.xml.text.Example;
 
 
 /**
@@ -22,18 +23,13 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="example"&gt;
- *           &lt;simpleType&gt;
- *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string"&gt;
- *             &lt;/restriction&gt;
- *           &lt;/simpleType&gt;
- *         &lt;/element&gt;
  *         &lt;element ref="{http://www.jeesl.org/io/mail}mail"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/io/mail}header"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/io/mail}template" maxOccurs="unbounded"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/io/mail}text"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/io/mail}attachment" maxOccurs="unbounded"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/io/mail}image" maxOccurs="unbounded"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/text}example"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" /&gt;
  *       &lt;attribute name="code" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
@@ -51,13 +47,13 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "example",
     "mail",
     "header",
     "template",
     "text",
     "attachment",
-    "image"
+    "image",
+    "example"
 })
 @XmlRootElement(name = "mail")
 public class Mail
@@ -65,8 +61,6 @@ public class Mail
 {
 
     private final static long serialVersionUID = 1L;
-    @XmlElement(namespace = "", required = true)
-    protected String example;
     @XmlElement(required = true)
     protected Mail mail;
     @XmlElement(required = true)
@@ -79,6 +73,8 @@ public class Mail
     protected List<Attachment> attachment;
     @XmlElement(required = true)
     protected List<Image> image;
+    @XmlElement(namespace = "http://www.jeesl.org/text", required = true)
+    protected Example example;
     @XmlAttribute(name = "id")
     protected Long id;
     @XmlAttribute(name = "code")
@@ -93,34 +89,6 @@ public class Mail
     protected String dir;
     @XmlAttribute(name = "test")
     protected Boolean test;
-
-    /**
-     * Gets the value of the example property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getExample() {
-        return example;
-    }
-
-    /**
-     * Sets the value of the example property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setExample(String value) {
-        this.example = value;
-    }
-
-    public boolean isSetExample() {
-        return (this.example!= null);
-    }
 
     /**
      * Gets the value of the mail property.
@@ -315,6 +283,34 @@ public class Mail
 
     public void unsetImage() {
         this.image = null;
+    }
+
+    /**
+     * Gets the value of the example property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Example }
+     *     
+     */
+    public Example getExample() {
+        return example;
+    }
+
+    /**
+     * Sets the value of the example property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Example }
+     *     
+     */
+    public void setExample(Example value) {
+        this.example = value;
+    }
+
+    public boolean isSetExample() {
+        return (this.example!= null);
     }
 
     /**

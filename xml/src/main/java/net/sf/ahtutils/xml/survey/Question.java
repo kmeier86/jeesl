@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import net.sf.ahtutils.xml.finance.Figures;
 import net.sf.ahtutils.xml.status.Unit;
-import net.sf.ahtutils.xml.text.Remark;
+import org.jeesl.model.xml.text.Remark;
 
 
 /**
@@ -24,7 +24,7 @@ import net.sf.ahtutils.xml.text.Remark;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/text}question"/&gt;
- *         &lt;element ref="{http://ahtutils.aht-group.com/text}remark"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/text}remark"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}unit"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/survey}score"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/survey}answer"/&gt;
@@ -68,7 +68,7 @@ public class Question
     private final static long serialVersionUID = 1L;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/text", required = true)
     protected net.sf.ahtutils.xml.text.Question question;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/text", required = true)
+    @XmlElement(namespace = "http://www.jeesl.org/text", required = true)
     protected Remark remark;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
     protected Unit unit;

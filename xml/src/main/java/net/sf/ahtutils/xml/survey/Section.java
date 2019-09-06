@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import net.sf.ahtutils.xml.status.Description;
-import net.sf.ahtutils.xml.text.Remark;
+import org.jeesl.model.xml.text.Remark;
 
 
 /**
@@ -25,7 +25,7 @@ import net.sf.ahtutils.xml.text.Remark;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}description"/&gt;
- *         &lt;element ref="{http://ahtutils.aht-group.com/text}remark"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/text}remark"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/survey}section" maxOccurs="unbounded"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/survey}question" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
@@ -55,7 +55,7 @@ public class Section
     private final static long serialVersionUID = 1L;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/status", required = true)
     protected Description description;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/text", required = true)
+    @XmlElement(namespace = "http://www.jeesl.org/text", required = true)
     protected Remark remark;
     @XmlElement(required = true)
     protected List<Section> section;

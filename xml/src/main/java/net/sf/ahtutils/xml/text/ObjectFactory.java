@@ -30,14 +30,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Remark }
-     * 
-     */
-    public Remark createRemark() {
-        return new Remark();
-    }
-
-    /**
      * Create an instance of {@link Question }
      * 
      */

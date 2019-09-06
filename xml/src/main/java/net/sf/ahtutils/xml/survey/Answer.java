@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import net.sf.ahtutils.xml.text.Remark;
+import org.jeesl.model.xml.text.Remark;
 
 
 /**
@@ -24,7 +24,7 @@ import net.sf.ahtutils.xml.text.Remark;
  *         &lt;element ref="{http://ahtutils.aht-group.com/survey}data"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/survey}question"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/text}answer"/&gt;
- *         &lt;element ref="{http://ahtutils.aht-group.com/text}remark"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/text}remark"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/survey}option"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/survey}matrix"/&gt;
  *       &lt;/sequence&gt;
@@ -61,7 +61,7 @@ public class Answer
     protected Question question;
     @XmlElement(namespace = "http://ahtutils.aht-group.com/text", required = true)
     protected net.sf.ahtutils.xml.text.Answer answer;
-    @XmlElement(namespace = "http://ahtutils.aht-group.com/text", required = true)
+    @XmlElement(namespace = "http://www.jeesl.org/text", required = true)
     protected Remark remark;
     @XmlElement(required = true)
     protected Option option;

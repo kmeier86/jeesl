@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.jeesl.factory.xml.domain.finance.XmlFiguresFactory;
+import org.jeesl.model.xml.text.Remark;
 
 import net.sf.ahtutils.xml.finance.Figures;
 import net.sf.ahtutils.xml.finance.Finance;
-import net.sf.ahtutils.xml.text.Remark;
 
 public class FiguresMap
 {

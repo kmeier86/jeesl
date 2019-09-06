@@ -3,7 +3,7 @@
 	xmlns:rev="http://www.jeesl.org/revision"
 	xmlns:us="http://ahtutils.aht-group.com/status"
 	xmlns:ut="http://ahtutils.aht-group.com/text"
-	xmlns:jt="http://www.jeesl.org/text"
+	xmlns:t="http://www.jeesl.org/text"
 	xmlns:sec="http://ahtutils.aht-group.com/security"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<xsd:import namespace="http://ahtutils.aht-group.com/status" 	schemaLocation="../status.xsd"/>
@@ -23,7 +23,7 @@
         		<xsd:element ref="us:category" maxOccurs="1"/>
 				<xsd:element ref="us:langs" maxOccurs="1"/>
         		<xsd:element ref="us:descriptions" maxOccurs="1"/>
-        		<xsd:element ref="ut:remark" maxOccurs="1"/>
+        		<xsd:element ref="t:remark" maxOccurs="1"/>
                 <xsd:element ref="rev:attribute" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
@@ -40,7 +40,7 @@
         		<xsd:element ref="us:type" maxOccurs="1"/>
         		<xsd:element ref="us:langs" maxOccurs="1"/>
         		<xsd:element ref="us:descriptions" maxOccurs="1"/>
-        		<xsd:element ref="ut:remark" maxOccurs="1"/>
+        		<xsd:element ref="t:remark" maxOccurs="1"/>
         		<xsd:element ref="rev:relation" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="id" type="xsd:long"/>
@@ -79,7 +79,7 @@
         	<xsd:sequence>
                 <xsd:element ref="sec:user" maxOccurs="1"/>
                 <xsd:element ref="us:status" maxOccurs="1"/>
-                <xsd:element ref="jt:remark" maxOccurs="1"/>
+                <xsd:element ref="t:remark" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="version" type="xsd:int"/>
             <xsd:attribute name="record" type="xsd:dateTime"/>

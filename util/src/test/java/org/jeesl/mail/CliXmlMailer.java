@@ -12,6 +12,7 @@ import org.jeesl.JeeslBootstrap;
 import org.jeesl.factory.xml.system.io.mail.XmlAttachmentFactory;
 import org.jeesl.factory.xml.system.io.mail.XmlHeaderFactory;
 import org.jeesl.factory.xml.system.io.mail.XmlMailFactory;
+import org.jeesl.factory.xml.system.util.text.XmlExampleFactory;
 import org.jeesl.mail.freemarker.FreemarkerEngine;
 import org.jeesl.mail.smtp.XmlMailSender;
 import org.jeesl.model.xml.system.io.mail.Header;
@@ -61,7 +62,7 @@ public class CliXmlMailer
 		mail.setCode("test");
 		
 		Mail mailContent = new Mail();
-		mailContent.setExample("mYTest");
+		mailContent.setExample(XmlExampleFactory.build("myExample"));
 		mail.setMail(mailContent);
 		
 		byte[] data = new byte[10];

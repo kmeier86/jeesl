@@ -4,8 +4,6 @@ import org.jeesl.JeeslXmlTestBootstrap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.xml.text.Remark;
-
 public class TestXmlRemark extends AbstractXmlTextOldTest<Remark>
 {
 	final static Logger logger = LoggerFactory.getLogger(TestXmlRemark.class);
