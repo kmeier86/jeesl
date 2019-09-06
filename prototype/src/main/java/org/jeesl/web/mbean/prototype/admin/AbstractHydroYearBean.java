@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
-import org.jeesl.api.facade.component.sb.JeeslHydroYearFacade;
 import org.jeesl.controller.handler.sb.SbMultiHandler;
 import org.jeesl.factory.builder.component.HydroYearFactoryBuilder;
 import org.jeesl.factory.ejb.system.component.EjbHydroYearFactory;
@@ -22,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
+import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
@@ -35,7 +35,7 @@ public class AbstractHydroYearBean <L extends UtilsLang, D extends UtilsDescript
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractHydroYearBean.class);
 
-	private JeeslHydroYearFacade<L,D,HD,HY> fHydroYear;
+	private UtilsFacade fUtils;
 	private final HydroYearFactoryBuilder<L,D,HD,HY> fbHydroYear;
 
 	private EjbHydroYearFactory<L,D,HD,HY> efHydroYear;
@@ -65,12 +65,12 @@ public class AbstractHydroYearBean <L extends UtilsLang, D extends UtilsDescript
 	}
 
 
-	public void initSuper(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslHydroYearFacade<L,D,HD,HY> fHydroYear)
+	public void initSuper(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, UtilsFacade fUtils)
 	{
 		super.initJeeslAdmin(bTranslation, bMessage);
-		this.fHydroYear=fHydroYear;
+		this.fUtils=fUtils;
 
-		sbhDecade.setList(fHydroYear.allOrderedPositionVisible(fbHydroYear.getClassDecade()));
+		sbhDecade.setList(fUtils.allOrderedPositionVisible(fbHydroYear.getClassDecade()));
 		sbhDecade.selectAll();
 		if(debugOnInfo){logger.info(SbMultiHandler.class.getSimpleName()+": "+fbHydroYear.getClassDecade().getSimpleName()+" "+sbhDecade.getSelected().size()+"/"+sbhDecade.getList().size());}
 		refreshList();
@@ -79,7 +79,7 @@ public class AbstractHydroYearBean <L extends UtilsLang, D extends UtilsDescript
 
 	private void refreshList()
 	{
-		hydroYears = fHydroYear.all(fbHydroYear.getClassYear());
+		hydroYears = fUtils.all(fbHydroYear.getClassYear());
 		Collections.sort(hydroYears,comparatorHydroYear);
 	}
 
@@ -92,17 +92,17 @@ public class AbstractHydroYearBean <L extends UtilsLang, D extends UtilsDescript
 	public void selectHydroYear() throws UtilsNotFoundException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.selectEntity(hydroYear));}
-		hydroYear = fHydroYear.find(fbHydroYear.getClassYear(), hydroYear);
+		hydroYear = fUtils.find(fbHydroYear.getClassYear(), hydroYear);
 	}
 
 	public void saveHydroYear() throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException
 	{
 		logger.info(AbstractLogMessage.saveEntity(hydroYear));
 		if(hydroYear.getDecade()!=null){
-			HD decade = fHydroYear.find(fbHydroYear.getClassDecade(),hydroYear.getDecade());
+			HD decade = fUtils.find(fbHydroYear.getClassDecade(),hydroYear.getDecade());
 			hydroYear.setDecade(decade);
 			}
-		hydroYear = fHydroYear.save(hydroYear);
+		hydroYear = fUtils.save(hydroYear);
 		logger.info("-----" + hydroYear.toString() +"-------");
 		refreshList();
 	}
@@ -117,7 +117,7 @@ public class AbstractHydroYearBean <L extends UtilsLang, D extends UtilsDescript
 	public void deleteHydroYear() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(hydroYear));}
-		fHydroYear.rm(hydroYear);
+		fUtils.rm(hydroYear);
 		hydroYear=null;
 		//bMessage.growlSuccessRemoved();
 		refreshList();
