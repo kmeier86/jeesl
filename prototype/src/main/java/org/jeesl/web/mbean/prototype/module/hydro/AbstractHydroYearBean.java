@@ -1,4 +1,4 @@
-package org.jeesl.web.mbean.prototype.admin;
+package org.jeesl.web.mbean.prototype.module.hydro;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -15,6 +15,7 @@ import org.jeesl.interfaces.model.module.hydro.JeeslHydroDecade;
 import org.jeesl.interfaces.model.module.hydro.JeeslHydroYear;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.util.comparator.ejb.component.sb.HydroYearComparator;
+import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
