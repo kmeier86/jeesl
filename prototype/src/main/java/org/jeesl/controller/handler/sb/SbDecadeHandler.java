@@ -10,8 +10,8 @@ import org.jeesl.controller.handler.tree.TreeUpdateParameter;
 import org.jeesl.interfaces.controller.handler.OutputXpathPattern;
 import org.jeesl.interfaces.controller.handler.tree.JeeslTree2Store;
 import org.jeesl.interfaces.controller.handler.tree.JeeslTreeSelected;
-import org.jeesl.interfaces.model.component.JeeslHydroDecade;
-import org.jeesl.interfaces.model.component.JeeslHydroYear;
+import org.jeesl.interfaces.model.module.hydro.JeeslHydroDecade;
+import org.jeesl.interfaces.model.module.hydro.JeeslHydroYear;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

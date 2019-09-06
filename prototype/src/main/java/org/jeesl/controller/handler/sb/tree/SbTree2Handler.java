@@ -21,8 +21,6 @@ public class SbTree2Handler <L1 extends EjbWithId, L2 extends EjbWithId> extends
 	private final JeeslTree2Store<L1,L2> store2;
 	private final JeeslTree2Cache<L1,L2> cache2;
 	
-	protected boolean showLevel2; public boolean isShowLevel2() {return showLevel2;}
-	
 	protected final Set<L2> allowChild2;
 	protected final Set<L2> allowPath2;
 	protected final Set<L2> ignore2;

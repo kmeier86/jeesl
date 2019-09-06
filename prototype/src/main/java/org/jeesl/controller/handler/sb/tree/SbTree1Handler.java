@@ -26,6 +26,11 @@ public class SbTree1Handler <L1 extends EjbWithId>
 	private final JeeslTree1Store<L1> store1;
 	
 	protected boolean showLevel1; public boolean isShowLevel1() {return showLevel1;}
+	protected boolean showLevel2; public boolean isShowLevel2() {return showLevel2;}
+	protected boolean showLevel3; public boolean isShowLevel3() {return showLevel3;} public void setShowLevel3(boolean showLevel3) {this.showLevel3 = showLevel3;}
+	protected boolean showLevel4; public boolean isShowLevel4() {return showLevel4;} public void setShowLevel4(boolean showLevel4) {this.showLevel4 = showLevel4;}
+	protected boolean showLevel5; public boolean isShowLevel5() {return showLevel5;} public void setShowLevel5(boolean showLevel5) {this.showLevel5 = showLevel5;}
+	
 	protected boolean debugOnInfo; public void setDebugOnInfo(boolean debugOnInfo) {this.debugOnInfo = debugOnInfo;}
 	protected boolean viewIsGlobal;
 	
@@ -51,6 +56,12 @@ public class SbTree1Handler <L1 extends EjbWithId>
 		ignore1 = new HashSet<L1>();
 		
 		showLevel1 = true;
+		showLevel2 = false;
+		showLevel3 = false;
+		showLevel4 = false;
+		showLevel5 = false;
+		
+		
 		xpath1 = "@id";
 	}
 	

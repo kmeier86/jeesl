@@ -3,7 +3,7 @@ package org.jeesl.util.comparator.ejb.component.sb;
 import java.util.Comparator;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
-import org.jeesl.interfaces.model.component.JeeslHydroYear;
+import org.jeesl.interfaces.model.module.hydro.JeeslHydroYear;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

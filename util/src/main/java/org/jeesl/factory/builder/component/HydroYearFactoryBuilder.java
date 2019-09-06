@@ -2,7 +2,7 @@ package org.jeesl.factory.builder.component;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
 import org.jeesl.factory.ejb.system.component.EjbHydroYearFactory;
-import org.jeesl.interfaces.model.component.JeeslHydroYear;
+import org.jeesl.interfaces.model.module.hydro.JeeslHydroYear;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

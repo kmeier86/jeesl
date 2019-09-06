@@ -1,6 +1,6 @@
 package org.jeesl.api.facade.component.sb;
 
-import org.jeesl.interfaces.model.component.JeeslHydroYear;
+import org.jeesl.interfaces.model.module.hydro.JeeslHydroYear;
 
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;

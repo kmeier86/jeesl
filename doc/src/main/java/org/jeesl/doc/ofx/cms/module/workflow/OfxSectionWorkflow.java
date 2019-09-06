@@ -129,8 +129,8 @@ public class OfxSectionWorkflow <L extends UtilsLang, LOC extends JeeslLocale<L,
 	{
 		Section sub = XmlSectionFactory.build();
 		sub.getContent().addAll(ofxMultiLocale.titles(lp, process.getLangs()));
-		sub.getContent().addAll(ofxMultiLocale.paragraphs(lp,process.getDescriptions(),false));
 		sub.getContent().add(ofxTableProcess.build(lp,process));
+		sub.getContent().addAll(ofxMultiLocale.paragraphs(lp,process.getDescriptions(),false));
 		sub.getContent().add(graph(lp,process));
 		return sub;
 	}

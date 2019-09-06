@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.component;
+package org.jeesl.interfaces.model.module.hydro;
 
 import java.io.Serializable;
 

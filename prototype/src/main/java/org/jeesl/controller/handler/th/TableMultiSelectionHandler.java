@@ -1,4 +1,4 @@
-package net.sf.ahtutils.prototype.controller.handler.ui;
+package org.jeesl.controller.handler.th;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,7 @@ import net.sf.ahtutils.interfaces.bean.TableMultiSelectionBean;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
+@Deprecated //Use ThMultiFilter instead
 public class TableMultiSelectionHandler <T extends EjbWithId>
 {
 	final static Logger logger = LoggerFactory.getLogger(TableMultiSelectionHandler.class);

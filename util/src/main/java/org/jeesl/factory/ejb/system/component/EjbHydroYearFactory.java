@@ -1,6 +1,6 @@
 package org.jeesl.factory.ejb.system.component;
 
-import org.jeesl.interfaces.model.component.JeeslHydroYear;
+import org.jeesl.interfaces.model.module.hydro.JeeslHydroYear;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

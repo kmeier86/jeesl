@@ -53,6 +53,7 @@ public abstract class AbstractCmsRenderer <L extends UtilsLang, D extends UtilsD
 	final static Logger logger = LoggerFactory.getLogger(AbstractCmsRenderer.class);
 	
 	protected final JeeslIoCmsFacade<L,D,CAT,CMS,V,S,E,EC,ET,C,MT,FC,LOC> fCms;
+	protected final OfxTranslationProvider tp;
 	
 	private final JeeslCmsParagraphFactory<E,C> ofParagraph;
 	private final JeeslCmsStatusTableFactory<E,C> ofTableStatus;
@@ -62,6 +63,7 @@ public abstract class AbstractCmsRenderer <L extends UtilsLang, D extends UtilsD
 	
 	public AbstractCmsRenderer(OfxTranslationProvider tp, JeeslIoCmsFacade<L,D,CAT,CMS,V,S,E,EC,ET,C,MT,FC,LOC> fCms, JeeslFileRepositoryHandler<FS,FC,FM> frh)
 	{
+		this.tp=tp;
 		this.fCms = fCms;
 		
 		ofParagraph = new JeeslCmsParagraphFactory<E,C>();
