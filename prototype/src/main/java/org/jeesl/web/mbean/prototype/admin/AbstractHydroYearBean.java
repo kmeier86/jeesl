@@ -8,8 +8,8 @@ import java.util.List;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.controller.handler.sb.SbMultiHandler;
-import org.jeesl.factory.builder.component.HydroYearFactoryBuilder;
-import org.jeesl.factory.ejb.system.component.EjbHydroYearFactory;
+import org.jeesl.factory.builder.module.HydroFactoryBuilder;
+import org.jeesl.factory.ejb.module.hydro.EjbHydroYearFactory;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.model.module.hydro.JeeslHydroDecade;
 import org.jeesl.interfaces.model.module.hydro.JeeslHydroYear;
@@ -36,7 +36,7 @@ public class AbstractHydroYearBean <L extends UtilsLang, D extends UtilsDescript
 	final static Logger logger = LoggerFactory.getLogger(AbstractHydroYearBean.class);
 
 	private UtilsFacade fUtils;
-	private final HydroYearFactoryBuilder<L,D,HD,HY> fbHydroYear;
+	private final HydroFactoryBuilder<L,D,HD,HY> fbHydroYear;
 
 	private EjbHydroYearFactory<L,D,HD,HY> efHydroYear;
 
@@ -55,7 +55,7 @@ public class AbstractHydroYearBean <L extends UtilsLang, D extends UtilsDescript
 		this.hydroYear = hydroYear;
 	}
 
-	public AbstractHydroYearBean(final HydroYearFactoryBuilder<L,D,HD,HY> fbHydroYear)
+	public AbstractHydroYearBean(final HydroFactoryBuilder<L,D,HD,HY> fbHydroYear)
 	{
 		super(fbHydroYear.getClassL(),fbHydroYear.getClassD());
 		this.fbHydroYear = fbHydroYear;

@@ -1,4 +1,4 @@
-package org.jeesl.factory.ejb.system.component;
+package org.jeesl.factory.ejb.module.hydro;
 
 import org.jeesl.interfaces.model.module.hydro.JeeslHydroYear;
 import org.slf4j.Logger;
