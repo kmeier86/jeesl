@@ -11,4 +11,8 @@ public class JsonPostgres implements Serializable
 	private List<JsonPostgresConnection> connections;
 	public List<JsonPostgresConnection> getConnections() {if(connections==null) {connections = new ArrayList<>();}return connections;}
 	public void setConnections(List<JsonPostgresConnection> connections) {this.connections = connections;}
+	
+	private List<JsonPostgresReplication> replications;
+	public List<JsonPostgresReplication> getReplications() {if(replications==null) {replications = new ArrayList<>();} return replications;}
+	public void setReplications(List<JsonPostgresReplication> replications) {this.replications = replications;}
 }

@@ -23,8 +23,8 @@ import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpHost;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpStatus;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
 import org.jeesl.model.json.JsonFlatFigures;
-import org.jeesl.model.json.db.tuple.replication.JsonPostgresReplication;
 import org.jeesl.model.json.system.io.db.JsonPostgres;
+import org.jeesl.model.json.system.io.db.JsonPostgresReplication;
 import org.jsoup.helper.StringUtil;
 import org.openfuxml.content.table.Table;
 import org.openfuxml.factory.xml.table.XmlTableFactory;
@@ -70,7 +70,6 @@ public class JeeslIoDbFacadeBean <L extends UtilsLang,D extends UtilsDescription
 	@Override public String version()
 	{
 		Query q = em.createQuery("select version()");
-
 		Object o = q.getSingleResult();
 		return (String)o;
 	}
@@ -117,37 +116,6 @@ public class JeeslIoDbFacadeBean <L extends UtilsLang,D extends UtilsDescription
 		return result;
 	}
 	
-	@Override
-	public Table connections(String dbName)
-	{
-		List<String> fileds = new ArrayList<String>();
-		fileds.add("pid");
-//		fileds.add("datname");
-//		fileds.add("client_addr");
-		fileds.add("state");
-		fileds.add("xact_start");
-		fileds.add("query");
-		
-		StringBuffer sb = new StringBuffer();
-		sb.append("SELECT "+StringUtil.join(fileds, ","));
-		sb.append(" FROM pg_stat_activity");
-		sb.append(" WHERE datname='"+dbName+"'");
-		logger.info(sb.toString());
-		
-		
-		List<Object[]> data = new ArrayList<Object[]>();
-		for(Object o : em.createNativeQuery(sb.toString()).getResultList())
-		{
-			Object[] array = (Object[])o;
-			data.add(array);
-//			debugDataTypes(array);
-		}
-		
-		Table table = XmlTableFactory.build(fileds,data);
-		
-		return table;
-	}
-	
 	public JsonPostgres postgresConnections(String dbName)
 	{
 		JsonPostgres json = JsonPostgresFactory.build();
@@ -166,7 +134,7 @@ public class JeeslIoDbFacadeBean <L extends UtilsLang,D extends UtilsDescription
 	 *  GRANT pg_monitor TO jeesl;"
 	 */
 	@Override
-	public List<JsonPostgresReplication> postgresReplicationInfo()
+	public JsonPostgres postgresReplications()
 	{
 		List<String> fileds = new ArrayList<String>();
 		fileds.add("pid");
@@ -182,7 +150,7 @@ public class JeeslIoDbFacadeBean <L extends UtilsLang,D extends UtilsDescription
 		logger.info(sb.toString());
 		
 		
-		List<JsonPostgresReplication> list = new ArrayList<>();
+		JsonPostgres j = JsonPostgresFactory.build();
 		for(Object o : em.createNativeQuery(sb.toString()).getResultList())
 		{
 			Object[] array = (Object[])o;
@@ -195,10 +163,10 @@ public class JeeslIoDbFacadeBean <L extends UtilsLang,D extends UtilsDescription
 			if (array[3]!=null) {json.setWriteLag(((BigInteger) array[3]).doubleValue());}  else {json.setWriteLag((double)0);}
 			if (array[4]!=null) {json.setFlushLag(((BigInteger) array[4]).doubleValue());}  else {json.setFlushLag((double)0);}
 			if (array[5]!=null) {json.setReplayLag(((BigInteger) array[5]).doubleValue());} else {json.setReplayLag((double)0);}
-			list.add(json);
+			j.getReplications().add(json);
 		}
 		
-		return list;
+		return j;
 	}
 	
 	@Override public JsonFlatFigures dbQueries(String dbName)

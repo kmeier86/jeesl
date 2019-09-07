@@ -1,4 +1,4 @@
-package org.jeesl.model.json.db.tuple.replication;
+package org.jeesl.model.json.system.io.db;
 
 import java.io.Serializable;
 import java.math.BigInteger;
