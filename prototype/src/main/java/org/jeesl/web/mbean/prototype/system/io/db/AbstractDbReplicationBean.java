@@ -8,7 +8,7 @@ import java.util.Map;
 import org.jeesl.api.facade.io.JeeslIoDbFacade;
 import org.jeesl.factory.builder.io.IoDbFactoryBuilder;
 import org.jeesl.factory.ejb.util.EjbCodeFactory;
-import org.jeesl.interfaces.model.system.io.db.JeeslDbReplicationInfo;
+import org.jeesl.interfaces.model.system.io.db.JeeslDbReplicationColumn;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbReplicationState;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbReplicationSync;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
@@ -24,7 +24,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public class AbstractDbReplicationBean <L extends UtilsLang, D extends UtilsDescription, LOC extends UtilsStatus<LOC,L,D>,
 									SYSTEM extends JeeslIoSsiSystem,
-									RI extends JeeslDbReplicationInfo<L,D,RI,?>,
+									RC extends JeeslDbReplicationColumn<L,D,RC,?>,
 									RS extends JeeslDbReplicationState<L,D,RS,?>,
 									RY extends JeeslDbReplicationSync<L,D,RY,?>>
 						extends AbstractAdminBean<L,D>
@@ -34,9 +34,9 @@ public class AbstractDbReplicationBean <L extends UtilsLang, D extends UtilsDesc
 	final static Logger logger = LoggerFactory.getLogger(AbstractDbReplicationBean.class);
 	
 	private JeeslIoDbFacade<L,D,SYSTEM,?,?,?,?> fDb;
-	private final IoDbFactoryBuilder<L,D,SYSTEM,?,?,?,?,RI,RS,RY> fbDb;
+	private final IoDbFactoryBuilder<L,D,SYSTEM,?,?,?,?,?,RC,RS,RY> fbDb;
 	
-	private final Map<String,RI> mapInfo; public Map<String,RI> getMapInfo() {return mapInfo;}
+	private final Map<String,RC> mapColumn; public Map<String,RC> getMapColumn() {return mapColumn;}
 	private final Map<String,RS> mapState; public Map<String,RS> getMapState() {return mapState;}
 	private final Map<String,RY> mapSync; public Map<String,RY> getMapSync() {return mapSync;}
 	
@@ -44,12 +44,12 @@ public class AbstractDbReplicationBean <L extends UtilsLang, D extends UtilsDesc
 	
 	protected Chart chart; public Chart getChart() {return chart;}
 	
-	public AbstractDbReplicationBean(final IoDbFactoryBuilder<L,D,SYSTEM,?,?,?,?,RI,RS,RY> fbDb)
+	public AbstractDbReplicationBean(final IoDbFactoryBuilder<L,D,SYSTEM,?,?,?,?,?,RC,RS,RY> fbDb)
 	{
 		super(fbDb.getClassL(),fbDb.getClassD());
 		this.fbDb=fbDb;
 
-		mapInfo = new HashMap<>();
+		mapColumn = new HashMap<>();
 		mapState = new HashMap<>();
 		mapSync = new HashMap<>();
 	}
@@ -58,7 +58,7 @@ public class AbstractDbReplicationBean <L extends UtilsLang, D extends UtilsDesc
 	{
 		this.fDb=fDb;
 		
-		mapInfo.putAll(EjbCodeFactory.toMapCode(fDb.allOrderedPositionVisible(fbDb.getClassReplicationInfo())));
+		mapColumn.putAll(EjbCodeFactory.toMapCode(fDb.allOrderedPositionVisible(fbDb.getClassReplicationColumn())));
 		mapState.putAll(EjbCodeFactory.toMapCode(fDb.allOrderedPositionVisible(fbDb.getClassReplicationState())));
 		mapSync.putAll(EjbCodeFactory.toMapCode(fDb.allOrderedPositionVisible(fbDb.getClassReplicationSync())));
 		
@@ -68,6 +68,5 @@ public class AbstractDbReplicationBean <L extends UtilsLang, D extends UtilsDesc
 	protected void refreshList()
 	{		
 		replications = fDb.postgresReplicationInfo();
-		//replications = fDb.postgresConnections("jeesl");
 	}
 }

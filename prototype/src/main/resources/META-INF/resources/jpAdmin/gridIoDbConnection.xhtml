@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+	xmlns:j="http://www.jeesl.org/jsf" xmlns:jp="http://jsf.jeesl.org/prototype" xmlns:jtp="http://jsf.jeesl.org/prototype/tag"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+	
+	<composite:interface>
+		<composite:attribute name="bean" required="true"/>
+		<composite:attribute name="dateTimePattern" required="false" default="dd.MM.yyyy"/>
+	</composite:interface>
+	
+	<composite:implementation>
+		<jp:grid id="grid">
+			<j:row>
+				<j:slot id="sCriterias" width="12">
+					<p:dataTable var="c" value="#{cc.attrs.bean.connections}">
+						<p:column>
+							<f:facet name="header"><h:outputText value="#{cc.attrs.bean.mapColumn['id'].name[localeCode].lang}"/></f:facet>
+							<h:outputText value="#{c.id}"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header"><h:outputText value="#{cc.attrs.bean.mapColumn['transaction'].name[localeCode].lang}"/></f:facet>
+							<jp:outputDate value="#{c.transaction}" withTime="true"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header"><h:outputText value="#{cc.attrs.bean.mapColumn['query'].name[localeCode].lang}"/></f:facet>
+							<jp:outputDate value="#{c.query}" withTime="true"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header"><h:outputText value="#{cc.attrs.bean.mapColumn['change'].name[localeCode].lang}"/></f:facet>
+							<jp:outputDate value="#{c.change}" withTime="true"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header"><h:outputText value="#{cc.attrs.bean.mapColumn['state'].name[localeCode].lang}"/></f:facet>
+							<h:outputText value="#{c.state}"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header"><h:outputText value="#{cc.attrs.bean.mapColumn['sql'].name[localeCode].lang}"/></f:facet>
+							<h:outputText value="#{c.sql}"/>
+						</p:column>
+			       	</p:dataTable>
+				</j:slot>
+			</j:row>
+	    </jp:grid>
+	</composite:implementation>
+</html>

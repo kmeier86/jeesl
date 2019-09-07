@@ -3,11 +3,12 @@ package org.jeesl.factory.builder.io;
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.db.EjbDbDumpFileFactory;
 import org.jeesl.factory.ejb.system.io.db.EjbIoDumpFactory;
+import org.jeesl.interfaces.model.system.io.db.JeeslDbConnectionColumn;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDump;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpFile;
-import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpStatus;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpHost;
-import org.jeesl.interfaces.model.system.io.db.JeeslDbReplicationInfo;
+import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpStatus;
+import org.jeesl.interfaces.model.system.io.db.JeeslDbReplicationColumn;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbReplicationState;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbReplicationSync;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
@@ -22,9 +23,11 @@ public class IoDbFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 								DUMP extends JeeslDbDump<SYSTEM,DF>,
 								DF extends JeeslDbDumpFile<DUMP,DH,DS>,
 								DH extends JeeslDbDumpHost<L,D,DH,?>,
-								DS extends JeeslDbDumpStatus<L,D,DS,?>
-,
-								RI extends JeeslDbReplicationInfo<L,D,RI,?>,
+								DS extends JeeslDbDumpStatus<L,D,DS,?>,
+								
+								CC extends JeeslDbConnectionColumn<L,D,CC,?>,
+
+								RC extends JeeslDbReplicationColumn<L,D,RC,?>,
 								RS extends JeeslDbReplicationState<L,D,RS,?>,
 								RY extends JeeslDbReplicationSync<L,D,RY,?>
 >
@@ -36,13 +39,15 @@ public class IoDbFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 	private final Class<DF> cFile; public Class<DF> getClassDumpFile(){return cFile;}
 	private final Class<DH> cHost; public Class<DH> getClassDumpHost(){return cHost;}
 	private final Class<DS> cStatus; public Class<DS> getClassDumpStatus(){return cStatus;}
-	private final Class<RI> cReplicationInfo; public Class<RI> getClassReplicationInfo() {return cReplicationInfo;}
+	private final Class<CC> cConnectionColumn; public Class<CC> getClassConnectionColumn() {return cConnectionColumn;}
+	private final Class<RC> cReplicationColumn; public Class<RC> getClassReplicationColumn() {return cReplicationColumn;}
 	private final Class<RS> cReplicationState; public Class<RS> getClassReplicationState() {return cReplicationState;}
 	private final Class<RY> cReplicationSync; public Class<RY> getClassReplicationSync() {return cReplicationSync;}
 	
 	public IoDbFactoryBuilder(final Class<L> cL, final Class<D> cD,
 							final Class<DUMP> cDump, final Class<DF> cFile, final Class<DH> cHost, final Class<DS> cStatus,
-							final Class<RI> cReplicationInfo, final Class<RS> cReplicationState, final Class<RY> cReplicationSync)
+							final Class<CC> cConnectionColumn,
+							final Class<RC> cReplicationColumn, final Class<RS> cReplicationState, final Class<RY> cReplicationSync)
 	{
 		super(cL,cD);
 		
@@ -50,8 +55,8 @@ public class IoDbFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 		this.cFile=cFile;
 		this.cHost=cHost;
 		this.cStatus=cStatus;
-		
-		this.cReplicationInfo=cReplicationInfo;
+		this.cConnectionColumn=cConnectionColumn;
+		this.cReplicationColumn=cReplicationColumn;
 		this.cReplicationState=cReplicationState;
 		this.cReplicationSync=cReplicationSync;
 		

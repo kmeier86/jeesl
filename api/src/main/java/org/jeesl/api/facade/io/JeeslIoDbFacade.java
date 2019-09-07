@@ -5,12 +5,12 @@ import java.util.Map;
 
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDump;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpFile;
-import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpStatus;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpHost;
+import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpStatus;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
 import org.jeesl.model.json.JsonFlatFigures;
-import org.jeesl.model.json.db.tuple.replication.JsonPostgresConnection;
 import org.jeesl.model.json.db.tuple.replication.JsonPostgresReplication;
+import org.jeesl.model.json.system.io.db.JsonPostgres;
 import org.openfuxml.content.table.Table;
 
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
@@ -37,8 +37,6 @@ public interface JeeslIoDbFacade <L extends UtilsLang,D extends UtilsDescription
 	Table connections(String userName);
 	
 	List<JsonPostgresReplication> postgresReplicationInfo();
-	List<JsonPostgresConnection> postgresConnections(String dbName);
-	JsonFlatFigures dbConnections(String dbName);
+	JsonPostgres postgresConnections(String dbName);
 	JsonFlatFigures dbQueries(String dbName);
-
 }
