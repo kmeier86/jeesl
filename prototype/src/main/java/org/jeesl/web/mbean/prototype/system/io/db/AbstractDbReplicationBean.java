@@ -34,7 +34,7 @@ public class AbstractDbReplicationBean <L extends UtilsLang, D extends UtilsDesc
 	final static Logger logger = LoggerFactory.getLogger(AbstractDbReplicationBean.class);
 	
 	private JeeslIoDbFacade<L,D,SYSTEM,?,?,?,?> fDb;
-	private final IoDbFactoryBuilder<L,D,SYSTEM,?,?,?,?,?,RC,RS,RY> fbDb;
+	private final IoDbFactoryBuilder<L,D,SYSTEM,?,?,?,?,?,?,RC,RS,RY> fbDb;
 	
 	private final Map<String,RC> mapColumn; public Map<String,RC> getMapColumn() {return mapColumn;}
 	private final Map<String,RS> mapState; public Map<String,RS> getMapState() {return mapState;}
@@ -44,7 +44,7 @@ public class AbstractDbReplicationBean <L extends UtilsLang, D extends UtilsDesc
 	
 	protected Chart chart; public Chart getChart() {return chart;}
 	
-	public AbstractDbReplicationBean(final IoDbFactoryBuilder<L,D,SYSTEM,?,?,?,?,?,RC,RS,RY> fbDb)
+	public AbstractDbReplicationBean(final IoDbFactoryBuilder<L,D,SYSTEM,?,?,?,?,?,?,RC,RS,RY> fbDb)
 	{
 		super(fbDb.getClassL(),fbDb.getClassD());
 		this.fbDb=fbDb;

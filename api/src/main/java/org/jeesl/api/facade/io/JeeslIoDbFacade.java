@@ -8,10 +8,7 @@ import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpFile;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpHost;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpStatus;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
-import org.jeesl.model.json.JsonFlatFigures;
 import org.jeesl.model.json.system.io.db.JsonPostgres;
-import org.jeesl.model.json.system.io.db.JsonPostgresReplication;
-import org.openfuxml.content.table.Table;
 
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
@@ -36,5 +33,5 @@ public interface JeeslIoDbFacade <L extends UtilsLang,D extends UtilsDescription
 	
 	JsonPostgres postgresReplications();
 	JsonPostgres postgresConnections(String dbName);
-	JsonFlatFigures dbQueries(String dbName);
+	JsonPostgres postgresStatements(String dbName);
 }

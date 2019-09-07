@@ -1,7 +1,6 @@
 package org.jeesl.model.json.system.io.db;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 
 public class JsonPostgresReplication implements Serializable
 {

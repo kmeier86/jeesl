@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+	xmlns:j="http://www.jeesl.org/jsf" xmlns:jp="http://jsf.jeesl.org/prototype" xmlns:jtp="http://jsf.jeesl.org/prototype/tag"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+	
+	<composite:interface>
+		<composite:attribute name="bean" required="true"/>
+	</composite:interface>
+	
+	<composite:implementation>
+		<jp:grid id="grid">
+			<j:row>
+				<j:slot id="sCriterias" width="12">
+					<p:dataTable var="s" value="#{cc.attrs.bean.statements}">
+						<p:column>
+							<f:facet name="header"><h:outputText value="#{cc.attrs.bean.mapColumn['id'].name[localeCode].lang}"/></f:facet>
+							<h:outputText value="#{s.id}"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header"><h:outputText value="#{cc.attrs.bean.mapColumn['rows'].name[localeCode].lang}"/></f:facet>
+							<h:outputText value="#{s.rows}" withTime="true"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header"><h:outputText value="#{cc.attrs.bean.mapColumn['calls'].name[localeCode].lang}"/></f:facet>
+							<h:outputText value="#{s.calls}" withTime="true"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header"><h:outputText value="#{cc.attrs.bean.mapColumn['average'].name[localeCode].lang}"/></f:facet>
+							<h:outputText value="#{s.average}" withTime="true"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header"><h:outputText value="#{cc.attrs.bean.mapColumn['total'].name[localeCode].lang}"/></f:facet>
+							<h:outputText value="#{s.total}"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header"><h:outputText value="#{cc.attrs.bean.mapColumn['sql'].name[localeCode].lang}"/></f:facet>
+							<h:outputText value="#{s.sql}"/>
+						</p:column>
+			       	</p:dataTable>
+				</j:slot>
+			</j:row>
+	    </jp:grid>
+	</composite:implementation>
+</html>

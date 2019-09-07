@@ -12,22 +12,18 @@ import javax.persistence.Query;
 
 import org.jeesl.api.facade.io.JeeslIoDbFacade;
 import org.jeesl.factory.builder.io.IoDbFactoryBuilder;
-import org.jeesl.factory.json.system.io.db.JsonDbPgStatQueryFactory;
 import org.jeesl.factory.json.system.io.db.JsonPostgresConnectionFactory;
 import org.jeesl.factory.json.system.io.db.JsonPostgresFactory;
-import org.jeesl.factory.json.system.io.report.JsonFlatFiguresFactory;
+import org.jeesl.factory.json.system.io.db.JsonPostgresStatementFactory;
 import org.jeesl.factory.sql.system.db.SqlDbPgStatFactory;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDump;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpFile;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpHost;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbDumpStatus;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
-import org.jeesl.model.json.JsonFlatFigures;
 import org.jeesl.model.json.system.io.db.JsonPostgres;
 import org.jeesl.model.json.system.io.db.JsonPostgresReplication;
 import org.jsoup.helper.StringUtil;
-import org.openfuxml.content.table.Table;
-import org.openfuxml.factory.xml.table.XmlTableFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,10 +44,10 @@ public class JeeslIoDbFacadeBean <L extends UtilsLang,D extends UtilsDescription
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslIoDbFacadeBean.class);
 	
-	private final IoDbFactoryBuilder<L,D,SYSTEM,DUMP,DF,DH,DS,?,?,?,?> fbDb;
+	private final IoDbFactoryBuilder<L,D,SYSTEM,DUMP,DF,DH,DS,?,?,?,?,?> fbDb;
 	
-	public JeeslIoDbFacadeBean(EntityManager em, final IoDbFactoryBuilder<L,D,SYSTEM,DUMP,DF,DH,DS,?,?,?,?> fbDb){this(em,fbDb,false);}
-	public JeeslIoDbFacadeBean(EntityManager em, final IoDbFactoryBuilder<L,D,SYSTEM,DUMP,DF,DH,DS,?,?,?,?> fbDb, boolean handleTransaction)
+	public JeeslIoDbFacadeBean(EntityManager em, final IoDbFactoryBuilder<L,D,SYSTEM,DUMP,DF,DH,DS,?,?,?,?,?> fbDb){this(em,fbDb,false);}
+	public JeeslIoDbFacadeBean(EntityManager em, final IoDbFactoryBuilder<L,D,SYSTEM,DUMP,DF,DH,DS,?,?,?,?,?> fbDb, boolean handleTransaction)
 	{
 		super(em,handleTransaction);
 		this.fbDb=fbDb;
@@ -169,18 +165,18 @@ public class JeeslIoDbFacadeBean <L extends UtilsLang,D extends UtilsDescription
 		return j;
 	}
 	
-	@Override public JsonFlatFigures dbQueries(String dbName)
+	@Override public JsonPostgres postgresStatements(String dbName)
 	{		
-		JsonFlatFigures flats = JsonFlatFiguresFactory.build();
+		JsonPostgres json = JsonPostgresFactory.build();
 		
 		int i=1;
 		for(Object o : em.createNativeQuery(SqlDbPgStatFactory.queries(dbName)).getResultList())
 		{
 			Object[] array = (Object[])o;
-			flats.getFigures().add(JsonDbPgStatQueryFactory.build(i,array));
+			json.getStatements().add(JsonPostgresStatementFactory.build(i,array));
 			i++;
 		}		
-		return flats;
+		return json;
 	}
 	
 	public static void debugDataTypes(Object[] array)
