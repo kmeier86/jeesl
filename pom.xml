@@ -102,6 +102,11 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.8.0</version>
+				</plugin>
+				<plugin>
 					<groupId>net.sf.exlp</groupId>
 					<artifactId>exlp-maven</artifactId>
 					<version>0.1.11</version>
@@ -123,13 +128,13 @@
   		</pluginManagement>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.3</version>
 				<inherited>true</inherited>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-					<encoding>${project.build.sourceEncoding}</encoding>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
 			<plugin>

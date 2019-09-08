@@ -179,23 +179,13 @@
 	</dependencyManagement>
 	
 	<build>
-    <plugins>
+    	<plugins>
 			<plugin>
 		        <groupId>org.codehaus.mojo</groupId>
 		        <artifactId>versions-maven-plugin</artifactId>
 		        <configuration>
 					<rulesUri>${maven.ignore}</rulesUri>
 		        </configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<inherited>true</inherited>
-				<version>3.3</version>
-				<configuration>
-					<source>${version.jdk}</source>
-					<target>${version.jdk}</target>
-					<encoding>${project.build.sourceEncoding}</encoding>
-				</configuration>
 			</plugin>
 			<plugin>
         		<groupId>org.apache.maven.plugins</groupId>

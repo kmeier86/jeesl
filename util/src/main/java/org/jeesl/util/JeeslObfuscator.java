@@ -1,17 +1,17 @@
-package net.sf.ahtutils.controller.util;
+package org.jeesl.util;
 
 import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UtilsObfuscator
+public class JeeslObfuscator
 {
-	final static Logger logger = LoggerFactory.getLogger(UtilsObfuscator.class);
+	final static Logger logger = LoggerFactory.getLogger(JeeslObfuscator.class);
 	
 	private Random rnd; 
 	
-	public UtilsObfuscator()
+	public JeeslObfuscator()
 	{
 		rnd = new Random();
 	}

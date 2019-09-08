@@ -44,7 +44,7 @@ public class EjbStatusFactory<S extends UtilsStatus<S,L,D>, L extends UtilsLang,
     
     public EjbStatusFactory(final Class<S> cStatus, final Class<L> cL, final Class<D> cD, List<String> localeCodes)
     {
-    		this.localeCodes=localeCodes;
+    	this.localeCodes=localeCodes;
         this.cStatus = cStatus;
         this.cD = cD;
         
