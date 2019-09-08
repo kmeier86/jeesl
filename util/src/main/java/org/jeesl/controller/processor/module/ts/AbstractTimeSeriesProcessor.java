@@ -43,7 +43,8 @@ public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,?,?,EC
 	protected final EjbTsDataFactory<TS,TRANSACTION,DATA,WS> efData;
 	protected final EjbTsDataPointFactory<MP,DATA,POINT> efPoint;
 	
-	protected WS ws;
+	protected WS ws; public WS getWorkspace() {return ws;}
+
 	protected SCOPE scope;
 	protected INT interval;
 	protected EC ec;
@@ -94,7 +95,7 @@ public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,?,?,EC
 		return (ws!=null) && (scope!=null) && (interval!=null) && (ec!=null);
 	}
 	
-	protected <T extends EjbWithId> TS fcTs(T t) throws UtilsConstraintViolationException
+	public <T extends EjbWithId> TS fcTs(T t) throws UtilsConstraintViolationException
 	{
 		BRIDGE bridge = fTs.fcBridge(fbTs.getClassBridge(),ec,t);
 		return fTs.fcTimeSeries(scope,interval,bridge);
