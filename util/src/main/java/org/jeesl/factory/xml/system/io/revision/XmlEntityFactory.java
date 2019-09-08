@@ -30,7 +30,7 @@ public class XmlEntityFactory <L extends UtilsLang,D extends UtilsDescription,
 	
 	private Entity q;
 	
-	private XmlCategoryFactory<RC,L,D> xfCategory;
+	private XmlCategoryFactory<L,D,RC> xfCategory;
 	private XmlLangsFactory<L> xfLangs;
 	private XmlDescriptionsFactory<D> xfDescriptions;
 	private XmlAttributeFactory<L,D,RC,REM,RE,RA,RER,RAT> xfAttribute;

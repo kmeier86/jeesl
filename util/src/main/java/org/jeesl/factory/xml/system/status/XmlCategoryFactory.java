@@ -13,7 +13,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.status.Category;
 import net.sf.ahtutils.xml.status.Status;
 
-public class XmlCategoryFactory<S extends UtilsStatus<S,L,D>,L extends UtilsLang, D extends UtilsDescription>
+public class XmlCategoryFactory<L extends UtilsLang, D extends UtilsDescription,S extends UtilsStatus<S,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlCategoryFactory.class);
 	

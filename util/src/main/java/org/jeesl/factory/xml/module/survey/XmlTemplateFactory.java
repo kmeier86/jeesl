@@ -57,7 +57,7 @@ public class XmlTemplateFactory<L extends UtilsLang,D extends UtilsDescription,
 	private final Template q;
 	
 	private XmlStatusFactory<TS,L,D> xfStatus;
-	private XmlCategoryFactory<TC,L,D> xfCategory;
+	private XmlCategoryFactory<L,D,TC> xfCategory;
 	private XmlSectionFactory<L,D,SURVEY,SS,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION> xfSection;
 	
 	public XmlTemplateFactory(QuerySurvey q){this(q.getLocaleCode(),q.getTemplate());}
@@ -65,9 +65,9 @@ public class XmlTemplateFactory<L extends UtilsLang,D extends UtilsDescription,
 	{
 		this.localeCode=localeCode;
 		this.q=q;
-		if(q.isSetStatus()) {xfStatus = new XmlStatusFactory<TS,L,D>(q.getStatus());}
-		if(q.isSetCategory()) {xfCategory = new XmlCategoryFactory<TC,L,D>(q.getCategory());}
-		if(q.isSetSection()) {xfSection  = new XmlSectionFactory<L,D,SURVEY,SS,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION>(localeCode,q.getSection().get(0));}	
+		if(q.isSetStatus()) {xfStatus = new XmlStatusFactory<>(q.getStatus());}
+		if(q.isSetCategory()) {xfCategory = new XmlCategoryFactory<>(q.getCategory());}
+		if(q.isSetSection()) {xfSection  = new XmlSectionFactory<>(localeCode,q.getSection().get(0));}	
 	}
 	
 	public void lazyLoad(JeeslSurveyTemplateFacade<L,D,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,QE,SCORE,UNIT,OPTIONS,OPTION> fTemplate,
