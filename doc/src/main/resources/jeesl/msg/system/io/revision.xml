@@ -170,7 +170,14 @@
     		<s:lang key="en" translation="Time Series"/>
     		<s:lang key="fr" translation="Time Series"/>
     	</s:langs>
-    </s:translation>
+    </s:translation> 
+	<s:translation key="jeeslRevisionDoc">
+    	<s:langs>
+    		<s:lang key="de" translation="Dok"/>
+    		<s:lang key="en" translation="Doc"/>
+    		<s:lang key="fr" translation="Doc"/>
+    	</s:langs>
+    </s:translation> 
 	<s:translation key="jeeslRevisionEntityRelation">
     	<s:langs>
     		<s:lang key="de" translation="Relation"/>

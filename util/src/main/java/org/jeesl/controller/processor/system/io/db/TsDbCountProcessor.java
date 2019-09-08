@@ -58,13 +58,10 @@ public class TsDbCountProcessor<RE extends JeeslRevisionEntity<?,?,?,?,?>,
 		this.fDb=fDb;
 	}
 	
-	public void count() throws IllegalStateException
+	public List<RE> findActive()
 	{
-		if(!isInitialized()) {throw new IllegalStateException(this.getClass().getSimpleName()+" is not fully initialized");}
-		List<RE> listAll = fDb.all(fbRevision.getClassEntity());
 		List<RE> listTs = new ArrayList<RE>();
-		
-		for(RE entity : listAll)
+		for(RE entity : fDb.all(fbRevision.getClassEntity()))
 		{
 			try
 			{
@@ -77,7 +74,13 @@ public class TsDbCountProcessor<RE extends JeeslRevisionEntity<?,?,?,?,?>,
 			}
 			catch (ClassNotFoundException e) {e.printStackTrace();}
 		}
-		logger.info("Creating TS for "+listTs.size()+" of "+listAll.size());
+		return listTs;
+	}
+	
+	public void count() throws IllegalStateException
+	{
+		if(!isInitialized()) {throw new IllegalStateException(this.getClass().getSimpleName()+" is not fully initialized");}
+		List<RE> listTs = findActive();
 		
 		if(!listTs.isEmpty())
 		{
@@ -91,7 +94,6 @@ public class TsDbCountProcessor<RE extends JeeslRevisionEntity<?,?,?,?,?>,
 					try
 					{
 						Class<?> c = Class.forName(entity.getCode());
-						
 						count(transaction,date,entity,c);
 					}
 					catch (ClassNotFoundException e) {e.printStackTrace();}
