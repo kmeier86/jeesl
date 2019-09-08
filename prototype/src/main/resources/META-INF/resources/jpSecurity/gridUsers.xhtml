@@ -25,6 +25,7 @@
 		
 		<composite:facet name="userDetail" required="false"/>
 		<composite:facet name="revisions" required="false"/>
+		<composite:facet name="realm" required="false"/>
 	</composite:interface>
 	
 	<composite:implementation>
@@ -90,6 +91,9 @@
 								<p:outputLabel for="cbLogin" value="#{msg.aupPermitLogin}" />
 								<p:selectBooleanCheckbox id="cbLogin" value="#{cc.attrs.bean.user.permitLogin}" />
 							</p:panelGrid>
+							<c:if test="#{not empty cc.facets.realm}">
+								<composite:renderFacet name="realm"></composite:renderFacet>
+							</c:if>
 							<c:if test="#{not empty cc.facets.userDetail}">
 								<composite:renderFacet name="userDetail"/>
 				            </c:if>
