@@ -19,6 +19,8 @@ import org.jeesl.model.xml.system.revision.Entity;
 import org.jeesl.util.ReflectionUtil;
 import org.jeesl.util.query.xpath.RevisionXpath;
 import org.jeesl.util.query.xpath.StatusXpath;
+import org.metachart.xml.graph.Cluster;
+import org.metachart.xml.graph.Clusters;
 import org.metachart.xml.graph.Edge;
 import org.metachart.xml.graph.Edges;
 import org.metachart.xml.graph.Graph;
@@ -32,42 +34,44 @@ import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.io.ClassUtil;
 import net.sf.exlp.util.io.dir.RecursiveFileFinder;
-import net.sf.exlp.util.xml.JaxbUtil;
 
 public class ErGraphProcessor
 {
 	private static enum Cardinality {OneToOne,OneToMany,ManyToOne,ManyToMany}
 	final static Logger logger = LoggerFactory.getLogger(ErGraphProcessor.class);
-	
+
 	private String localeCode;
 	private Entities entities;
 
 	private File fBase;
-	
+
 	private Map<String,Node> mapNodes;
 	private Map<String,Edge> mapEdges;
 	private Map<String,Boolean> mapChilds;
 	private Graph graph;
-	
+	Map<String, List<Node>>  mapNodesCategories = new Hashtable<String,List<Node>>();
+
 	public ErGraphProcessor(File fBase)
 	{
 		this.fBase=fBase;
-		
+
 		mapNodes = new Hashtable<String,Node>();
 		mapEdges = new Hashtable<String,Edge>();
 		mapChilds = new Hashtable<String,Boolean>();
+		mapNodesCategories = new Hashtable<String,List<Node>>();
 		graph = new Graph();
 		graph.setNodes(new Nodes());
 		graph.setEdges(new Edges());
+		graph.setClusters(new Clusters());
 	}
-	
+
 	public void activateEntities(String localeCode, Entities entities)
 	{
 		logger.info("Activating Entites "+localeCode);
 		this.localeCode=localeCode;
 		this.entities=entities;
 	}
-	
+
 	public void addPackages(String sEjbPackage) throws IOException, ClassNotFoundException
 	{
 		addPackages(sEjbPackage,new ArrayList<String>());
@@ -75,15 +79,15 @@ public class ErGraphProcessor
 	public void addPackages(String sEjbPackage, List<String> subset) throws IOException, ClassNotFoundException
 	{
 		Set<String> setSub = new HashSet<String>(subset);
-		
+
 		IOFileFilter suffixFileFilter = FileFilterUtils.suffixFileFilter(".java");
 		File fPackage = new File(fBase,sEjbPackage);
-		
+
 		RecursiveFileFinder finder = new RecursiveFileFinder(suffixFileFilter);
 		List<File> list = finder.find(fPackage);
-		
+
 		logger.info("Found files "+list.size()+" in "+fPackage.getAbsolutePath());
-		
+
 		for(File f : list)
 		{
 			createNode(f,setSub);
@@ -102,19 +106,20 @@ public class ErGraphProcessor
 			createEdge(f);
 		}
 	}
-	
+
 	public Graph create()
 	{
 		mergeEdges();
+		createClusters();
 		return graph;
 	}
-	
+
 	private void createNode(File f,Set<String> subSet) throws ClassNotFoundException
 	{
 		Class<?> c = ClassUtil.forFile(fBase, f);
 		createNode(c,subSet);
 	}
-	
+
 	private void createNode(Class<?> c,Set<String> subSet)
 	{
 		Annotation a = c.getAnnotation(EjbErNode.class);
@@ -123,7 +128,7 @@ public class ErGraphProcessor
 			EjbErNode er = (EjbErNode)a;
 			Node node = new Node();
 			node.setCode(c.getName());
-			
+
 			if(localeCode!=null && entities!=null)
 			{
 				try
@@ -137,8 +142,8 @@ public class ErGraphProcessor
 //					logger.warn(e.getMessage());
 				}
 			}
-			if(node.getLabel()==null){node.setLabel("** "+er.name());}			
-			
+			if(node.getLabel()==null){node.setLabel("** "+er.name());}
+
 			if(er.category().length()>0)
 			{
 				node.setCategory(er.category());
@@ -147,7 +152,7 @@ public class ErGraphProcessor
 			node.setSizeAdjustsColor(true);
 			node.setSize(1-er.level());
 			node.setType(""+er.level());
-			
+
 			boolean add = false;
 			if(subSet.isEmpty()){add=true;}
 			else
@@ -163,11 +168,14 @@ public class ErGraphProcessor
 					}
 				}
 			}
-			
-			if(add){mapNodes.put(node.getCode(), node);}
+
+			if(add){
+				mapNodes.put(node.getCode(), node);
+				groupNode(node);
+				}
 		}
 	}
-	
+
 	private void createEdge(File fClass) throws ClassNotFoundException
 	{
 		Class<?> c = ClassUtil.forFile(fBase, fClass);
@@ -175,7 +183,7 @@ public class ErGraphProcessor
 		{
 			logger.trace("Processing edges for "+c.getName());
 			Node source = mapNodes.get(c.getName());
-			
+
 			for(Field field : ReflectionUtil.toFields(c))
 			{
 				logger.trace("Field "+field.getName());
@@ -194,7 +202,7 @@ public class ErGraphProcessor
 					{
 						ParameterizedType pT = (ParameterizedType) field.getGenericType();
 				        Class<?> gC = (Class<?>) pT.getActualTypeArguments()[0];
-				     
+
 				        if(mapNodes.containsKey(gC.getName()))
 				        {
 				        	Node target = mapNodes.get(gC.getName());
@@ -203,18 +211,16 @@ public class ErGraphProcessor
 					}
 				}
 			}
-			
+
 			Class<?> cSuper = c.getSuperclass();
 			if(mapNodes.containsKey(cSuper.getName()))
 			{
 				Node target = mapNodes.get(cSuper.getName());
 				createEdge(source, Cardinality.OneToOne,target,false);
-				
-			}			
+			}
 		}
 	}
 
-	
 	private void createEdge(Node source, Cardinality cardinality,Node target,boolean targetIsChild)
 	{
 		Edge e = new Edge();
@@ -225,16 +231,16 @@ public class ErGraphProcessor
 			case ManyToOne: e.setDirected(true);break;
 			case ManyToMany:e.setDirected(true);break;
 		}
-		
+
 		e.setFrom(source.getId());
 		e.setTo(target.getId());
 		e.setType(cardinality.toString());
 		String key = e.getFrom()+"-"+e.getTo();
-		
+
 		mapEdges.put(key, e);
 		mapChilds.put(key, targetIsChild);
 	}
-	
+
 	private Cardinality getCardinality(Annotation annotations[])
 	{
 		logger.trace("Annotation Length "+annotations.length);
@@ -251,7 +257,7 @@ public class ErGraphProcessor
 		}
 		return cardinality;
 	}
-	
+
 	private boolean isTargetChildAnnotated(Annotation annotations[])
 	{
 		boolean isChild = false;
@@ -265,7 +271,7 @@ public class ErGraphProcessor
 		}
 		return isChild;
 	}
-	
+
 	private void mergeEdges()
 	{
 		Object[] keys = mapEdges.keySet().toArray();
@@ -281,8 +287,8 @@ public class ErGraphProcessor
 				if(mapEdges.containsKey(keyR))
 				{
 					boolean isChildR = mapChilds.get(keyR);
-					Edge eR = mapEdges.get(keyR);		
-					
+					Edge eR = mapEdges.get(keyR);
+
 					Cardinality cR = Cardinality.valueOf(eR.getType());
 					boolean rmF = false;
 					boolean rmR = false;
@@ -290,7 +296,7 @@ public class ErGraphProcessor
 					else if(cF==Cardinality.ManyToMany && cR == Cardinality.ManyToMany){rmR=true;}
 					else if(cF==Cardinality.OneToMany && cR == Cardinality.ManyToOne){rmR=true;}
 					else if(cF==Cardinality.ManyToOne && cR == Cardinality.OneToMany){rmF=true;}
-					
+
 					if(rmF) {mapEdges.remove(keyF);}
 					else if(rmR && !isChildR) {mapEdges.remove(keyR);}
 				}
@@ -308,5 +314,53 @@ public class ErGraphProcessor
 			}
 		}
 		graph.getEdges().getEdge().addAll(mapEdges.values());
+	}
+
+	public void createClusters() {
+		//logger.info("---" + mapNodesCategories.keySet().toString() +"---");
+		int nodeCategoryId = 0;
+		for(Map.Entry<String,List<Node>> entry : mapNodesCategories.entrySet())
+		{
+			boolean skipCatagorization  = false;
+			if(entry.getKey() == "NA" || entry.getValue().size() < 2) {skipCatagorization = true;}
+			if(!skipCatagorization)
+			{
+				//logger.info("--" + entry.getKey() +"--");
+				Cluster cluster  = new Cluster();
+				cluster.setCode(Integer.toString(nodeCategoryId));
+				cluster.setLabel(getCategoryLabel(entry.getKey()));
+
+				for(Node n: entry.getValue()){
+					Node clusterNode= new Node();
+					clusterNode.setId(n.getId());
+					cluster.getNode().add(clusterNode);
+					}
+				graph.getClusters().getCluster().add(cluster);
+			}
+			nodeCategoryId++;
+		}
+	}
+
+	private String getCategoryLabel(String categoryName)
+	{
+		return categoryName.substring(0, 1).toUpperCase() + categoryName.substring(1).toLowerCase();
+	}
+
+	public void groupNode(Node node)
+	{
+		String category  = node.getCategory();
+
+		if(category==null){category="NA";} else if (category.length() == 0) {category="NA";}
+	    if(mapNodesCategories.containsKey(category))
+	    {
+	        List<Node> subCategoryList = mapNodesCategories.get(category);
+	        subCategoryList.add(node);
+		}
+	    else
+	    {
+	    	List<Node> categoryList = new ArrayList<Node>();
+	    	categoryList.add(node);
+	    	mapNodesCategories.put(category, categoryList);
+	    }
 	}
 }
