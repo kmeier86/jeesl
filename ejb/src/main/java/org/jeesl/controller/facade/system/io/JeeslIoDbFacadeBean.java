@@ -170,7 +170,7 @@ public class JeeslIoDbFacadeBean <L extends UtilsLang,D extends UtilsDescription
 		JsonPostgres json = JsonPostgresFactory.build();
 		
 		int i=1;
-		for(Object o : em.createNativeQuery(SqlDbPgStatFactory.queries(dbName)).getResultList())
+		for(Object o : em.createNativeQuery(SqlDbPgStatFactory.statements(dbName)).getResultList())
 		{
 			Object[] array = (Object[])o;
 			json.getStatements().add(JsonPostgresStatementFactory.build(i,array));

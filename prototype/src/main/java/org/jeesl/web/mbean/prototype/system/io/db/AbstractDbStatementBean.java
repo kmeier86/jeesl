@@ -11,7 +11,6 @@ import org.jeesl.factory.ejb.util.EjbCodeFactory;
 import org.jeesl.factory.txt.system.io.db.TxtSqlQueryFactory;
 import org.jeesl.interfaces.model.system.io.db.JeeslDbStatementColumn;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
-import org.jeesl.model.json.system.io.db.JsonPostgresConnection;
 import org.jeesl.model.json.system.io.db.JsonPostgresStatement;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
@@ -49,7 +48,7 @@ public class AbstractDbStatementBean <L extends UtilsLang, D extends UtilsDescri
 		mapColumn = new HashMap<>();
 	}
 	
-	public void postConstructDbReplication(JeeslIoDbFacade<L,D,SYSTEM,?,?,?,?> fDb)
+	public void postConstructDbStatement(JeeslIoDbFacade<L,D,SYSTEM,?,?,?,?> fDb)
 	{
 		this.fDb=fDb;
 		mapColumn.putAll(EjbCodeFactory.toMapCode(fDb.allOrderedPositionVisible(fbDb.getClassStatementColumn())));

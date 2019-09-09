@@ -38,7 +38,7 @@ public class SqlDbPgStatFactory
 		return XmlQueryFactory.build(tsTransaction,tsQuery,tsState,state,query);
 	}
 	
-	public static String queries(String userName)
+	public static String statements(String userName)
 	{
 		List<String> fileds = new ArrayList<String>();
 		fileds.add("pd.datname");
