@@ -100,7 +100,6 @@ public class AbstractErDiagram
 		
 		gdc.convert(g);
 		dotGraph = gdc.getDot();
-	
 		gdc.save(fDot);
 		
 		GraphFileWriter w = new GraphFileWriter(type);
