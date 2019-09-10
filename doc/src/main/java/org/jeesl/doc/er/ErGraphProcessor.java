@@ -67,7 +67,7 @@ public class ErGraphProcessor
 
 	public void activateEntities(String localeCode, Entities entities)
 	{
-		logger.info("Activating Entites "+localeCode);
+		logger.trace("Activating Entites "+localeCode);
 		this.localeCode=localeCode;
 		this.entities=entities;
 	}
@@ -86,7 +86,7 @@ public class ErGraphProcessor
 		RecursiveFileFinder finder = new RecursiveFileFinder(suffixFileFilter);
 		List<File> list = finder.find(fPackage);
 
-		logger.info("Found files "+list.size()+" in "+fPackage.getAbsolutePath());
+		logger.trace("Found files "+list.size()+" in "+fPackage.getAbsolutePath());
 
 		for(File f : list)
 		{
@@ -163,7 +163,7 @@ public class ErGraphProcessor
 				{
 					if(subSet.contains(s))
 					{
-						logger.info(c.getName());
+						logger.trace(c.getName());
 						add=true;
 					}
 				}
@@ -181,7 +181,7 @@ public class ErGraphProcessor
 		Class<?> c = ClassUtil.forFile(fBase, fClass);
 		if(mapNodes.containsKey(c.getName()))
 		{
-			logger.trace("Processing edges for "+c.getName());
+			logger.trace("----------------Processing edges for "+c.getName() + "---------------------");
 			Node source = mapNodes.get(c.getName());
 
 			for(Field field : ReflectionUtil.toFields(c))
@@ -196,18 +196,28 @@ public class ErGraphProcessor
 					if(mapNodes.containsKey(field.getType().getName()))
 					{
 						Node target = mapNodes.get(field.getType().getName());
+						logger.trace("target: " + target.getLabel());
 						createEdge(source, cardinality,target,targetIsChild);
 					}
-					else if(field.getType().getName().equals(List.class.getName()))
-					{
-						ParameterizedType pT = (ParameterizedType) field.getGenericType();
-				        Class<?> gC = (Class<?>) pT.getActualTypeArguments()[0];
-
-				        if(mapNodes.containsKey(gC.getName()))
-				        {
-				        	Node target = mapNodes.get(gC.getName());
-				        	createEdge(source, cardinality,target,targetIsChild);
-				        }
+					else {
+						String fieldTypeName = field.getType().getName();
+						if(fieldTypeName.equals(List.class.getName()) || fieldTypeName.equals(Map.class.getName()))
+						{
+							ParameterizedType pT = (ParameterizedType) field.getGenericType();
+							Class<?> gC = null;
+							if(fieldTypeName.equals(Map.class.getName())){
+								gC = (Class<?>) pT.getActualTypeArguments()[1];
+							}
+							else {
+								gC = (Class<?>) pT.getActualTypeArguments()[0];
+							}
+							if(mapNodes.containsKey(gC.getName()))
+							{
+								Node target = mapNodes.get(gC.getName());
+						        logger.trace("target: " + target.getLabel());
+						        createEdge(source, cardinality,target,targetIsChild);
+						    }
+						}
 					}
 				}
 			}
@@ -317,7 +327,7 @@ public class ErGraphProcessor
 	}
 
 	public void createClusters() {
-		//logger.info("---" + mapNodesCategories.keySet().toString() +"---");
+		//logger.trace("---" + mapNodesCategories.keySet().toString() +"---");
 		int nodeCategoryId = 0;
 		for(Map.Entry<String,List<Node>> entry : mapNodesCategories.entrySet())
 		{
@@ -325,7 +335,7 @@ public class ErGraphProcessor
 			if(entry.getKey() == "NA" || entry.getValue().size() < 2) {skipCatagorization = true;}
 			if(!skipCatagorization)
 			{
-				//logger.info("--" + entry.getKey() +"--");
+				//logger.trace("--" + entry.getKey() +"--");
 				Cluster cluster  = new Cluster();
 				cluster.setCode(Integer.toString(nodeCategoryId));
 				cluster.setLabel(getCategoryLabel(entry.getKey()));
