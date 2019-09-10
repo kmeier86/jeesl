@@ -14,7 +14,7 @@ import org.jeesl.model.xml.system.revision.Entities;
 import org.metachart.factory.xml.graph.XmlDotFactory;
 import org.metachart.factory.xml.graph.XmlGraphFactory;
 import org.metachart.processor.graph.ColorSchemeManager;
-import org.metachart.processor.graph.Graph1DotConverter;
+import org.metachart.processor.graph.Graph2DotConverter;
 import org.metachart.processor.graph.GraphFileWriter;
 import org.metachart.xml.graph.Graph;
 import org.metachart.xml.graph.Graphs;
@@ -30,18 +30,19 @@ import net.sf.exlp.util.xml.JaxbUtil;
 public class AbstractErDiagram
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractErDiagram.class);
-	
+
 	protected File fTmp;
 	protected File fSrc,fDot,fSvg;
 	protected File dPdf,dAtt;
-	
+
 	protected String packages;
 	protected String colorScheme;
-	
+
 	protected String localeCode;
 	private String dotGraph; public String getDotGraph() {return dotGraph;}
 	private Entities entities;
-	
+	private String graphLabel;
+
 	private OfxMultiLangLatexWriter ofxWriter;
 	private JeeslRevisionRestImport restUpload; public void setRest(JeeslRevisionRestImport restUpload) {this.restUpload = restUpload;}
 	private JeeslRevisionRestExport restDownload; public void setRest(JeeslRevisionRestExport restDownload) {this.restDownload = restDownload;}
@@ -50,17 +51,23 @@ public class AbstractErDiagram
 	{
 		this.ofxWriter=ofxWriter;
 		localeCode = "en";
-		
+		graphLabel = "";
 		fTmp = new File(config.getString(ConfigKey.dirTmp));
 		logger.info("Using Tmp: "+fTmp);
 	}
-	
+
 	protected void loadEntites(String path)
 	{
 		try {entities = JaxbUtil.loadJAXB(new File(path).getAbsoluteFile(), Entities.class);}
 		catch (FileNotFoundException e) {e.printStackTrace();}
 	}
-	
+
+	public void create(String key, String label, boolean upload) throws ClassNotFoundException, IOException, TranscoderException
+	{
+		this.graphLabel = label;
+		create(key, upload);
+	}
+
 	protected void create(String key, boolean upload) throws ClassNotFoundException, IOException, TranscoderException
 	{
 		List<String> subset = new ArrayList<String>();
@@ -75,36 +82,29 @@ public class AbstractErDiagram
 			restUpload.importSystemRevisionDiagram(g);
 		}
 	}
-	
+
 	protected void buildSvg(String type, List<String> subset, File fDst, File fPdf) throws ClassNotFoundException, IOException, TranscoderException
 	{
 //		ErAttributesProcessor eap = new ErAttributesProcessor(ofxWriter,config,fSrc);
 //		eap.addPackages(packages);
-		
+
 		ErGraphProcessor egp = new ErGraphProcessor(fSrc);
 		if(entities!=null) {egp.activateEntities(localeCode,entities);}
 		egp.addPackages(packages,subset);
-		
+
 		Graph g = egp.create();
-//		JaxbUtil.info(g);System.exit(-1);
-		
+		//JaxbUtil.info(g);System.exit(-1);
+
 		Node xml = JaxbUtil.loadJAXB(colorScheme, Node.class);
-		JaxbUtil.trace(xml);
-		
-		Graph1DotConverter gdc = new Graph1DotConverter(new ColorSchemeManager(xml),"b");
-		gdc.setSubSet(subset);
-		
-		gdc.setOverlap(false);
-		gdc.setRatio(0.7);
-		gdc.setRanksep(0.5);
-		
-		gdc.convert(g);
-		dotGraph = gdc.getDot();
+		//JaxbUtil.trace(xml);
+
+		Graph2DotConverter gdc = new Graph2DotConverter(new ColorSchemeManager(xml));
+		gdc.build(g, graphLabel);
 		gdc.save(fDot);
-		
+
 		GraphFileWriter w = new GraphFileWriter(type);
 		w.svg(fDot,fDst);
-		
+
 		if(fPdf!=null)
 		{
 			logger.info("SVG-PDF");
@@ -112,7 +112,7 @@ public class AbstractErDiagram
 			logger.info("SVG-PDF done");
 		}
 	}
-	
+
 	public void buildDocumentation(String localeCode, boolean upload) throws ClassNotFoundException, IOException, TranscoderException
 	{
 		if(restDownload!=null)
