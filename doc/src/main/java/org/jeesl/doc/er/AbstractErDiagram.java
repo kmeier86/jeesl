@@ -100,6 +100,7 @@ public class AbstractErDiagram
 
 		Graph2DotConverter gdc = new Graph2DotConverter(new ColorSchemeManager(xml));
 		gdc.build(g, graphLabel);
+		dotGraph = gdc.getDot();
 		gdc.save(fDot);
 
 		GraphFileWriter w = new GraphFileWriter(type);
