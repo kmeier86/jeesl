@@ -12,6 +12,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.xml.status.MainType;
 import net.sf.ahtutils.xml.status.Status;
+import net.sf.exlp.util.xml.JaxbUtil;
 
 public class XmlMainTypeFactory
 {
@@ -32,6 +33,12 @@ public class XmlMainTypeFactory
 	{
 		MainType xml = new MainType();
 		if(q.isSetId()){xml.setId(ejb.getId());}
+		
+		if(ejb==null) {logger.info("ejb==null)");}
+		
+		
+		
+		
 		if(q.isSetCode()){xml.setCode(ejb.getCode());}
 		if(q.isSetPosition()){xml.setPosition(ejb.getPosition());}
 		xml.setGroup(group);

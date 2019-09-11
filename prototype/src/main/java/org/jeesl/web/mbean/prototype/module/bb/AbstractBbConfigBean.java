@@ -10,7 +10,7 @@ import org.jeesl.controller.handler.sb.SbSingleHandler;
 import org.jeesl.factory.builder.module.BbFactoryBuilder;
 import org.jeesl.interfaces.bean.sb.SbSingleBean;
 import org.jeesl.interfaces.model.module.bb.JeeslBbBoard;
-import org.jeesl.interfaces.model.module.bb.JeeslBbPublishing;
+import org.jeesl.interfaces.model.module.bb.JeeslBbPublishingMode;
 import org.jeesl.interfaces.model.module.bb.post.JeeslBbPost;
 import org.jeesl.interfaces.model.module.bb.post.JeeslBbThread;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsMarkupType;
@@ -124,7 +124,7 @@ public class AbstractBbConfigBean <L extends UtilsLang,D extends UtilsDescriptio
 	public void addBoard() throws UtilsNotFoundException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbBb.getClassBoard()));}
-		PUB publishing = fBb.fByCode(fbBb.getClassPublishing(), JeeslBbPublishing.Code.closed);
+		PUB publishing = fBb.fByCode(fbBb.getClassPublishing(), JeeslBbPublishingMode.Code.closed);
 		board = fbBb.bb().build(null,sbhScope.getSelection(),refId,publishing);
 	}
 	
