@@ -78,6 +78,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link QueryRevision }
+     * 
+     */
+    public QueryRevision createQueryRevision() {
+        return new QueryRevision();
+    }
+
+    /**
      * Create an instance of {@link QuerySecurity }
      * 
      */

@@ -8,6 +8,7 @@ import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
+import org.jeesl.model.xml.jeesl.QueryRevision;
 import org.jeesl.model.xml.system.revision.Entity;
 import org.jeesl.util.comparator.pojo.BooleanComparator;
 import org.slf4j.Logger;
@@ -16,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-import net.sf.ahtutils.xml.aht.Query;
 
 public class XmlEntityFactory <L extends UtilsLang,D extends UtilsDescription,
 								RC extends JeeslRevisionCategory<L,D,RC,?>,	
@@ -30,18 +30,18 @@ public class XmlEntityFactory <L extends UtilsLang,D extends UtilsDescription,
 	
 	private Entity q;
 	
-	private XmlCategoryFactory<L,D,RC> xfCategory;
 	private XmlLangsFactory<L> xfLangs;
 	private XmlDescriptionsFactory<D> xfDescriptions;
+	private XmlCategoryFactory<L,D,RC> xfCategory;
 	private XmlAttributeFactory<L,D,RC,REM,RE,RA,RER,RAT> xfAttribute;
 	
-	public XmlEntityFactory(Query q){this(q.getEntity());}
+	public XmlEntityFactory(QueryRevision q){this(q.getEntity());}
 	public XmlEntityFactory(Entity q)
 	{
 		this.q=q;
-		if(q.isSetCategory()){xfCategory = new XmlCategoryFactory<>(q.getCategory());}
 		if(q.isSetLangs()){xfLangs = new XmlLangsFactory<>(q.getLangs());}
 		if(q.isSetDescriptions()){xfDescriptions = new XmlDescriptionsFactory<>(q.getDescriptions());}
+		if(q.isSetCategory()){xfCategory = new XmlCategoryFactory<>(q.getCategory());}
 		if(q.isSetAttribute()){xfAttribute = new XmlAttributeFactory<>(q.getAttribute().get(0));}
 	}
 	

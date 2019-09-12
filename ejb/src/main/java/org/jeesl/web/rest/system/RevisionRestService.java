@@ -16,6 +16,8 @@ import org.jeesl.factory.ejb.system.status.EjbDescriptionFactory;
 import org.jeesl.factory.ejb.system.status.EjbLangFactory;
 import org.jeesl.factory.ejb.system.status.EjbStatusFactory;
 import org.jeesl.factory.xml.jeesl.XmlContainerFactory;
+import org.jeesl.factory.xml.system.io.revision.XmlDiagramFactory;
+import org.jeesl.factory.xml.system.io.revision.XmlDiagramsFactory;
 import org.jeesl.factory.xml.system.io.revision.XmlEntityFactory;
 import org.jeesl.factory.xml.system.io.sync.XmlDataUpdateFactory;
 import org.jeesl.factory.xml.system.io.sync.XmlResultFactory;
@@ -30,16 +32,15 @@ import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityM
 import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
 import org.jeesl.model.xml.jeesl.Container;
 import org.jeesl.model.xml.system.revision.Attribute;
+import org.jeesl.model.xml.system.revision.Diagrams;
 import org.jeesl.model.xml.system.revision.Entities;
 import org.jeesl.model.xml.system.revision.Entity;
 import org.jeesl.util.db.JeeslStatusDbUpdater;
-import org.jeesl.util.query.xml.RevisionQuery;
 import org.jeesl.util.query.xml.XmlStatusQuery;
+import org.jeesl.util.query.xml.system.io.XmlRevisionQuery;
 import org.metachart.factory.xml.graph.XmlDotFactory;
 import org.metachart.factory.xml.graph.XmlGraphFactory;
-import org.metachart.factory.xml.graph.XmlGraphsFactory;
 import org.metachart.xml.graph.Graph;
-import org.metachart.xml.graph.Graphs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,8 +74,9 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 	private final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fbRevision;
 	private JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fRevision;
 
-	private XmlContainerFactory xfContainer;
-	private XmlEntityFactory<L,D,RC,REM,RE,RA,RER,RAT> xfEntity;
+	private final XmlContainerFactory xfContainer;
+	private final XmlEntityFactory<L,D,RC,REM,RE,RA,RER,RAT> xfEntity;
+	private final XmlDiagramFactory<L,D,RC,ERD> xfDiagram;
 
 	private EjbLangFactory<L> efLang;
 	private EjbDescriptionFactory<D> efDescription;
@@ -88,12 +90,13 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 		this.fRevision=fRevision;
 
 		xfContainer = new XmlContainerFactory(XmlStatusQuery.get(XmlStatusQuery.Key.StatusExport).getStatus());
-		xfEntity = new XmlEntityFactory<>(RevisionQuery.get(RevisionQuery.Key.exEntity));
+		xfEntity = new XmlEntityFactory<>(XmlRevisionQuery.get(XmlRevisionQuery.Key.xEntity));
 		
 		efLang = EjbLangFactory.factory(fbRevision.getClassL());
 		efDescription = EjbDescriptionFactory.factory(fbRevision.getClassD());
 		efEntity = EjbRevisionEntityFactory.factory(fbRevision.getClassL(),fbRevision.getClassD(),fbRevision.getClassEntity());
 		efAttribute = EjbRevisionAttributeFactory.factory(fbRevision.getClassAttribute());
+		xfDiagram = fbRevision.xmlDiagram(XmlRevisionQuery.get(XmlRevisionQuery.Key.xDiagram));
 	}
 	
 	@Override public Container exportSystemIoRevisionAttributeTypes() {return xfContainer.build(fRevision.allOrderedPosition(fbRevision.getClassAttributeType()));}
@@ -114,15 +117,12 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 		return entities;
 	}
 	
-	@Override public Graphs exportSystemRevisionGraphs()
+	@Override public Diagrams exportSystemRevisionDiagrams()
 	{
-		Graphs xml = XmlGraphsFactory.build();
+		Diagrams xml = XmlDiagramsFactory.build();
 		for(ERD diagram : fRevision.all(fbRevision.getClassDiagram()))
 		{
-			if(diagram.isDocumentation())
-			{
-				xml.getGraph().add(XmlGraphFactory.build(diagram.getCode()));
-			}
+			xml.getDiagram().add(xfDiagram.build(diagram));
 		}
 		return xml;
 	}

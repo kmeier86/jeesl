@@ -16,8 +16,8 @@ import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
 import org.jeesl.interfaces.model.system.with.EjbWithGraphic;
 import org.jeesl.interfaces.rest.JeeslExportRest;
 import org.jeesl.model.xml.system.revision.Entity;
-import org.jeesl.util.query.xml.RevisionQuery;
 import org.jeesl.util.query.xml.SymbolQuery;
+import org.jeesl.util.query.xml.system.io.XmlRevisionQuery;
 import org.jeesl.web.rest.AbstractJeeslRestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,7 +63,7 @@ public class JeeslRestService <L extends UtilsLang,D extends UtilsDescription,
 		this.fRevision=fRevision;
 		this.fGraphic=fGraphic;
 		xfGraphic = new XmlGraphicFactory<L,D,G,GT,F,FS>(SymbolQuery.get(SymbolQuery.Key.GraphicExport));
-		xfEntity = new XmlEntityFactory<L,D,RC,REM,RE,RA,RER,RAT>(RevisionQuery.get(RevisionQuery.Key.exEntity));
+		xfEntity = new XmlEntityFactory<L,D,RC,REM,RE,RA,RER,RAT>(XmlRevisionQuery.get(XmlRevisionQuery.Key.xEntity));
 	}
 
 	public static <L extends UtilsLang,D extends UtilsDescription,

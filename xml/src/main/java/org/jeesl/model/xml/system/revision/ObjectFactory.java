@@ -54,6 +54,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Diagram }
+     * 
+     */
+    public Diagram createDiagram() {
+        return new Diagram();
+    }
+
+    /**
      * Create an instance of {@link Entities }
      * 
      */
@@ -75,6 +83,14 @@ public class ObjectFactory {
      */
     public Revision createRevision() {
         return new Revision();
+    }
+
+    /**
+     * Create an instance of {@link Diagrams }
+     * 
+     */
+    public Diagrams createDiagrams() {
+        return new Diagrams();
     }
 
 }

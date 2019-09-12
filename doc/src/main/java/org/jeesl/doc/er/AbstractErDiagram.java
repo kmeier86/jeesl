@@ -10,20 +10,24 @@ import org.apache.batik.transcoder.TranscoderException;
 import org.apache.commons.configuration.Configuration;
 import org.jeesl.api.rest.system.io.revision.JeeslRevisionRestExport;
 import org.jeesl.api.rest.system.io.revision.JeeslRevisionRestImport;
+import org.jeesl.model.xml.system.revision.Diagram;
+import org.jeesl.model.xml.system.revision.Diagrams;
 import org.jeesl.model.xml.system.revision.Entities;
+import org.jeesl.util.query.xpath.StatusXpath;
 import org.metachart.factory.xml.graph.XmlDotFactory;
 import org.metachart.factory.xml.graph.XmlGraphFactory;
 import org.metachart.processor.graph.ColorSchemeManager;
 import org.metachart.processor.graph.Graph2DotConverter;
 import org.metachart.processor.graph.GraphFileWriter;
 import org.metachart.xml.graph.Graph;
-import org.metachart.xml.graph.Graphs;
 import org.metachart.xml.graph.Node;
 import org.openfuxml.media.transcode.Svg2PdfTranscoder;
 import org.openfuxml.renderer.latex.OfxMultiLangLatexWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.sf.exlp.exception.ExlpXpathNotFoundException;
+import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.interfaces.util.ConfigKey;
 import net.sf.exlp.util.xml.JaxbUtil;
 
@@ -41,7 +45,6 @@ public class AbstractErDiagram
 	protected String localeCode;
 	private String dotGraph; public String getDotGraph() {return dotGraph;}
 	private Entities entities;
-	private String graphLabel;
 
 	private OfxMultiLangLatexWriter ofxWriter;
 	private JeeslRevisionRestImport restUpload; public void setRest(JeeslRevisionRestImport restUpload) {this.restUpload = restUpload;}
@@ -51,7 +54,6 @@ public class AbstractErDiagram
 	{
 		this.ofxWriter=ofxWriter;
 		localeCode = "en";
-		graphLabel = "";
 		fTmp = new File(config.getString(ConfigKey.dirTmp));
 		logger.info("Using Tmp: "+fTmp);
 	}
@@ -62,18 +64,16 @@ public class AbstractErDiagram
 		catch (FileNotFoundException e) {e.printStackTrace();}
 	}
 
-	public void create(String key, String label, boolean upload) throws ClassNotFoundException, IOException, TranscoderException
+	public void create(String key, boolean upload) throws ClassNotFoundException, IOException, TranscoderException
 	{
-		this.graphLabel = label;
-		create(key, upload);
+		create(key,key,upload);
 	}
-
-	protected void create(String key, boolean upload) throws ClassNotFoundException, IOException, TranscoderException
+	protected void create(String key, String label, boolean upload) throws ClassNotFoundException, IOException, TranscoderException
 	{
 		List<String> subset = new ArrayList<String>();
 		subset.add(key);
 		File fPdf = null; if(dPdf!=null){fPdf = new File(dPdf,key+".pdf");}
-		buildSvg("dot",subset,new File(fSvg,key+".svg"),fPdf);
+		buildSvg("dot",label,subset,new File(fSvg,key+".svg"),fPdf);
 		if(upload && restUpload!=null)
 		{
 			Graph g = XmlGraphFactory.build(key);
@@ -83,7 +83,7 @@ public class AbstractErDiagram
 		}
 	}
 
-	protected void buildSvg(String type, List<String> subset, File fDst, File fPdf) throws ClassNotFoundException, IOException, TranscoderException
+	protected void buildSvg(String type, String label, List<String> subset, File fDst, File fPdf) throws ClassNotFoundException, IOException, TranscoderException
 	{
 //		ErAttributesProcessor eap = new ErAttributesProcessor(ofxWriter,config,fSrc);
 //		eap.addPackages(packages);
@@ -99,7 +99,7 @@ public class AbstractErDiagram
 		//JaxbUtil.trace(xml);
 
 		Graph2DotConverter gdc = new Graph2DotConverter(new ColorSchemeManager(xml));
-		gdc.build(g, graphLabel);
+		gdc.build(g,label);
 		dotGraph = gdc.getDot();
 		gdc.save(fDot);
 
@@ -118,10 +118,17 @@ public class AbstractErDiagram
 	{
 		if(restDownload!=null)
 		{
-			Graphs graphs = restDownload.exportSystemRevisionGraphs();
-			for(Graph g : graphs.getGraph())
+			Diagrams diagrams = restDownload.exportSystemRevisionDiagrams();
+			JaxbUtil.info(diagrams);
+			for(Diagram d : diagrams.getDiagram())
 			{
-				create(g.getCode(),upload);
+				StringBuilder sb = new StringBuilder();
+				try
+				{
+					sb.append(StatusXpath.getLang(d.getLangs(),localeCode).getTranslation());
+				}
+				catch (ExlpXpathNotFoundException | ExlpXpathNotUniqueException e) {e.printStackTrace();}
+				create(d.getCode(),sb.toString(),upload);
 			}
 		}
 	}

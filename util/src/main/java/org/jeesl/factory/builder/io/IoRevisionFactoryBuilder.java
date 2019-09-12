@@ -8,6 +8,7 @@ import org.jeesl.factory.ejb.system.io.revision.EjbRevisionMappingEntityFactory;
 import org.jeesl.factory.ejb.system.io.revision.EjbRevisionMappingViewFactory;
 import org.jeesl.factory.ejb.system.io.revision.EjbRevisionScopeFactory;
 import org.jeesl.factory.ejb.system.io.revision.EjbRevisionViewFactory;
+import org.jeesl.factory.xml.system.io.revision.XmlDiagramFactory;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionScope;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionView;
@@ -16,6 +17,7 @@ import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribu
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
 import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
+import org.jeesl.model.xml.jeesl.QueryRevision;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -109,8 +111,7 @@ public class IoRevisionFactoryBuilder<L extends UtilsLang, D extends UtilsDescri
 		return new EjbRevisionAttributeFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>(cAttribute);
 	}
 	
-	public EjbRevisionDiagramFactory<L,D,RC,ERD> ejbDiagram()
-	{
-		return new EjbRevisionDiagramFactory<>(cErd);
-	}
+	public EjbRevisionDiagramFactory<L,D,RC,ERD> ejbDiagram(){return new EjbRevisionDiagramFactory<>(cErd);}
+	
+	public XmlDiagramFactory<L,D,RC,ERD> xmlDiagram(QueryRevision q){return new XmlDiagramFactory<>(q);}
 }

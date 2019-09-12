@@ -33,7 +33,7 @@ import net.sf.ahtutils.xml.report.XlsColumn;
 import net.sf.ahtutils.xml.report.XlsSheet;
 import net.sf.ahtutils.xml.report.XlsWorkbook;
 
-public class ReportQuery
+public class XmlReportQuery
 {
 	public static enum Key {exReport}
 	

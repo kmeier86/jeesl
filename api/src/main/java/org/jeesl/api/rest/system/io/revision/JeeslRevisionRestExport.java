@@ -7,9 +7,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.jeesl.model.xml.jeesl.Container;
+import org.jeesl.model.xml.system.revision.Diagrams;
 import org.jeesl.model.xml.system.revision.Entities;
 import org.metachart.xml.graph.Graph;
-import org.metachart.xml.graph.Graphs;
 
 public interface JeeslRevisionRestExport
 {
@@ -28,8 +28,8 @@ public interface JeeslRevisionRestExport
 	@GET @Path("/system/revision/entities") @Produces(MediaType.APPLICATION_XML)
 	Entities exportSystemRevisionEntities();
 	
-	@GET @Path("/system/revision/graphs") @Produces(MediaType.APPLICATION_XML)
-	Graphs exportSystemRevisionGraphs();
+	@GET @Path("/system/revision/diagrams") @Produces(MediaType.APPLICATION_XML)
+	Diagrams exportSystemRevisionDiagrams();
 	
 	@GET @Path("/system/revision/graph/{code}") @Produces(MediaType.APPLICATION_XML)
 	Graph exportSystemRevisionGraph(@PathParam("code") String code);
