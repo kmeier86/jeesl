@@ -21,6 +21,8 @@ import com.aspose.words.Document;
 import com.aspose.words.DocumentBuilder;
 import com.aspose.words.FindReplaceDirection;
 import com.aspose.words.FindReplaceOptions;
+import com.aspose.words.Row;
+import com.aspose.words.RowCollection;
 import com.aspose.words.SaveFormat;
 import com.aspose.words.Table;
 
@@ -54,21 +56,11 @@ public class EntityWordRenderer
 		for(Status s:c.getStatus()){if(s.isSetCode()&&s.getCode()!=""&&s.getCode().equals(code)){return s.getLangs().getLang().get(0).getTranslation();}}return "";
 	}
 	
-	private String packageShrinker(String original, String match, String replacement) {return original.replace(match, replacement);}
-	
 	private String packageShrinker(String original, int numberOfWordsToShrink) 	
 	{	
-		StringBuilder sb = new StringBuilder();
-		ArrayList<String> splitString = new ArrayList<>();		
-		
-		int i=0;
-		for (String s:StringUtils.splitPreserveAllTokens(original,"."))
-		{
-			if (i<=numberOfWordsToShrink){splitString.add(StringUtils.left(s, 1));i++;}
-			else {splitString.add(s);}	
-		}
-	
-		for (String s:splitString) {sb.append(s.toString()+".");}	
+		StringBuilder sb = new StringBuilder();ArrayList<String> splitString = new ArrayList<>();int i=0;
+		for (String s:StringUtils.splitPreserveAllTokens(original,".")){if(i<=numberOfWordsToShrink){splitString.add(StringUtils.left(s,1));i++;}else{splitString.add(s);}}
+		for (String s:splitString) {sb.append(s.toString()+".");}			
 		
 		return sb.toString();
 	}
@@ -92,50 +84,62 @@ public class EntityWordRenderer
 		for (Attribute a:entity.getAttribute()){if(a.isBean()){attrbs.add(a);}}			
 					
 		Table table = entityDoc.getSections().get(0).getBody().getTables().get(0);
+		RowCollection rows = table.getRows();
+		
+		logger.info("rows in collection: " + rows.getCount());
+		
 		for (int i=0;i<=attrbs.size()-1;i++) 
 		{							
 			Attribute a = attrbs.get(i);	
-			int cellHelper=0;
-			for (Cell c : table.getLastRow().getCells())
+			
+			int cellHelperRow5=0;
+			for (Cell c : rows.get(5).getCells())
 			{
 				c.getLastParagraph().getRuns().clear();
 				docBuilder.moveTo(c.getFirstParagraph());
 				
-				if (cellHelper==0) {docBuilder.write(a.getCode());}					
-				if (cellHelper==1) {docBuilder.write(a.getLangs().getLang().get(0).getTranslation().toString());}					
-				if (cellHelper==2)
+				if (cellHelperRow5==0) {docBuilder.write(a.getCode());}					
+				if (cellHelperRow5==1) {docBuilder.write(a.getLangs().getLang().get(0).getTranslation().toString());}					
+				if (cellHelperRow5==2)
 				{
-					docBuilder.write(a.getDescriptions().getDescription().get(0).getValue());
-					docBuilder.getFont().setItalic(true);
-					
 					if(a.getRelation()!=null)
 					{
-						docBuilder.write(relationTypeForCode(relationTypes, a.getRelation().getType().getCode())+": ");
-						if (a.getRelation().isSetEntity())
+						if (a.getDescriptions().getDescription().get(0).getValue().toString() != "") 
 						{
-							Entity e = RevisionXpath.getEntity(entities, a.getRelation().getEntity().getCode());
-							docBuilder.write(e.getLangs().getLang().get(0).getTranslation());
+							docBuilder.write(a.getDescriptions().getDescription().get(0).getValue());
 						}
-						docBuilder.getFont().setItalic(false);
+					}
 				}
-				}
-				cellHelper++;
+				cellHelperRow5++;
 			}
-			table.appendChild(table.getLastRow().deepClone(true));	
+			
+			int cellHelperRow6=0;
+			for (Cell c : rows.get(6).getCells())
+			{
+				c.getLastParagraph().getRuns().clear();
+				docBuilder.moveTo(c.getFirstParagraph());
+				
+				if (cellHelperRow6==0 && a.getRelation()!=null && a.getRelation().isSetEntity())
+				{
+					Entity e = RevisionXpath.getEntity(entities, a.getRelation().getEntity().getCode());
+					docBuilder.write(relationTypeForCode(relationTypes, a.getRelation().getType().getCode())+" : "+e.getLangs().getLang().get(0).getTranslation());
+				}					
+				cellHelperRow6++;
+			}
+			
+			table.appendChild(rows.get(5).deepClone(true));	
+			table.appendChild(rows.get(6).deepClone(true));	
 		}		
 		table.getLastRow().remove();
-			
+		table.getLastRow().remove();
+		
 		for (String s : keys)
 		{
 			docBuilder.moveToDocumentStart();
-			if (s.equals("_CLASS2_")) {docBuilder.getFont().setBold(true);/*logger.info("dddd_CLASS2_");*/};
-//			logger.info(s + replacementTags.get(s).toString());
+			if (s.equals("_CLASS2_")) {docBuilder.getFont().setBold(true);}
 			try
 			{
-//				logger.info("replacementTAG: "+s);
-//				logger.info("replacementString: "+replacementTags.get(s).toString());
 				entityDoc.getRange().replace(s, replacementTags.get(s).toString(),new FindReplaceOptions(FindReplaceDirection.FORWARD));
-
 			}
 				catch (Exception e1) {e1.printStackTrace();
 			}
