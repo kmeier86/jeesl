@@ -57,7 +57,7 @@ public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDes
 
 	private ERD diagram; public ERD getDiagram() {return diagram;} public void setDiagram(ERD diagram) {this.diagram = diagram;}
 	private String dot; public String getDot() {return dot;} public void setDot(String dot) {this.dot = dot;}
-	
+
 	public AbstractAdminErDiagramBean(final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fbRevision)
 	{
 		super(fbRevision);
@@ -85,7 +85,7 @@ public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDes
 	{
 		if(debugOnInfo){logger.info(SbMultiHandler.class.getSimpleName()+" toggled, but NYI");}
 	}
-	
+
 	public void addErDiagram()
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.addEntity(fbRevision.getClassDiagram()));}
@@ -101,7 +101,7 @@ public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDes
 		diagram = efDescription.persistMissingLangs(fRevision,localeCodes,diagram);
 		reloadDiagram();
 	}
-	
+
 	private void reloadDiagram()
 	{
 		diagram = fRevision.find(fbRevision.getClassDiagram(), diagram);
@@ -114,6 +114,25 @@ public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDes
 		if(diagram.getCategory()!=null){diagram.setCategory(fRevision.find(fbRevision.getClassCategory(),diagram.getCategory()));}
 		diagram = fRevision.save(diagram);
 		refreshList();
+		bMessage.growlSuccessSaved();
 		reloadDiagram();
 	}
+
+
+	public void rmDiagram() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	{
+		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(diagram));}
+		fRevision.rm(diagram);
+		diagram=null;
+		dot = null;
+		refreshList();
+		bMessage.growlSuccessRemoved();
+	}
+
+	public void cancelDiagram()
+	{
+		diagram=null;
+		dot = null;
+	}
+
 }
