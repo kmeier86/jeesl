@@ -30,6 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.model.qualifier.EjbErNode;
+import net.sf.ahtutils.model.qualifier.EjbErParent;
 import net.sf.exlp.exception.ExlpXpathNotFoundException;
 import net.sf.exlp.exception.ExlpXpathNotUniqueException;
 import net.sf.exlp.util.io.ClassUtil;
@@ -104,6 +105,7 @@ public class ErGraphProcessor
 		for(File f : list)
 		{
 			createEdge(f);
+			createHierarchies(f);
 		}
 	}
 
@@ -228,6 +230,19 @@ public class ErGraphProcessor
 				Node target = mapNodes.get(cSuper.getName());
 				createEdge(source, Cardinality.OneToOne,target,false);
 			}
+		}
+	}
+
+	private void createHierarchies (File fClass) throws ClassNotFoundException
+	{
+		Class<?> c = ClassUtil.forFile(fBase, fClass);
+		Annotation pa = c.getAnnotation(EjbErParent.class);
+		if(pa!= null) {
+			Node source = mapNodes.get(c.getName());
+			EjbErParent erParent = (EjbErParent)pa;
+			String parentCode = erParent.value().getName();
+			Node parentNode = mapNodes.get(parentCode);
+			if(parentNode!=null) {createEdge(source, Cardinality.ManyToOne,parentNode,false);}
 		}
 	}
 
