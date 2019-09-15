@@ -7,6 +7,8 @@ import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyScore;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOption;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOptionSet;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestion;
+import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestionElement;
+import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestionUnit;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveySection;
 import org.jeesl.model.xml.jeesl.QuerySurvey;
 import org.slf4j.Logger;
@@ -22,9 +24,9 @@ public class XmlQuestionFactory<L extends UtilsLang,D extends UtilsDescription,
 								SCHEME extends JeeslSurveyScheme<L,D,?,SCORE>,
 								SECTION extends JeeslSurveySection<L,D,?,SECTION,QUESTION>,
 								QUESTION extends JeeslSurveyQuestion<L,D,SECTION,?,?,QE,SCORE,UNIT,OPTIONS,OPTION,?>,
-								QE extends UtilsStatus<QE,L,D>,
+								QE extends JeeslSurveyQuestionElement<L,D,QE,?>,
 								SCORE extends JeeslSurveyScore<L,D,SCHEME,QUESTION>,
-								UNIT extends UtilsStatus<UNIT,L,D>,
+								UNIT extends JeeslSurveyQuestionUnit<L,D,UNIT,?>,
 								OPTIONS extends JeeslSurveyOptionSet<L,D,?,OPTION>,
 								OPTION extends JeeslSurveyOption<L,D>>
 {

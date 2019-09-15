@@ -14,7 +14,6 @@ import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import net.sf.ahtutils.interfaces.model.with.position.EjbWithPosition;
 import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
@@ -25,9 +24,9 @@ public interface JeeslSurveyQuestion<L extends UtilsLang, D extends UtilsDescrip
 										SECTION extends JeeslSurveySection<L,D,?,SECTION,?>,
 										CONDITION extends JeeslSurveyCondition<?,QE,OPTION>,
 										VALIDATION extends JeeslSurveyValidation<L,D,?,?>,
-										QE extends UtilsStatus<QE,L,D>,
+										QE extends JeeslSurveyQuestionElement<L,D,QE,?>,
 										SCORE extends JeeslSurveyScore<L,D,?,?>,
-										UNIT extends UtilsStatus<UNIT,L,D>,
+										UNIT extends JeeslSurveyQuestionUnit<L,D,UNIT,?>,
 										OPTIONS extends JeeslSurveyOptionSet<L,D,?,OPTION>,
 										OPTION extends JeeslSurveyOption<L,D>,
 										AQ extends JeeslSurveyAnalysisQuestion<L,D,?,?>

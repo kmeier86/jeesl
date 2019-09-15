@@ -14,9 +14,12 @@ import org.jeesl.interfaces.model.module.survey.correlation.JeeslSurveyCorrelati
 import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyAnswer;
 import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyData;
 import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyMatrix;
+import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyStatus;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOption;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOptionSet;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestion;
+import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestionElement;
+import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestionUnit;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveySection;
 import org.jeesl.interfaces.model.system.io.domain.JeeslDomain;
 import org.jeesl.interfaces.model.system.io.domain.JeeslDomainPath;
@@ -35,15 +38,15 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public interface JeeslSurveyAnalysisFacade <L extends UtilsLang, D extends UtilsDescription,
 											SURVEY extends JeeslSurvey<L,D,SS,TEMPLATE,DATA>,
-											SS extends UtilsStatus<SS,L,D>,
+											SS extends JeeslSurveyStatus<L,D,SS,?>,
 											SCHEME extends JeeslSurveyScheme<L,D,TEMPLATE,SCORE>,
 											TEMPLATE extends JeeslSurveyTemplate<L,D,SCHEME,TEMPLATE,VERSION,?,?,SECTION,OPTIONS,ANALYSIS>,
 											VERSION extends JeeslSurveyTemplateVersion<L,D,TEMPLATE>,
 											SECTION extends JeeslSurveySection<L,D,TEMPLATE,SECTION,QUESTION>,
 											QUESTION extends JeeslSurveyQuestion<L,D,SECTION,?,?,QE,SCORE,UNIT,OPTIONS,OPTION,AQ>,
-											QE extends UtilsStatus<QE,L,D>,
+											QE extends JeeslSurveyQuestionElement<L,D,QE,?>,
 											SCORE extends JeeslSurveyScore<L,D,SCHEME,QUESTION>,
-											UNIT extends UtilsStatus<UNIT,L,D>,
+											UNIT extends JeeslSurveyQuestionUnit<L,D,UNIT,?>,
 											ANSWER extends JeeslSurveyAnswer<L,D,QUESTION,MATRIX,DATA,OPTION>,
 											MATRIX extends JeeslSurveyMatrix<L,D,ANSWER,OPTION>,
 											DATA extends JeeslSurveyData<L,D,SURVEY,ANSWER,CORRELATION>,

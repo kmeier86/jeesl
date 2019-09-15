@@ -18,6 +18,7 @@ import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyData;
 import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyMatrix;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOption;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestion;
+import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestionElement;
 import org.jeesl.interfaces.model.system.io.domain.JeeslDomain;
 import org.jeesl.interfaces.model.system.io.domain.JeeslDomainPath;
 import org.jeesl.interfaces.model.system.io.domain.JeeslDomainQuery;
@@ -34,7 +35,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 public class SurveyAnalysisFactoryBuilder<L extends UtilsLang, D extends UtilsDescription,
 				TEMPLATE extends JeeslSurveyTemplate<L,D,?,TEMPLATE,?,?,?,?,?,ANALYSIS>,
 				QUESTION extends JeeslSurveyQuestion<L,D,?,?,?,QE,SCORE,?,?,OPTION,AQ>,
-				QE extends UtilsStatus<QE,L,D>,
+				QE extends JeeslSurveyQuestionElement<L,D,QE,?>,
 				SCORE extends JeeslSurveyScore<L,D,?,QUESTION>,
 				ANSWER extends JeeslSurveyAnswer<L,D,QUESTION,MATRIX,DATA,OPTION>,
 				MATRIX extends JeeslSurveyMatrix<L,D,ANSWER,OPTION>,

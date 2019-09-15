@@ -23,6 +23,8 @@ import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyCondition;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOption;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOptionSet;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestion;
+import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestionElement;
+import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestionUnit;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveySection;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyValidation;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyValidationAlgorithm;
@@ -45,13 +47,14 @@ public class JeeslSurveyTemplateFacadeBean <L extends UtilsLang, D extends Utils
 											QUESTION extends JeeslSurveyQuestion<L,D,SECTION,CONDITION,VALIDATION,QE,SCORE,UNIT,OPTIONS,OPTION,?>,
 											CONDITION extends JeeslSurveyCondition<QUESTION,QE,OPTION>,
 											VALIDATION extends JeeslSurveyValidation<L,D,QUESTION,VALGORITHM>,
-											QE extends UtilsStatus<QE,L,D>,
+											QE extends JeeslSurveyQuestionElement<L,D,QE,?>,
 											SCORE extends JeeslSurveyScore<L,D,SCHEME,QUESTION>,
-											UNIT extends UtilsStatus<UNIT,L,D>,
+											UNIT extends JeeslSurveyQuestionUnit<L,D,UNIT,?>,
 											OPTIONS extends JeeslSurveyOptionSet<L,D,TEMPLATE,OPTION>,
 											OPTION extends JeeslSurveyOption<L,D>>
 	extends UtilsFacadeBean implements JeeslSurveyTemplateFacade<L,D,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,QE,SCORE,UNIT,OPTIONS,OPTION>
 {
+	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(JeeslSurveyTemplateFacadeBean.class);
 	
 	private final SurveyTemplateFactoryBuilder<L,D,LOC,SCHEME,VALGORITHM,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,CONDITION,VALIDATION,QE,SCORE,UNIT,OPTIONS,OPTION> fbTemplate;

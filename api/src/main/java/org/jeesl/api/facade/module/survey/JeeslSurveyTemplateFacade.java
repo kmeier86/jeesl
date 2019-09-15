@@ -7,6 +7,8 @@ import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyTemplateVersion;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOption;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOptionSet;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestion;
+import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestionElement;
+import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestionUnit;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveySection;
 
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
@@ -22,9 +24,9 @@ public interface JeeslSurveyTemplateFacade <L extends UtilsLang, D extends Utils
 									TC extends UtilsStatus<TC,L,D>,
 									SECTION extends JeeslSurveySection<L,D,TEMPLATE,SECTION,QUESTION>,
 									QUESTION extends JeeslSurveyQuestion<L,D,SECTION,?,?,QE,SCORE,UNIT,OPTIONS,OPTION,?>,
-									QE extends UtilsStatus<QE,L,D>,
+									QE extends JeeslSurveyQuestionElement<L,D,QE,?>,
 									SCORE extends JeeslSurveyScore<L,D,SCHEME,QUESTION>,
-									UNIT extends UtilsStatus<UNIT,L,D>,
+									UNIT extends JeeslSurveyQuestionUnit<L,D,UNIT,?>,
 									OPTIONS extends JeeslSurveyOptionSet<L,D,TEMPLATE,OPTION>,
 									OPTION extends JeeslSurveyOption<L,D>>
 	extends UtilsFacade
