@@ -9,7 +9,6 @@ import org.jeesl.interfaces.model.system.with.EjbWithRemark;
 
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.with.utils.UtilsWithCategory;
 import net.sf.ahtutils.interfaces.model.with.utils.UtilsWithStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
@@ -20,8 +19,8 @@ public interface JeeslSurveyTemplate<L extends UtilsLang, D extends UtilsDescrip
 										SCHEME extends JeeslSurveyScheme<L,D,TEMPLATE,?>,
 										TEMPLATE extends JeeslSurveyTemplate<L,D,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,OPTIONS,ANALYSIS>,
 										VERSION extends JeeslSurveyTemplateVersion<L,D,TEMPLATE>,
-										TS extends UtilsStatus<TS,L,D>,
-										TC extends UtilsStatus<TC,L,D>,
+										TS extends JeeslSurveyTemplateStatus<L,D,TS,?>,
+										TC extends JeeslSurveyTemplateCategory<L,D,TC,?>,
 										SECTION extends JeeslSurveySection<L,D,TEMPLATE,SECTION,?>,
 										OPTIONS extends JeeslSurveyOptionSet<L,D,TEMPLATE,?>,
 										ANALYSIS extends JeeslSurveyAnalysis<L,D,TEMPLATE,?,?,?>>

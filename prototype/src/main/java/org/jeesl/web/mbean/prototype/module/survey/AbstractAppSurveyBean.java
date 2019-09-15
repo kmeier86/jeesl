@@ -18,6 +18,8 @@ import org.jeesl.interfaces.model.module.survey.core.JeeslSurvey;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyScheme;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyScore;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyTemplate;
+import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyTemplateCategory;
+import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyTemplateStatus;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyTemplateVersion;
 import org.jeesl.interfaces.model.module.survey.correlation.JeeslSurveyCorrelation;
 import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyAnswer;
@@ -49,8 +51,8 @@ public abstract class AbstractAppSurveyBean <L extends UtilsLang, D extends Util
 						VALGORITHM extends JeeslSurveyValidationAlgorithm<L,D>,
 						TEMPLATE extends JeeslSurveyTemplate<L,D,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,OPTIONS,?>,
 						VERSION extends JeeslSurveyTemplateVersion<L,D,TEMPLATE>,
-						TS extends UtilsStatus<TS,L,D>,
-						TC extends UtilsStatus<TC,L,D>,
+						TS extends JeeslSurveyTemplateStatus<L,D,TS,?>,
+						TC extends JeeslSurveyTemplateCategory<L,D,TC,?>,
 						SECTION extends JeeslSurveySection<L,D,TEMPLATE,SECTION,QUESTION>,
 						QUESTION extends JeeslSurveyQuestion<L,D,SECTION,CONDITION,VALIDATION,QE,SCORE,UNIT,OPTIONS,OPTION,?>,
 						CONDITION extends JeeslSurveyCondition<QUESTION,QE,OPTION>,

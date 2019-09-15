@@ -2,15 +2,17 @@ package org.jeesl.factory.json.module.survey;
 
 import org.jeesl.factory.json.system.status.JsonStatusFactory;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurvey;
+import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyStatus;
 import org.jeesl.model.json.survey.Survey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
-public class JsonSurveyFactory<L extends UtilsLang,D extends UtilsDescription, SURVEY extends JeeslSurvey<L,D,SS,?,?>, SS extends UtilsStatus<SS,L,D>>
+public class JsonSurveyFactory<L extends UtilsLang,D extends UtilsDescription,
+							SURVEY extends JeeslSurvey<L,D,SS,?,?>,
+							SS extends JeeslSurveyStatus<L,D,SS,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(JsonSurveyFactory.class);
 	

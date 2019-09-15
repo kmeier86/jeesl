@@ -22,6 +22,7 @@ import org.jeesl.factory.txt.module.survey.TxtSurveyAnswerFactory;
 import org.jeesl.factory.txt.module.survey.TxtSurveySectionFactory;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurvey;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyTemplate;
+import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyTemplateCategory;
 import org.jeesl.interfaces.model.module.survey.correlation.JeeslSurveyCorrelation;
 import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyAnswer;
 import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyData;
@@ -48,7 +49,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 public class SurveyHandler<L extends UtilsLang, D extends UtilsDescription,
 							SURVEY extends JeeslSurvey<L,D,?,TEMPLATE,DATA>,
 							TEMPLATE extends JeeslSurveyTemplate<L,D,?,TEMPLATE,?,?,TC,SECTION,?,?>,
-							TC extends UtilsStatus<TC,L,D>,
+							TC extends JeeslSurveyTemplateCategory<L,D,TC,?>,
 							SECTION extends JeeslSurveySection<L,D,TEMPLATE,SECTION,QUESTION>,
 							QUESTION extends JeeslSurveyQuestion<L,D,SECTION,CONDITION,VALIDATION,?,?,?,?,OPTION,?>,
 							CONDITION extends JeeslSurveyCondition<QUESTION,?,OPTION>,

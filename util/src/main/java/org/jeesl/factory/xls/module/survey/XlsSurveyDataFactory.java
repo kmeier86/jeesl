@@ -27,11 +27,14 @@ import org.jeesl.interfaces.model.module.survey.core.JeeslSurvey;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyScheme;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyScore;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyTemplate;
+import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyTemplateCategory;
+import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyTemplateStatus;
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyTemplateVersion;
 import org.jeesl.interfaces.model.module.survey.correlation.JeeslSurveyCorrelation;
 import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyAnswer;
 import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyData;
 import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyMatrix;
+import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyStatus;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOption;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOptionSet;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestion;
@@ -49,12 +52,12 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public class XlsSurveyDataFactory <L extends UtilsLang, D extends UtilsDescription,
 							SURVEY extends JeeslSurvey<L,D,SS,TEMPLATE,DATA>,
-							SS extends UtilsStatus<SS,L,D>,
+							SS extends JeeslSurveyStatus<L,D,SS,?>,
 							SCHEME extends JeeslSurveyScheme<L,D,TEMPLATE,SCORE>,
 							TEMPLATE extends JeeslSurveyTemplate<L,D,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,OPTIONS,?>,
 							VERSION extends JeeslSurveyTemplateVersion<L,D,TEMPLATE>,
-							TS extends UtilsStatus<TS,L,D>,
-							TC extends UtilsStatus<TC,L,D>,
+							TS extends JeeslSurveyTemplateStatus<L,D,TS,?>,
+							TC extends JeeslSurveyTemplateCategory<L,D,TC,?>,
 							SECTION extends JeeslSurveySection<L,D,TEMPLATE,SECTION,QUESTION>,
 							QUESTION extends JeeslSurveyQuestion<L,D,SECTION,?,?,QE,SCORE,UNIT,OPTIONS,OPTION,?>,
 							QE extends JeeslSurveyQuestionElement<L,D,QE,?>,

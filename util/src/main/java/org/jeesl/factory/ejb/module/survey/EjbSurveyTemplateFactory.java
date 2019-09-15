@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyTemplate;
+import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyTemplateCategory;
+import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyTemplateStatus;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestion;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveySection;
 import org.slf4j.Logger;
@@ -16,8 +18,8 @@ import net.sf.ahtutils.xml.survey.Template;
 
 public class EjbSurveyTemplateFactory<L extends UtilsLang, D extends UtilsDescription,
 				TEMPLATE extends JeeslSurveyTemplate<L,D,?,TEMPLATE,?,TS,TC,SECTION,?,?>,
-				TS extends UtilsStatus<TS,L,D>,
-				TC extends UtilsStatus<TC,L,D>,
+				TS extends JeeslSurveyTemplateStatus<L,D,TS,?>,
+				TC extends JeeslSurveyTemplateCategory<L,D,TC,?>,
 				SECTION extends JeeslSurveySection<L,D,TEMPLATE,SECTION,QUESTION>,
 				QUESTION extends JeeslSurveyQuestion<L,D,SECTION,?,?,?,?,?,?,?,?>
 				>

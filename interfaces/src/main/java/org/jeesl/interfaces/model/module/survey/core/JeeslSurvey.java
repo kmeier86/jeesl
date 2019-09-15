@@ -4,18 +4,18 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyData;
+import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyStatus;
 import org.jeesl.interfaces.model.util.date.EjbWithDateRange;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.with.utils.UtilsWithStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
 import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 
 public interface JeeslSurvey<L extends UtilsLang, D extends UtilsDescription,
-								SS extends UtilsStatus<SS,L,D>,
+								SS extends JeeslSurveyStatus<L,D,SS,?>,
 								TEMPLATE extends JeeslSurveyTemplate<L,D,?,TEMPLATE,?,?,?,?,?,?>,
 								DATA extends JeeslSurveyData<L,D,?,?,?>
 >
