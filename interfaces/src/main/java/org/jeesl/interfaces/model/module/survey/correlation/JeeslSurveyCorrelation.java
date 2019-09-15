@@ -10,6 +10,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 public interface JeeslSurveyCorrelation<DATA extends JeeslSurveyData<?,?,?,?,?>>
 			extends Serializable,EjbWithId,EjbSaveable
 {
+	public enum Attributes{survey}
 //	DATA getData();
 //	void setData(DATA data);
 }

@@ -52,10 +52,12 @@ public class XlsSurveyAnswerFactory <L extends UtilsLang, D extends UtilsDescrip
 {
 	final static Logger logger = LoggerFactory.getLogger(XlsSurveyAnswerFactory.class);
 
+	private final String localeCode;
 	private final CellStyle style;
 	
-	public XlsSurveyAnswerFactory(CellStyle style)
+	public XlsSurveyAnswerFactory(String localeCode, CellStyle style)
 	{
+		this.localeCode=localeCode;
 		this.style=style;
 	}
 	
@@ -67,7 +69,11 @@ public class XlsSurveyAnswerFactory <L extends UtilsLang, D extends UtilsDescrip
 		else if(BooleanComparator.active(answer.getQuestion().getShowText())){XlsCellFactory.build(row, colNr, style, answer.getValueText(), 1);}
 		else if(BooleanComparator.active(answer.getQuestion().getShowSelectOne()))
 		{
-			if(answer.getOption()!=null){XlsCellFactory.build(row, colNr, style, answer.getOption().getCode(), 1);}
+			if(answer.getOption()!=null)
+			{
+				if(localeCode!=null && answer.getOption().getName().containsKey(localeCode)) {XlsCellFactory.build(row, colNr, style, answer.getOption().getName().get(localeCode).getLang(), 1);}
+				else {XlsCellFactory.build(row, colNr, style, answer.getOption().getCode(), 1);}
+			}
 			else{XlsCellFactory.build(row, colNr, style, "", 1);}
 		}
 		else if(BooleanComparator.active(answer.getQuestion().getShowDate())){XlsCellFactory.build(row, colNr, style, answer.getValueDate(), 1);}

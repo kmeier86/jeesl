@@ -130,7 +130,7 @@ public class XlsSurveyDataFactory <L extends UtilsLang, D extends UtilsDescripti
 	{		
 		style = sheet.getWorkbook().createCellStyle();
 		style.setAlignment(CellStyle.ALIGN_CENTER);
-		xlfAnswer = new XlsSurveyAnswerFactory<L,D,SURVEY,SS,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION,CORRELATION>(style);
+		xlfAnswer = new XlsSurveyAnswerFactory<L,D,SURVEY,SS,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION,CORRELATION>(localeCode,style);
 
 		simpleCalculateSizes(t);
 		
@@ -264,7 +264,7 @@ public class XlsSurveyDataFactory <L extends UtilsLang, D extends UtilsDescripti
 		Workbook wb = new XSSFWorkbook();
 		
 		// Create a sheet in the new workbook to write data into
-		Sheet sheet = XlsSheetFactory.getSheet(wb, localeCode);
+		Sheet sheet = XlsSheetFactory.getSheet(wb,localeCode);
 		
 		// Create a style for the cells
 		style = wb.createCellStyle();
@@ -682,7 +682,7 @@ public class XlsSurveyDataFactory <L extends UtilsLang, D extends UtilsDescripti
 	
 	private String renderOptionsSingle(OPTION o)
 	{
-		return o.getName().get("en").getLang();
+		return o.getName().get(localeCode).getLang();
 	}
 	
 	private String renderOptionsSingle(List<OPTION> list)
@@ -712,7 +712,8 @@ public class XlsSurveyDataFactory <L extends UtilsLang, D extends UtilsDescripti
 		return questionLength;
 	}
 	
-	private class HeaderData {
+	private class HeaderData
+	{
 		int offset;
 		int width;
 		String name;

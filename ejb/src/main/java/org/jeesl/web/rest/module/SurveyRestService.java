@@ -132,8 +132,6 @@ public class SurveyRestService <L extends UtilsLang, D extends UtilsDescription,
 	private final SurveyTemplateFactoryBuilder<L,D,LOC,SCHEME,VALGORITHM,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,CONDITION,VALIDATION,QE,SCORE,UNIT,OPTIONS,OPTION> fbTemplate;
 	private final SurveyCoreFactoryBuilder<L,D,LOC,SURVEY,SS,SCHEME,VALGORITHM,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,CONDITION,VALIDATION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION,CORRELATION,ATT> fbCore;
 	
-	private final Class<TC> cTC;
-	private final Class<QUESTION> cQuestion;
 	private final Class<UNIT> cUNIT;
 	private final Class<CORRELATION> cCorrelation;
 	
@@ -163,7 +161,7 @@ public class SurveyRestService <L extends UtilsLang, D extends UtilsDescription,
 			SurveyTemplateFactoryBuilder<L,D,LOC,SCHEME,VALGORITHM,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,CONDITION,VALIDATION,QE,SCORE,UNIT,OPTIONS,OPTION> fbTemplate,
 			SurveyCoreFactoryBuilder<L,D,LOC,SURVEY,SS,SCHEME,VALGORITHM,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,CONDITION,VALIDATION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION,CORRELATION,ATT> fbCore,
 			JeeslSurveyTemplateFacade<L,D,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,QE,SCORE,UNIT,OPTIONS,OPTION> fTemplate,
-			final Class<TS> cTS,final Class<TC> cTC,final Class<SECTION> cSection,final Class<QUESTION> cQuestion,final Class<SCORE> cScore,final Class<UNIT> cUNIT, final Class<MATRIX> cMatrix, final Class<OPTIONS> cOptions, final Class<OPTION> cOption,final Class<CORRELATION> cCorrelation, final Class<ATT> cAtt)
+			final Class<SCORE> cScore,final Class<UNIT> cUNIT, final Class<MATRIX> cMatrix, final Class<OPTIONS> cOptions, final Class<OPTION> cOption,final Class<CORRELATION> cCorrelation, final Class<ATT> cAtt)
 	{
 		super(fSurvey,fbTemplate.getClassL(),fbTemplate.getClassD());
 		this.fTemplate=fTemplate;
@@ -171,8 +169,6 @@ public class SurveyRestService <L extends UtilsLang, D extends UtilsDescription,
 		this.fbCore=fbCore;
 		this.fbTemplate=fbTemplate;
 		
-		this.cTC=cTC;
-		this.cQuestion=cQuestion;
 		this.cUNIT=cUNIT;
 		this.cCorrelation=cCorrelation;
 	
@@ -192,7 +188,7 @@ public class SurveyRestService <L extends UtilsLang, D extends UtilsDescription,
 		xfSurveys = new XmlSurveyFactory<L,D,SURVEY,SS,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION,CORRELATION>(localeCode,XmlSurveyQuery.get(XmlSurveyQuery.Key.exSurveys).getSurveys().getSurvey().get(0));
 		
 		xfSurvey = new XmlSurveyFactory<L,D,SURVEY,SS,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION,CORRELATION>(localeCode,XmlSurveyQuery.get(XmlSurveyQuery.Key.exSurvey).getSurvey());
-		xfSurvey.lazyLoad(fTemplate,fSurvey,fbCore.getClassSurvey(),cSection,fbCore.getClassData());
+		xfSurvey.lazyLoad(fTemplate,fSurvey,fbCore.getClassSurvey(),fbTemplate.getClassSection(),fbCore.getClassData());
 		
 		xfAnswer = new XmlAnswerFactory<L,D,SURVEY,SS,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION,CORRELATION>(XmlSurveyQuery.get(XmlSurveyQuery.Key.surveyAnswers));
 		
@@ -239,18 +235,18 @@ public class SurveyRestService <L extends UtilsLang, D extends UtilsDescription,
 					SurveyTemplateFactoryBuilder<L,D,LOC,SCHEME,VALGORITHM,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,CONDITION,VALIDATION,QE,SCORE,UNIT,OPTIONS,OPTION> ffTemplate,
 					SurveyCoreFactoryBuilder<L,D,LOC,SURVEY,SS,SCHEME,VALGORITHM,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,CONDITION,VALIDATION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION,CORRELATION,ATT> fbCore,
 					JeeslSurveyTemplateFacade<L,D,SCHEME,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,QE,SCORE,UNIT,OPTIONS,OPTION> fTemplate,
-					final Class<TS> cTS,final Class<TC> cTC,final Class<SECTION> cSECTION,
-					final Class<QUESTION> cQuestion,final Class<SCORE> cScore,
+					
+					final Class<SCORE> cScore,
 					final Class<UNIT> cUNIT,final Class<ANSWER> cAnswer,
 					final Class<MATRIX> cMatrix, final Class<DATA> cData, final Class<OPTIONS> cOptions, final Class<OPTION> cOption,final Class<CORRELATION> cCorrelation, final Class<ATT> cAtt)
 	{
-		return new SurveyRestService<L,D,LOC,SURVEY,SS,SCHEME,VALGORITHM,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,CONDITION,VALIDATION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION,CORRELATION,DOMAIN,QUERY,PATH,DENTITY,ANALYSIS,AQ,AT,ATT>(fSurvey,ffTemplate,fbCore,fTemplate,cTS,cTC,cSECTION,cQuestion,cScore,cUNIT,cMatrix,cOptions,cOption,cCorrelation,cAtt);
+		return new SurveyRestService<L,D,LOC,SURVEY,SS,SCHEME,VALGORITHM,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,CONDITION,VALIDATION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION,CORRELATION,DOMAIN,QUERY,PATH,DENTITY,ANALYSIS,AQ,AT,ATT>(fSurvey,ffTemplate,fbCore,fTemplate,cScore,cUNIT,cMatrix,cOptions,cOption,cCorrelation,cAtt);
 	}
 
 	@Override public Aht exportSurveyTemplateCategory()
 	{
 		Aht aht = new Aht();
-		for(TC ejb : fSurvey.allOrderedPosition(cTC)){aht.getStatus().add(xfTemplateCategory.build(ejb));}
+		for(TC ejb : fSurvey.allOrderedPosition(fbTemplate.getClassTemplateCategory())){aht.getStatus().add(xfTemplateCategory.build(ejb));}
 		return aht;
 	}
 
@@ -314,7 +310,7 @@ public class SurveyRestService <L extends UtilsLang, D extends UtilsDescription,
 	
 	//*******************************************************************************************
 	
-	@Override public DataUpdate importSurveyTemplateCategory(Aht categories){return importStatus(cTC,cL,cD,categories,null);}
+	@Override public DataUpdate importSurveyTemplateCategory(Aht categories){return importStatus(fbTemplate.getClassTemplateCategory(),cL,cD,categories,null);}
 	@Override public DataUpdate importSurveyTemplateStatus(Aht categories){return importStatus(fbTemplate.getClassTemplateStatus(),cL,cD,categories,null);}
 	@Override public DataUpdate importSurveyUnits(Aht categories){return importStatus(cUNIT,cL,cD,categories,null);}
 	@Override public DataUpdate importSurveyStatus(Aht categories){return importStatus(fbCore.getClassSurveyStatus(),cL,cD,categories,null);}
@@ -341,7 +337,7 @@ public class SurveyRestService <L extends UtilsLang, D extends UtilsDescription,
 			try
 			{
 				TS status = fSurvey.fByCode(fbTemplate.getClassTemplateStatus(),xTemplate.getStatus().getCode());
-				TC category = fSurvey.fByCode(cTC,xTemplate.getCategory().getCode());
+				TC category = fSurvey.fByCode(fbTemplate.getClassTemplateCategory(),xTemplate.getCategory().getCode());
 				TEMPLATE eTemplate = efTemlate.build(category,status,xTemplate);
 				eTemplate = fSurvey.persist(eTemplate);
 				dut.getUpdate().getMapper().add(XmlMapperFactory.create(fbTemplate.getClassTemplate(), xTemplate.getId(), eTemplate.getId()));
@@ -355,7 +351,7 @@ public class SurveyRestService <L extends UtilsLang, D extends UtilsDescription,
 						UNIT unit = fSurvey.fByCode(cUNIT,xQuestion.getUnit().getCode());
 						QUESTION eQuestion = efQuestion.build(eSection,unit,xQuestion);
 						eQuestion = fSurvey.persist(eQuestion);
-						dut.getUpdate().getMapper().add(XmlMapperFactory.create(cQuestion, xQuestion.getId(), eQuestion.getId()));
+						dut.getUpdate().getMapper().add(XmlMapperFactory.create(fbTemplate.getClassQuestion(), xQuestion.getId(), eQuestion.getId()));
 					}
 				}
 				
@@ -389,7 +385,7 @@ public class SurveyRestService <L extends UtilsLang, D extends UtilsDescription,
 				
 				for(Answer xAnswer : xData.getAnswer())
 				{
-					QUESTION eQuestion = fSurvey.find(cQuestion,xAnswer.getQuestion().getId());
+					QUESTION eQuestion = fSurvey.find(fbTemplate.getClassQuestion(),xAnswer.getQuestion().getId());
 					ANSWER eAnswer = efAnswer.build(eQuestion,eData,xAnswer);
 					eAnswer = fSurvey.persist(eAnswer);
 				}

@@ -1,8 +1,9 @@
-package org.jeesl.interfaces.model.system.security.framework;
+package org.jeesl.interfaces.model.system.security.doc;
 
 import java.io.Serializable;
 
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsSection;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.with.position.EjbWithPositionVisible;

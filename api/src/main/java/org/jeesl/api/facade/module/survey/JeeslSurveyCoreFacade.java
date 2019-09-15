@@ -96,6 +96,4 @@ public interface JeeslSurveyCoreFacade <L extends UtilsLang, D extends UtilsDesc
 	
 	ANSWER saveAnswer(ANSWER answer) throws UtilsConstraintViolationException, UtilsLockingException;
 	void rmAnswer(ANSWER answer) throws UtilsConstraintViolationException;
-	
-
 }
