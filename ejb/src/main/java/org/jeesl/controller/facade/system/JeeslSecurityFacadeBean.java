@@ -19,6 +19,7 @@ import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
+import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityHelp;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
@@ -51,6 +52,7 @@ public class JeeslSecurityFacadeBean<L extends UtilsLang,
 									AT extends JeeslSecurityTemplate<L,D,C>,
 									M extends JeeslSecurityMenu<V,M>,
 									AR extends JeeslSecurityArea<L,D,V>,
+									H extends JeeslSecurityHelp<L,D,V>,
 									USER extends JeeslUser<R>>
 							extends UtilsFacadeBean
 							implements JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER>
@@ -58,9 +60,9 @@ public class JeeslSecurityFacadeBean<L extends UtilsLang,
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(JeeslSecurityFacadeBean.class);
 	
-	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,AR,USER> fbSecurity;
+	private final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,AR,H,USER> fbSecurity;
 	
-	public JeeslSecurityFacadeBean(EntityManager em, SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,AR,USER> fbSecurity)
+	public JeeslSecurityFacadeBean(EntityManager em, SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,AR,H,USER> fbSecurity)
 	{
 		super(em);
 		this.fbSecurity=fbSecurity;

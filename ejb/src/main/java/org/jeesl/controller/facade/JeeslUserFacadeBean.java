@@ -19,9 +19,11 @@ public class JeeslUserFacadeBean<USER extends JeeslUser<?>>
 					extends UtilsFacadeBean
 					implements JeeslUserFacade<USER>
 {	
-	private final SecurityFactoryBuilder<?,?,?,?,?,?,?,?,?,?,USER> fbSecurity;
+	private static final long serialVersionUID = 1L;
 	
-	public JeeslUserFacadeBean(EntityManager em, SecurityFactoryBuilder<?,?,?,?,?,?,?,?,?,?,USER> fbSecurity)
+	private final SecurityFactoryBuilder<?,?,?,?,?,?,?,?,?,?,?,USER> fbSecurity;
+	
+	public JeeslUserFacadeBean(EntityManager em, SecurityFactoryBuilder<?,?,?,?,?,?,?,?,?,?,?,USER> fbSecurity)
 	{
 		super(em);
 		this.fbSecurity=fbSecurity;

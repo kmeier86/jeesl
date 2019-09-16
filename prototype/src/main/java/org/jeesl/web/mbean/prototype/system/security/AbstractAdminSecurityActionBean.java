@@ -11,6 +11,7 @@ import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
+import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityHelp;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityUsecase;
@@ -38,8 +39,9 @@ public class AbstractAdminSecurityActionBean <L extends UtilsLang, D extends Uti
 											AT extends JeeslSecurityTemplate<L,D,C>,
 											M extends JeeslSecurityMenu<V,M>,
 											AR extends JeeslSecurityArea<L,D,V>,
+											H extends JeeslSecurityHelp<L,D,V>,
 											USER extends JeeslUser<R>>
-		extends AbstractAdminSecurityBean<L,D,LOC,C,R,V,U,A,AT,M,AR,USER>
+		extends AbstractAdminSecurityBean<L,D,LOC,C,R,V,U,A,AT,M,AR,H,USER>
 		implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -49,7 +51,7 @@ public class AbstractAdminSecurityActionBean <L extends UtilsLang, D extends Uti
 	
 	private AT template;public AT getTemplate(){return template;}public void setTemplate(AT template) {this.template = template;}
 	
-	public AbstractAdminSecurityActionBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,USER> fbSecurity)
+	public AbstractAdminSecurityActionBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,H,USER> fbSecurity)
 	{
 		super(fbSecurity);
 	}

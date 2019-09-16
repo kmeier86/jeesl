@@ -10,6 +10,7 @@ import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.system.JeeslSecurityFacade;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
+import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityHelp;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
@@ -42,8 +43,9 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang, D extends Utils
 											AT extends JeeslSecurityTemplate<L,D,C>,
 											M extends JeeslSecurityMenu<V,M>,
 											AR extends JeeslSecurityArea<L,D,V>,
+											H extends JeeslSecurityHelp<L,D,V>,
 											USER extends JeeslUser<R>>
-			extends AbstractAdminSecurityBean<L,D,LOC,C,R,V,U,A,AT,M,AR,USER>
+			extends AbstractAdminSecurityBean<L,D,LOC,C,R,V,U,A,AT,M,AR,H,USER>
 			implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -58,7 +60,7 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang, D extends Utils
 	
 	private boolean denyRemove; public boolean isDenyRemove(){return denyRemove;}
 	
-	public AbstractAdminSecurityRoleBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,USER> fbSecurity)
+	public AbstractAdminSecurityRoleBean(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,H,USER> fbSecurity)
 	{
 		super(fbSecurity);
 	}

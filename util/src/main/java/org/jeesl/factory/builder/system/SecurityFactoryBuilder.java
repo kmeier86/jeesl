@@ -14,6 +14,7 @@ import org.jeesl.factory.ejb.system.security.EjbStaffFactory;
 import org.jeesl.factory.json.system.security.JsonPageFactory;
 import org.jeesl.factory.json.system.security.JsonPagesFactory;
 import org.jeesl.factory.txt.system.security.TxtStaffFactory;
+import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityHelp;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
@@ -40,6 +41,7 @@ public class SecurityFactoryBuilder<L extends UtilsLang, D extends UtilsDescript
 									AT extends JeeslSecurityTemplate<L,D,C>,
 									M extends JeeslSecurityMenu<V,M>,
 									AR extends JeeslSecurityArea<L,D,V>,
+									H extends JeeslSecurityHelp<L,D,V>,
 									USER extends JeeslUser<R>
 //,I extends JeeslIdentity<R,V,U,A,USER>
 >
