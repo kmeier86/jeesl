@@ -5,6 +5,7 @@ import org.jeesl.controller.db.updater.JeeslDbCodeEjbUpdater;
 import org.jeesl.factory.builder.system.SecurityFactoryBuilder;
 import org.jeesl.factory.ejb.system.status.EjbDescriptionFactory;
 import org.jeesl.factory.ejb.system.status.EjbLangFactory;
+import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityHelp;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityAction;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityArea;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
@@ -44,11 +45,12 @@ public class AbstractSecurityUpdater <L extends UtilsLang,
  								AT extends JeeslSecurityTemplate<L,D,C>,
  								M extends JeeslSecurityMenu<V,M>,
  								AR extends JeeslSecurityArea<L,D,V>,
+ 								H extends JeeslSecurityHelp<L,D,V>,
  								USER extends JeeslUser<R>>
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractSecurityUpdater.class);
 	
-	protected final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,USER> fbSecurity;
+	protected final SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,H,USER> fbSecurity;
 	
 	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fSecurity;
 	protected EjbLangFactory<L> efLang;
@@ -56,7 +58,7 @@ public class AbstractSecurityUpdater <L extends UtilsLang,
 	
 	private final JeeslDbCodeEjbUpdater<C> dbCleanerCategory;
 				
-	public AbstractSecurityUpdater(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,USER> fbSecurity,
+	public AbstractSecurityUpdater(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,M,AR,H,USER> fbSecurity,
 			JeeslSecurityFacade<L,D,C,R,V,U,A,AT,M,USER> fAcl)
 	{
 		this.fbSecurity=fbSecurity;
