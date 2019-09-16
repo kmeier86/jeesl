@@ -194,12 +194,11 @@ public class ErGraphProcessor
 				logger.trace("Cardinality: "+cardinality);
 				if(cardinality!=null)
 				{
-					boolean targetIsChild = isTargetChildAnnotated(annotations);
 					if(mapNodes.containsKey(field.getType().getName()))
 					{
 						Node target = mapNodes.get(field.getType().getName());
 						logger.trace("target: " + target.getLabel());
-						createEdge(source, cardinality,target,targetIsChild);
+						createEdge(source, cardinality,target,false);
 					}
 					else {
 						String fieldTypeName = field.getType().getName();
@@ -217,7 +216,7 @@ public class ErGraphProcessor
 							{
 								Node target = mapNodes.get(gC.getName());
 						        logger.trace("target: " + target.getLabel());
-						        createEdge(source, cardinality,target,targetIsChild);
+						        createEdge(source, cardinality,target,false);
 						    }
 						}
 					}
@@ -281,20 +280,6 @@ public class ErGraphProcessor
 			if(cardinality!=null){return cardinality;}
 		}
 		return cardinality;
-	}
-
-	private boolean isTargetChildAnnotated(Annotation annotations[])
-	{
-		boolean isChild = false;
-		for (int j = 0; j < annotations.length; j++)
-		{
-			Annotation a = annotations[j];
-			if(a.annotationType().getName().equals(net.sf.ahtutils.model.qualifier.EjbErNodeHierarchy.class.getName()))
-			{
-				isChild=true;
-			}
-		}
-		return isChild;
 	}
 
 	private void mergeEdges()
