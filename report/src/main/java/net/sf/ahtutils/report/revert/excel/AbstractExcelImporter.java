@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -229,12 +230,12 @@ public abstract class AbstractExcelImporter <C extends Serializable, I extends I
 		{
 		    // Get the Cell Value as Object
 		    Object object = DataUtil.getCellValue(cell);
-
+			
 		    // Read the name of the property that should be filled with the data from this column
 		    String propertyName = propertyRelations.get(j +"");
 		    if (propertyName!=null && !object.getClass().getCanonicalName().endsWith("java.lang.Object"))
 		    {
-			logger.trace("Cell " +row.getRowNum() +"," +j +" should store " +propertyName +", value as String is " +object.toString());
+			if(logger.isTraceEnabled()){logger.trace("Cell " +row.getRowNum() +"," +j +" should store " +propertyName +", value as String is " +object.toString() +" and is of class " +object.getClass().getCanonicalName());}
 
 			String property = propertyName;
 			if(logger.isTraceEnabled()){logger.trace("Setting " +property + " to " +object.toString() +" type: " +object.getClass().getCanonicalName() +")");}
@@ -410,9 +411,16 @@ public abstract class AbstractExcelImporter <C extends Serializable, I extends I
 				// This is important if the String is a Number, Excel will format the cell to be a "general number"
 				else if (parameterClass.equals("java.lang.String"))
 				{
-				    if (parameters[0].getClass().getName().equals("java.lang.Double"))
+					if (parameters[0].getClass().getName().equals("java.lang.Double"))
 				    {
 						Double n			= (Double) parameters[0];
+						// This version is not working! It produces results such as this:
+						// Result 2147483647 taken from 3.57305101E9 (toString of n)
+						// parameters[0]	= "" +n.intValue();
+						BigDecimal bd = new BigDecimal(n);
+						parameters[0]	= bd.toPlainString();
+						
+						/* See above
 						if (n % 1 == 0)
 						{
 							parameters[0]	= "" +n.intValue();
@@ -421,6 +429,7 @@ public abstract class AbstractExcelImporter <C extends Serializable, I extends I
 						{
 							parameters[0]	= "" +n;
 						}
+						*/
 				    }
 				    else
 				    {
