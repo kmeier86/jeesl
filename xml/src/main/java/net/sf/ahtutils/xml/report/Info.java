@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.datatype.XMLGregorianCalendar;
+import net.sf.exlp.xml.io.Data;
 
 
 /**
@@ -63,6 +64,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element ref="{http://ahtutils.aht-group.com/report}user"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/report}footers"/&gt;
  *         &lt;element ref="{http://ahtutils.aht-group.com/report}labels"/&gt;
+ *         &lt;element ref="{http://exlp.sf.net/io}data"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -83,7 +85,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "hash",
     "user",
     "footers",
-    "labels"
+    "labels",
+    "data"
 })
 @XmlRootElement(name = "info")
 public class Info
@@ -113,6 +116,8 @@ public class Info
     protected Footers footers;
     @XmlElement(required = true)
     protected Labels labels;
+    @XmlElement(namespace = "http://exlp.sf.net/io", required = true)
+    protected Data data;
 
     /**
      * Gets the value of the title property.
@@ -438,6 +443,34 @@ public class Info
 
     public boolean isSetLabels() {
         return (this.labels!= null);
+    }
+
+    /**
+     * Gets the value of the data property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Data }
+     *     
+     */
+    public Data getData() {
+        return data;
+    }
+
+    /**
+     * Sets the value of the data property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Data }
+     *     
+     */
+    public void setData(Data value) {
+        this.data = value;
+    }
+
+    public boolean isSetData() {
+        return (this.data!= null);
     }
 
 

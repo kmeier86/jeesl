@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import net.sf.exlp.util.io.JsonUtil;
 
 public class JsonTuple2Handler <A extends EjbWithId, B extends EjbWithId>
 							extends JsonTuple1Handler<A>
@@ -128,6 +129,7 @@ public class JsonTuple2Handler <A extends EjbWithId, B extends EjbWithId>
 				if(mapB.containsKey(t.getId2())) {t.setEjb2(mapB.get(t.getId2()));}
 				else
 				{
+					JsonUtil.info(t);
 					try{t.setEjb2(cB.newInstance()); t.getEjb2().setId(t.getId2());}
 					catch (InstantiationException | IllegalAccessException e) {e.printStackTrace();}
 				}

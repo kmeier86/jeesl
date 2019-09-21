@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.ts.config;
+package org.jeesl.interfaces.model.module.ts.stat;
 
 import java.io.Serializable;
 
@@ -14,7 +14,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatusFixedCode;
 
-public interface JeeslTsInputMethod <L extends UtilsLang, D extends UtilsDescription,
+public interface JeeslTsStatistic <L extends UtilsLang, D extends UtilsDescription,
 									S extends UtilsStatus<S,L,D>,
 									G extends JeeslGraphic<L,D,?,?,?>>
 					extends Serializable,EjbPersistable,
@@ -23,5 +23,5 @@ public interface JeeslTsInputMethod <L extends UtilsLang, D extends UtilsDescrip
 							EjbWithCodeGraphic<G>,
 							UtilsStatus<S,L,D>
 {	
-	public enum Code{single,multi,manual}
+	public enum Code{min,mean,max}
 }
