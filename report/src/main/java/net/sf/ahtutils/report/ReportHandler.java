@@ -2,12 +2,15 @@ package net.sf.ahtutils.report;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Level;
 
 import javax.imageio.ImageIO;
 
@@ -406,7 +409,7 @@ public class ReportHandler {
 	 * @param locale
 	 * @return 
 	 */
-	public Map<String,Object> getParameterMapJDom(org.jdom2.Document doc, Locale locale)
+	public Map<String,Object> getParameterMapJDom(org.jdom2.Document doc, Locale locale) 
 	{	
 		Map<String,Object> mapReportParameter = new HashMap<String,Object>();
 		
@@ -461,8 +464,23 @@ public class ReportHandler {
 					catch (IOException e) {logger.error(e.getMessage());}
 					mapReportParameter.put(res.getName(), image);
 				}
-                        if (res.getType().equals("template"))
-                                
+				else if (res.getType().equals("vector"))
+				{
+					String imgLocation = "/resources/" +res.getType() +"/" +res.getValue().getValue();
+					
+					InputStream vector = null;
+				try {
+					vector = mrl.searchIs(imgLocation);
+				} catch (FileNotFoundException ex) {
+					logger.error("Could not load SVG from classpath " +ex.getMessage());
+				}
+					
+					
+					logger.info("Including vector resource as File object: " +imgLocation);
+					//vector = new File(getClass().getClassLoader().getResource(imgLocation).getFile());
+					mapReportParameter.put(res.getName(), vector);
+				}
+				else if (res.getType().equals("template"))           
 				{
                                     
 					try {
@@ -481,7 +499,8 @@ public class ReportHandler {
 		for (Object key : mapReportParameter.keySet())
 		{
 			String keyString = (String) key;
-			String valueString = mapReportParameter.get(keyString).toString();
+			logger.info("Key " +keyString);
+			String valueString = mapReportParameter.get(keyString).getClass().getCanonicalName();
 			logger.info("Report Parameter: " +keyString +" = " +valueString);
 		}
 		return mapReportParameter;

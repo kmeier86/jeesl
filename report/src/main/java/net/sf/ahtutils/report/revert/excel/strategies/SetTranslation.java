@@ -24,7 +24,7 @@ public class SetTranslation implements ImportStrategy {
 		
 		// Build a map to contain the translation in the requested locale, stored in a Lang or Description object's lang property
 		Map<String, Object> map = new HashMap<String, Object>();
-		logger.info("Setting " +object.toString() +" as translated " +property);
+		if (logger.isDebugEnabled()){logger.debug("Setting " +object.toString() +" as translated " +property);}
 		try {
 			String	languageKey			= (String) this.tempPropertyStore.get("languageKey");
 		
@@ -32,8 +32,8 @@ public class SetTranslation implements ImportStrategy {
 			description.setLang(object.toString());
 			description.setLkey(languageKey);
 			map.put(languageKey, description);
-			logger.info("Created Map for " +languageKey +" translation containing " +description.getLang());
-			logger.info("Container is of class " +description.getClass().getCanonicalName());
+			if (logger.isDebugEnabled()){logger.debug("Created Map for " +languageKey +" translation containing " +description.getLang());}
+			if (logger.isDebugEnabled()){logger.debug("Container is of class " +description.getClass().getCanonicalName());}
 		}
 		catch (Exception e)
 		{
