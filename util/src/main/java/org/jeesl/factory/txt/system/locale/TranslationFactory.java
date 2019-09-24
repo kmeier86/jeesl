@@ -20,6 +20,7 @@ import net.sf.exlp.util.xml.JaxbUtil;
 import net.sf.exlp.xml.io.Dir;
 
 import org.apache.commons.io.DirectoryWalker;
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -94,7 +95,7 @@ public class TranslationFactory
 	
 	public void add(ClassLoader cl, String xmlFile) throws FileNotFoundException
 	{
-		Translations translations = (Translations)JaxbUtil.loadJAXB(cl, xmlFile, Translations.class);
+		Translations translations = (Translations)JaxbUtil.loadJAXB(cl, FilenameUtils.normalize(xmlFile), Translations.class);
 		logger.debug("Loaded "+translations.getTranslation().size()+" Elements from "+xmlFile);
 		add(translations);
 	}
