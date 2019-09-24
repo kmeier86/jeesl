@@ -88,12 +88,15 @@ public class EjbStatusFactory<S extends UtilsStatus<S,L,D>, L extends UtilsLang,
 			}
 			
 			Descriptions descriptions = XmlDescriptionsFactory.build();
-			if(localeCodes==null) {descriptions.getDescription().addAll(status.getDescriptions().getDescription());}
-			else
+			if(status.isSetDescriptions())
 			{
-				for(Description d : status.getDescriptions().getDescription())
+				if(localeCodes==null) {descriptions.getDescription().addAll(status.getDescriptions().getDescription());}
+				else
 				{
-					if(localeCodes.contains(d.getKey())) {descriptions.getDescription().add(d);}
+					for(Description d : status.getDescriptions().getDescription())
+					{
+						if(localeCodes.contains(d.getKey())) {descriptions.getDescription().add(d);}
+					}
 				}
 			}
 			

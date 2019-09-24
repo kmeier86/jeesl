@@ -38,8 +38,8 @@ public class JeeslStatusDbUpdater <L extends UtilsLang, D extends UtilsDescripti
 	private final Map<String,Set<Long>> mDbAvailableStatus;
 	private Set<Long> sDeleteLangs,sDeleteDescriptions;
 	
-	private EjbStatusFactory<S,L,D> statusEjbFactory;
-	private UtilsFacade fStatus;
+	private EjbStatusFactory<S,L,D> statusEjbFactory; public void setStatusEjbFactory(EjbStatusFactory<S,L,D> statusEjbFactory) {this.statusEjbFactory = statusEjbFactory;}
+	private UtilsFacade fStatus; public void setFacade(UtilsFacade fStatus){this.fStatus=fStatus;}
 
 	public JeeslStatusDbUpdater()
 	{
@@ -47,13 +47,6 @@ public class JeeslStatusDbUpdater <L extends UtilsLang, D extends UtilsDescripti
 		sDeleteLangs = new HashSet<Long>();
 		sDeleteDescriptions = new HashSet<Long>();
 	}
-	
-	public void setStatusEjbFactory(EjbStatusFactory<S,L,D> statusEjbFactory) {this.statusEjbFactory = statusEjbFactory;}
-	public void setFacade(UtilsFacade fStatus)
-	{
-		this.fStatus=fStatus;
-	}
-	
 	
 	public List<Status> getStatus(String xmlFile) throws FileNotFoundException
 	{
