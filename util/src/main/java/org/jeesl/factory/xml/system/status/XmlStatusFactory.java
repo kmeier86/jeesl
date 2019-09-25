@@ -14,6 +14,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.status.UtilsWithSymbol;
 import net.sf.ahtutils.xml.aht.Query;
+import net.sf.ahtutils.xml.status.Langs;
 import net.sf.ahtutils.xml.status.Parent;
 import net.sf.ahtutils.xml.status.Status;
 
@@ -82,6 +83,13 @@ public class XmlStatusFactory<S extends UtilsStatus<S,L,D>,L extends UtilsLang, 
 	{
 		Status xml = new Status();
 		xml.setCode(code);
+		return xml;
+	}
+	
+	public static Status build(String code, Langs langs)
+	{
+		Status xml = create(code);
+		xml.setLangs(langs);
 		return xml;
 	}
 	

@@ -28,6 +28,8 @@ public class JeeslIdentityFactory <I extends JeeslIdentity<R,V,U,A,USER>,
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslIdentityFactory.class);
 	
+	private boolean debugOnInfo; public boolean isDebugOnInfo() {return debugOnInfo;} public void setDebugOnInfo(boolean debugOnInfo) {this.debugOnInfo = debugOnInfo;}
+	
 	private final SecurityFactoryBuilder<?,?,?,R,V,U,A,?,?,?,?,USER> fbSecurity;
 	final Class<I>  cIdentity;
 
@@ -35,6 +37,7 @@ public class JeeslIdentityFactory <I extends JeeslIdentity<R,V,U,A,USER>,
 	{
 		this.fbSecurity=fbSecurity;
 		this.cIdentity=cIdentity;
+		debugOnInfo = false;
 	} 
 
 	public static <I extends JeeslIdentity<R,V,U,A,USER>,

@@ -3,7 +3,7 @@ package org.jeesl.jsf.handler;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -60,7 +60,7 @@ public abstract class AbstractJsfSecurityHandler <L extends UtilsLang, D extends
 	protected TxtSecurityActionFactory<L,D,C,R,V,U,A,AT,USER> txtAction;
 	protected Comparator<A> comparatorAction;
 	
-	protected Map<R,Boolean> mapHasRole; @Override public Map<R,Boolean> getMapHasRole() {return mapHasRole;}
+	protected final Map<R,Boolean> mapHasRole; @Override public Map<R,Boolean> getMapHasRole() {return mapHasRole;}
 	protected final Map<String,Boolean> mapAllow; public Map<String,Boolean> getMapAllow(){return mapAllow;}
 	
 	protected boolean noActions; public boolean isNoActions() {return noActions;}
@@ -82,8 +82,8 @@ public abstract class AbstractJsfSecurityHandler <L extends UtilsLang, D extends
 		noActions=true;
 		noRoles=true;
 		
-		mapAllow = new Hashtable<String,Boolean>();
-		mapHasRole = new Hashtable<R,Boolean>();
+		mapAllow = new HashMap<String,Boolean>();
+		mapHasRole = new HashMap<R,Boolean>();
 		actions = new ArrayList<A>();
 		areas = new ArrayList<AR>();
 		
@@ -122,8 +122,8 @@ public abstract class AbstractJsfSecurityHandler <L extends UtilsLang, D extends
 		noActions=true;
 		noRoles=true;
 		
-		mapAllow = new Hashtable<String,Boolean>();
-		mapHasRole = new Hashtable<R,Boolean>();
+		mapAllow = new HashMap<String,Boolean>();
+		mapHasRole = new HashMap<R,Boolean>();
 		actions = new ArrayList<A>();
 		areas = new ArrayList<AR>();
 		

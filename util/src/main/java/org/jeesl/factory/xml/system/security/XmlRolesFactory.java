@@ -65,4 +65,11 @@ public class XmlRolesFactory <L extends UtilsLang, D extends UtilsDescription,
 		xml.getRole().add(role);
 		return xml;
 	}
+	
+	public static net.sf.ahtutils.xml.security.Roles build2()
+	{
+		net.sf.ahtutils.xml.security.Roles xml = build();
+
+		return xml;
+	}
 }

@@ -62,6 +62,7 @@
             	<xsd:element ref="sec:role" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="type" type="xsd:string"/>
+            <xsd:attribute name="label" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="role">

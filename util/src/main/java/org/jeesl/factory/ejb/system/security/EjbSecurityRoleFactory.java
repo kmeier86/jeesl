@@ -1,5 +1,10 @@
 package org.jeesl.factory.ejb.system.security;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityCategory;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityRole;
 import org.slf4j.Logger;
@@ -33,5 +38,16 @@ public class EjbSecurityRoleFactory <C extends JeeslSecurityCategory<?,?>,
     	catch (IllegalAccessException e) {e.printStackTrace();}
     	
     	return ejb;
+    }
+    
+    public Map<C,List<R>> toMapCategory(List<R> roles)
+    {
+    	Map<C,List<R>> map = new HashMap<>();
+    	for(R r : roles)
+    	{
+    		if(!map.containsKey(r.getCategory())) {map.put(r.getCategory(),new ArrayList<>());}
+    		map.get(r.getCategory()).add(r);
+    	}
+    	return map;
     }
 }

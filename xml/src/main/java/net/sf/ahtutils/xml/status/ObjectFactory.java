@@ -286,6 +286,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Realm }
+     * 
+     */
+    public Realm createRealm() {
+        return new Realm();
+    }
+
+    /**
      * Create an instance of {@link Types }
      * 
      */

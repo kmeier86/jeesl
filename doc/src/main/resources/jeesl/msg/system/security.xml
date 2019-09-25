@@ -114,7 +114,7 @@
     		<s:lang key="fr" translation="Action Templates"/>
     	</s:langs>
     </s:translation>    
-	<s:translation key="aupSecurityActionTemplate">
+	<s:translation key="jeeslSecurityActionTemplate">
     	<s:langs>
     		<s:lang key="de" translation="Action Template"/>
     		<s:lang key="en" translation="Action Template"/>
