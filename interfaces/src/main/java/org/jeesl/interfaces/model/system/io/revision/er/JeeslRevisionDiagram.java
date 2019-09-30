@@ -16,7 +16,9 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 
 public interface JeeslRevisionDiagram <L extends UtilsLang, D extends UtilsDescription,
 										C extends JeeslRevisionCategory<L,D,C,?>>
-		extends Serializable,EjbPersistable,EjbSaveable,EjbRemoveable,EjbWithLang<L>,EjbWithDescription<D>,EjbWithCode,EjbWithPosition
+		extends Serializable,EjbPersistable,EjbSaveable,EjbRemoveable,
+							EjbWithCode,EjbWithPosition,
+							EjbWithLang<L>,EjbWithDescription<D>
 {
 	C getCategory();
 	void setCategory(C category);

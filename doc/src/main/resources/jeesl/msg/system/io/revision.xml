@@ -193,11 +193,18 @@
     		<s:lang key="fr" translation="Entity Relationship Diagrams"/>
     	</s:langs>
     </s:translation>
-     <s:translation key="jeeslRevisionDiagram">
+	<s:translation key="jeeslRevisionDiagram">
     	<s:langs>
     		<s:lang key="de" translation="Entity Relationship Diagram"/>
     		<s:lang key="en" translation="Entity Relationship Diagram"/>
     		<s:lang key="fr" translation="Entity Relationship Diagram"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslRevisionDiagramShort">
+    	<s:langs>
+    		<s:lang key="de" translation="Diagram"/>
+    		<s:lang key="en" translation="Diagram"/>
+    		<s:lang key="fr" translation="Diagram"/>
     	</s:langs>
     </s:translation>
     <s:translation key="jeeslRevisionDotGraph">

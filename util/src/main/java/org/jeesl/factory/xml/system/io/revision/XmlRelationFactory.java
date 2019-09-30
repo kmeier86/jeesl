@@ -5,6 +5,7 @@ import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
+import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
 import org.jeesl.model.xml.system.revision.Relation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +17,11 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 public class XmlRelationFactory <L extends UtilsLang,D extends UtilsDescription,
 									RC extends JeeslRevisionCategory<L,D,RC,?>,	
 									REM extends JeeslRevisionEntityMapping<?,?,?>,
-									RE extends JeeslRevisionEntity<L,D,RC,REM,RA,?>,										
+									RE extends JeeslRevisionEntity<L,D,RC,REM,RA,ERD>,										
 									RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
 									RER extends UtilsStatus<RER,L,D>,
-									RAT extends UtilsStatus<RAT,L,D>>
+									RAT extends UtilsStatus<RAT,L,D>,
+									ERD extends JeeslRevisionDiagram<L,D,RC>>
 
 {
 
@@ -27,7 +29,7 @@ public class XmlRelationFactory <L extends UtilsLang,D extends UtilsDescription,
 	
 	private Relation q;
 
-	private XmlEntityFactory<L,D,RC,REM,RE,RA,RER,RAT> xfEntity;
+	private XmlEntityFactory<L,D,RC,REM,RE,RA,RER,RAT,ERD> xfEntity;
 	private XmlTypeFactory<L,D,RER> xfType;
 	
 	public XmlRelationFactory(Relation q)

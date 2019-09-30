@@ -4,7 +4,6 @@ import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
 import org.jeesl.api.facade.system.graphic.JeeslGraphicFacade;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.factory.xml.system.io.revision.XmlEntityFactory;
-import org.jeesl.factory.xml.system.io.revision.XmlRelationFactory;
 import org.jeesl.factory.xml.system.symbol.XmlGraphicFactory;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
@@ -52,7 +51,7 @@ public class JeeslRestService <L extends UtilsLang,D extends UtilsDescription,
 	private final JeeslIoRevisionFacade<L,D,RC,?,?,?,?,RE,?,RA,?,RAT,ERD> fRevision;
 	
 	private final XmlGraphicFactory<L,D,G,GT,F,FS> xfGraphic;
-	private final XmlEntityFactory<L,D,RC,REM,RE,RA,RER,RAT> xfEntity;
+	private final XmlEntityFactory<L,D,RC,REM,RE,RA,RER,RAT,ERD> xfEntity;
 	
 	private JeeslRestService(IoRevisionFactoryBuilder<L,D,RC,?,?,?,?,RE,?,RA,RER,RAT,ERD> fbRevision,
 							JeeslGraphicFacade<L,D,S,G,GT,F,FS> fGraphic,
@@ -62,8 +61,8 @@ public class JeeslRestService <L extends UtilsLang,D extends UtilsDescription,
 		this.fbRevision=fbRevision;
 		this.fRevision=fRevision;
 		this.fGraphic=fGraphic;
-		xfGraphic = new XmlGraphicFactory<L,D,G,GT,F,FS>(SymbolQuery.get(SymbolQuery.Key.GraphicExport));
-		xfEntity = new XmlEntityFactory<L,D,RC,REM,RE,RA,RER,RAT>(XmlRevisionQuery.get(XmlRevisionQuery.Key.xEntity));
+		xfGraphic = new XmlGraphicFactory<>(SymbolQuery.get(SymbolQuery.Key.GraphicExport));
+		xfEntity = new XmlEntityFactory<>(XmlRevisionQuery.get(XmlRevisionQuery.Key.xEntity));
 	}
 
 	public static <L extends UtilsLang,D extends UtilsDescription,

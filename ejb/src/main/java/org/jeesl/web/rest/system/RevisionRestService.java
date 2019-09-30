@@ -75,7 +75,7 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 	private JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fRevision;
 
 	private final XmlContainerFactory xfContainer;
-	private final XmlEntityFactory<L,D,RC,REM,RE,RA,RER,RAT> xfEntity;
+	private final XmlEntityFactory<L,D,RC,REM,RE,RA,RER,RAT,ERD> xfEntity;
 	private final XmlDiagramFactory<L,D,RC,ERD> xfDiagram;
 
 	private EjbLangFactory<L> efLang;

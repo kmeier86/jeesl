@@ -29,7 +29,7 @@ public class XmlRevisionQuery
 			QueryRevision q = new QueryRevision();
 			switch(key)
 			{
-				case xEntity: q.setEntity(exEntity());break;
+				case xEntity: q.setEntity(xEntity());break;
 				case xDiagram: q.setDiagram(xDiagram());break;
 			}
 			mQueries.put(key, q);
@@ -39,8 +39,8 @@ public class XmlRevisionQuery
 		return q;
 	}
 	
-	public static Entity exEntity()
-	{		
+	private static Entity xEntity()
+	{	
 		Entity xml = new Entity();
 		xml.setId(0);
 		xml.setCode("");
@@ -53,6 +53,12 @@ public class XmlRevisionQuery
 		xml.setDescriptions(XmlStatusQuery.descriptions());
 		xml.setRemark(XmlRemarkFactory.build(""));
 		xml.getAttribute().add(exAttribute());
+		
+		Diagram diagram = new Diagram();
+		diagram.setId(0);
+		diagram.setCode("");
+		xml.setDiagram(diagram);
+		
 		return xml;
 	}
 	

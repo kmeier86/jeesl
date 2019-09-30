@@ -31,6 +31,7 @@ import org.jeesl.model.xml.text.Remark;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}descriptions"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/text}remark"/&gt;
  *         &lt;element ref="{http://www.jeesl.org/revision}attribute" maxOccurs="unbounded"/&gt;
+ *         &lt;element ref="{http://www.jeesl.org/revision}diagram"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}long" /&gt;
  *       &lt;attribute name="code" type="{http://www.w3.org/2001/XMLSchema}string" /&gt;
@@ -51,7 +52,8 @@ import org.jeesl.model.xml.text.Remark;
     "langs",
     "descriptions",
     "remark",
-    "attribute"
+    "attribute",
+    "diagram"
 })
 @XmlRootElement(name = "entity")
 public class Entity
@@ -69,6 +71,8 @@ public class Entity
     protected Remark remark;
     @XmlElement(required = true)
     protected List<Attribute> attribute;
+    @XmlElement(required = true)
+    protected Diagram diagram;
     @XmlAttribute(name = "id")
     protected Long id;
     @XmlAttribute(name = "code")
@@ -229,6 +233,34 @@ public class Entity
 
     public void unsetAttribute() {
         this.attribute = null;
+    }
+
+    /**
+     * Gets the value of the diagram property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Diagram }
+     *     
+     */
+    public Diagram getDiagram() {
+        return diagram;
+    }
+
+    /**
+     * Sets the value of the diagram property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Diagram }
+     *     
+     */
+    public void setDiagram(Diagram value) {
+        this.diagram = value;
+    }
+
+    public boolean isSetDiagram() {
+        return (this.diagram!= null);
     }
 
     /**

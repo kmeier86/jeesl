@@ -50,6 +50,7 @@ public class AbstractAdminRevisionEntityBean <L extends UtilsLang, D extends Uti
 	private JeeslLabelBean<RE> bLabel;
 	
 	private List<RE> links; public List<RE> getLinks() {return links;}
+	private List<ERD> diagrams; public List<ERD> getDiagrams() {return diagrams;}
 	
 	private RE entity; public RE getEntity() {return entity;} public void setEntity(RE entity) {this.entity = entity;}
 	private REM mapping; public REM getMapping() {return mapping;}public void setMapping(REM mapping) {this.mapping = mapping;}
@@ -68,8 +69,12 @@ public class AbstractAdminRevisionEntityBean <L extends UtilsLang, D extends Uti
 		types = fRevision.allOrderedPositionVisible(fbRevision.getClassAttributeType());
 		relations = fRevision.allOrderedPositionVisible(fbRevision.getClassRelation());
 		scopeTypes = fRevision.allOrderedPositionVisible(fbRevision.getClassScopeType());
+		
+		diagrams = fRevision.all(fbRevision.getClassDiagram());
+		
 		links = fRevision.all(fbRevision.getClassEntity());
 		Collections.sort(links,comparatorEntity);
+		
 		reloadEntities();
 	}
 	
@@ -132,6 +137,7 @@ public class AbstractAdminRevisionEntityBean <L extends UtilsLang, D extends Uti
 		try
 		{
 			if(entity.getCategory()!=null){entity.setCategory(fRevision.find(fbRevision.getClassCategory(), entity.getCategory()));}
+			if(entity.getDiagram()!=null){entity.setDiagram(fRevision.find(fbRevision.getClassDiagram(), entity.getDiagram()));}
 			entity = fRevision.save(entity);
 			reloadEntities();
 			reloadEntity();
