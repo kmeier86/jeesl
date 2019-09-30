@@ -22,7 +22,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public class GenericTranslationProvider <L extends UtilsLang,D extends UtilsDescription,LOC extends UtilsStatus<LOC,L,D>,
-										RE extends JeeslRevisionEntity<L,D,?,?,RA>,
+										RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 										RA extends JeeslRevisionAttribute<L,D,RE,?,?>>
 					implements JeeslTranslationProvider<LOC>
 {

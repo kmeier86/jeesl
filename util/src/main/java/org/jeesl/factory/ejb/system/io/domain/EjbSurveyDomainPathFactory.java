@@ -15,7 +15,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 public class EjbSurveyDomainPathFactory<L extends UtilsLang, D extends UtilsDescription,
 										QUERY extends JeeslDomainQuery<L,D,?,PATH>,
 										PATH extends JeeslDomainPath<L,D,QUERY,DENTITY,DATTRIBUTE>,
-										DENTITY extends JeeslRevisionEntity<L,D,?,?,?>,
+										DENTITY extends JeeslRevisionEntity<L,D,?,?,?,?>,
 										DATTRIBUTE extends JeeslRevisionAttribute<L,D,DENTITY,?,?>
 										>
 {

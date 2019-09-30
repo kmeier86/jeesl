@@ -34,7 +34,7 @@ public abstract class AbstractWorkflowActionHandler <WT extends JeeslWorkflowTra
 										WA extends JeeslWorkflowAction<?,AB,AO,RE,RA>,
 										AB extends JeeslWorkflowBot<AB,?,?,?>,
 										AO extends EjbWithId,
-										RE extends JeeslRevisionEntity<?,?,?,?,RA>,
+										RE extends JeeslRevisionEntity<?,?,?,?,RA,?>,
 										RA extends JeeslRevisionAttribute<?,?,RE,?,?>,
 										AW extends JeeslApprovalWorkflow<?,?,?>,
 										WC extends JeeslConstraint<?,?,?,?,WC,?,?,?>>

@@ -61,7 +61,7 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 									MT extends JeeslIoTemplate<L,D,?,?,?,?>,
 									MC extends JeeslTemplateChannel<L,D,MC,?>,
 									SR extends JeeslSecurityRole<L,D,?,?,?,?,?>,
-									RE extends JeeslRevisionEntity<L,D,?,?,RA>,
+									RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 									RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
 									WL extends JeeslApprovalLink<AW,RE>,
 									AW extends JeeslApprovalWorkflow<AP,WS,WY>,

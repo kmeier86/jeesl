@@ -56,7 +56,7 @@ public class XmlLabelsFactory
 		}
 	}
 	
-	public static <RE extends JeeslRevisionEntity<?,?,?,?,RA>, RA extends JeeslRevisionAttribute<?,?,RE,?,?>>
+	public static <RE extends JeeslRevisionEntity<?,?,?,?,RA,?>, RA extends JeeslRevisionAttribute<?,?,RE,?,?>>
 		Labels build(RE entity, String localeCode, String scope)
 	{
 		Labels xml = build();

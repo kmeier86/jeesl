@@ -45,7 +45,7 @@ public class SurveyAnalysisFactoryBuilder<L extends UtilsLang, D extends UtilsDe
 				DOMAIN extends JeeslDomain<L,DENTITY>,
 				QUERY extends JeeslDomainQuery<L,D,DOMAIN,PATH>,
 				PATH extends JeeslDomainPath<L,D,QUERY,DENTITY,DATTRIBUTE>,
-				DENTITY extends JeeslRevisionEntity<L,D,?,?,DATTRIBUTE>,
+				DENTITY extends JeeslRevisionEntity<L,D,?,?,DATTRIBUTE,?>,
 				DATTRIBUTE extends JeeslRevisionAttribute<L,D,DENTITY,?,?>,
 				ANALYSIS extends JeeslSurveyAnalysis<L,D,TEMPLATE,DOMAIN,DENTITY,DATTRIBUTE>,
 				AQ extends JeeslSurveyAnalysisQuestion<L,D,QUESTION,ANALYSIS>,

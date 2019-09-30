@@ -23,9 +23,10 @@ public class RevisionEntityComparator<L extends UtilsLang,D extends UtilsDescrip
 										RVM extends JeeslRevisionViewMapping<RV,RE,REM>,
 										RS extends JeeslRevisionScope<L,D,RC,RA>,
 										RST extends UtilsStatus<RST,L,D>,
-										RE extends JeeslRevisionEntity<L,D,RC,REM,RA>,
+										RE extends JeeslRevisionEntity<L,D,RC,REM,RA,?>,
 										REM extends JeeslRevisionEntityMapping<RS,RST,RE>,
-										RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>, RER extends UtilsStatus<RER,L,D>,
+										RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
+										RER extends UtilsStatus<RER,L,D>,
 										RAT extends UtilsStatus<RAT,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(RevisionEntityComparator.class);

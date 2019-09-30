@@ -29,7 +29,7 @@ import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
-public class TsDbCountProcessor<RE extends JeeslRevisionEntity<?,?,?,?,?>,
+public class TsDbCountProcessor<RE extends JeeslRevisionEntity<?,?,?,?,?,?>,
 									SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 									MP extends JeeslTsMultiPoint<?,?,SCOPE,?>,
 									TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT>,

@@ -19,7 +19,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 public interface JeeslSurveyAnalysis<L extends UtilsLang, D extends UtilsDescription,
 										TEMPLATE extends JeeslSurveyTemplate<L,D,?,TEMPLATE,?,?,?,?,?,?>,
 										DOMAIN extends JeeslDomain<L,?>,
-										DENTITY extends JeeslRevisionEntity<L,D,?,?,DATTRIBUTE>,
+										DENTITY extends JeeslRevisionEntity<L,D,?,?,DATTRIBUTE,?>,
 										DATTRIBUTE extends JeeslRevisionAttribute<L,D,?,?,?>>
 			extends Serializable,EjbWithId,
 						EjbSaveable,EjbRemoveable,

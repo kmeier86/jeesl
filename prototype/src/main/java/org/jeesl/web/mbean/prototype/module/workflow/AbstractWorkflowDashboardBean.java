@@ -70,7 +70,7 @@ public abstract class AbstractWorkflowDashboardBean <L extends UtilsLang, D exte
 											MC extends JeeslTemplateChannel<L,D,MC,?>,
 											MD extends JeeslIoTemplateDefinition<D,MC,MT>,
 											SR extends JeeslSecurityRole<L,D,?,?,?,?,USER>,
-											RE extends JeeslRevisionEntity<L,D,?,?,RA>,
+											RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 											RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
 											AL extends JeeslApprovalLink<AW,RE>,
 											AW extends JeeslApprovalWorkflow<AP,WS,AY>,

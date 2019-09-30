@@ -20,7 +20,7 @@ public interface JeeslIoSsiFacade <L extends UtilsLang,D extends UtilsDescriptio
 									MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
 									DATA extends JeeslIoSsiData<MAPPING,LINK>,
 									LINK extends UtilsStatus<LINK,L,D>,
-									ENTITY extends JeeslRevisionEntity<?,?,?,?,?>
+									ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>
 									>
 			extends UtilsFacade
 {	

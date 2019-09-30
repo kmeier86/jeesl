@@ -12,7 +12,7 @@ import net.sf.ahtutils.interfaces.model.with.position.EjbWithPositionVisible;
 
 public interface JeeslRevisionEntityMapping<RS extends JeeslRevisionScope<?,?,?,?>,
 											RST extends UtilsStatus<RST,?,?>,
-											RE extends JeeslRevisionEntity<?,?,?,?,?>>
+											RE extends JeeslRevisionEntity<?,?,?,?,?,?>>
 		extends Serializable,EjbPersistable,EjbSaveable,EjbRemoveable,
 				EjbWithPositionVisible
 {			

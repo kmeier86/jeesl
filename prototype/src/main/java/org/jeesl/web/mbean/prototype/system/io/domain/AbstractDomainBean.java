@@ -25,7 +25,7 @@ public abstract class AbstractDomainBean <L extends UtilsLang, D extends UtilsDe
 						DOMAIN extends JeeslDomain<L,ENTITY>,
 						QUERY extends JeeslDomainQuery<L,D,DOMAIN,PATH>,
 						PATH extends JeeslDomainPath<L,D,QUERY,ENTITY,ATTRIBUTE>,
-						ENTITY extends JeeslRevisionEntity<L,D,?,?,ATTRIBUTE>,
+						ENTITY extends JeeslRevisionEntity<L,D,?,?,ATTRIBUTE,?>,
 						ATTRIBUTE extends JeeslRevisionAttribute<L,D,ENTITY,?,?>,
 						SET extends JeeslDomainSet<L,D,DOMAIN>,
 						ITEM extends JeeslDomainItem<QUERY,SET>>

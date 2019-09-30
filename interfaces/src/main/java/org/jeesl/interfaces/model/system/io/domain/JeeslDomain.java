@@ -11,7 +11,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 
 public interface JeeslDomain<L extends UtilsLang,
-									ENTITY extends JeeslRevisionEntity<L,?,?,?,?>
+									ENTITY extends JeeslRevisionEntity<L,?,?,?,?,?>
 									>
 			extends Serializable,EjbWithId,EjbSaveable,
 					EjbWithPosition,EjbWithLang<L>//,EjbWithDescription<D>

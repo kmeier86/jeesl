@@ -22,7 +22,7 @@ public interface JeeslWorkflowActionsHandler<WT extends JeeslWorkflowTransition<
 											WA extends JeeslWorkflowAction<?,AB,AO,RE,RA>,
 											AB extends JeeslWorkflowBot<AB,?,?,?>,
 											AO extends EjbWithId,
-											RE extends JeeslRevisionEntity<?,?,?,?,RA>,
+											RE extends JeeslRevisionEntity<?,?,?,?,RA,?>,
 											RA extends JeeslRevisionAttribute<?,?,RE,?,?>,
 											AW extends JeeslApprovalWorkflow<?,?,?>,
 											WCS extends JeeslConstraint<?,?,?,?,?,?,?,?>>

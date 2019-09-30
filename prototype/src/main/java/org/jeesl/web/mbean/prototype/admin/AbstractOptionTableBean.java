@@ -73,7 +73,7 @@ import net.sf.exlp.util.xml.JaxbUtil;
 public class AbstractOptionTableBean <L extends UtilsLang, D extends UtilsDescription, LOC extends UtilsStatus<LOC,L,D>,
 										G extends JeeslGraphic<L,D,GT,F,FS>, GT extends UtilsStatus<GT,L,D>,
 										F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends UtilsStatus<FS,L,D>,
-										RE extends JeeslRevisionEntity<L,D,?,?,?>
+										RE extends JeeslRevisionEntity<L,D,?,?,?,?>
 >
 			extends AbstractAdminBean<L,D>
 			implements Serializable

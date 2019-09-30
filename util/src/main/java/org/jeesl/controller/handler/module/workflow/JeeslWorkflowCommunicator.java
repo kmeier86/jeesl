@@ -69,7 +69,7 @@ public class JeeslWorkflowCommunicator <L extends UtilsLang, D extends UtilsDesc
 										MC extends JeeslTemplateChannel<L,D,MC,?>,
 										MD extends JeeslIoTemplateDefinition<D,MC,MT>,
 										SR extends JeeslSecurityRole<L,D,?,?,?,?,USER>,
-										RE extends JeeslRevisionEntity<L,D,?,?,RA>,
+										RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 										RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
 										WF extends JeeslApprovalWorkflow<WP,WS,WY>,
 										WY extends JeeslApprovalActivity<WT,WF,FRC,USER>,

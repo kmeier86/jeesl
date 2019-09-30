@@ -17,7 +17,7 @@ public class EjbWorkflowActionFactory<T extends JeeslWorkflowTransition<?,?,?,?,
 											AA extends JeeslWorkflowAction<T,AB,AO,RE,RA>,
 											AB extends JeeslWorkflowBot<AB,?,?,?>,
 											AO extends EjbWithId,
-											RE extends JeeslRevisionEntity<?,?,?,?,RA>,
+											RE extends JeeslRevisionEntity<?,?,?,?,RA,?>,
 											RA extends JeeslRevisionAttribute<?,?,RE,?,?>
 >
 {

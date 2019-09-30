@@ -56,7 +56,7 @@ public class WorkflowFactoryBuilder<L extends UtilsLang, D extends UtilsDescript
 									MT extends JeeslIoTemplate<L,D,?,?,?,?>,
 									MC extends JeeslTemplateChannel<L,D,MC,?>,
 									SR extends JeeslSecurityRole<L,D,?,?,?,?,?>,
-									RE extends JeeslRevisionEntity<L,D,?,?,RA>,
+									RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 									RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
 									AL extends JeeslApprovalLink<AW,RE>,
 									AW extends JeeslApprovalWorkflow<WP,WS,WY>,

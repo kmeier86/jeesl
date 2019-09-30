@@ -9,7 +9,7 @@ import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface JeeslIoSsiMapping <SYSTEM extends JeeslIoSsiSystem,
-									ENTITY extends JeeslRevisionEntity<?,?,?,?,?>>
+									ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>>
 		extends Serializable,EjbWithId,EjbSaveable,EjbRemoveable
 {	
 	public enum Attributes {entity,json}

@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 
-public class FacadeLabelResolver <RE extends JeeslRevisionEntity<?,?,?,?,RA>,
+public class FacadeLabelResolver <RE extends JeeslRevisionEntity<?,?,?,?,RA,?>,
 								RA extends JeeslRevisionAttribute<?,?,RE,?,?>>
 							implements JeeslLabelResolver
 {

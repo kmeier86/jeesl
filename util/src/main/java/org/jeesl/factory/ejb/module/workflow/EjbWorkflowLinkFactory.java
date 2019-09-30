@@ -7,7 +7,7 @@ import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbWorkflowLinkFactory<RE extends JeeslRevisionEntity<?,?,?,?,?>,
+public class EjbWorkflowLinkFactory<RE extends JeeslRevisionEntity<?,?,?,?,?,?>,
 									AL extends JeeslApprovalLink<AW,RE>,
 									AW extends JeeslApprovalWorkflow<?,?,?>
 >

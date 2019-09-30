@@ -18,7 +18,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 
 public class TranslationHandler<L extends UtilsLang,D extends UtilsDescription,
-								RE extends JeeslRevisionEntity<L,D,?,?,RA>,
+								RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 								RA extends JeeslRevisionAttribute<L,D,RE,?,?>>
 	implements Serializable,JeeslLabelBean<RE>
 {

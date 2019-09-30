@@ -22,7 +22,7 @@ import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 
 public interface JeeslWorkflowMessageHandler<WC extends JeeslWorkflowCommunication<?,MT,MC,SR,RE>,
 											SR extends JeeslSecurityRole<?,?,?,?,?,?,USER>,
-											RE extends JeeslRevisionEntity<?,?,?,?,?>,
+											RE extends JeeslRevisionEntity<?,?,?,?,?,?>,
 											MT extends JeeslIoTemplate<?,?,?,?,MD,?>,
 											MC extends JeeslTemplateChannel<?,?,MC,?>,
 											MD extends JeeslIoTemplateDefinition<?,MC,MT>,

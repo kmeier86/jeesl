@@ -19,7 +19,7 @@ public interface JeeslWorkflowCommunication <WT extends JeeslWorkflowTransition<
 											MT extends JeeslIoTemplate<?,?,?,?,?,?>,
 											MC extends JeeslTemplateChannel<?,?,MC,?>,
 											SR extends JeeslSecurityRole<?,?,?,?,?,?,?>,
-											RE extends JeeslRevisionEntity<?,?,?,?,?>
+											RE extends JeeslRevisionEntity<?,?,?,?,?,?>
 									>
 		extends Serializable,EjbPersistable,EjbRemoveable,EjbSaveable,
 				EjbWithId,EjbWithPosition,EjbWithParentAttributeResolver

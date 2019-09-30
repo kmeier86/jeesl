@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.jeesl.interfaces.model.system.io.revision.EjbWithRevisionAttributes;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
+import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
 import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
@@ -21,7 +22,8 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 public interface JeeslRevisionEntity<L extends UtilsLang, D extends UtilsDescription,
 									RC extends JeeslRevisionCategory<L,D,RC,?>,
 									REM extends JeeslRevisionEntityMapping<?,?,?>,
-									RA extends JeeslRevisionAttribute<L,D,?,?,?>>
+									RA extends JeeslRevisionAttribute<L,D,?,?,?>,
+									ERD extends JeeslRevisionDiagram<L,D,RC>>
 		extends Serializable,EjbPersistable,EjbSaveable,EjbRemoveable,
 				EjbWithCode,EjbWithPositionVisible,EjbWithParentAttributeResolver,EjbWithPositionParent,
 				EjbWithLang<L>,EjbWithDescription<D>,EjbWithRevisionAttributes<RA>
@@ -40,4 +42,7 @@ public interface JeeslRevisionEntity<L extends UtilsLang, D extends UtilsDescrip
 	
 	String getDeveloperInfo();
 	void setDeveloperInfo(String developerInfo);
+	
+	ERD getDiagram();
+	void setDiagram(ERD diagram);
 }

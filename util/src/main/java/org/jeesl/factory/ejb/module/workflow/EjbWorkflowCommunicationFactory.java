@@ -17,7 +17,7 @@ public class EjbWorkflowCommunicationFactory<WT extends JeeslWorkflowTransition<
 											MT extends JeeslIoTemplate<?,?,?,?,?,?>,
 											MC extends JeeslTemplateChannel<?,?,MC,?>,
 											SR extends JeeslSecurityRole<?,?,?,?,?,?,?>,
-											RE extends JeeslRevisionEntity<?,?,?,?,?>
+											RE extends JeeslRevisionEntity<?,?,?,?,?,?>
 >
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbWorkflowCommunicationFactory.class);

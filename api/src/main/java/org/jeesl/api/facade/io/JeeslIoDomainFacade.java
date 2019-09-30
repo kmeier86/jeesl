@@ -18,7 +18,7 @@ public interface JeeslIoDomainFacade <L extends UtilsLang, D extends UtilsDescri
 									DOMAIN extends JeeslDomain<L,DENTITY>,
 									QUERY extends JeeslDomainQuery<L,D,DOMAIN,PATH>,
 									PATH extends JeeslDomainPath<L,D,QUERY,DENTITY,DATTRIBUTE>,
-									DENTITY extends JeeslRevisionEntity<L,D,?,?,DATTRIBUTE>,
+									DENTITY extends JeeslRevisionEntity<L,D,?,?,DATTRIBUTE,?>,
 									DATTRIBUTE extends JeeslRevisionAttribute<L,D,DENTITY,?,?>,
 									SET extends JeeslDomainSet<L,D,DOMAIN>,
 									ITEM extends JeeslDomainItem<QUERY,SET>>

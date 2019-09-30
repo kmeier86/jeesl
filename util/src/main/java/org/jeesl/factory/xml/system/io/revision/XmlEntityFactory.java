@@ -21,7 +21,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 public class XmlEntityFactory <L extends UtilsLang,D extends UtilsDescription,
 								RC extends JeeslRevisionCategory<L,D,RC,?>,	
 								REM extends JeeslRevisionEntityMapping<?,?,?>,
-								RE extends JeeslRevisionEntity<L,D,RC,REM,RA>,	
+								RE extends JeeslRevisionEntity<L,D,RC,REM,RA,?>,	
 								RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
 								RER extends UtilsStatus<RER,L,D>,
 								RAT extends UtilsStatus<RAT,L,D>>

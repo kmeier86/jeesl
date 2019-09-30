@@ -26,7 +26,7 @@ public class AbstractSettingsSsiMappingBean <L extends UtilsLang,D extends Utils
 										MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
 										DATA extends JeeslIoSsiData<MAPPING,LINK>,
 										LINK extends UtilsStatus<LINK,L,D>,
-										ENTITY extends JeeslRevisionEntity<?,?,?,?,?>>
+										ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>>
 						implements Serializable
 {
 	private static final long serialVersionUID = 1L;

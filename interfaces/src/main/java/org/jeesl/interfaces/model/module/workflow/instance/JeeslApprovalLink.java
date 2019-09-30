@@ -11,7 +11,7 @@ import net.sf.ahtutils.interfaces.model.with.EjbWithRefId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface JeeslApprovalLink <AW extends JeeslApprovalWorkflow<?,?,?>,
-											RE extends JeeslRevisionEntity<?,?,?,?,?>
+											RE extends JeeslRevisionEntity<?,?,?,?,?,?>
 									>
 		extends Serializable,EjbPersistable,EjbRemoveable,EjbSaveable,
 				EjbWithId,EjbWithRefId

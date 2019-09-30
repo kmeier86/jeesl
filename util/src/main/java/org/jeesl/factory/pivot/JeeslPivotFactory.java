@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public class JeeslPivotFactory<RE extends JeeslRevisionEntity<?,?,?,?,?>> extends McPivotFactory
+public class JeeslPivotFactory<RE extends JeeslRevisionEntity<?,?,?,?,?,?>> extends McPivotFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(JeeslPivotFactory.class);
 	

@@ -54,7 +54,7 @@ public class JsonSurveyValueFactory
 	
 	@SuppressWarnings("unchecked")
 	public static <PATH extends JeeslDomainPath<?,?,?,DENTITY,DATTRIBUTE>,
-					DENTITY extends JeeslRevisionEntity<?,?,?,?,DATTRIBUTE>,
+					DENTITY extends JeeslRevisionEntity<?,?,?,?,DATTRIBUTE,?>,
 					DATTRIBUTE extends JeeslRevisionAttribute<?,?,DENTITY,?,?>>
 		List<JsonSurveyValue> build(UtilsFacade fUtils, Set<Long> ids, PATH path) throws ClassNotFoundException
 	{

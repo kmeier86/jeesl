@@ -51,7 +51,7 @@ public class AbstractIoReportBean <L extends UtilsLang,D extends UtilsDescriptio
 							FILLING extends UtilsStatus<FILLING,L,D>,
 							TRANSFORMATION extends UtilsStatus<TRANSFORMATION,L,D>,
 							RCAT extends JeeslRevisionCategory<L,D,RCAT,?>,
-							RE extends JeeslRevisionEntity<L,D,RCAT,?,RA>,
+							RE extends JeeslRevisionEntity<L,D,RCAT,?,RA,?>,
 							RA extends JeeslRevisionAttribute<L,D,RE,?,CDT>
 							>
 					extends AbstractAdminBean<L,D>

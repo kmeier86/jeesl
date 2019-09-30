@@ -14,7 +14,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface JeeslDomainPath<L extends UtilsLang, D extends UtilsDescription,
 										QUERY extends JeeslDomainQuery<L,D,?,?>,
-										ENTITY extends JeeslRevisionEntity<L,D,?,?,?>,
+										ENTITY extends JeeslRevisionEntity<L,D,?,?,?,?>,
 										ATTRIBUTE extends JeeslRevisionAttribute<L,D,?,?,?>
 										>
 			extends Serializable,EjbWithId,

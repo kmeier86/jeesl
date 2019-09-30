@@ -29,7 +29,7 @@ public interface JeeslIoRevisionFacade <L extends UtilsLang,D extends UtilsDescr
 									RVM extends JeeslRevisionViewMapping<RV,RE,REM>,
 									RS extends JeeslRevisionScope<L,D,RC,RA>,
 									RST extends UtilsStatus<RST,L,D>,
-									RE extends JeeslRevisionEntity<L,D,RC,REM,RA>,
+									RE extends JeeslRevisionEntity<L,D,RC,REM,RA,ERD>,
 									REM extends JeeslRevisionEntityMapping<RS,RST,RE>,
 									RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>,
 									RER extends UtilsStatus<RER,L,D>,
