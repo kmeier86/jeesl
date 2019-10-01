@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jeesl.model.xml.jeesl.Container;
@@ -22,13 +21,9 @@ import com.aspose.words.Document;
 import com.aspose.words.DocumentBuilder;
 import com.aspose.words.FindReplaceDirection;
 import com.aspose.words.FindReplaceOptions;
-import com.aspose.words.Paragraph;
-import com.aspose.words.Row;
 import com.aspose.words.RowCollection;
-import com.aspose.words.SaveFormat;
 import com.aspose.words.Table;
 
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.xml.status.Status;
 
 public class EntityWordRenderer 
@@ -67,7 +62,7 @@ public class EntityWordRenderer
 		return sb.toString();
 	}
 	
-	public void render(Entity entity, String savingDirectory) throws Exception 
+	public Document render(Entity entity, String savingDirectory) throws Exception 
 	{
 		DocumentBuilder docBuilder = new DocumentBuilder(entityDoc);
 						
@@ -154,6 +149,6 @@ public class EntityWordRenderer
 			if (s.equals("_CLASS2_")) {docBuilder.getFont().setBold(false);};
 		}
 		
-		entityDoc.save(savingDirectory, SaveFormat.DOCX);
+		return entityDoc;
 	}
 }
