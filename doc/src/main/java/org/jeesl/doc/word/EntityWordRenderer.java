@@ -1,5 +1,6 @@
 package org.jeesl.doc.word;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ import com.aspose.words.Document;
 import com.aspose.words.DocumentBuilder;
 import com.aspose.words.FindReplaceDirection;
 import com.aspose.words.FindReplaceOptions;
+import com.aspose.words.Paragraph;
 import com.aspose.words.Row;
 import com.aspose.words.RowCollection;
 import com.aspose.words.SaveFormat;
@@ -53,15 +55,15 @@ public class EntityWordRenderer
 	
 	private String relationTypeForCode(Container c, String code)
 	{
-		for(Status s:c.getStatus()){if(s.isSetCode()&&s.getCode()!=""&&s.getCode().equals(code)){return s.getLangs().getLang().get(0).getTranslation();}}return "";
+		for(Status s:c.getStatus()){if(s.isSetCode()&&s.getCode()!=""&&s.getCode().equals(code)){return s.getSymbol();}}return "";
 	}
 	
 	private String packageShrinker(String original, int numberOfWordsToShrink) 	
 	{	
 		StringBuilder sb = new StringBuilder();ArrayList<String> splitString = new ArrayList<>();int i=0;
 		for (String s:StringUtils.splitPreserveAllTokens(original,".")){if(i<=numberOfWordsToShrink){splitString.add(StringUtils.left(s,1));i++;}else{splitString.add(s);}}
-		for (String s:splitString) {sb.append(s.toString()+".");}			
-		
+		int helper=1;
+		for (String s:splitString){if(helper != splitString.size()){sb.append(s.toString()+".");}else if(helper == splitString.size()){sb.append(s.toString());}helper++;}
 		return sb.toString();
 	}
 	
@@ -98,16 +100,24 @@ public class EntityWordRenderer
 				c.getLastParagraph().getRuns().clear();
 				docBuilder.moveTo(c.getFirstParagraph());
 				
-				if (cellHelperRow5==0) {docBuilder.write(a.getCode());}					
-				if (cellHelperRow5==1) {docBuilder.write(a.getLangs().getLang().get(0).getTranslation().toString());}					
-				if (cellHelperRow5==2)
+				if (cellHelperRow5==0) 
 				{
-					if(a.getRelation()!=null)
+					docBuilder.write(a.getCode());
+				}
+			
+				if (cellHelperRow5==1)
+				{
+					if (a.getDescriptions().getDescription().get(0).getValue().toString() != "") 
 					{
-						if (a.getDescriptions().getDescription().get(0).getValue().toString() != "") 
-						{
-							docBuilder.write(a.getDescriptions().getDescription().get(0).getValue());
-						}
+						docBuilder.write(a.getDescriptions().getDescription().get(0).getValue());
+						if (a.getRelation()!=null && a.getRelation().isSetEntity())
+						{		
+							docBuilder.getFont().setColor(Color.gray);docBuilder.getFont().setItalic(true);
+							docBuilder.write("  (");
+							Entity e = RevisionXpath.getEntity(entities, a.getRelation().getEntity().getCode());
+							docBuilder.write(relationTypeForCode(relationTypes, a.getRelation().getType().getCode())+" = "+e.getLangs().getLang().get(0).getTranslation()+")");
+							docBuilder.getFont().setColor(Color.black);docBuilder.getFont().setItalic(false);
+						}	
 					}
 				}
 				cellHelperRow5++;
@@ -119,19 +129,17 @@ public class EntityWordRenderer
 				c.getLastParagraph().getRuns().clear();
 				docBuilder.moveTo(c.getFirstParagraph());
 				
-				if (cellHelperRow6==0 && a.getRelation()!=null && a.getRelation().isSetEntity())
+				if (cellHelperRow6==0) 
 				{
-					Entity e = RevisionXpath.getEntity(entities, a.getRelation().getEntity().getCode());
-					docBuilder.write(relationTypeForCode(relationTypes, a.getRelation().getType().getCode())+" : "+e.getLangs().getLang().get(0).getTranslation());
-				}					
+					docBuilder.write(a.getLangs().getLang().get(0).getTranslation().toString());
+				}				
 				cellHelperRow6++;
 			}
-			
 			table.appendChild(rows.get(5).deepClone(true));	
 			table.appendChild(rows.get(6).deepClone(true));	
 		}		
-		table.getLastRow().remove();
-		table.getLastRow().remove();
+		table.getRows().get(5).remove();
+		table.getRows().get(5).remove();
 		
 		for (String s : keys)
 		{
