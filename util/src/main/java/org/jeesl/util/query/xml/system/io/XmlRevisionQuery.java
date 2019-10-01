@@ -52,7 +52,7 @@ public class XmlRevisionQuery
 		xml.setLangs(XmlStatusQuery.langs());
 		xml.setDescriptions(XmlStatusQuery.descriptions());
 		xml.setRemark(XmlRemarkFactory.build(""));
-		xml.getAttribute().add(exAttribute());
+		xml.getAttribute().add(xAttribute());
 		
 		Diagram diagram = new Diagram();
 		diagram.setId(0);
@@ -62,7 +62,7 @@ public class XmlRevisionQuery
 		return xml;
 	}
 	
-	public static Attribute exAttribute()
+	private static Attribute xAttribute()
 	{		
 		Attribute xml = new Attribute();
 		xml.setCode("");
@@ -84,7 +84,8 @@ public class XmlRevisionQuery
 		xml.setRemark(XmlRemarkFactory.build(""));
 		
 		Relation relation = XmlRelationFactory.build();
-		relation.setOwner(true);		
+		relation.setOwner(true);
+		relation.setDocumentation(true);
 		relation.setEntity(exRelEntity());		
 		relation.setType(XmlTypeFactory.create(""));
 		xml.setRelation(relation);

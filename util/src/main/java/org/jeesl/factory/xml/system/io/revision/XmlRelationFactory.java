@@ -7,6 +7,7 @@ import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
 import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
 import org.jeesl.model.xml.system.revision.Relation;
+import org.jeesl.util.comparator.pojo.BooleanComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,6 +45,7 @@ public class XmlRelationFactory <L extends UtilsLang,D extends UtilsDescription,
 	public Relation build(RA attribute) 
 	{
 		Relation xml = new Relation();
+		if(q.isSetDocumentation()) {xml.setDocumentation(BooleanComparator.active(attribute.getStatusTableDoc()));}
 		
 		if(q.isSetEntity())
 		{
@@ -51,7 +53,9 @@ public class XmlRelationFactory <L extends UtilsLang,D extends UtilsDescription,
 			else {xml.setEntity(xfEntity.build(attribute.getEntity()));}
 		}	
 		
-		if (q.isSetType()){xml.setType(xfType.build(attribute.getRelation()));}
+		if(q.isSetType()){xml.setType(xfType.build(attribute.getRelation()));}
+		
+		
 		
 		return xml;
 	}

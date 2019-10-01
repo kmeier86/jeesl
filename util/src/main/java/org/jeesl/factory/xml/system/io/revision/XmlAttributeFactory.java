@@ -82,7 +82,7 @@ public class XmlAttributeFactory <L extends UtilsLang,D extends UtilsDescription
 		if(q.isSetDescriptions()){xml.setDescriptions(xfDescriptions.create(ejb.getDescription()));}
 		if(q.isSetRemark()){xml.setRemark(XmlRemarkFactory.build(ejb.getDeveloperInfo()));}
 		
-		if(q.isSetRelation()&&ejb.getRelation()!=null){xml.setRelation(xfRelation.build(ejb));}
+		if(q.isSetRelation() && ejb.getRelation()!=null){xml.setRelation(xfRelation.build(ejb));}
 		
 		return xml;
 	}

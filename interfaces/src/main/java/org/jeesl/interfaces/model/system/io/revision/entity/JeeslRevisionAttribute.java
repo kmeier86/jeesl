@@ -70,4 +70,7 @@ public interface JeeslRevisionAttribute<L extends UtilsLang,D extends UtilsDescr
 	
 	Boolean getRelationOwner();
 	void setRelationOwner(Boolean relationOwner);
+	
+	Boolean getStatusTableDoc();
+	void setStatusTableDoc(Boolean statusTableDoc);
 }

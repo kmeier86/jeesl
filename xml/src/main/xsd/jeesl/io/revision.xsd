@@ -64,6 +64,7 @@
                 <xsd:element ref="us:type" maxOccurs="1"/>
             </xsd:sequence>
             <xsd:attribute name="owner" type="xsd:boolean"/>
+            <xsd:attribute name="documentation" type="xsd:boolean"/>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="revisions">

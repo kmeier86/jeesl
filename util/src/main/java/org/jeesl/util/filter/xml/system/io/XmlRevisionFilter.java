@@ -13,14 +13,22 @@ public class XmlRevisionFilter
 {
 	final static Logger logger = LoggerFactory.getLogger(XmlRevisionFilter.class);
 	
-	public static Entities filterDocumentation(Entities entities){filterDocumentation(entities.getEntity());return entities;}
-	public static void filterDocumentation(List<Entity> entities)
+	public static Entities filterDocumentation(Entities entities){filter(entities.getEntity(),true,null);return entities;}
+	public static Entities filter(Entities entities, Boolean documentation){filter(entities.getEntity(),documentation,null);return entities;}
+	public static Entities filter(Entities entities, Boolean documentation, Boolean visible){filter(entities.getEntity(),documentation,visible);return entities;}
+	
+	private static void filter(List<Entity> entities, Boolean documentation, Boolean visible)
 	{	
 		Iterator<Entity> i = entities.iterator();
 		while (i.hasNext())
 		{
 			Entity entity = i.next();
-	        if(BooleanComparator.inactive(entity.isDocumentation()))
+			
+			if(documentation!=null && documentation!=BooleanComparator.active(entity.isDocumentation()))
+	        {
+	        	i.remove();
+	        }
+			else if(visible!=null && visible!=BooleanComparator.active(entity.isVisible()))
 	        {
 	        	i.remove();
 	        }
