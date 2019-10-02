@@ -25,22 +25,22 @@ public class SbSingleHandler <T extends EjbWithId> implements Serializable,SbSin
 
 	private boolean debugOnInfo; public void setDebugOnInfo(boolean debugOnInfo) {this.debugOnInfo = debugOnInfo;}
 
-	private final SbSingleBean bean; 
-	private final Class<T> c;
-	
+	private final SbSingleBean bean;
+	protected final Class<T> c;
+
 	private final List<T> list; public List<T> getList() {return list;} public void setList(List<T> list) {this.list.clear();this.list.addAll(list);}
-	
+
 	private T selection; public T getSelection() {return selection;} public void setSelection(T selected) {this.selection = selected;}
 	private T previous;
-	
-	public SbSingleHandler(Class<T> c, SbSingleBean bean){this(c,new ArrayList<T>(),bean);}	
+
+	public SbSingleHandler(Class<T> c, SbSingleBean bean){this(c,new ArrayList<T>(),bean);}
 	public SbSingleHandler(Class<T> c, List<T> list, SbSingleBean bean)
 	{
 		this.c=c;
 		this.bean=bean;
 		debugOnInfo = false;
 		this.list = new ArrayList<T>();
-		
+
 		if(list==null) {list=new ArrayList<T>();}
 		update(list);
 		try
@@ -63,13 +63,13 @@ public class SbSingleHandler <T extends EjbWithId> implements Serializable,SbSin
 			else
 			{
 				if(list.contains(selection)) {selectSbSingle(selection);}
-				else{selectSbSingle(list.get(0));}	
+				else{selectSbSingle(list.get(0));}
 			}
 		}
 		catch (UtilsLockingException e) {}
 		catch (UtilsConstraintViolationException e) {}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public void selectSbSingle(EjbWithId item) throws UtilsLockingException, UtilsConstraintViolationException
@@ -92,7 +92,7 @@ public class SbSingleHandler <T extends EjbWithId> implements Serializable,SbSin
 			if(bean!=null){bean.selectSbSingle(item);}
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public <C extends EjbWithCode> void update(String code, List<C> list)
 	{
@@ -113,19 +113,19 @@ public class SbSingleHandler <T extends EjbWithId> implements Serializable,SbSin
 
 		if(selection!=null)
 		{
-			if(!this.list.contains(selection)){selection=null;}	
+			if(!this.list.contains(selection)){selection=null;}
 		}
 		if(selection==null && preferred!=null)
 		{
 			if(this.list.contains(preferred)) {selection=preferred;}
 		}
-		
+
 		if(selection==null && !this.list.isEmpty())
 		{
 			selection=this.list.get(0);
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public <E extends Enum<E>, S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription> void add(UtilsFacade fUtils, Class<S> c, E code)
 	{
@@ -139,25 +139,28 @@ public class SbSingleHandler <T extends EjbWithId> implements Serializable,SbSin
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void clear()
 	{
 		list.clear();
+		logger.info("calling clear list done");
+		logger.info("" + list.size());
 		selection = null;
+		logger.info("calling clear selection done");
 	}
-	
+
 	public boolean getHasNone(){return list.isEmpty();}
 	public boolean getHasSome(){return !list.isEmpty();}
 	public boolean getHasMore(){return list.size()>1;}
 	public boolean isSelected(){return selection!=null;}
 	public boolean getTwiceSelected() {return previous.equals(selection);}
-	
+
 	public void setDefault(T t)
 	{
 		if(list.contains(t)) {selection = t;}
 		else {setDefault();}
 	}
-	
+
 	public void setDefault()
 	{
 		selection=null;
