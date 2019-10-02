@@ -20,7 +20,7 @@ import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribu
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
 import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
-import org.jeesl.util.comparator.ejb.system.erdiagram.ErDiagramComparator;
+import org.jeesl.util.comparator.ejb.system.io.revision.RevisionDiagramComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +30,7 @@ import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
+import net.sf.ahtutils.jsf.util.PositionListReorderer;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDescription, LOC extends UtilsStatus<LOC,L,D>,
@@ -61,7 +62,7 @@ public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDes
 	public AbstractAdminErDiagramBean(final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fbRevision)
 	{
 		super(fbRevision);
-		cpDiagram = (new ErDiagramComparator<L,D,RC,ERD>()).factory(ErDiagramComparator.Type.category);
+		cpDiagram = (new RevisionDiagramComparator<L,D,RC,ERD>()).factory(RevisionDiagramComparator.Type.category);
 		efErDiagram = fbRevision.ejbDiagram();
 	}
 
@@ -134,5 +135,6 @@ public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDes
 		diagram=null;
 		dot = null;
 	}
-
+	
+	public void reorderDiagrams() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fRevision, fbRevision.getClassDiagram(), diagrams);Collections.sort(diagrams,cpDiagram);}
 }

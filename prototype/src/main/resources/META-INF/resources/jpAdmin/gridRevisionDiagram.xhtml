@@ -15,14 +15,18 @@
 			<j:row id="row1">
 				<j:slot id="sDiagrams" width="7">
 					<h:form id="fERDiagrams">
-						<p:dataTable var="erd" value="#{cc.attrs.bean.diagrams}"
+						<p:dataTable var="erd" value="#{cc.attrs.bean.diagrams}" draggableRows="true"
 								selection="#{cc.attrs.bean.diagram}" selectionMode="single" rowKey="#{erd.id}">
 							<f:facet name="header">
 								<j:dtHeader title="#{msg.jeeslRevisionDiagrams}">
 									<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addErDiagram()}" update=":#{cc.id}:grid"/>
 								</j:dtHeader>
 							</f:facet>
+							<p:ajax event="rowReorder" listener="#{cc.attrs.bean.reorderDiagrams()}" update="@form"/>
 							<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectDiagram}" update=":#{cc.id}:sDiagram :#{cc.id}:sSvg"/>
+							<p:column rendered="true">  
+								<h:outputText value="#{erd.category.position}.#{erd.position}"/>
+				            </p:column>
 				            <p:column headerText="#{msg.jeeslCategory}" >  
 								<h:outputText value="#{erd.category.name[localeCode].lang}" />  
 				            </p:column>

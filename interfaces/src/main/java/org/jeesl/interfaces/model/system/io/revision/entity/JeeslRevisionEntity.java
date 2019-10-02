@@ -28,6 +28,8 @@ public interface JeeslRevisionEntity<L extends UtilsLang, D extends UtilsDescrip
 				EjbWithCode,EjbWithPositionVisible,EjbWithParentAttributeResolver,EjbWithPositionParent,
 				EjbWithLang<L>,EjbWithDescription<D>,EjbWithRevisionAttributes<RA>
 {	
+	public enum Attributes {category}
+	
 	RC getCategory();
 	void setCategory(RC category);
 	

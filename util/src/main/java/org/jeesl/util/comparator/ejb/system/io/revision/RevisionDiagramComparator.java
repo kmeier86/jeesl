@@ -1,4 +1,4 @@
-package org.jeesl.util.comparator.ejb.system.erdiagram;
+package org.jeesl.util.comparator.ejb.system.io.revision;
 
 import java.util.Comparator;
 
@@ -11,18 +11,18 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 
-public class ErDiagramComparator<L extends UtilsLang,D extends UtilsDescription,
+public class RevisionDiagramComparator<L extends UtilsLang,D extends UtilsDescription,
 								C extends JeeslRevisionCategory<L,D,C,?>,
 								ERD extends JeeslRevisionDiagram<L,D,C>>
 {
-	final static Logger logger = LoggerFactory.getLogger(ErDiagramComparator.class);
+	final static Logger logger = LoggerFactory.getLogger(RevisionDiagramComparator.class);
 
     public enum Type {category};
 
     public Comparator<ERD> factory(Type type)
     {
         Comparator<ERD> c = null;
-        ErDiagramComparator<L,D,C,ERD> factory = new ErDiagramComparator<L,D,C,ERD>();
+        RevisionDiagramComparator<L,D,C,ERD> factory = new RevisionDiagramComparator<L,D,C,ERD>();
         switch (type)
         {
             case category: c = factory.new CategoryComparator();break;

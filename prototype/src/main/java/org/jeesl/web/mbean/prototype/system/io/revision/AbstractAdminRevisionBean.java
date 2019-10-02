@@ -23,6 +23,7 @@ import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribu
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
 import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
+import org.jeesl.util.comparator.ejb.system.io.revision.RevisionDiagramComparator;
 import org.jeesl.util.comparator.ejb.system.io.revision.RevisionEntityComparator;
 import org.jeesl.util.comparator.ejb.system.io.revision.RevisionScopeComparator;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
@@ -78,6 +79,7 @@ public abstract class AbstractAdminRevisionBean <L extends UtilsLang, D extends 
 
 	protected final Comparator<RS> comparatorScope;
 	protected final Comparator<RE> comparatorEntity;
+	protected final Comparator<ERD> cpDiagram;
 	
 	protected SbMultiHandler<RC> sbhCategory; public SbMultiHandler<RC> getSbhCategory() {return sbhCategory;}
 	
@@ -95,6 +97,7 @@ public abstract class AbstractAdminRevisionBean <L extends UtilsLang, D extends 
 		
 		comparatorEntity = (new RevisionEntityComparator<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>()).factory(RevisionEntityComparator.Type.position);
 		comparatorScope = (new RevisionScopeComparator<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>()).factory(RevisionScopeComparator.Type.position);
+		cpDiagram = (new RevisionDiagramComparator<L,D,RC,ERD>()).factory(RevisionDiagramComparator.Type.category);
 	}
 	
 	protected void initRevisionSuper(String[] langs, JeeslFacesMessageBean bMessage,
