@@ -21,7 +21,10 @@ import com.aspose.words.Document;
 import com.aspose.words.DocumentBuilder;
 import com.aspose.words.FindReplaceDirection;
 import com.aspose.words.FindReplaceOptions;
+import com.aspose.words.ParagraphFormat;
 import com.aspose.words.RowCollection;
+import com.aspose.words.Style;
+import com.aspose.words.StyleType;
 import com.aspose.words.Table;
 
 import net.sf.ahtutils.xml.status.Status;
@@ -35,6 +38,7 @@ public class EntityWordRenderer
 	private final Container relationTypes;
 	private final Entities entities;
 
+	
 	public EntityWordRenderer(Document templateDoc, Entities entities, Container categories, Container relationTypes)
 	{
 		this.entityDoc=templateDoc;	
@@ -42,7 +46,7 @@ public class EntityWordRenderer
 		this.relationTypes=relationTypes;
 		this.entities=entities;
 	}
-	
+
 	private String categoryForCode(Container c, String code)
 	{
 		for(Status s:c.getStatus()){if(s.isSetCode()&& s.getCode()!=""&&s.getCode().equals(code)){return s.getLangs().getLang().get(0).getTranslation();}}return "";
@@ -73,7 +77,7 @@ public class EntityWordRenderer
 			
 		keys.add("_CATEGORY_");replacementTags.put("_CATEGORY_", categoryForCode(categories, entity.getCategory().getCode()));
 		keys.add("_CLASS1_");replacementTags.put("_CLASS1_",	packageShrinker(entity.getCode().replace(FilenameUtils.getExtension(entity.getCode()), ""), 5));
-		logger.info(packageShrinker(entity.getCode().replace(FilenameUtils.getExtension(entity.getCode()), ""), 5));
+//		logger.info(packageShrinker(entity.getCode().replace(FilenameUtils.getExtension(entity.getCode()), ""), 5));
 		keys.add("_CLASS2_");replacementTags.put("_CLASS2_", FilenameUtils.getExtension(entity.getCode()));
 		keys.add("_DESCRIPTION_");replacementTags.put("_DESCRIPTION_", entity.getDescriptions().getDescription().get(0).getValue().toString());
 			
@@ -83,7 +87,7 @@ public class EntityWordRenderer
 		Table table = entityDoc.getSections().get(0).getBody().getTables().get(0);
 		RowCollection rows = table.getRows();
 		
-		logger.info("rows in collection: " + rows.getCount());
+//		logger.info("rows in collection: " + rows.getCount());
 		
 		for (int i=0;i<=attrbs.size()-1;i++) 
 		{							
@@ -104,7 +108,8 @@ public class EntityWordRenderer
 				{
 					if (a.getDescriptions().getDescription().get(0).getValue().toString() != "") 
 					{
-						docBuilder.write(a.getDescriptions().getDescription().get(0).getValue());
+					    
+						docBuilder.write(a.getDescriptions().getDescription().get(0).getValue().trim());
 						if (a.getRelation()!=null && a.getRelation().isSetEntity())
 						{		
 							docBuilder.getFont().setColor(Color.gray);docBuilder.getFont().setItalic(true);
