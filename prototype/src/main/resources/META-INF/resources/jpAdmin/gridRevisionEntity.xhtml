@@ -22,7 +22,7 @@
 				<aht:slot id="sCategories" width="5">
 					<h:form id="fCategories">
 						<p:dataTable var="e" value="#{cc.attrs.bean.entities}" draggableRows="true"
-							selection="#{cc.attrs.bean.entity}" selectionMode="single" rowKey="#{e.id}">
+									selection="#{cc.attrs.bean.entity}" selectionMode="single" rowKey="#{e.id}">
 							<f:facet name="header">
 								<aht:pfDataTableHeader title="#{msg.jeeslRevisionEntities}">
 									<aht:icon type="jeeslAdd" listener="#{cc.attrs.bean.addEntity()}" update=":#{cc.id}:sView :#{cc.id}:sAttributes" tooltip="#{msg.ttNew}"/>
@@ -35,6 +35,9 @@
 				            </p:column>
 				            <p:column headerText="#{msg.jeeslCategory}">  
 								<h:outputText value="#{e.category.name[userBean.localeCode].lang}"/>
+				            </p:column>
+				            <p:column rendered="true">  
+								<h:outputText value="#{e.diagram.category.position}.#{e.diagram.position}"/>
 				            </p:column>
 				            <p:column headerText="#{msg.jeeslRevisionEntity}">  
 								<h:outputText value="#{e.name[userBean.localeCode].lang}"/>

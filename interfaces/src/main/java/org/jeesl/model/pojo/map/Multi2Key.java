@@ -32,6 +32,6 @@ public class Multi2Key <K1 extends EjbWithId, K2 extends EjbWithId>
 	}
 	@Override public int hashCode()
 	{
-		return new HashCodeBuilder(17, 43).append(k1.hashCode()).append(k2.hashCode()).toHashCode();
+		return new HashCodeBuilder(17,43).append(k1.hashCode()).append(k2.hashCode()).toHashCode();
 	}
 }
