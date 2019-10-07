@@ -115,7 +115,7 @@ public class EntityWordRenderer
 							docBuilder.getFont().setColor(Color.gray);docBuilder.getFont().setItalic(true);
 							docBuilder.write("  (");
 							Entity e = RevisionXpath.getEntity(entities, a.getRelation().getEntity().getCode());
-							docBuilder.write(relationTypeForCode(relationTypes, a.getRelation().getType().getCode())+" = "+e.getLangs().getLang().get(0).getTranslation()+")");
+							docBuilder.write(relationTypeForCode(relationTypes, a.getRelation().getType().getCode())+" to "+e.getLangs().getLang().get(0).getTranslation()+")");
 							docBuilder.getFont().setColor(Color.black);docBuilder.getFont().setItalic(false);
 						}	
 					}
