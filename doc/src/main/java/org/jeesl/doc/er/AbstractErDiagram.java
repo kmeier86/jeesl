@@ -45,6 +45,7 @@ public class AbstractErDiagram
 	protected String localeCode;
 	private String dotGraph; public String getDotGraph() {return dotGraph;}
 	private Entities entities;
+	private boolean showErDiagramLabel;
 
 	private OfxMultiLangLatexWriter ofxWriter;
 	private JeeslRevisionRestImport restUpload; public void setRest(JeeslRevisionRestImport restUpload) {this.restUpload = restUpload;}
@@ -55,6 +56,7 @@ public class AbstractErDiagram
 		this.ofxWriter=ofxWriter;
 		localeCode = "en";
 		fTmp = new File(config.getString(ConfigKey.dirTmp));
+		showErDiagramLabel = true;
 		logger.info("Using Tmp: "+fTmp);
 	}
 
@@ -73,7 +75,11 @@ public class AbstractErDiagram
 		List<String> subset = new ArrayList<String>();
 		subset.add(key);
 		File fPdf = null; if(dPdf!=null){fPdf = new File(dPdf,key+".pdf");}
+
+		if(!showErDiagramLabel) {label = null;}
+
 		buildSvg("dot",label,subset,new File(fSvg,key+".svg"),fPdf);
+
 		if(upload && restUpload!=null)
 		{
 			Graph g = XmlGraphFactory.build(key);
@@ -131,5 +137,9 @@ public class AbstractErDiagram
 				create(d.getCode(),sb.toString(),upload);
 			}
 		}
+	}
+
+	public void showErDiagramLabel(boolean show) {
+		showErDiagramLabel = show;
 	}
 }
