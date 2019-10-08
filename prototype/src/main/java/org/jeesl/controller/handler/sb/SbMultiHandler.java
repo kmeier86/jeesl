@@ -163,6 +163,7 @@ public class SbMultiHandler <T extends EjbWithId> implements Serializable
 	public boolean getHasSome(){return !list.isEmpty();}
 	public boolean getHasSelected(){return hasSelected();}
 	public boolean hasSelected(){return !selected.isEmpty();}
+	public boolean getHasSelectedMore(){return selected.size()>1;}
 	public boolean allSelected(){return selected.size()==list.size();}
 
 	public void debug(boolean debug)

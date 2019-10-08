@@ -33,11 +33,11 @@
 							<p:column rendered="true">  
 								<h:outputText value="#{e.category.position}.#{e.position}"/>
 				            </p:column>
-				            <p:column headerText="#{msg.jeeslCategory}">  
+				            <p:column headerText="#{msg.jeeslCategory}" rendered="#{cc.attrs.bean.sbhCategory.hasSelectedMore}">  
 								<h:outputText value="#{e.category.name[userBean.localeCode].lang}"/>
 				            </p:column>
 				            <p:column rendered="true">  
-								<h:outputText value="#{e.diagram.category.position}.#{e.diagram.position}"/>
+								<h:outputText value="#{e.diagram.category.position}.#{e.diagram.position}" rendered="#{not empty e.diagram}"/>
 				            </p:column>
 				            <p:column headerText="#{msg.jeeslRevisionEntity}">  
 								<h:outputText value="#{e.name[userBean.localeCode].lang}"/>
@@ -46,6 +46,7 @@
 								<aup:iconCheckmark value="#{e.visible}"/>
 								<p:graphicImage style="margin-left: 5px;" name="ui/module/survey/row.svg" library="jeeslGfx" height="12" rendered="#{e.timeseries}"/>
 								<p:graphicImage style="margin-left: 5px;" name="ui/system/io/cms/books.svg" library="jeeslGfx" height="12" rendered="#{e.documentation}"/>
+								<p:graphicImage style="margin-left: 5px;" name="ui/system/io/revision/diagram.svg" library="jeeslGfx" height="12" rendered="#{not empty e.diagram}"/>
 				            </p:column>
 				       	</p:dataTable>
 					</h:form>
