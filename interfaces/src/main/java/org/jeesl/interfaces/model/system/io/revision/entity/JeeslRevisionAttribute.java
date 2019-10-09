@@ -73,4 +73,8 @@ public interface JeeslRevisionAttribute<L extends UtilsLang,D extends UtilsDescr
 	
 	Boolean getStatusTableDoc();
 	void setStatusTableDoc(Boolean statusTableDoc);
+	
+	Boolean getDocOptionsInline();
+	void setDocOptionsInline(Boolean docOptionsInline);
+	
 }

@@ -14,7 +14,7 @@ public class PositionComparator<T extends EjbWithPosition> implements Comparator
 
 	public int compare(T a, T b)
     {
-		  CompareToBuilder ctb = new CompareToBuilder();
+		  CompareToBuilder ctb = new CompareToBuilder(); 
 		  ctb.append(a.getPosition(), b.getPosition());
 		  return ctb.toComparison();
     }

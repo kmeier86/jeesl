@@ -74,7 +74,10 @@
 				<p:outputLabel value="#{msg.jeeslRevisionEntityRelationOwner}" rendered="#{not empty cc.attrs.bean.attribute.relation}"/>
 				
 				<p:selectBooleanCheckbox value="#{cc.attrs.bean.attribute.statusTableDoc}" rendered="#{not empty cc.attrs.bean.attribute.relation}"/>
-				<p:outputLabel value="#{msg.jeeslRevisionEntityStatusTableDoc}" rendered="#{not empty cc.attrs.bean.attribute.relation}"/>
+				<p:outputLabel value="#{msg.jeeslRevisionEntityDocStatusTable}" rendered="#{not empty cc.attrs.bean.attribute.relation}"/>
+				
+				<p:selectBooleanCheckbox value="#{cc.attrs.bean.attribute.docInline}" rendered="#{not empty cc.attrs.bean.attribute.relation}"/>
+				<p:outputLabel value="#{msg.jeeslRevisionEntityDocStatusInline}" rendered="#{not empty cc.attrs.bean.attribute.relation}"/>
 				
 			</p:panelGrid>
 		</p:panel>

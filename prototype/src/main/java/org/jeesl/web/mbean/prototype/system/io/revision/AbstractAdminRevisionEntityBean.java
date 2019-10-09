@@ -18,6 +18,7 @@ import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
 import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
 import org.jeesl.interfaces.web.JeeslJsfSecurityHandler;
+import org.jeesl.util.comparator.ejb.PositionParentComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,6 +72,7 @@ public class AbstractAdminRevisionEntityBean <L extends UtilsLang, D extends Uti
 		scopeTypes = fRevision.allOrderedPositionVisible(fbRevision.getClassScopeType());
 		
 		diagrams = fRevision.all(fbRevision.getClassDiagram());
+		Collections.sort(diagrams, new PositionParentComparator<ERD>(fbRevision.getClassDiagram()));
 		
 		links = fRevision.all(fbRevision.getClassEntity());
 		Collections.sort(links,comparatorEntity);

@@ -25,7 +25,8 @@ import net.sf.ahtutils.xml.status.Type;
  *         &lt;element ref="{http://ahtutils.aht-group.com/status}type"/&gt;
  *       &lt;/sequence&gt;
  *       &lt;attribute name="owner" type="{http://www.w3.org/2001/XMLSchema}boolean" /&gt;
- *       &lt;attribute name="documentation" type="{http://www.w3.org/2001/XMLSchema}boolean" /&gt;
+ *       &lt;attribute name="docOptionsTable" type="{http://www.w3.org/2001/XMLSchema}boolean" /&gt;
+ *       &lt;attribute name="docOptionsInline" type="{http://www.w3.org/2001/XMLSchema}boolean" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -50,8 +51,10 @@ public class Relation
     protected Type type;
     @XmlAttribute(name = "owner")
     protected Boolean owner;
-    @XmlAttribute(name = "documentation")
-    protected Boolean documentation;
+    @XmlAttribute(name = "docOptionsTable")
+    protected Boolean docOptionsTable;
+    @XmlAttribute(name = "docOptionsInline")
+    protected Boolean docOptionsInline;
 
     /**
      * Gets the value of the entity property.
@@ -142,35 +145,67 @@ public class Relation
     }
 
     /**
-     * Gets the value of the documentation property.
+     * Gets the value of the docOptionsTable property.
      * 
      * @return
      *     possible object is
      *     {@link Boolean }
      *     
      */
-    public boolean isDocumentation() {
-        return documentation;
+    public boolean isDocOptionsTable() {
+        return docOptionsTable;
     }
 
     /**
-     * Sets the value of the documentation property.
+     * Sets the value of the docOptionsTable property.
      * 
      * @param value
      *     allowed object is
      *     {@link Boolean }
      *     
      */
-    public void setDocumentation(boolean value) {
-        this.documentation = value;
+    public void setDocOptionsTable(boolean value) {
+        this.docOptionsTable = value;
     }
 
-    public boolean isSetDocumentation() {
-        return (this.documentation!= null);
+    public boolean isSetDocOptionsTable() {
+        return (this.docOptionsTable!= null);
     }
 
-    public void unsetDocumentation() {
-        this.documentation = null;
+    public void unsetDocOptionsTable() {
+        this.docOptionsTable = null;
+    }
+
+    /**
+     * Gets the value of the docOptionsInline property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public boolean isDocOptionsInline() {
+        return docOptionsInline;
+    }
+
+    /**
+     * Sets the value of the docOptionsInline property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setDocOptionsInline(boolean value) {
+        this.docOptionsInline = value;
+    }
+
+    public boolean isSetDocOptionsInline() {
+        return (this.docOptionsInline!= null);
+    }
+
+    public void unsetDocOptionsInline() {
+        this.docOptionsInline = null;
     }
 
 }

@@ -40,7 +40,7 @@ public class PositionListReorderer
 		{
 			T prototype = c.newInstance();
 			String attribute = prototype.resolveParentAttribute();
-			attribute = attribute.substring(0, 1).toUpperCase()+attribute.substring(1,attribute.length());
+			attribute = attribute.substring(0,1).toUpperCase()+attribute.substring(1,attribute.length());
 //			logger.info("M: "+attribute);
 			m = c.getDeclaredMethod("get"+attribute);
 //			logger.info("Method: "+m.getName());
@@ -75,7 +75,6 @@ public class PositionListReorderer
 		
 		PositionComparator<T> comparator = new PositionComparator<T>();
 		Collections.sort(list,comparator);
-		
 		
 		for(T t : list)
 		{

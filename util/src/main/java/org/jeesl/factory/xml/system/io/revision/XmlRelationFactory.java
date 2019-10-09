@@ -45,7 +45,7 @@ public class XmlRelationFactory <L extends UtilsLang,D extends UtilsDescription,
 	public Relation build(RA attribute) 
 	{
 		Relation xml = new Relation();
-		if(q.isSetDocumentation()) {xml.setDocumentation(BooleanComparator.active(attribute.getStatusTableDoc()));}
+		if(q.isSetDocOptionsTable()) {xml.setDocOptionsTable(BooleanComparator.active(attribute.getStatusTableDoc()));}
 		
 		if(q.isSetEntity())
 		{
