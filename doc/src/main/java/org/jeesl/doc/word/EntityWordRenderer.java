@@ -21,6 +21,7 @@ import com.aspose.words.DocumentBuilder;
 import com.aspose.words.FindReplaceDirection;
 import com.aspose.words.FindReplaceOptions;
 import com.aspose.words.ImportFormatMode;
+import com.aspose.words.Row;
 import com.aspose.words.RowCollection;
 import com.aspose.words.Table;
 import com.aspose.words.Underline;
@@ -31,18 +32,19 @@ public class EntityWordRenderer extends AbstactEntityWordRenderer
 {
 	final static Logger logger = LoggerFactory.getLogger(EntityWordRenderer.class);
 	
-	private final Document entityDoc,template,templateTable,tableDoc;
+	private final Document entityDoc,template,templateTable,templateTable2,tableDoc;
 	private final Container categories;
 	private final Container relationTypes;
 	private final Entities entities;
     private HashMap<String,Container> statusContainer;
 	
-	public EntityWordRenderer(Document templateDoc,Document templateTableDoc, Entities entities, Container categories, Container relationTypes)
+	public EntityWordRenderer(Document templateDoc,Document templateTableDoc, Entities entities, Container categories, Container relationTypes) throws Exception
 	{
 		this.entityDoc=templateDoc;	
 		this.template=templateDoc;
 		this.templateTable=templateTableDoc;
-	    this.tableDoc=templateTableDoc;
+		this.templateTable2=templateTableDoc;
+	    this.tableDoc= new Document();
 		this.categories=categories;
 		this.relationTypes=relationTypes;
 		this.entities=entities;
@@ -121,42 +123,43 @@ public class EntityWordRenderer extends AbstactEntityWordRenderer
 				    }	
 				    
 
-                        if (a.getRelation()!=null && a.getRelation().isDocOptionsTable())
-                        { 				        
-                            makerStatusTable=true;
-                            attrbsStatusTable.add(a);
-                            }
-
-				    if (a.getRelation() !=null && a.getRelation().isDocOptionsInline())
+				    if (a.getRelation()!=null && !a.getRelation().isSetDocOptionsTable())
 				    {
-				        for (String s : statusContainer.keySet()) 
-				        {
-				            if (s.equals(a.getCode()))
-				            {
-				                docBuilder.getFont().setUnderline(Underline.SINGLE);
-				                docBuilder.writeln("Status-Table:");
-				                docBuilder.getFont().setUnderline(Underline.NONE);
-				                for (Status status : statusContainer.get(s).getStatus())
-				                {
-				                    if (status.isSetGraphic()&&status.getGraphic().getType().getCode().equals("svg")&&status.getGraphic().getFile().getData().getValue()!=null)
-				                    {
-				                        docBuilder.write(" ");
-				                        renderStatusSvg(docBuilder,(byte[])status.getGraphic().getFile().getData().getValue());
-				                        docBuilder.write(" ");
-				                    }				                
-				                    else {docBuilder.write("   "); }
-				                    docBuilder.writeln(status.getCode()+" = "+status.getLangs().getLang().get(0).getTranslation());
-				                    if (status.isSetDescriptions() && status.getDescriptions().getDescription().get(0).getValue()!="")
-				                    {
-				                        docBuilder.getFont().setColor(Color.gray);docBuilder.getFont().setItalic(true);docBuilder.getFont().setSize(7);
-				                        docBuilder.write(" (" + status.getDescriptions().getDescription().get(0).getValue() +")");
-				                        docBuilder.getFont().setColor(Color.black);docBuilder.getFont().setItalic(false);docBuilder.getFont().setSize(9);
-				                    }
-				                    docBuilder.writeln();
-				                }
-				            }
-				        }
-				    }
+				        logger.info("table 1 ");
+				        makerStatusTable=true;
+				        attrbsStatusTable.add(a);
+				       }
+
+//				    if (a.getRelation() !=null && a.getRelation().isSetDocOptionsInline())
+//				    {
+//				        for (String s : statusContainer.keySet()) 
+//				        {
+//				            if (s.equals(a.getCode()))
+//				            {
+//				                docBuilder.getFont().setUnderline(Underline.SINGLE);
+//				                docBuilder.writeln("Status-Table:");
+//				                docBuilder.getFont().setUnderline(Underline.NONE);
+//				                for (Status status : statusContainer.get(s).getStatus())
+//				                {
+//				                    if (status.isSetGraphic()&&status.getGraphic().getType().getCode().equals("svg")&&status.getGraphic().getFile().getData().getValue()!=null)
+//				                    {
+//				                        docBuilder.write(" ");
+//				                        renderStatusSvg(docBuilder,(byte[])status.getGraphic().getFile().getData().getValue());
+//				                        docBuilder.write(" ");
+//				                    }				                
+//				                    else {docBuilder.write("   "); }
+//				                    docBuilder.writeln(status.getCode()+" = "+status.getLangs().getLang().get(0).getTranslation());
+//				                    if (status.isSetDescriptions() && status.getDescriptions().getDescription().get(0).getValue()!="")
+//				                    {
+//				                        docBuilder.getFont().setColor(Color.gray);docBuilder.getFont().setItalic(true);docBuilder.getFont().setSize(7);
+//				                        docBuilder.write(" (" + status.getDescriptions().getDescription().get(0).getValue() +")");
+//				                        docBuilder.getFont().setColor(Color.black);docBuilder.getFont().setItalic(false);docBuilder.getFont().setSize(9);
+//				                    }
+//				                    docBuilder.writeln();
+//				                }
+//				            }
+//				        }
+//				    }
 				}
 				cellHelperRow5++;
 			}
@@ -193,26 +196,24 @@ public class EntityWordRenderer extends AbstactEntityWordRenderer
         for (Attribute a : attrbsStatusTable)
         { 
             DocumentBuilder statusBuilder = new DocumentBuilder(this.templateTable);
-
-            Table statusTempTable = this.templateTable.getSections().get(0).getBody().getTables().get(0);
-            RowCollection statusTempTableRows = statusTempTable.getRows();
-
-            Table table = entityDoc.getSections().get(0).getBody().getTables().get(0);
-            RowCollection rows = table.getRows();
-
-            Cell cell = rows.get(1).getCells().get(1);cell.getLastParagraph().getRuns().clear();statusBuilder.write(entity.getLangs().getLang().get(0).getTranslation());
-            Cell cell2 = rows.get(2).getCells().get(1);cell2.getLastParagraph().getRuns().clear();statusBuilder.write(a.getCode());
+                       
+            statusBuilder.moveToCell(0, 1, 1, 0);
+            statusBuilder.getCurrentParagraph().getRuns().clear();
+            statusBuilder.write(entity.getLangs().getLang().get(0).getTranslation());
+           
+            statusBuilder.moveToCell(0, 2, 1, 0);
+            statusBuilder.getCurrentParagraph().getRuns().clear();
+            statusBuilder.write(a.getCode());
 
             int rowHelper = 0;
             for (String s : statusContainer.keySet()) 
             {
                 if (s.equals(a.getCode()))
                 {
-
-                    Cell c = rows.get(4+rowHelper).getCells().get(0);
-                    c.getLastParagraph().getRuns().clear(); statusBuilder.moveTo(c.getFirstParagraph());       
-
                     Status status = statusContainer.get(s).getStatus().get(0);
+
+                    statusBuilder.moveToCell(0, 4, 0, 0);
+                    statusBuilder.getCurrentParagraph().getRuns().clear();
 
                     if (status.isSetGraphic()&&status.getGraphic().getType().getCode().equals("svg")&&status.getGraphic().getFile().getData().getValue()!=null)
                     {
@@ -220,23 +221,30 @@ public class EntityWordRenderer extends AbstactEntityWordRenderer
                         renderStatusSvg(statusBuilder,(byte[])status.getGraphic().getFile().getData().getValue());
                         statusBuilder.write(" ");
                     }                               
-                    else {statusBuilder.write("   "); }
-                    statusBuilder.writeln(status.getCode()+" = "+status.getLangs().getLang().get(0).getTranslation());
-
-
-                    Cell c2 = rows.get(4+rowHelper).getCells().get(1);
-                    c2.getLastParagraph().getRuns().clear(); statusBuilder.moveTo(c2.getFirstParagraph());   
-
+                    else 
+                    {
+                        statusBuilder.write("   "); 
+                    }
+                    statusBuilder.writeln(status.getCode() + " = " + status.getLangs().getLang().get(0).getTranslation());
+                    
+                    statusBuilder.moveToCell(0, 4, 1, 0);
+                    statusBuilder.getCurrentParagraph().getRuns().clear();
+                    
                     if (status.isSetDescriptions()&&status.getDescriptions().getDescription().get(0).getValue()!="")
                     {
                         statusBuilder.write(status.getDescriptions().getDescription().get(0).getValue());
                     }
-                    rowHelper++; table.appendChild(statusTempTableRows.get(4).deepClone(true));
-                }
-                table.getLastRow().remove();
-            }
+                    rowHelper++; 
+                    
+                    statusBuilder.endRow();
+                    statusBuilder.insertCell();statusBuilder.insertCell();
 
-        }         builder.insertDocument(this.templateTable,ImportFormatMode.KEEP_SOURCE_FORMATTING);
+                }
+                statusBuilder.deleteRow(0, 4+rowHelper);
+             
+            }
+            builder.insertDocument(this.templateTable,ImportFormatMode.KEEP_SOURCE_FORMATTING);
+        } 
         return newDoc;
     }
 
