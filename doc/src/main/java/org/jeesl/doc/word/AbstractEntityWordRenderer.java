@@ -14,7 +14,7 @@ import com.aspose.words.WrapType;
 
 import net.sf.ahtutils.xml.status.Status;
 
-public abstract class AbstactEntityWordRenderer
+public abstract class AbstractEntityWordRenderer
 {
     protected String categoryForCode(Container c, String code)
     {
