@@ -122,11 +122,7 @@ public class EntityWordRenderer extends AbstractEntityWordRenderer
 				    }	
 				    
 
-				    if (a.getRelation()!=null && !a.getRelation().isSetDocOptionsTable())
-				    {
-				        makerStatusTable=true;
-				        attrbsStatusTable.add(a);
-				       }
+				    if (a.getRelation()!=null && a.getRelation().isSetDocOptionsTable()){makerStatusTable=true;attrbsStatusTable.add(a);}
 
 				    if (a.getRelation() !=null && a.getRelation().isSetDocOptionsInline())
 				    {
