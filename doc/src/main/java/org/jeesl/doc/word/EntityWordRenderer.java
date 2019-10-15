@@ -111,6 +111,7 @@ public class EntityWordRenderer extends AbstractEntityWordRenderer
 				}	
 				if (cellHelperRow5 == 2 && a.getDescriptions().getDescription().get(0).getValue().toString() != "")
 				{
+                    c.getParagraphs().get(0).getRuns().clear();
 				    docBuilder.writeln(a.getDescriptions().getDescription().get(0).getValue().trim());
 				    if (a.getRelation()!=null && a.getRelation().isSetEntity())
 				    {		
