@@ -1,6 +1,7 @@
 package org.jeesl.web.rest.system;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,6 +36,7 @@ import org.jeesl.model.xml.system.revision.Attribute;
 import org.jeesl.model.xml.system.revision.Diagrams;
 import org.jeesl.model.xml.system.revision.Entities;
 import org.jeesl.model.xml.system.revision.Entity;
+import org.jeesl.util.comparator.ejb.PositionParentComparator;
 import org.jeesl.util.db.JeeslStatusDbUpdater;
 import org.jeesl.util.query.xml.XmlStatusQuery;
 import org.jeesl.util.query.xml.system.io.XmlRevisionQuery;
@@ -106,15 +108,18 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 	
 	@Override public Entities exportSystemRevisionEntities()
 	{
-		Entities entities = new Entities();
+		Entities xml = new Entities();
 		
-		for(RE re : fRevision.all(fbRevision.getClassEntity()))
+		List<RE> list = fRevision.all(fbRevision.getClassEntity());
+		Collections.sort(list, new PositionParentComparator<RE>(fbRevision.getClassEntity()));
+		
+		for(RE re : list)
 		{
 			re = fRevision.load(fbRevision.getClassEntity(), re);
-			entities.getEntity().add(xfEntity.build(re));
+			xml.getEntity().add(xfEntity.build(re));
 		}
 		
-		return entities;
+		return xml;
 	}
 	
 	@Override public Diagrams exportSystemRevisionDiagrams()
