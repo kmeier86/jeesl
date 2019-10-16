@@ -46,6 +46,7 @@ public class XmlRelationFactory <L extends UtilsLang,D extends UtilsDescription,
 	{
 		Relation xml = new Relation();
 		if(q.isSetDocOptionsTable()) {xml.setDocOptionsTable(BooleanComparator.active(attribute.getStatusTableDoc()));}
+		if(q.isSetDocOptionsInline()) {xml.setDocOptionsInline(BooleanComparator.active(attribute.getDocOptionsInline()));}
 		
 		if(q.isSetEntity())
 		{

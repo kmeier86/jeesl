@@ -44,7 +44,7 @@ public abstract class AbstractJsfSecurityHandler <L extends UtilsLang, D extends
 	final static Logger logger = LoggerFactory.getLogger(AbstractJsfSecurityHandler.class);
 	public static final long serialVersionUID=1;
 
-	private SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,?,?,USER> fbSecurity;
+	private SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,AR,?,USER> fbSecurity;
 	protected JeeslSecurityFacade<L,D,C,R,V,U,A,AT,?,USER> fSecurity;
 	protected JeeslSecurityBean<L,D,C,R,V,U,A,AT,?,USER> bSecurity;
 	
@@ -68,7 +68,7 @@ public abstract class AbstractJsfSecurityHandler <L extends UtilsLang, D extends
 	
 	protected boolean debugOnInfo; public void setDebugOnInfo(boolean debugOnInfo) {this.debugOnInfo = debugOnInfo;}
 
-	public AbstractJsfSecurityHandler(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,?,?,USER> fbSecurity,
+	public AbstractJsfSecurityHandler(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,AR,?,USER> fbSecurity,
 									I identity,
 									JeeslSecurityFacade<L,D,C,R,V,U,A,AT,?,USER> fSecurity,
 									String pageCode)
@@ -100,11 +100,13 @@ public abstract class AbstractJsfSecurityHandler <L extends UtilsLang, D extends
 
 			roles = fSecurity.rolesForView(view);
 			noRoles = roles.size()==0;
+			
+			areas.addAll(fSecurity.allForParent(fbSecurity.getClassArea(),view));
 		}
 		catch (UtilsNotFoundException e) {e.printStackTrace();}
 	}
 	
-	public AbstractJsfSecurityHandler(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,?,?,USER> fbSecurity,
+	public AbstractJsfSecurityHandler(SecurityFactoryBuilder<L,D,C,R,V,U,A,AT,?,AR,?,USER> fbSecurity,
 										JeeslSecurityFacade<L,D,C,R,V,U,A,AT,?,USER> fSecurity,
 										JeeslSecurityBean<L,D,C,R,V,U,A,AT,?,USER> bSecurity,
 										I identity,

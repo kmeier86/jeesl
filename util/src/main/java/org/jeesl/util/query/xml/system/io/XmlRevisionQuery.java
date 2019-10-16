@@ -86,6 +86,7 @@ public class XmlRevisionQuery
 		Relation relation = XmlRelationFactory.build();
 		relation.setOwner(true);
 		relation.setDocOptionsTable(true);
+		relation.setDocOptionsInline(true);
 		relation.setEntity(exRelEntity());		
 		relation.setType(XmlTypeFactory.create(""));
 		xml.setRelation(relation);

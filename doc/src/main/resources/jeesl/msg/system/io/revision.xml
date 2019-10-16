@@ -85,14 +85,20 @@
     		<s:lang key="fr" translation="Relation Owner"/>
     	</s:langs>
     </s:translation>
-	<s:translation key="jeeslRevisionEntityStatusTableDoc">
+	<s:translation key="jeeslRevisionEntityDocStatusTable">
     	<s:langs>
-    		<s:lang key="de" translation="Documentation of Status Table"/>
-    		<s:lang key="en" translation="Documentation of Status Table"/>
-    		<s:lang key="fr" translation="Documentation of Status Table"/>
+    		<s:lang key="de" translation="Option Documentation in Table"/>
+    		<s:lang key="en" translation="Option Documentation in Table"/>
+    		<s:lang key="fr" translation="Option Documentation in Table"/>
     	</s:langs>
     </s:translation>    
-    
+  	<s:translation key="jeeslRevisionEntityDocStatusInline">
+    	<s:langs>
+    		<s:lang key="de" translation="Option Documentation Inline"/>
+    		<s:lang key="en" translation="Option Documentation Inline"/>
+    		<s:lang key="fr" translation="Option Documentation Inline"/>
+    	</s:langs>
+    </s:translation>   
 	<s:translation key="jeeslRevisionAttribute">
     	<s:langs>
     		<s:lang key="de" translation="Attribut"/>
@@ -183,7 +189,14 @@
     		<s:lang key="en" translation="Doc"/>
     		<s:lang key="fr" translation="Doc"/>
     	</s:langs>
-    </s:translation> 
+    </s:translation>
+    <s:translation key="jeeslRevisionEntityRelations">
+    	<s:langs>
+    		<s:lang key="de" translation="Relationen"/>
+    		<s:lang key="en" translation="Relations"/>
+    		<s:lang key="fr" translation="Relations"/>
+    	</s:langs>
+    </s:translation>
 	<s:translation key="jeeslRevisionEntityRelation">
     	<s:langs>
     		<s:lang key="de" translation="Relation"/>
