@@ -23,6 +23,9 @@ import com.aspose.words.FindReplaceOptions;
 import com.aspose.words.ImportFormatMode;
 import com.aspose.words.Paragraph;
 import com.aspose.words.RowCollection;
+import com.aspose.words.Style;
+import com.aspose.words.StyleCollection;
+import com.aspose.words.StyleType;
 import com.aspose.words.Table;
 import com.aspose.words.Underline;
 
@@ -56,6 +59,9 @@ public class EntityWordRenderer extends AbstractEntityWordRenderer
 		DocumentBuilder docBuilder = new DocumentBuilder(entityDoc);						
 		Map<String, String> replacementTags = new HashMap<String, String>();	
 		List<String> keys= new ArrayList<>();
+		
+//		StyleCollection tableStyles = entityDoc.getStyles().getByStyleIdentifier(StyleType.TABLE).getStyles();
+//		for (Style s : tableStyles) {logger.info(s.getName());}
 		
 		keys.add("_ENTITY_");replacementTags.put("_ENTITY_", entity.getLangs().getLang().get(0).getTranslation());
 		keys.add("_CATEGORY_");replacementTags.put("_CATEGORY_", categoryForCode(categories, entity.getCategory().getCode()));
@@ -102,7 +108,7 @@ public class EntityWordRenderer extends AbstractEntityWordRenderer
 				    {
 				        if (a.getType().getCode().equals("bool")) {docBuilder.write("boolean");}
 				        if (a.getType().getCode().equals("text")) {docBuilder.write("string");}
-                        if (a.getType().getCode().equals("numberInteger")) {docBuilder.write("integer");}
+                        if (a.getType().getCode().equals("numberLong")) {docBuilder.write("long");}
                         if (a.getType().getCode().equals("date")) {docBuilder.write("date");}
                         if (a.getType().getCode().equals("numberInteger")) {docBuilder.write("integer");}
                         if (a.getType().getCode().equals("long")) {docBuilder.write("long");}
