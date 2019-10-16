@@ -338,7 +338,7 @@ public class ErGraphProcessor
 				//logger.trace("--" + entry.getKey() +"--");
 				Cluster cluster  = new Cluster();
 				cluster.setCode(Integer.toString(nodeCategoryId));
-				cluster.setLabel(getCategoryLabel(entry.getKey()));
+				cluster.setLabel(entry.getKey());
 
 				for(Node n: entry.getValue()){
 					Node clusterNode= new Node();
@@ -349,11 +349,6 @@ public class ErGraphProcessor
 			}
 			nodeCategoryId++;
 		}
-	}
-
-	private String getCategoryLabel(String categoryName)
-	{
-		return categoryName.substring(0, 1).toUpperCase() + categoryName.substring(1).toLowerCase();
 	}
 
 	public void groupNode(Node node)
