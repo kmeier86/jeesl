@@ -21,6 +21,7 @@ import com.aspose.words.DocumentBuilder;
 import com.aspose.words.FindReplaceDirection;
 import com.aspose.words.FindReplaceOptions;
 import com.aspose.words.ImportFormatMode;
+import com.aspose.words.Paragraph;
 import com.aspose.words.RowCollection;
 import com.aspose.words.Table;
 import com.aspose.words.Underline;
@@ -93,7 +94,7 @@ public class EntityWordRenderer extends AbstractEntityWordRenderer
 			{
 				c.getLastParagraph().getRuns().clear();
 				docBuilder.moveTo(c.getFirstParagraph());				
-				if (cellHelperRow5==0){docBuilder.write(a.getCode());}
+				if (cellHelperRow5==0){c.getParagraphs().get(0).getRuns().clear();docBuilder.write(a.getCode());}
 				if (cellHelperRow5==1) 
 				{
 				    if (a.getRelation()!=null && a.getRelation().isSetEntity()){docBuilder.write(relationTypeForCode(relationTypes, a.getRelation().getType().getCode()));}
@@ -111,17 +112,16 @@ public class EntityWordRenderer extends AbstractEntityWordRenderer
 				}	
 				if (cellHelperRow5 == 2 && a.getDescriptions().getDescription().get(0).getValue().toString() != "")
 				{
-                    c.getParagraphs().get(0).getRuns().clear();
-				    docBuilder.writeln(a.getDescriptions().getDescription().get(0).getValue().trim());
+                    logger.info("paragraphs count: " + c.getParagraphs().getCount());
+				    docBuilder.write(a.getDescriptions().getDescription().get(0).getValue().trim());
 				    if (a.getRelation()!=null && a.getRelation().isSetEntity())
 				    {		
+				        docBuilder.writeln();
 				        Entity e = RevisionXpath.getEntity(entities, a.getRelation().getEntity().getCode());
 				        docBuilder.getFont().setColor(Color.gray);docBuilder.getFont().setItalic(true);
 				        docBuilder.write("("+relationTypeForCode(relationTypes, a.getRelation().getType().getCode())+" to "+e.getLangs().getLang().get(0).getTranslation()+")");
 				        docBuilder.getFont().setColor(Color.black);docBuilder.getFont().setItalic(false);
-				        docBuilder.writeln();
 				    }	
-				    
 
 				    if (a.getRelation()!=null && a.getRelation().isSetDocOptionsTable()){makerStatusTable=true;attrbsStatusTable.add(a);}
 
@@ -150,7 +150,7 @@ public class EntityWordRenderer extends AbstractEntityWordRenderer
 				                        docBuilder.write(" (" + status.getDescriptions().getDescription().get(0).getValue() +")");
 				                        docBuilder.getFont().setColor(Color.black);docBuilder.getFont().setItalic(false);docBuilder.getFont().setSize(9);
 				                    }
-				                    docBuilder.writeln();
+//				                    docBuilder.writeln();
 				                }
 				            }
 				        }
@@ -162,10 +162,10 @@ public class EntityWordRenderer extends AbstractEntityWordRenderer
 			int cellHelperRow6=0;
 			for (Cell c : rows.get(6+rowHelper).getCells())
 			{
-				c.getLastParagraph().getRuns().clear();docBuilder.moveTo(c.getFirstParagraph());
+			    c.getParagraphs().get(0).getRuns().clear();;docBuilder.moveTo(c.getFirstParagraph());
 				if (cellHelperRow6==0)
 				{
-				    docBuilder.writeln(a.getLangs().getLang().get(0).getTranslation().toString());
+				    docBuilder.write(a.getLangs().getLang().get(0).getTranslation().toString());
 				}
 				cellHelperRow6++;
 			}
