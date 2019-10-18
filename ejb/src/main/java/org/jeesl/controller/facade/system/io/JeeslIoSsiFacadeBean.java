@@ -20,6 +20,7 @@ import org.jeesl.api.facade.io.JeeslIoSsiFacade;
 import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
 import org.jeesl.factory.json.db.tuple.t1.Json1TuplesFactory;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiAttribute;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiData;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiMapping;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
@@ -37,19 +38,20 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 public class JeeslIoSsiFacadeBean<L extends UtilsLang,D extends UtilsDescription,
 									SYSTEM extends JeeslIoSsiSystem,
 									MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
+									ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,
 									DATA extends JeeslIoSsiData<MAPPING,LINK>,
 									LINK extends UtilsStatus<LINK,L,D>,
 									ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>>
 					extends UtilsFacadeBean
-					implements JeeslIoSsiFacade<L,D,SYSTEM,MAPPING,DATA,LINK,ENTITY>
+					implements JeeslIoSsiFacade<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY>
 {	
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(JeeslIoSsiFacadeBean.class);
 		
-	private final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,DATA,LINK,ENTITY> fbSsi;
+	private final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fbSsi;
 	
 	
-	public JeeslIoSsiFacadeBean(EntityManager em, IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,DATA,LINK,ENTITY> fbSsi)
+	public JeeslIoSsiFacadeBean(EntityManager em, IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fbSsi)
 	{
 		super(em);
 		this.fbSsi = fbSsi;

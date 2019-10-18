@@ -3,6 +3,7 @@ package org.jeesl.api.facade.io;
 import java.util.List;
 
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiAttribute;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiData;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiMapping;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
@@ -18,6 +19,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 public interface JeeslIoSsiFacade <L extends UtilsLang,D extends UtilsDescription,
 									SYSTEM extends JeeslIoSsiSystem,
 									MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
+									ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,
 									DATA extends JeeslIoSsiData<MAPPING,LINK>,
 									LINK extends UtilsStatus<LINK,L,D>,
 									ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>

@@ -6,6 +6,7 @@ import org.jeesl.api.facade.io.JeeslIoSsiFacade;
 import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.ssi.EjbIoSsiDataFactory;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiAttribute;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiData;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiLink;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiMapping;
@@ -23,6 +24,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 public class AbstractSsiDomainProcessor<L extends UtilsLang,D extends UtilsDescription,
 										SYSTEM extends JeeslIoSsiSystem,
 										MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
+										ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,
 										DATA extends JeeslIoSsiData<MAPPING,LINK>,
 										LINK extends UtilsStatus<LINK,L,D>,
 										ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>
@@ -30,8 +32,8 @@ public class AbstractSsiDomainProcessor<L extends UtilsLang,D extends UtilsDescr
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractSsiDomainProcessor.class);
 	
-	protected final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,DATA,LINK,ENTITY> fbSsi;
-	protected final JeeslIoSsiFacade<L,D,SYSTEM,MAPPING,DATA,LINK,ENTITY> fSsi;
+	protected final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fbSsi;
+	protected final JeeslIoSsiFacade<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fSsi;
 	
 	protected final EjbIoSsiDataFactory<MAPPING,DATA,LINK> efData;
 	
@@ -43,8 +45,8 @@ public class AbstractSsiDomainProcessor<L extends UtilsLang,D extends UtilsDescr
 	
 	protected MAPPING mapping; public MAPPING getMapping() {return mapping;}
 
-	public AbstractSsiDomainProcessor(IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,DATA,LINK,ENTITY> fbSsi,
-									JeeslIoSsiFacade<L,D,SYSTEM,MAPPING,DATA,LINK,ENTITY> fSsi)
+	public AbstractSsiDomainProcessor(IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fbSsi,
+									JeeslIoSsiFacade<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fSsi)
 	{
 		this.fSsi=fSsi;
 		this.fbSsi=fbSsi;

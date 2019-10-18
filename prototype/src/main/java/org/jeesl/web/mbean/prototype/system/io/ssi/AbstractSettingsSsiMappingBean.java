@@ -8,6 +8,7 @@ import org.jeesl.api.facade.io.JeeslIoSsiFacade;
 import org.jeesl.controller.handler.tuple.JsonTuple1Handler;
 import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiAttribute;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiData;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiMapping;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
@@ -24,6 +25,7 @@ import net.sf.exlp.util.io.JsonUtil;
 public class AbstractSettingsSsiMappingBean <L extends UtilsLang,D extends UtilsDescription,
 										SYSTEM extends JeeslIoSsiSystem,
 										MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
+										ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,
 										DATA extends JeeslIoSsiData<MAPPING,LINK>,
 										LINK extends UtilsStatus<LINK,L,D>,
 										ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>>
@@ -32,8 +34,8 @@ public class AbstractSettingsSsiMappingBean <L extends UtilsLang,D extends Utils
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractSettingsSsiMappingBean.class);
 	
-	private final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,DATA,LINK,ENTITY> fbSsi;
-	private JeeslIoSsiFacade<L,D,SYSTEM,MAPPING,DATA,LINK,ENTITY> fSsi;
+	private final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fbSsi;
+	private JeeslIoSsiFacade<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fSsi;
 	
 	private final JsonTuple1Handler<MAPPING> th; public JsonTuple1Handler<MAPPING> getTh() {return th;}
 	
@@ -41,14 +43,14 @@ public class AbstractSettingsSsiMappingBean <L extends UtilsLang,D extends Utils
 
 	private MAPPING mapping; public MAPPING getMapping() {return mapping;} public void setMapping(MAPPING mapping) {this.mapping = mapping;}
 
-	public AbstractSettingsSsiMappingBean(final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,DATA,LINK,ENTITY> fbSsi)
+	public AbstractSettingsSsiMappingBean(final IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fbSsi)
 	{
 		this.fbSsi=fbSsi;
 		mappings = new ArrayList<MAPPING>();
 		th = new JsonTuple1Handler<MAPPING>(fbSsi.getClassMapping());
 	}
 
-	public void postConstructSsiMapping(JeeslIoSsiFacade<L,D,SYSTEM,MAPPING,DATA,LINK,ENTITY> fSsi)
+	public void postConstructSsiMapping(JeeslIoSsiFacade<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fSsi)
 	{
 		this.fSsi=fSsi;
 		reload();

@@ -4,6 +4,7 @@ import org.jeesl.factory.builder.AbstractFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.ssi.EjbIoSsiDataFactory;
 import org.jeesl.factory.ejb.system.io.ssi.EjbIoSsiSystemFactory;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiAttribute;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiData;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiMapping;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
@@ -17,6 +18,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 public class IoSsiFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 								SYSTEM extends JeeslIoSsiSystem,
 								MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
+								ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,
 								DATA extends JeeslIoSsiData<MAPPING,LINK>,
 								LINK extends UtilsStatus<LINK,L,D>,
 								ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>>
