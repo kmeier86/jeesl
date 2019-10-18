@@ -115,6 +115,7 @@ public class SbSingleHandler <T extends EjbWithId> implements Serializable,SbSin
 		{
 			if(!this.list.contains(selection)){selection=null;}
 		}
+		
 		if(selection==null && preferred!=null)
 		{
 			if(this.list.contains(preferred)) {selection=preferred;}
