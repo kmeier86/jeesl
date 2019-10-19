@@ -108,4 +108,21 @@
     		<s:lang key="fr" translation="The selection will be importiert."/>
     	</s:langs>
     </s:translation>
+    
+    
+    <s:translation key="jeeslIoSsiAttributeLocalCode">
+    	<s:langs>
+    		<s:lang key="de" translation="Lokaler Code"/>
+    		<s:lang key="en" translation="Local Code"/>
+    		<s:lang key="fr" translation="Local Code"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslIoSsiAttributeRemoteCode">
+    	<s:langs>
+    		<s:lang key="de" translation="Entfernter Code"/>
+    		<s:lang key="en" translation="Remote Code"/>
+    		<s:lang key="fr" translation="Remote Code"/>
+    	</s:langs>
+    </s:translation>
+    
 </s:translations>
