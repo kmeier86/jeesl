@@ -43,6 +43,17 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
     		return create(description.getKey(),description.getValue());
 	}
     
+	public D build(String key, String value)
+	{
+		D d = null;
+		try {
+			d = create(key,value);
+		} catch (UtilsConstraintViolationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return d;
+	}
 	public D create(String key, String value) throws UtilsConstraintViolationException
 	{
 		if(key==null){throw new UtilsConstraintViolationException("Key not set");}
@@ -54,9 +65,16 @@ public class EjbDescriptionFactory<D extends UtilsDescription>
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}
-	    	d.setLang(value);
-	    	d.setLkey(key);
-	    	return d;
+    	d.setLang(value);
+    	d.setLkey(key);
+    	return d;
+	}
+	
+	public Map<String,D> build(D description) 
+	{
+		Map<String,D> map = new HashMap<String,D>();
+		map.put(description.getLkey(),description);
+		return map;
 	}
 	
 	public Map<String,D> create(Descriptions descriptions) throws UtilsConstraintViolationException

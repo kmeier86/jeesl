@@ -1,6 +1,7 @@
 package org.jeesl.model.json.ssi.acled;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -8,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 @JsonRootName(value="response")
-public class JsonIncident implements Serializable
+public class JsonAcledIncident implements Serializable
 {
 	public static final long serialVersionUID=1;
 
@@ -38,9 +39,34 @@ public class JsonIncident implements Serializable
 	public void setDescription(String description) {this.description = description;}
 	
 	@JsonProperty("country")
-	private JsonCountry country;
-	public JsonCountry getCountry() {return country;}
-	public void setCountry(JsonCountry country) {this.country = country;}
+	private JsonAcledCountry country;
+	public JsonAcledCountry getCountry() {return country;}
+	public void setCountry(JsonAcledCountry country) {this.country = country;}
+	
+	@JsonProperty("date")
+	private Date date;
+	public Date getDate() {return date;}
+	public void setDate(Date date) {this.date = date;}
+	
+	@JsonProperty("latitude")
+	private Double latitude;
+	public Double getLatitude() {return latitude;}
+	public void setLatitude(Double latitude) {this.latitude = latitude;}
+
+	@JsonProperty("longitude")
+	private Double longitude;
+	public Double getLongitude() {return longitude;}
+	public void setLongitude(Double longitude) {this.longitude = longitude;}
+	
+	@JsonProperty("actor1")
+	private JsonAcledActor actor1;
+	public JsonAcledActor getActor1() {return actor1;}
+	public void setActor1(JsonAcledActor actor1) {this.actor1 = actor1;}
+	
+	@JsonProperty("actor2")
+	private JsonAcledActor actor2;
+	public JsonAcledActor getActor2() {return actor2;}
+	public void setActor2(JsonAcledActor actor2) {this.actor2 = actor2;}
 	
 	@Override public String toString()
 	{

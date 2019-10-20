@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 @JsonRootName(value="response")
-public class JsonCountry implements Serializable
+public class JsonAcledCountry implements Serializable
 {
 	public static final long serialVersionUID=1;
 

@@ -1,7 +1,7 @@
 package org.jeesl.factory.json.extern.aceld;
 
 import org.jeesl.model.json.ssi.acled.JsonAcledData;
-import org.jeesl.model.json.ssi.acled.JsonCountry;
+import org.jeesl.model.json.ssi.acled.JsonAcledCountry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,11 +9,11 @@ public class JsonCountryFactory
 {
 	final static Logger logger = LoggerFactory.getLogger(JsonCountryFactory.class);
 
-	public static JsonCountry build() {return new JsonCountry();}
+	public static JsonAcledCountry build() {return new JsonAcledCountry();}
 		
-    public static JsonCountry build(JsonAcledData data)
+    public static JsonAcledCountry build(JsonAcledData data)
     {
-    	JsonCountry json = build();
+    	JsonAcledCountry json = build();
     	json.setId(Long.valueOf(data.getIso()));
     	json.setName(data.getCountry());
     	json.setEvents(data.getCount());
@@ -21,7 +21,7 @@ public class JsonCountryFactory
     	return json;
     }
     
-    public static String toSsiCode(JsonCountry json)
+    public static String toSsiCode(JsonAcledCountry json)
     {
     	return json.getIso3();
     }

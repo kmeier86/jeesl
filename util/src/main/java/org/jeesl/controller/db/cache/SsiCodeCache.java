@@ -1,4 +1,4 @@
-package org.jeesl.util.db.cache;
+package org.jeesl.controller.db.cache;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,12 +35,15 @@ public class SsiCodeCache <MAPPING extends JeeslIoSsiMapping<?,ENTITY>,
 		
 		for(ATTRIBUTE a : fSsi.all(fbSsi.getClassAttribute()))
 		{
-			try
+			if(a.getEntity().getCode().equals(cT.getName()))
 			{
-				T t = fSsi.fByCode(cT, a.getLocalCode());
-				map.put(a.getRemoteCode(),t);
+				try
+				{
+					T t = fSsi.fByCode(cT, a.getLocalCode());
+					map.put(a.getRemoteCode(),t);
+				}
+				catch (UtilsNotFoundException e) {e.printStackTrace();}
 			}
-			catch (UtilsNotFoundException e) {e.printStackTrace();}
 		}
 	}
 	

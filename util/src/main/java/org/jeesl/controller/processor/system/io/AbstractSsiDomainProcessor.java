@@ -5,6 +5,7 @@ import java.util.List;
 import org.jeesl.api.facade.io.JeeslIoSsiFacade;
 import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.ssi.EjbIoSsiDataFactory;
+import org.jeesl.interfaces.controller.processor.SsiMappingProcessor;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiAttribute;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiData;
@@ -21,7 +22,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
-public class AbstractSsiDomainProcessor<L extends UtilsLang,D extends UtilsDescription,
+public abstract class AbstractSsiDomainProcessor<L extends UtilsLang,D extends UtilsDescription,
 										SYSTEM extends JeeslIoSsiSystem,
 										MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
 										ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,
@@ -29,6 +30,7 @@ public class AbstractSsiDomainProcessor<L extends UtilsLang,D extends UtilsDescr
 										LINK extends UtilsStatus<LINK,L,D>,
 										ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>
 										>
+						implements SsiMappingProcessor<MAPPING,DATA>
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractSsiDomainProcessor.class);
 	
@@ -43,7 +45,7 @@ public class AbstractSsiDomainProcessor<L extends UtilsLang,D extends UtilsDescr
 	protected LINK linkLinked; public LINK getLinkLinked() {return linkLinked;}
 	protected LINK linkIgnore; public LINK getLinkIgnore() {return linkIgnore;}
 	
-	protected MAPPING mapping; public MAPPING getMapping() {return mapping;}
+	protected MAPPING mapping; @Override public MAPPING getMapping() {return mapping;}
 
 	public AbstractSsiDomainProcessor(IoSsiFactoryBuilder<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fbSsi,
 									JeeslIoSsiFacade<L,D,SYSTEM,MAPPING,ATTRIBUTE,DATA,LINK,ENTITY> fSsi)
@@ -63,7 +65,7 @@ public class AbstractSsiDomainProcessor<L extends UtilsLang,D extends UtilsDescr
 		linkIgnore = fSsi.fByCode(fbSsi.getClassLink(),JeeslIoSsiLink.Code.ignore);
 	}
 	
-	public void ignoreSelection(List<DATA> datas)
+	@Override public void ignoreData(List<DATA> datas)
 	{
 		for(DATA d : datas)
 		{

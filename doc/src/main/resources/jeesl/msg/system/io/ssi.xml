@@ -66,6 +66,13 @@
     	</s:langs>
     </s:translation>
     
+    <s:translation key="jeeslIoSsiButtons">
+    	<s:langs>
+    		<s:lang key="de" translation="Importvorgänge"/>
+    		<s:lang key="en" translation="Import Actions"/>
+    		<s:lang key="fr" translation="Import Actions"/>
+    	</s:langs>
+    </s:translation>
     <s:translation key="jeeslIoSsiBtnEvaluate">
     	<s:langs>
     		<s:lang key="de" translation="Prüfen"/>
@@ -103,9 +110,9 @@
     </s:translation>
     <s:translation key="jeeslIoSsiBtnImportDescription">
     	<s:langs>
-    		<s:lang key="de" translation="Die Auswahl wird importiert."/>
-    		<s:lang key="en" translation="The selection will be importiert."/>
-    		<s:lang key="fr" translation="The selection will be importiert."/>
+    		<s:lang key="de" translation="Die Auswahl wird importiert oder veknüpft."/>
+    		<s:lang key="en" translation="The selection will be imported or linked."/>
+    		<s:lang key="fr" translation="The selection will be imported or linked."/>
     	</s:langs>
     </s:translation>
     

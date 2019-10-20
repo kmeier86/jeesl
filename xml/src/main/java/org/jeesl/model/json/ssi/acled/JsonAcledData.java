@@ -57,6 +57,47 @@ public class JsonAcledData implements Serializable
 	public int getCount() {return count;}
 	public void setCount(int count) {this.count = count;}
 	
+	@JsonProperty("event_date")
+	private String date;
+	public String getDate() {return date;}
+	public void setDate(String date) {this.date = date;}
+	
+	@JsonProperty("latitude")
+	private Double latitude;
+	public Double getLatitude() {return latitude;}
+	public void setLatitude(Double latitude) {this.latitude = latitude;}
+
+	@JsonProperty("longitude")
+	private Double longitude;
+	public Double getLongitude() {return longitude;}
+	public void setLongitude(Double longitude) {this.longitude = longitude;}
+	
+	
+	@JsonProperty("actor_type_id")
+	private int actorTypeCode;
+	public int getActorTypeCode() {return actorTypeCode;}
+	public void setActorTypeCode(int actorTypeCode) {this.actorTypeCode = actorTypeCode;}
+
+	@JsonProperty("actor_type_name")
+	private String actorTypeName;
+	public String getActorTypeName() {return actorTypeName;}
+	public void setActorTypeName(String actorTypeName) {this.actorTypeName = actorTypeName;}
+
+	@JsonProperty("actor_name")
+	private String actor;
+	public String getActor() {return actor;}
+	public void setActor(String actor) {this.actor = actor;}
+	
+	@JsonProperty("actor1")
+	private String actor1;
+	public String getActor1() {return actor1;}
+	public void setActor1(String actor1) {this.actor1 = actor1;}
+	
+	@JsonProperty("actor2")
+	private String actor2;
+	public String getActor2() {return actor2;}
+	public void setActor2(String actor2) {this.actor2 = actor2;}
+	
 	@Override public String toString()
 	{
 		StringBuffer sb = new StringBuffer();	

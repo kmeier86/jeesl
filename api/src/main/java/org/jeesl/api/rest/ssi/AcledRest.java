@@ -29,4 +29,12 @@ public interface AcledRest
     @GET @Path("/country/read")
 	@Produces(MediaType.APPLICATION_JSON)
     JsonAcledResponse countries(@QueryParam("terms") String terms, @QueryParam("iso3") String iso3Filter);
+    
+    @GET @Path("/actor/read")
+	@Produces(MediaType.APPLICATION_JSON)
+    JsonAcledResponse actors(@QueryParam("terms") String terms, @QueryParam("limit") int limit);
+    
+    @GET @Path("/actortype/read")
+	@Produces(MediaType.APPLICATION_JSON)
+    JsonAcledResponse actorType(@QueryParam("terms") String terms);
 }

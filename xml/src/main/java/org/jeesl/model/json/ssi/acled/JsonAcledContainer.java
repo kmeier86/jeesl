@@ -14,14 +14,14 @@ public class JsonAcledContainer implements Serializable
 	public static final long serialVersionUID=1;
 
 	@JsonProperty("incidents")
-	private List<JsonIncident> incidents;
-	public List<JsonIncident> getIncidents() {return incidents;}
-	public void setIncidents(List<JsonIncident> incidents) {this.incidents = incidents;}
+	private List<JsonAcledIncident> incidents;
+	public List<JsonAcledIncident> getIncidents() {return incidents;}
+	public void setIncidents(List<JsonAcledIncident> incidents) {this.incidents = incidents;}
 	
 	@JsonProperty("countries")
-	private List<JsonCountry> countries;
-	public List<JsonCountry> getCountries() {return countries;}
-	public void setCountries(List<JsonCountry> countries) {this.countries = countries;}
+	private List<JsonAcledCountry> countries;
+	public List<JsonAcledCountry> getCountries() {return countries;}
+	public void setCountries(List<JsonAcledCountry> countries) {this.countries = countries;}
 	
 	@Override public String toString()
 	{
