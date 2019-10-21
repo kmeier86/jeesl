@@ -8,17 +8,17 @@ import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiData;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiLink;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiMapping;
-import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
+import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class SsiCache <MAPPING extends JeeslIoSsiMapping<?,?>,
 							DATA extends JeeslIoSsiData<MAPPING,LINK>,
 							LINK extends UtilsStatus<LINK,?,?>,
-							T extends EjbWithCode>
+							T extends EjbWithId>
 {
 	final static Logger logger = LoggerFactory.getLogger(SsiCache.class);
 

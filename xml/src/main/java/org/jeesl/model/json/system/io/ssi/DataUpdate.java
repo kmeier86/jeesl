@@ -2,9 +2,11 @@ package org.jeesl.model.json.system.io.ssi;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+@JsonIgnoreProperties(ignoreUnknown=true)
 @JsonRootName(value="dataUpdate")
 public class DataUpdate implements Serializable
 {

@@ -23,6 +23,11 @@ public class JsonAcledContainer implements Serializable
 	public List<JsonAcledCountry> getCountries() {return countries;}
 	public void setCountries(List<JsonAcledCountry> countries) {this.countries = countries;}
 	
+	@JsonProperty("actors")
+	private List<JsonAcledActor> actors;
+	public List<JsonAcledActor> getActors() {return actors;}
+	public void setActors(List<JsonAcledActor> actors) {this.actors = actors;}
+	
 	@Override public String toString()
 	{
 		StringBuffer sb = new StringBuffer();	

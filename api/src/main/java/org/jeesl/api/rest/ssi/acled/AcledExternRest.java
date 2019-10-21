@@ -1,4 +1,4 @@
-package org.jeesl.api.rest.ssi;
+package org.jeesl.api.rest.ssi.acled;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -8,7 +8,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.jeesl.model.json.ssi.acled.JsonAcledResponse;
 
-public interface AcledRest
+public interface AcledExternRest
 {				
     @GET @Path("/acled/read")
 	@Produces(MediaType.TEXT_PLAIN)
@@ -20,7 +20,7 @@ public interface AcledRest
     
     @GET @Path("/acled/read")
 	@Produces(MediaType.APPLICATION_JSON)
-    JsonAcledResponse readByCountry(@QueryParam("terms") String terms, @QueryParam("limit") int limit, @QueryParam("iso") Long iso);
+    JsonAcledResponse readByCountry(@QueryParam("terms") String terms, @QueryParam("limit") int limit, @QueryParam("page") int p, @QueryParam("iso") Long iso);
     
     @GET @Path("/country/read")
 	@Produces(MediaType.APPLICATION_JSON)
