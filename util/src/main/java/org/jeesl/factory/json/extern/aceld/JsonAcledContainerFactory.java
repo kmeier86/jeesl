@@ -12,6 +12,7 @@ import org.jeesl.model.json.ssi.acled.JsonAcledCountry;
 import org.jeesl.model.json.ssi.acled.JsonAcledData;
 import org.jeesl.model.json.ssi.acled.JsonAcledIncident;
 import org.jeesl.model.json.ssi.acled.JsonAcledResponse;
+import org.jeesl.model.json.ssi.acled.JsonAcledSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,34 +43,43 @@ public class JsonAcledContainerFactory
     	return container;
     }
     
-    public JsonAcledContainer incidents(JsonAcledCountry country)
+    public JsonAcledContainer incidents(JsonAcledCountry country) {return incidents(country,null);}
+    public JsonAcledContainer incidents(JsonAcledCountry country, Integer limit)
     {
     	Map<String,JsonAcledActor> mapActors = new HashMap<>();
+    	Map<String,JsonAcledSource> mapSources = new HashMap<>();
     	
     	JsonAcledContainer container = build();
     	container.setIncidents(new ArrayList<JsonAcledIncident>());
     	
     	boolean hasResults = true;
     	int page=1;
+    	int fetchSize = 100;
+    	if(limit!=null && limit<fetchSize) {fetchSize=limit;}
     	
     	while(hasResults)
     	{
-    		logger.info("Country:"+country.getName()+" Page "+page);
-    		JsonAcledResponse response = rest.readByCountry("accept",100,page,country.getId());
+    		logger.info("Country:"+country.getName()+" Page "+page+" limit:"+fetchSize);
+    		JsonAcledResponse response = rest.readByCountry("accept",fetchSize,page,country.getId());
         	for(JsonAcledData data : response.getData())
         	{
         		JsonAcledIncident incident = JsonIncidentFactory.build(data);
         		incident.setCountry(country);
         		if(incident.getActor1()!=null && !mapActors.containsKey(incident.getActor1().getName())) {mapActors.put(incident.getActor1().getName(), JsonActorFactory.build(incident.getActor1().getName()));}
         		if(incident.getActor2()!=null && !mapActors.containsKey(incident.getActor2().getName())) {mapActors.put(incident.getActor2().getName(), JsonActorFactory.build(incident.getActor2().getName()));}
+        		
+        		if(!mapSources.containsKey(incident.getSource().getName())) {mapSources.put(incident.getSource().getName(), JsonSourceFactory.build(incident.getSource().getName()));}
+        		
         		container.getIncidents().add(incident);
+        		if(limit!=null && container.getIncidents().size()==limit) {hasResults=false; break;}
         	}
         	hasResults = !response.getData().isEmpty();
+        	if(limit!=null && container.getIncidents().size()==limit) {hasResults=false;}
         	page++;
     	}
     	
     	container.setActors(new ArrayList<>(mapActors.values()));
-    	
+    	container.setSources(new ArrayList<>(mapSources.values()));
     	return container;
     }
 }

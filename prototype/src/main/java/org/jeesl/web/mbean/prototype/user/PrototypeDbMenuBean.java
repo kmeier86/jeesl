@@ -200,16 +200,16 @@ public class PrototypeDbMenuBean implements Serializable
 				mapSub.put(code,mf.subMenu(m,code));
 			}
 //			JaxbUtil.info(mapSub.get(code));
-			if(debugOnInfo && logger.isInfoEnabled()){logger.info(AbstractLogMessage.time("Submenu creation for "+code,ptt));}
+			if(debugOnInfo){logger.info(AbstractLogMessage.time("Submenu creation for "+code,ptt));}
 		}
-		if(debugOnInfo && logger.isInfoEnabled()){JaxbUtil.info(mapSub.get(code));}
+		if(debugOnInfo){JaxbUtil.info(mapSub.get(code));}
 		return mapSub.get(code);
 	}
 	
-	public void userLoggedIn(Map<String, Boolean> allowedViews)
+	public void userLoggedIn(Map<String,Boolean> allowedViews)
 	{
 		this.clear(localeCode,true);
-		if(debugOnInfo && logger.isInfoEnabled()){logger.info("User Logged In: "+allowedViews.size());}
+		if(debugOnInfo){logger.info("User Logged In: "+allowedViews.size());}
 		mapViewAllowed = allowedViews;
 	}
 	

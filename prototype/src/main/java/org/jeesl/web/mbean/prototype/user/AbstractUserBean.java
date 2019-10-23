@@ -44,7 +44,7 @@ public abstract class AbstractUserBean <L extends UtilsLang, D extends UtilsDesc
 	private JeeslMenuBean<L,D,R,V,U,A,?,USER,I> bMenu;
 	
 	protected USER user;
-	protected JeeslIdentity<R,V,U,A,USER> identity;
+	protected I identity;
 	
 	protected String ipAddress;
 	protected String sessionId;

@@ -28,6 +28,11 @@ public class JsonAcledContainer implements Serializable
 	public List<JsonAcledActor> getActors() {return actors;}
 	public void setActors(List<JsonAcledActor> actors) {this.actors = actors;}
 	
+	@JsonProperty("sources")
+	private List<JsonAcledSource> sources;
+	public List<JsonAcledSource> getSources() {return sources;}
+	public void setSources(List<JsonAcledSource> sources) {this.sources = sources;}
+	
 	@Override public String toString()
 	{
 		StringBuffer sb = new StringBuffer();	

@@ -51,6 +51,11 @@ public class JsonAcledData implements Serializable
 	private String country;
 	public String getCountry() {return country;}
 	public void setCountry(String country) {this.country = country;}
+	
+	@JsonProperty("admin1")
+	private String admin1;
+	public String getAdmin1() {return admin1;}
+	public void setAdmin1(String admin1) {this.admin1 = admin1;}
 
 	@JsonProperty("event_count")
 	private int count;
@@ -97,6 +102,11 @@ public class JsonAcledData implements Serializable
 	private String actor2;
 	public String getActor2() {return actor2;}
 	public void setActor2(String actor2) {this.actor2 = actor2;}
+	
+	@JsonProperty("source")
+	private String source;
+	public String getSource() {return source;}
+	public void setSource(String source) {this.source = source;}
 	
 	@Override public String toString()
 	{

@@ -68,6 +68,11 @@ public class JsonAcledIncident implements Serializable
 	public JsonAcledActor getActor2() {return actor2;}
 	public void setActor2(JsonAcledActor actor2) {this.actor2 = actor2;}
 	
+	@JsonProperty("source")
+	private JsonAcledSource source;
+	public JsonAcledSource getSource() {return source;}
+	public void setSource(JsonAcledSource source) {this.source = source;}
+	
 	@Override public String toString()
 	{
 		StringBuffer sb = new StringBuffer();	
