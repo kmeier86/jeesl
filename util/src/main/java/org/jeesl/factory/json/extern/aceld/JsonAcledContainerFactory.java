@@ -28,6 +28,7 @@ public class JsonAcledContainerFactory
 	}
 	
 	public static JsonAcledContainer build() {return new JsonAcledContainer();}
+	public static JsonAcledContainer buildSources(List<JsonAcledSource> sources) {JsonAcledContainer json = build();json.setSources(sources);return json;}
 	public static JsonAcledContainer buildActors(List<JsonAcledActor> actors) {JsonAcledContainer json = build();json.setActors(actors);return json;}
 	public static JsonAcledContainer buildIncidents(List<JsonAcledIncident> incidents) {JsonAcledContainer json = build();json.setIncidents(incidents);return json;}
 	
@@ -43,8 +44,9 @@ public class JsonAcledContainerFactory
     	return container;
     }
     
-    public JsonAcledContainer incidents(JsonAcledCountry country) {return incidents(country,null);}
-    public JsonAcledContainer incidents(JsonAcledCountry country, Integer limit)
+    public JsonAcledContainer incidents(JsonAcledCountry country) {return incidents(null,country,null);}
+    public JsonAcledContainer incidents(JsonAcledCountry country, String admin1) {return incidents(null,country,admin1);}
+    public JsonAcledContainer incidents(Integer limit,JsonAcledCountry country, String admin1)
     {
     	Map<String,JsonAcledActor> mapActors = new HashMap<>();
     	Map<String,JsonAcledSource> mapSources = new HashMap<>();
@@ -54,13 +56,14 @@ public class JsonAcledContainerFactory
     	
     	boolean hasResults = true;
     	int page=1;
-    	int fetchSize = 100;
-    	if(limit!=null && limit<fetchSize) {fetchSize=limit;}
     	
     	while(hasResults)
     	{
-    		logger.info("Country:"+country.getName()+" Page "+page+" limit:"+fetchSize);
-    		JsonAcledResponse response = rest.readByCountry("accept",fetchSize,page,country.getId());
+    		logger.info("Country:"+country.getName()+" Page "+page);
+    		
+    		JsonAcledResponse response;
+    		if(admin1==null) {response = rest.incidents("accept",page,country.getId());}
+    		else {response = rest.incidents("accept",page,country.getId(),admin1);}
         	for(JsonAcledData data : response.getData())
         	{
         		JsonAcledIncident incident = JsonIncidentFactory.build(data);

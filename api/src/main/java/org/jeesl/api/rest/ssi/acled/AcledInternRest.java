@@ -18,6 +18,9 @@ public interface AcledInternRest
 	@POST @Path("/actors") @Produces(MediaType.APPLICATION_JSON) @Consumes(MediaType.APPLICATION_JSON)
 	DataUpdate actors(JsonAcledContainer container);
 	
+	@POST @Path("/sources") @Produces(MediaType.APPLICATION_JSON) @Consumes(MediaType.APPLICATION_JSON)
+	DataUpdate sources(JsonAcledContainer container);
+	
 	@POST @Path("/incidents") @Produces(MediaType.APPLICATION_JSON) @Consumes(MediaType.APPLICATION_JSON)
 	DataUpdate incidents(JsonAcledContainer container);
 }

@@ -60,7 +60,7 @@ public abstract class AbstractSsiBean <L extends UtilsLang, D extends UtilsDescr
 	{
 		this.fSsi=fSsi;
 		sbhLink.setList(fSsi.allOrderedPositionVisible(fbSsi.getClassLink()));
-		sbhLink.preSelect(JeeslIoSsiLink.Code.linked,JeeslIoSsiLink.Code.possible,JeeslIoSsiLink.Code.unlinked);
+		sbhLink.preSelect(JeeslIoSsiLink.Code.possible,JeeslIoSsiLink.Code.unlinked);
 	}
 	
 	@Override public void toggled(Class<?> c)

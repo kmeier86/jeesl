@@ -20,7 +20,12 @@ public interface AcledExternRest
     
     @GET @Path("/acled/read")
 	@Produces(MediaType.APPLICATION_JSON)
-    JsonAcledResponse readByCountry(@QueryParam("terms") String terms, @QueryParam("limit") int limit, @QueryParam("page") int p, @QueryParam("iso") Long iso);
+    JsonAcledResponse incidents(@QueryParam("terms") String terms, @QueryParam("page") int p, @QueryParam("iso") Long iso);
+    
+    @GET @Path("/acled/read")
+	@Produces(MediaType.APPLICATION_JSON)
+    JsonAcledResponse incidents(@QueryParam("terms") String terms, @QueryParam("page") int p, @QueryParam("iso") Long iso, @QueryParam("admin1") String admin1);
+  
     
     @GET @Path("/country/read")
 	@Produces(MediaType.APPLICATION_JSON)
