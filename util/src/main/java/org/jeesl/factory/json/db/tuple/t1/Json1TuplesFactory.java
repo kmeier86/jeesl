@@ -30,7 +30,6 @@ public class Json1TuplesFactory <A extends EjbWithId>
 	
 	private Json1Tuples<A> tuples; public Json1Tuples<A> get1Tuples() {return tuples;} public void set1Tuples(Json1Tuples<A> tuples) {this.tuples = tuples;}
 
-	
 	public Json1TuplesFactory(Class<A> cA) {this(null,cA);}
 	public Json1TuplesFactory(UtilsFacade fUtils, Class<A> cA)
 	{

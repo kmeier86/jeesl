@@ -1,7 +1,9 @@
 package org.jeesl.factory.ejb.system.io.revision;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.jeesl.factory.ejb.system.status.EjbDescriptionFactory;
 import org.jeesl.factory.ejb.system.status.EjbLangFactory;
@@ -13,6 +15,7 @@ import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionViewMappi
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntityMapping;
+import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
 import org.jeesl.model.xml.system.revision.Entity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,12 +29,12 @@ public class EjbRevisionEntityFactory<L extends UtilsLang,D extends UtilsDescrip
 									RC extends JeeslRevisionCategory<L,D,RC,?>,
 									RV extends JeeslRevisionView<L,D,RVM>,
 									RVM extends JeeslRevisionViewMapping<RV,RE,REM>,
-									RS extends JeeslRevisionScope<L,D,RC,RA>,
-									RST extends UtilsStatus<RST,L,D>,
-									RE extends JeeslRevisionEntity<L,D,RC,REM,RA,?>,
-									REM extends JeeslRevisionEntityMapping<RS,RST,RE>,
+									
+									RE extends JeeslRevisionEntity<L,D,RC,REM,RA,ERD>,
+									REM extends JeeslRevisionEntityMapping<?,?,RE>,
 									RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>, RER extends UtilsStatus<RER,L,D>,
-									RAT extends UtilsStatus<RAT,L,D>>
+									RAT extends UtilsStatus<RAT,L,D>,
+									ERD extends JeeslRevisionDiagram<L,D,RC>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbRevisionEntityFactory.class);
 	
@@ -45,21 +48,6 @@ public class EjbRevisionEntityFactory<L extends UtilsLang,D extends UtilsDescrip
         this.cEntity = cEntity;
 		efLang = EjbLangFactory.factory(cL);
 		efDescription = EjbDescriptionFactory.factory(cD);
-	}
-	
-	public static <L extends UtilsLang,D extends UtilsDescription,
-					RC extends JeeslRevisionCategory<L,D,RC,?>,
-					RV extends JeeslRevisionView<L,D,RVM>,
-					RVM extends JeeslRevisionViewMapping<RV,RE,REM>,
-					RS extends JeeslRevisionScope<L,D,RC,RA>,
-					RST extends UtilsStatus<RST,L,D>,
-					RE extends JeeslRevisionEntity<L,D,RC,REM,RA,?>,
-					REM extends JeeslRevisionEntityMapping<RS,RST,RE>,
-					RA extends JeeslRevisionAttribute<L,D,RE,RER,RAT>, RER extends UtilsStatus<RER,L,D>,
-					RAT extends UtilsStatus<RAT,L,D>>
-	EjbRevisionEntityFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> factory(final Class<L> cL,final Class<D> cD,final Class<RE> cEntity)
-	{
-		return new EjbRevisionEntityFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>(cL,cD,cEntity);
 	}
 	
 	public RE build(RC category, Entity xml)
@@ -100,5 +88,12 @@ public class EjbRevisionEntityFactory<L extends UtilsLang,D extends UtilsDescrip
 		else{ejb.setDeveloperInfo(null);}
 		
 		ejb.setPosition(xml.getPosition());
+	}
+	
+	public List<ERD> toDiagrams(List<RE> entities)
+	{
+		Set<ERD> sDiagrams = new HashSet<>();
+		for(RE re : entities) {if(re.getDiagram()!=null && !sDiagrams.contains(re.getDiagram())) {sDiagrams.add(re.getDiagram());}}
+		return new ArrayList<ERD>(sDiagrams);
 	}
 }

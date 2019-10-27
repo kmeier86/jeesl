@@ -28,12 +28,12 @@ public class EjbBbPostFactory<THREAD extends JeeslBbThread<?>,
         this.cMarkup = cMarkup;
     }
 	
-	public POST build(String localeCode, THREAD thread, MT markupType, USER user)
+	public POST build(THREAD thread, MT markupType, USER user)
 	{
 		try
 		{
 			M markup = cMarkup.newInstance();
-			markup.setLkey(localeCode);
+			markup.setLkey("none");
 			markup.setType(markupType);
 			
 			POST ejb = cPost.newInstance();

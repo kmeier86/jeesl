@@ -166,12 +166,15 @@ public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
     public void addThread()
     {
     	thread = fbBb.ejbThread().build(board);
-    	posting = fbBb.ejbPost().build("none",thread,markupType,user);
+    	posting = fbBb.ejbPost().build(thread,markupType,user);
     }
     
     public void saveThread() throws UtilsConstraintViolationException, UtilsLockingException
     {
+    	logger.info(AbstractLogMessage.saveEntity(thread));
     	thread = fBb.save(thread);
+    	
+    	logger.info(AbstractLogMessage.saveEntity(posting));
     	posting.setThread(thread);
     	posting = fBb.save(posting);
     	reloadThreads();
@@ -194,7 +197,7 @@ public class AbstractBbPostBean <L extends UtilsLang,D extends UtilsDescription,
     {
     	logger.info(AbstractLogMessage.addEntity(fbBb.getClassPost()));
     	reset(false,false,true);
-    	posting = fbBb.ejbPost().build("none",thread,markupType,user);
+    	posting = fbBb.ejbPost().build(thread,markupType,user);
     }
     
     public void savePosting() throws UtilsConstraintViolationException, UtilsLockingException

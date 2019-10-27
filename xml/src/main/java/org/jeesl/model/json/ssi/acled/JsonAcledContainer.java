@@ -23,6 +23,11 @@ public class JsonAcledContainer implements Serializable
 	public List<JsonAcledCountry> getCountries() {return countries;}
 	public void setCountries(List<JsonAcledCountry> countries) {this.countries = countries;}
 	
+	@JsonProperty("admin1")
+	private List<JsonAcledAdmin1> admin1;
+	public List<JsonAcledAdmin1> getAdmin1() {return admin1;}
+	public void setAdmin1(List<JsonAcledAdmin1> admin1) {this.admin1 = admin1;}
+
 	@JsonProperty("actors")
 	private List<JsonAcledActor> actors;
 	public List<JsonAcledActor> getActors() {return actors;}

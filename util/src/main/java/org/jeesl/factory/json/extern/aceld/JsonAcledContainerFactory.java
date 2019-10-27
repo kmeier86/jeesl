@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.jeesl.api.rest.ssi.acled.AcledExternRest;
 import org.jeesl.model.json.ssi.acled.JsonAcledActor;
+import org.jeesl.model.json.ssi.acled.JsonAcledAdmin1;
 import org.jeesl.model.json.ssi.acled.JsonAcledContainer;
 import org.jeesl.model.json.ssi.acled.JsonAcledCountry;
 import org.jeesl.model.json.ssi.acled.JsonAcledData;
@@ -28,6 +29,7 @@ public class JsonAcledContainerFactory
 	}
 	
 	public static JsonAcledContainer build() {return new JsonAcledContainer();}
+	public static JsonAcledContainer buildAdmin1(List<JsonAcledAdmin1> admin1) {JsonAcledContainer json = build();json.setAdmin1(admin1);return json;}
 	public static JsonAcledContainer buildSources(List<JsonAcledSource> sources) {JsonAcledContainer json = build();json.setSources(sources);return json;}
 	public static JsonAcledContainer buildActors(List<JsonAcledActor> actors) {JsonAcledContainer json = build();json.setActors(actors);return json;}
 	public static JsonAcledContainer buildIncidents(List<JsonAcledIncident> incidents) {JsonAcledContainer json = build();json.setIncidents(incidents);return json;}
@@ -50,6 +52,7 @@ public class JsonAcledContainerFactory
     {
     	Map<String,JsonAcledActor> mapActors = new HashMap<>();
     	Map<String,JsonAcledSource> mapSources = new HashMap<>();
+    	Map<String,JsonAcledAdmin1> mapAdmin1 = new HashMap<>();
     	
     	JsonAcledContainer container = build();
     	container.setIncidents(new ArrayList<JsonAcledIncident>());
@@ -68,10 +71,13 @@ public class JsonAcledContainerFactory
         	{
         		JsonAcledIncident incident = JsonIncidentFactory.build(data);
         		incident.setCountry(country);
+        		incident.setAdmin1(JsonAdmin1Factory.build(country,data));
+        		
         		if(incident.getActor1()!=null && !mapActors.containsKey(incident.getActor1().getName())) {mapActors.put(incident.getActor1().getName(), JsonActorFactory.build(incident.getActor1().getName()));}
         		if(incident.getActor2()!=null && !mapActors.containsKey(incident.getActor2().getName())) {mapActors.put(incident.getActor2().getName(), JsonActorFactory.build(incident.getActor2().getName()));}
         		
         		if(!mapSources.containsKey(incident.getSource().getName())) {mapSources.put(incident.getSource().getName(), JsonSourceFactory.build(incident.getSource().getName()));}
+        		mapAdmin1.put(JsonAdmin1Factory.toSsiCode(incident.getAdmin1()),incident.getAdmin1());
         		
         		container.getIncidents().add(incident);
         		if(limit!=null && container.getIncidents().size()==limit) {hasResults=false; break;}
@@ -83,6 +89,7 @@ public class JsonAcledContainerFactory
     	
     	container.setActors(new ArrayList<>(mapActors.values()));
     	container.setSources(new ArrayList<>(mapSources.values()));
+    	container.setAdmin1(new ArrayList<>(mapAdmin1.values()));
     	return container;
     }
 }

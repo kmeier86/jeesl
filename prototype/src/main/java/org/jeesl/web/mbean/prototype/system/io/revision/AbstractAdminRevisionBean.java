@@ -59,10 +59,17 @@ public abstract class AbstractAdminRevisionBean <L extends UtilsLang, D extends 
 	protected JeeslIoRevisionFacade<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fRevision;
 	protected final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fbRevision;
 	
+	protected SbMultiHandler<RC> sbhCategory; public SbMultiHandler<RC> getSbhCategory() {return sbhCategory;}
+	protected final SbMultiHandler<ERD> sbhDiagram; public SbMultiHandler<ERD> getSbhDiagram() {return sbhDiagram;}
+	
+	protected final Comparator<RS> comparatorScope;
+	protected final Comparator<RE> comparatorEntity;
+	protected final Comparator<ERD> cpDiagram;
+	
 	protected final EjbRevisionViewFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> efView;
 	protected final EjbRevisionMappingViewFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> efMappingView;
 	protected final EjbRevisionScopeFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> efScope;
-	protected final EjbRevisionEntityFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> efEntity;
+	protected final EjbRevisionEntityFactory<L,D,RC,RV,RVM,RE,REM,RA,RER,RAT,ERD> efEntity;
 	protected final EjbRevisionMappingEntityFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> efMappingEntity;
 	protected final EjbRevisionAttributeFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> efAttribute;
 	
@@ -77,16 +84,16 @@ public abstract class AbstractAdminRevisionBean <L extends UtilsLang, D extends 
 	
 	protected RA attribute; public RA getAttribute() {return attribute;}public void setAttribute(RA attribute) {this.attribute = attribute;}
 
-	protected final Comparator<RS> comparatorScope;
-	protected final Comparator<RE> comparatorEntity;
-	protected final Comparator<ERD> cpDiagram;
-	
-	protected SbMultiHandler<RC> sbhCategory; public SbMultiHandler<RC> getSbhCategory() {return sbhCategory;}
-	
 	public AbstractAdminRevisionBean(final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fbRevision)
 	{
 		super(fbRevision.getClassL(),fbRevision.getClassD());
 		this.fbRevision=fbRevision;
+		
+		sbhDiagram = new SbMultiHandler<>(fbRevision.getClassDiagram(),this);
+		
+		comparatorEntity = (new RevisionEntityComparator<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>()).factory(RevisionEntityComparator.Type.position);
+		comparatorScope = (new RevisionScopeComparator<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>()).factory(RevisionScopeComparator.Type.position);
+		cpDiagram = (new RevisionDiagramComparator<L,D,RC,ERD>()).factory(RevisionDiagramComparator.Type.category);
 		
 		efView = fbRevision.ejbView();
 		efMappingView = fbRevision.ejbMappingView();
@@ -95,9 +102,7 @@ public abstract class AbstractAdminRevisionBean <L extends UtilsLang, D extends 
 		efMappingEntity = fbRevision.ejbMappingEntity();
 		efAttribute = fbRevision.ejbAttribute();
 		
-		comparatorEntity = (new RevisionEntityComparator<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>()).factory(RevisionEntityComparator.Type.position);
-		comparatorScope = (new RevisionScopeComparator<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>()).factory(RevisionScopeComparator.Type.position);
-		cpDiagram = (new RevisionDiagramComparator<L,D,RC,ERD>()).factory(RevisionDiagramComparator.Type.category);
+		
 	}
 	
 	protected void initRevisionSuper(String[] langs, JeeslFacesMessageBean bMessage,

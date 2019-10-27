@@ -28,20 +28,29 @@ public class JsonAcledIncident implements Serializable
 	public String getSubType() {return subType;}
 	public void setSubType(String subType) {this.subType = subType;}
 	
+	@JsonProperty("country")
+	private JsonAcledCountry country;
+	public JsonAcledCountry getCountry() {return country;}
+	public void setCountry(JsonAcledCountry country) {this.country = country;}
+	
+	@JsonProperty("admin1")
+	private JsonAcledAdmin1 admin1;
+	public JsonAcledAdmin1 getAdmin1() {return admin1;}
+	public void setAdmin1(JsonAcledAdmin1 admin1) {this.admin1 = admin1;}
+
 	@JsonProperty("location")
 	private String location;
 	public String getLocation() {return location;}
 	public void setLocation(String location) {this.location = location;}
+	
+	
 	
 	@JsonProperty("description")
 	private String description;
 	public String getDescription() {return description;}
 	public void setDescription(String description) {this.description = description;}
 	
-	@JsonProperty("country")
-	private JsonAcledCountry country;
-	public JsonAcledCountry getCountry() {return country;}
-	public void setCountry(JsonAcledCountry country) {this.country = country;}
+
 	
 	@JsonProperty("date")
 	private Date date;

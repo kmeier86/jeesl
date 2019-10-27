@@ -82,7 +82,7 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 
 	private EjbLangFactory<L> efLang;
 	private EjbDescriptionFactory<D> efDescription;
-	private EjbRevisionEntityFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> efEntity;
+	private EjbRevisionEntityFactory<L,D,RC,RV,RVM,RE,REM,RA,RER,RAT,ERD> efEntity;
 	private EjbRevisionAttributeFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> efAttribute;
 	
 	public RevisionRestService(IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fbRevision,
@@ -96,7 +96,7 @@ public class RevisionRestService <L extends UtilsLang,D extends UtilsDescription
 		
 		efLang = EjbLangFactory.factory(fbRevision.getClassL());
 		efDescription = EjbDescriptionFactory.factory(fbRevision.getClassD());
-		efEntity = EjbRevisionEntityFactory.factory(fbRevision.getClassL(),fbRevision.getClassD(),fbRevision.getClassEntity());
+		efEntity = fbRevision.ejbEntity();
 		efAttribute = EjbRevisionAttributeFactory.factory(fbRevision.getClassAttribute());
 		xfDiagram = fbRevision.xmlDiagram(XmlRevisionQuery.get(XmlRevisionQuery.Key.xDiagram));
 	}

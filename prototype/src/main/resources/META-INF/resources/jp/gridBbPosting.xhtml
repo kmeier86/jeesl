@@ -24,8 +24,8 @@
 					            <p:ajax event="expand" listener="#{cc.attrs.bean.onNodeExpand}" />
 								<p:ajax event="collapse" listener="#{cc.attrs.bean.onNodeCollapse}" />
 					            <p:treeNode>
+					            	<jtp:symbolizer value="#{node.publishing}" marginRight="5"/>
 					                <h:outputText value="#{node.name}" />
-					                <jtp:symbolizer value="#{node.publishing}" marginLeft="5"/>
 					            </p:treeNode>
 					        </p:tree>
 						</p:panel>

@@ -96,10 +96,7 @@ public class IoRevisionFactoryBuilder<L extends UtilsLang, D extends UtilsDescri
 		return new EjbRevisionScopeFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>(cScope);
 	}
 	
-	public EjbRevisionEntityFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> ejbEntity()
-	{
-		return new EjbRevisionEntityFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>(cL,cD,cEntity);
-	}
+	public EjbRevisionEntityFactory<L,D,RC,RV,RVM,RE,REM,RA,RER,RAT,ERD> ejbEntity() {return new EjbRevisionEntityFactory<>(cL,cD,cEntity);}
 	
 	public EjbRevisionMappingEntityFactory<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT> ejbMappingEntity()
 	{

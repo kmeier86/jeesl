@@ -2,6 +2,7 @@ package org.jeesl.web.mbean.prototype.system.io.revision;
 
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.jeesl.api.bean.JeeslLabelBean;
@@ -82,9 +83,33 @@ public class AbstractAdminRevisionEntityBean <L extends UtilsLang, D extends Uti
 	
 	@Override public void toggled(Class<?> c) throws UtilsLockingException, UtilsConstraintViolationException
 	{
-		super.toggled(c);
 		logger.info(AbstractLogMessage.toggled(c));
-		reloadEntities();
+		super.toggled(c);
+		
+		if(c.isAssignableFrom(fbRevision.getClassCategory()))
+		{
+			reloadEntities();
+			logger.info(AbstractLogMessage.reloaded(fbRevision.getClassEntity(),entities));
+			sbhDiagram.selectNone();
+		}
+		else if(c.isAssignableFrom(fbRevision.getClassDiagram()))
+		{
+			logger.info(AbstractLogMessage.reloaded(fbRevision.getClassDiagram(),diagrams));
+			if(sbhDiagram.hasSelected())
+			{
+				Iterator<RE> i = entities.iterator();
+				
+				while (i.hasNext())
+				{
+					RE re = i.next();
+			        if (re.getDiagram()==null || !sbhDiagram.getSelected().contains(re.getDiagram()))
+			        {
+			        	i.remove();
+			        }
+				}
+			}
+			
+		}
 		cancelEntity();
 	}
 
@@ -92,7 +117,12 @@ public class AbstractAdminRevisionEntityBean <L extends UtilsLang, D extends Uti
 	{
 		entities = fRevision.findRevisionEntities(sbhCategory.getSelected(), true);
 		if(debugOnInfo){logger.info(AbstractLogMessage.reloaded(fbRevision.getClassEntity(),entities));}
-		Collections.sort(entities, comparatorEntity);
+		Collections.sort(entities,comparatorEntity);
+		
+		sbhDiagram.clear();
+		sbhDiagram.setList(efEntity.toDiagrams(entities));
+		Collections.sort(sbhDiagram.getList(),cpDiagram);
+		sbhDiagram.selectAll();
 	}
 	
 	public void addEntity() throws UtilsNotFoundException
@@ -118,6 +148,7 @@ public class AbstractAdminRevisionEntityBean <L extends UtilsLang, D extends Uti
 		catch (ClassNotFoundException e)
 		{
 			className = "CLASS NOT FOUND";
+			
 		}
 	}
 	
