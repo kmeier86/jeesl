@@ -61,7 +61,7 @@
 						
 						<p:outputLabel value="#{msg.jeeslIoSsiMapping}"/>
 						<p:selectOneMenu value="#{cc.attrs.bean.attribute.mapping}" effect="fade" autoWidth="false" >
-							<f:selectItems value="#{cc.attrs.bean.mappings}" var="m" itemLabel="#{m.system.code} #{m.entity.name[localeCode].lang}" itemValue="#{m}"/>
+							<f:selectItems value="#{cc.attrs.bean.sbhMapping.list}" var="m" itemLabel="#{m.system.code} #{m.entity.name[localeCode].lang}" itemValue="#{m}"/>
 						</p:selectOneMenu>
 						
 						<p:outputLabel value="#{msg.jeeslRevisionEntity}"/>
