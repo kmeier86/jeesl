@@ -2,8 +2,10 @@ package org.jeesl.factory.pojo.system;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.temporal.WeekFields;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Locale;
 import org.joda.time.DateTime;
 
 public class JeeslDateRangeFactory {
@@ -51,6 +53,13 @@ public class JeeslDateRangeFactory {
 		startAndEnd[1] = Date.from(end.atZone(ZoneId.systemDefault()).toInstant());
 		return startAndEnd;
 	}
+	
+	public static Date iterateWeek(Date week)
+	{
+		LocalDateTime start = week.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().atStartOfDay();
+		LocalDateTime end = start.plusWeeks(1).minusSeconds(1);
+		return Date.from(end.atZone(ZoneId.systemDefault()).toInstant());
+	}
  	
 	public static Date[] getStartAndEndOfDay(Date day)
 	{
@@ -74,6 +83,15 @@ public class JeeslDateRangeFactory {
 		return startAndEnd;
  	}
 	
+	public static int getYearWeekIdentifier8(Date day)
+	{
+		LocalDateTime start = day.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().atStartOfDay();
+		WeekFields weekFields = WeekFields.of(Locale.getDefault()); 
+		int weekNumber = start.get(weekFields.weekOfWeekBasedYear());
+		int yearNumber = start.getYear();
+		return yearNumber * 100 +weekNumber;
+ 	}
+	
 	public static void main(String[] args)
 	{
 		Date now = new Date();
@@ -90,6 +108,9 @@ public class JeeslDateRangeFactory {
 		System.out.println("Month Start at " +resultMonth8[0].toString() +" and end at " +resultMonth8[1].toString());
 		System.out.println("Week  Start at " +resultWeek8[0].toString() +" and end at " +resultWeek8[1].toString());
 		System.out.println("Day   Start at " +resultDay8[0].toString() +" and end at " +resultDay8[1].toString());
+		
+		System.out.println("Day   Start is in week " +getYearWeekIdentifier8(now));
+		System.out.println("Next week of week is starting at " +getYearWeekIdentifier8(iterateWeek(now)));
 	}
 	
 }

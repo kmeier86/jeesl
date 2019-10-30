@@ -1,5 +1,6 @@
 package net.sf.ahtutils.report.revert.excel.strategies;
 
+import java.math.BigDecimal;
 import java.util.Hashtable;
 
 import org.jeesl.api.controller.ImportStrategy;
@@ -23,22 +24,30 @@ public class LoadByCodeStrategy implements ImportStrategy
 	public Object handleObject(Object object, String parameterClass, String property) {
 		
 		String code = object.toString();
-		
+		logger.info("Code in Strategy: " +code);
 		// Excel sometimes does bad formatting, this one fixes that behavior
 		if (object.getClass().getName().equals("java.lang.Double"))
 		{
-			Double n		= (Double) object;
-			if (n % 1 == 0)
-			{
-				code		= "" +n.intValue();
-			}
-			else
-			{
-				code		= "" +n;
-			}
+						Double n			= (Double) object;
+						// This version is not working! It produces results such as this:
+						// Result 2147483647 taken from 3.57305101E9 (toString of n)
+						// parameters[0]	= "" +n.intValue();
+						BigDecimal bd = new BigDecimal(n);
+						code	= bd.toPlainString();
+						
+						/* See above
+						if (n % 1 == 0)
+						{
+							parameters[0]	= "" +n.intValue();
+						}
+						else
+						{
+							parameters[0]	= "" +n;
+						}
+						*/
 		}
 		
-		
+		logger.info("Code in Strategy after conversion: " +code);
 		Class  lutClass      = null;
     	Object lookupEntity  = null;
     	
