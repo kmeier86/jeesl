@@ -76,6 +76,7 @@ public class Loccer
         	case perl: ob = new MakefileCounter(f);break;
         	case matlab: ob = new MatlabCounter(f);break;
         	case xml: ob = new AllCounter(f);break;
+        	case jrxml: ob = new AllCounter(f);break;
         	case xhtml: ob = new AllCounter(f);break;
         	case jsp: ob = new AllCounter(f);break;
         	case css: ob = new AllCounter(f);break;

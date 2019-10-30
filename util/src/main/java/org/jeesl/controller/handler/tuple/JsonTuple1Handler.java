@@ -30,7 +30,7 @@ public class JsonTuple1Handler <A extends EjbWithId> extends JsonTupleHandler im
 	private final Tuple1Comparator<A> cpTuple;
 	
 	protected final Class<A> cA;
-	protected final Map<Long,A> mapA; 
+	protected final Map<Long,A> mapA;
 	private int sizeA; public int getSizeA() {return sizeA;}
 	private final List<A> listA; public List<A> getListA() {return listA;}
 	private final Map<A,Json1Tuple<A>> map1; public Map<A,Json1Tuple<A>> getMapA() {return map1;}

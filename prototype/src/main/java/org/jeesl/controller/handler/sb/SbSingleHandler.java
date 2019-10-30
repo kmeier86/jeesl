@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jeesl.interfaces.bean.sb.SbSingleBean;
+import org.jeesl.interfaces.controller.handler.tree.cache.JeeslTree1Cache;
 import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +51,11 @@ public class SbSingleHandler <T extends EjbWithId> implements Serializable,SbSin
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}
+	}
+	
+	public void cache(JeeslTree1Cache<T> cache1)
+	{
+		this.update(cache1.getCachedL1());
 	}
 
 	public void silentCallback()

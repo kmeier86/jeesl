@@ -5,10 +5,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.jeesl.api.bean.tree.JeeslTree3Cache;
 import org.jeesl.controller.handler.tree.TreeUpdateParameter;
 import org.jeesl.interfaces.controller.handler.tree.JeeslTree3Store;
 import org.jeesl.interfaces.controller.handler.tree.JeeslTreeSelected;
+import org.jeesl.interfaces.controller.handler.tree.cache.JeeslTree3Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
