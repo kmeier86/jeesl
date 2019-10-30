@@ -6,6 +6,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
@@ -19,6 +20,7 @@ import org.jeesl.model.xml.system.revision.Entity;
 import org.jeesl.util.ReflectionUtil;
 import org.jeesl.util.query.xpath.RevisionXpath;
 import org.jeesl.util.query.xpath.StatusXpath;
+import org.metachart.processor.graph.ColorSchemeManager;
 import org.metachart.xml.graph.Cluster;
 import org.metachart.xml.graph.Clusters;
 import org.metachart.xml.graph.Edge;
@@ -50,11 +52,13 @@ public class ErGraphProcessor
 	private Map<String,Edge> mapEdges;
 	private Map<String,Boolean> mapChilds;
 	private Graph graph;
+	private ColorSchemeManager csm;
 	Map<String, List<Node>>  mapNodesCategories = new Hashtable<String,List<Node>>();
 
-	public ErGraphProcessor(File fBase)
+	public ErGraphProcessor(File fBase, ColorSchemeManager csm)
 	{
 		this.fBase=fBase;
+		this.csm = csm;
 
 		mapNodes = new Hashtable<String,Node>();
 		mapEdges = new Hashtable<String,Edge>();
@@ -98,8 +102,8 @@ public class ErGraphProcessor
 		{
 			Node n = mapNodes.get(key);
 			n.setId(i);i++;
-			n.setCode(null);
-			mapNodes.put(key, n);
+			//n.setCode(null);
+			//mapNodes.put(key, n);
 			graph.getNodes().getNode().add(n);
 		}
 		for(File f : list)
@@ -112,6 +116,7 @@ public class ErGraphProcessor
 	public Graph create()
 	{
 		mergeEdges();
+		reGroupMergedNodes();
 		createClusters();
 		return graph;
 	}
@@ -139,17 +144,12 @@ public class ErGraphProcessor
 					node.setLabel(StatusXpath.getLang(entity.getLangs(),localeCode).getTranslation());
 //					logger.error("node.Label: "+node.getLabel());
 				}
-				catch (ExlpXpathNotFoundException | ExlpXpathNotUniqueException e)
-				{
-//					logger.warn(e.getMessage());
-				}
+				catch (ExlpXpathNotFoundException | ExlpXpathNotUniqueException e){/*logger.warn(e.getMessage());*/}
 			}
 			if(node.getLabel()==null){node.setLabel("** "+er.name());}
 
-			if(er.category().length()>0)
-			{
-				node.setCategory(er.category());
-			}
+			if(er.category().length()>0){node.setCategory(er.category());}
+
 			node.setSizeRelative(true);
 			node.setSizeAdjustsColor(true);
 			node.setSize(1-er.level());
@@ -163,11 +163,7 @@ public class ErGraphProcessor
 				String[] items = er.subset().split(",");
 				for(String s : items)
 				{
-					if(subSet.contains(s))
-					{
-						logger.trace(c.getName());
-						add=true;
-					}
+					if(subSet.contains(s)){logger.trace(c.getName());add=true;}
 				}
 			}
 
@@ -350,6 +346,73 @@ public class ErGraphProcessor
 			nodeCategoryId++;
 		}
 	}
+
+	private void reGroupMergedNodes() {
+		Set<String> categories = mapNodesCategories.keySet();
+		Map<Node, String> mergedNodes = new HashMap<Node, String>();
+		//Map<String, Map<Integer, String>>removeList = new HashMap<String,  Map<Integer, String>>();
+		//Map<String, Node> mergeList = new HashMap<String, Node>();
+
+		for (String category : categories) {
+			List<Node> regroupNodes= this.csm.getMergeNodesForCluster(category);
+			for (Node regroupNode : regroupNodes) {
+				mergedNodes.put(regroupNode, category);
+			}
+		}
+
+		for(Map.Entry<String,List<Node>> entry : mapNodesCategories.entrySet())
+		{
+			String category = entry.getKey();
+			List<Node> categoryNodes = entry.getValue();
+			List<Node> categoryRemoveList = new ArrayList<Node>();
+			List<Node> mergedNodeRemoveList = new ArrayList<Node>();
+
+			//Map<Integer, String> moveList = new HashMap<Integer, String>();
+			for(Map.Entry<Node, String>  mergedNodeEntry : mergedNodes.entrySet()){
+				Node mergeNode = mergedNodeEntry.getKey();
+				String mergeToCategory = mergedNodeEntry.getValue();
+				int index = this.getIndexOf(categoryNodes, mergeNode);
+				if(index >=0) {
+					logger.info("Move node : " + categoryNodes.get(index).getLabel() +" from category :" + category + " to category: " + mergeToCategory);
+					categoryRemoveList.add(categoryNodes.get(index));
+					mergeNodeToCategory(categoryNodes.get(index), mergeToCategory);
+					mergedNodeRemoveList.add(mergeNode);
+					}
+			}
+			mapNodesCategories.get(category).removeAll(categoryRemoveList);
+
+			for (Node mergedNodeRemove : mergedNodeRemoveList) {
+				mergedNodes.remove(mergedNodeRemove);
+			}
+		}
+
+		logger.info("Regroup finished");
+	}
+
+	private void mergeNodeToCategory( Node node, String category) {
+		mapNodesCategories.get(category).add(node);
+	}
+
+	@SuppressWarnings("unused")
+	private void printCategory(String category) {
+		logger.info("Category name : " + category);
+		String nameString = "---> ";
+		for (Node node : mapNodesCategories.get(category)) {
+			nameString = nameString + node.getLabel() +"; ";
+		}
+		logger.info(nameString);
+	}
+
+	private int getIndexOf(List<Node> categoryNodes, Node node) {
+		 for (int i = 0; i < categoryNodes.size(); i++) {
+			 try {
+				//if (node.getLabel().equals(categoryNodes.get(i).getLabel())) {
+				 if (categoryNodes.get(i).getCode().contains(node.getCode())) {return i;}
+			 }catch (NullPointerException e) {logger.error("Node name:" + categoryNodes.get(i).getLabel() +" code: " +  categoryNodes.get(i).getCode());}
+		}
+		 return -1;
+	}
+
 
 	public void groupNode(Node node)
 	{

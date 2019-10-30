@@ -20,7 +20,6 @@ import org.metachart.processor.graph.ColorSchemeManager;
 import org.metachart.processor.graph.Graph2DotConverter;
 import org.metachart.processor.graph.GraphFileWriter;
 import org.metachart.xml.graph.Graph;
-import org.metachart.xml.graph.Node;
 import org.openfuxml.media.transcode.Svg2PdfTranscoder;
 import org.openfuxml.renderer.latex.OfxMultiLangLatexWriter;
 import org.slf4j.Logger;
@@ -91,20 +90,24 @@ public class AbstractErDiagram
 
 	protected void buildSvg(String type, String label, List<String> subset, File fDst, File fPdf) throws ClassNotFoundException, IOException, TranscoderException
 	{
+		Graph xml = JaxbUtil.loadJAXB(colorScheme, Graph.class);
+		ColorSchemeManager csm = new ColorSchemeManager(xml,subset);
+
 //		ErAttributesProcessor eap = new ErAttributesProcessor(ofxWriter,config,fSrc);
 //		eap.addPackages(packages);
 
-		ErGraphProcessor egp = new ErGraphProcessor(fSrc);
+		ErGraphProcessor egp = new ErGraphProcessor(fSrc, csm);
+
 		if(entities!=null) {egp.activateEntities(localeCode,entities);}
 		egp.addPackages(packages,subset);
 
 		Graph g = egp.create();
 		//JaxbUtil.info(g);System.exit(-1);
 
-		Node xml = JaxbUtil.loadJAXB(colorScheme, Node.class);
+
 		//JaxbUtil.trace(xml);
 
-		Graph2DotConverter gdc = new Graph2DotConverter(new ColorSchemeManager(xml));
+		Graph2DotConverter gdc = new Graph2DotConverter(csm);
 		gdc.build(g,label);
 		dotGraph = gdc.getDot();
 		gdc.save(fDot);
