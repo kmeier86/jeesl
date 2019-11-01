@@ -21,33 +21,27 @@ import com.aspose.words.DocumentBuilder;
 import com.aspose.words.FindReplaceDirection;
 import com.aspose.words.FindReplaceOptions;
 import com.aspose.words.ImportFormatMode;
-import com.aspose.words.Paragraph;
 import com.aspose.words.RowCollection;
-import com.aspose.words.Style;
-import com.aspose.words.StyleCollection;
-import com.aspose.words.StyleType;
 import com.aspose.words.Table;
 import com.aspose.words.Underline;
 
 import net.sf.ahtutils.xml.status.Status;
 
-public class EntityWordRenderer extends AbstractEntityWordRenderer
+public final class EntityWordRenderer extends AbstractEntityWordRenderer
 {
 	final static Logger logger = LoggerFactory.getLogger(EntityWordRenderer.class);
 	
-	private final Document entityDoc,template,templateTable,templateTable2,tableDoc;
+	private final Document entityDoc,template,templateTable;
 	private final Container categories;
 	private final Container relationTypes;
 	private final Entities entities;
     private HashMap<String,Container> statusContainer;
 	
-	public EntityWordRenderer(Document templateDoc,Document templateTableDoc, Entities entities, Container categories, Container relationTypes) throws Exception
+	public EntityWordRenderer(final Document templateDoc,final Document templateTableDoc, final Entities entities, final Container categories, final Container relationTypes) throws Exception
 	{
 		this.entityDoc=templateDoc;	
 		this.template=templateDoc;
 		this.templateTable=templateTableDoc;
-		this.templateTable2=templateTableDoc;
-	    this.tableDoc= new Document();
 		this.categories=categories;
 		this.relationTypes=relationTypes;
 		this.entities=entities;
@@ -92,30 +86,15 @@ public class EntityWordRenderer extends AbstractEntityWordRenderer
 		RowCollection rows = table.getRows();
 		 
 		int rowHelper = 0; 
-		for (int i=0;i<=attrbs.size()-1;i++) 
-		{							
-			Attribute a = attrbs.get(i);				
+		for (Attribute a: attrbs)
+		{										
 			int cellHelperRow5=0;
 			for (Cell c : rows.get(5+rowHelper).getCells())
 			{
 				c.getLastParagraph().getRuns().clear();
 				docBuilder.moveTo(c.getFirstParagraph());				
 				if (cellHelperRow5==0){c.getParagraphs().get(0).getRuns().clear();docBuilder.write(a.getCode());}
-				if (cellHelperRow5==1) 
-				{
-				    if (a.getRelation()!=null && a.getRelation().isSetEntity()){docBuilder.write(relationTypeForCode(relationTypes, a.getRelation().getType().getCode()));}
-				    else if (a.getRelation()==null || !a.getRelation().isSetEntity())
-				    {
-				        if (a.getType().getCode().equals("bool")) {docBuilder.write("boolean");}
-				        if (a.getType().getCode().equals("text")) {docBuilder.write("string");}
-                        if (a.getType().getCode().equals("numberLong")) {docBuilder.write("long");}
-                        if (a.getType().getCode().equals("date")) {docBuilder.write("date");}
-                        if (a.getType().getCode().equals("numberInteger")) {docBuilder.write("integer");}
-                        if (a.getType().getCode().equals("long")) {docBuilder.write("long");}
-                        if (a.getType().getCode().equals("numberDouble")) {docBuilder.write("double");}
-                        if (a.getType().getCode().equals("numberDoubleAmount")) {docBuilder.write("double");}
-                    }
-				}	
+				if (cellHelperRow5==1){renderRelationOrType(docBuilder, a);}	
 				if (cellHelperRow5 == 2 && a.getDescriptions().getDescription().get(0).getValue().toString() != "")
 				{
                     logger.info("paragraphs count: " + c.getParagraphs().getCount());
@@ -135,33 +114,7 @@ public class EntityWordRenderer extends AbstractEntityWordRenderer
 
 				        if (a.getRelation() !=null && a.getRelation().isSetDocOptionsInline())  
 				        {
-				            for (String s : statusContainer.keySet()) 
-				            {
-				                if (s.equals(a.getCode()))
-				                {
-				                    docBuilder.getFont().setUnderline(Underline.SINGLE);
-				                    docBuilder.writeln("Status-Table:");
-				                    docBuilder.getFont().setUnderline(Underline.NONE);
-				                    for (Status status : statusContainer.get(s).getStatus())
-				                    {
-				                        if (status.isSetGraphic()&&status.getGraphic().getType().getCode().equals("svg")&&status.getGraphic().getFile().getData().getValue()!=null)
-				                        {
-				                            docBuilder.write(" ");
-				                            renderStatusSvg(docBuilder,(byte[])status.getGraphic().getFile().getData().getValue());
-				                            docBuilder.write(" ");
-				                        }				                
-				                        else {docBuilder.write("   "); }
-				                        docBuilder.writeln(status.getCode()+" = "+status.getLangs().getLang().get(0).getTranslation());
-				                        if (status.isSetDescriptions() && status.getDescriptions().getDescription().get(0).getValue()!="")
-				                        {
-				                            docBuilder.getFont().setColor(Color.gray);docBuilder.getFont().setItalic(true);docBuilder.getFont().setSize(7);
-				                            docBuilder.write(" (" + status.getDescriptions().getDescription().get(0).getValue() +")");
-				                            docBuilder.getFont().setColor(Color.black);docBuilder.getFont().setItalic(false);docBuilder.getFont().setSize(9);
-				                        }
-//				                        docBuilder.writeln();
-				                    }
-				                }
-				            }
+				            for (String s : statusContainer.keySet()){if(s.equals(a.getCode())){renderStatusInline(docBuilder,s);}}
 				        }
 				    }
 				}
@@ -183,15 +136,59 @@ public class EntityWordRenderer extends AbstractEntityWordRenderer
 		}		
 		table.getLastRow().remove();table.getLastRow().remove();
 		
-		if (renderStatus&&makerStatusTable)
-		{
-            docBuilder.moveToDocumentEnd();           
-            StatusWordRenderer statusRenderer = new StatusWordRenderer(this.templateTable, this.statusContainer, attrbsStatusTable, entity);
-		    docBuilder.insertDocument(statusRenderer.render(),ImportFormatMode.KEEP_SOURCE_FORMATTING);
-		}
+		if (renderStatus&&makerStatusTable){renderStatusTable(entity, docBuilder, attrbsStatusTable);}
 		return entityDoc;
 	}
 
-    public Document render(Entity entity, String absolutePath, HashMap<String, Container> statusContainer, boolean renderStatus) throws Exception {this.statusContainer = statusContainer;Document doc = render(entity, absolutePath, renderStatus);return doc;}
+    private void renderStatusInline(DocumentBuilder docBuilder, String s)
+    {
+        docBuilder.writeln();
+        docBuilder.getFont().setUnderline(Underline.SINGLE);
+        docBuilder.write("Status-Table:");
+        docBuilder.getFont().setUnderline(Underline.NONE);
+        for (Status status : statusContainer.get(s).getStatus())
+        { 
+            docBuilder.writeln();
+            if (status.isSetGraphic()&&status.getGraphic().getType().getCode().equals("svg")&&status.getGraphic().getFile().getData().getValue()!=null)
+            {
+                renderStatusSvg(docBuilder,(byte[])status.getGraphic().getFile().getData().getValue());
+                docBuilder.write("");
+            }				                
+            else {docBuilder.write(" "); }
+            docBuilder.writeln(status.getCode()+" = "+status.getLangs().getLang().get(0).getTranslation());
+            if (status.isSetDescriptions() && status.getDescriptions().getDescription().get(0).getValue()!="")
+            {
+                docBuilder.getFont().setColor(Color.gray);docBuilder.getFont().setItalic(true);docBuilder.getFont().setSize(7);
+                docBuilder.write("  (" + status.getDescriptions().getDescription().get(0).getValue() +")");
+                docBuilder.getFont().setColor(Color.black);docBuilder.getFont().setItalic(false);docBuilder.getFont().setSize(9);
+            }
+//				                        docBuilder.writeln();
+        }
+    }
+
+    private void renderRelationOrType(DocumentBuilder docBuilder, Attribute a)
+    {
+        if (a.getRelation()!=null && a.getRelation().isSetEntity()){docBuilder.write(relationTypeForCode(relationTypes, a.getRelation().getType().getCode()));}
+        else if (a.getRelation()==null || !a.getRelation().isSetEntity())
+        {
+            if (a.getType().getCode().equals("bool")) {docBuilder.write("boolean");}
+            if (a.getType().getCode().equals("text")) {docBuilder.write("string");}
+            if (a.getType().getCode().equals("numberLong")) {docBuilder.write("long");}
+            if (a.getType().getCode().equals("date")) {docBuilder.write("date");}
+            if (a.getType().getCode().equals("numberInteger")) {docBuilder.write("integer");}
+            if (a.getType().getCode().equals("long")) {docBuilder.write("long");}
+            if (a.getType().getCode().equals("numberDouble")) {docBuilder.write("double");}
+            if (a.getType().getCode().equals("numberDoubleAmount")) {docBuilder.write("double");}
+        }
+    }
+
+    private void renderStatusTable(Entity entity, DocumentBuilder docBuilder, List<Attribute> attrbsStatusTable) throws Exception
+    {
+        docBuilder.moveToDocumentEnd();           
+        StatusWordRenderer statusRenderer = new StatusWordRenderer(this.templateTable, this.statusContainer, attrbsStatusTable, entity);
+        docBuilder.insertDocument(statusRenderer.render(),ImportFormatMode.KEEP_SOURCE_FORMATTING);
+    }
+
+    public Document render(final Entity entity, final String absolutePath, final HashMap<String, Container> statusContainer, final boolean renderStatus) throws Exception {this.statusContainer = statusContainer;Document doc = render(entity, absolutePath, renderStatus);return doc;}
     
 }
