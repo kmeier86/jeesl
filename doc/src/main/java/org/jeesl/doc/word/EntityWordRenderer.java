@@ -15,6 +15,7 @@ import org.jeesl.util.query.xpath.RevisionXpath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.aspose.words.BreakType;
 import com.aspose.words.Cell;
 import com.aspose.words.Document;
 import com.aspose.words.DocumentBuilder;
@@ -184,9 +185,10 @@ public final class EntityWordRenderer extends AbstractEntityWordRenderer
 
     private void renderStatusTable(Entity entity, DocumentBuilder docBuilder, List<Attribute> attrbsStatusTable) throws Exception
     {
-        docBuilder.moveToDocumentEnd();           
+        docBuilder.moveToDocumentEnd();    
+        docBuilder.insertBreak(BreakType.PAGE_BREAK);
         StatusWordRenderer statusRenderer = new StatusWordRenderer(this.templateTable, this.statusContainer, attrbsStatusTable, entity);
-        docBuilder.insertDocument(statusRenderer.render(),ImportFormatMode.KEEP_SOURCE_FORMATTING);
+        docBuilder.insertDocument(statusRenderer.render(),ImportFormatMode.KEEP_SOURCE_FORMATTING).deepClone(true);
     }
 
     public Document render(final Entity entity, final String absolutePath, final HashMap<String, Container> statusContainer, final boolean renderStatus) throws Exception {this.statusContainer = statusContainer;Document doc = render(entity, absolutePath, renderStatus);return doc;}

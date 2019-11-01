@@ -39,7 +39,7 @@ public class StatusWordRenderer extends AbstractEntityWordRenderer
         this.entity=entity;
     }
 
-    public Document render()
+    public Document render() throws Exception
     {
         DocumentBuilder builder = new DocumentBuilder(statusDoc);
 
@@ -92,8 +92,10 @@ public class StatusWordRenderer extends AbstractEntityWordRenderer
                 }
             }
             builder.moveToDocumentEnd();
-            builder.insertDocument(doc,ImportFormatMode.KEEP_SOURCE_FORMATTING);
-        } 
+            doc.cleanup();
+            builder.insertDocument(doc,ImportFormatMode.KEEP_SOURCE_FORMATTING).deepClone(true);
+        }
+        this.statusDoc.cleanup();
         return  this.statusDoc;
     }
 }
