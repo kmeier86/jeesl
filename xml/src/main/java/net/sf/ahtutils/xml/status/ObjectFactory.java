@@ -478,6 +478,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Precision }
+     * 
+     */
+    public Precision createPrecision() {
+        return new Precision();
+    }
+
+    /**
      * Create an instance of {@link Frequency }
      * 
      */

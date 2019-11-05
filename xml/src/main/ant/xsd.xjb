@@ -113,6 +113,12 @@
         </jxb:schemaBindings>
     </jxb:bindings>
     
+    	<jxb:bindings schemaLocation="../xsd/jeesl/module/bb.xsd" node="/xsd:schema">
+        <jxb:schemaBindings>
+            <jxb:package name="org.jeesl.model.xml.module.bb"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
+    
    <jxb:bindings schemaLocation="../xsd/aht/sync.xsd" node="/xsd:schema">
         <jxb:schemaBindings>
             <jxb:package name="net.sf.ahtutils.xml.sync"/>

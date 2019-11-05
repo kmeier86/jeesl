@@ -17,18 +17,26 @@ public final class MobileDevice
     
     public static boolean mobileDevice()
     {
-	    	String userAgent = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getHeader("user-agent");
-	    	return detect(userAgent);
+    	if(FacesContext.getCurrentInstance()!=null
+    		&& (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext()!=null
+    		&& (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()!=null
+    		&& ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getHeader("user-agent")!=null)
+    	{
+        	String userAgent = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getHeader("user-agent");
+        	return detect(userAgent);
+    	}
+    	else {return false;}
+
     }
     
     private static boolean detect(String userAgent)
     {
-    		if(userAgent.contains("Android")){return true;}
-	    	else if(userAgent.contains("webOS")){return true;}
-	    	else if(userAgent.contains("iPhone")){return true;}
-	    	else if(userAgent.contains("iPad")){return true;}
-	    	else if(userAgent.contains("iPod")){return true;}
-	    	else if(userAgent.contains("BlackBerry")){return true;}
-	    	else {return false;}
+		if(userAgent.contains("Android")){return true;}
+    	else if(userAgent.contains("webOS")){return true;}
+    	else if(userAgent.contains("iPhone")){return true;}
+    	else if(userAgent.contains("iPad")){return true;}
+    	else if(userAgent.contains("iPod")){return true;}
+    	else if(userAgent.contains("BlackBerry")){return true;}
+    	else {return false;}
     }
 }

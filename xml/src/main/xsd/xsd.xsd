@@ -16,6 +16,7 @@
     xmlns:u   ="http://ahtutils.aht-group.com/utils"
     xmlns:it  ="http://ahtutils.aht-group.com/issue"
 	
+	xmlns:bb  		= "http://www.jeesl.org/bb"
 	xmlns:wf  		= "http://www.jeesl.org/workflow"
 	xmlns:ts 		= "http://www.jeesl.org/timeseries"
 	xmlns:cal 		= "http://www.jeesl.org/calendar"
@@ -76,6 +77,7 @@
 	<xsd:import namespace="http://www.jeesl.org/inventory" schemaLocation="jeesl/module/inventory/inventory.xsd"/>
 	<xsd:import namespace="http://www.jeesl.org/dev/srs" schemaLocation="jeesl/dev/srs.xsd"/>
 	<xsd:import namespace="http://www.jeesl.org/timeseries" schemaLocation="jeesl/module/timeseries.xsd"/>
+	<xsd:import namespace="http://www.jeesl.org/bb" schemaLocation="jeesl/module/bb.xsd"/>
 	<xsd:import namespace="http://www.jeesl.org/workflow" schemaLocation="jeesl/module/workflow.xsd"/>
 	<xsd:import namespace="http://www.jeesl.org/revision" schemaLocation="jeesl/io/revision.xsd"/>
 	<xsd:import namespace="http://www.jeesl.org/text" schemaLocation="jeesl/text.xsd"/>
