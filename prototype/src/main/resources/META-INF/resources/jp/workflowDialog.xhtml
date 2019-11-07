@@ -74,7 +74,7 @@
 					<h:form id="fTools">
 						<p:panel header="#{cc.attrs.handler.workflow.currentStage.name[localeCode].lang}" styleClass="jeeslPanel">
 							<p:panelGrid columns="1" columnClasses="jeeslGrid100">
-								<jp:workflowAction handler="#{cc.attrs.handler}" update="#{cc.attrs.update}" oncomplete="PF('wvWorkflow').show();"/>
+								<jp:workflowAction handler="#{cc.attrs.handler}" update="#{cc.attrs.update}" oncomplete="PF('#{cc.attrs.widgetVar}').show();"/>
 							</p:panelGrid>
 						</p:panel>
 					</h:form>
@@ -129,7 +129,7 @@
 								<p:commandButton id="buttonConfirm" value="Confirm" type="button">
 									<p:ajax event="click"
 										listener="#{cc.attrs.handler.performTransition()}" process="@form" update="@form #{cc.attrs.updateAfterConfirmimation}"
-										oncomplete="if(#{empty cc.attrs.handler.constraints}){PF('wvWorkflow').hide();} else {PF('wvWorkflow').show();}"/>
+										oncomplete="if(#{empty cc.attrs.handler.constraints}){PF('#{cc.attrs.widgetVar}').hide();} else {PF('#{cc.attrs.widgetVar}').show();}"/>
 								</p:commandButton>
 								<p:blockUI block=":grid" trigger="buttonConfirm"/>
 							</p:panelGrid>

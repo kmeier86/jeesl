@@ -10,6 +10,7 @@ import net.sf.ahtutils.interfaces.model.crud.EjbPersistable;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
+import net.sf.ahtutils.interfaces.model.with.position.EjbWithPosition;
 
 public interface JeeslRevisionCategory <L extends UtilsLang, D extends UtilsDescription,
 								S extends UtilsStatus<S,L,D>,
@@ -18,6 +19,7 @@ public interface JeeslRevisionCategory <L extends UtilsLang, D extends UtilsDesc
 									EjbWithCode,
 //									UtilsStatusFixedCode,
 //									JeeslOptionRestDownload,
+									EjbWithPosition,
 									EjbWithCodeGraphic<G>,UtilsStatus<S,L,D>
 {	
 

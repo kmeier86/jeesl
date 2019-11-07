@@ -77,7 +77,8 @@ public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDes
 
 	private void refreshList()
 	{
-		diagrams = fRevision.all(fbRevision.getClassDiagram());
+		diagrams = fRevision.allForParents(fbRevision.getClassDiagram(), sbhCategory.getSelected());
+//		diagrams = fRevision.all(fbRevision.getClassDiagram());
 		Collections.sort(diagrams,cpDiagram);
 	}
 
@@ -136,5 +137,7 @@ public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDes
 		dot = null;
 	}
 	
-	public void reorderDiagrams() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fRevision, fbRevision.getClassDiagram(), diagrams);Collections.sort(diagrams,cpDiagram);}
+	public void reorderDiagrams() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fRevision,fbRevision.getClassDiagram(),diagrams);
+//	Collections.sort(diagrams,cpDiagram);
+	}
 }

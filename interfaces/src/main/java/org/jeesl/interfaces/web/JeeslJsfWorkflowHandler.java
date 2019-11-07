@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public interface JeeslJsfWorkflowHandler extends Serializable
 {
+	boolean isAllowModifications();
 	boolean isAllowEntityModifications();
 	boolean isAllowAdminModifications();
 }

@@ -125,4 +125,11 @@ public class AbstractSettingsSsiAttributeBean <L extends UtilsLang,D extends Uti
 		attribute = fSsi.save(attribute);
 		reload();
 	}
+	
+	public void deleteAttribute() throws UtilsConstraintViolationException, UtilsLockingException
+	{
+		fSsi.rm(attribute);
+		reset(true);
+		reload();
+	}
 }

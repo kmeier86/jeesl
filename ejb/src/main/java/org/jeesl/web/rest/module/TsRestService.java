@@ -12,6 +12,7 @@ import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsDataPoint;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsSample;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
+import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
 import org.jeesl.model.xml.jeesl.Container;
 import org.jeesl.web.rest.AbstractJeeslRestService;
 import org.slf4j.Logger;
@@ -23,8 +24,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.with.EjbWithLangDescription;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public class TsRestService <L extends UtilsLang,
-							D extends UtilsDescription,
+public class TsRestService <L extends UtilsLang, D extends UtilsDescription,
 							CAT extends UtilsStatus<CAT,L,D>,
 							SCOPE extends JeeslTsScope<L,D,CAT,ST,UNIT,EC,INT>,
 							ST extends UtilsStatus<ST,L,D>,
@@ -36,6 +36,7 @@ public class TsRestService <L extends UtilsLang,
 							BRIDGE extends JeeslTsBridge<EC>,
 							EC extends JeeslTsEntityClass<L,D,CAT>,
 							INT extends UtilsStatus<INT,L,D>,
+							STAT extends JeeslTsStatistic<L,D,STAT,?>,
 							DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
 							POINT extends JeeslTsDataPoint<DATA,MP>,
 							SAMPLE extends JeeslTsSample, 
@@ -71,13 +72,14 @@ public class TsRestService <L extends UtilsLang,
 					BRIDGE extends JeeslTsBridge<EC>,
 					EC extends JeeslTsEntityClass<L,D,CAT>,
 					INT extends UtilsStatus<INT,L,D>,
+					STAT extends JeeslTsStatistic<L,D,STAT,?>,
 					DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
 					SAMPLE extends JeeslTsSample,
 					POINT extends JeeslTsDataPoint<DATA,MP>,
 					USER extends EjbWithId, 
 					WS extends UtilsStatus<WS,L,D>,
 					QAF extends UtilsStatus<QAF,L,D>>
-			TsRestService<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF>
+			TsRestService<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF>
 			factory(TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF> fbTs,
 					JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF> fTs)
 	{
