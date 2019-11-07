@@ -19,6 +19,7 @@ import org.jeesl.interfaces.model.module.ts.data.JeeslTsBridge;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsDataPoint;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
+import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.util.comparator.pojo.BooleanComparator;
 import org.joda.time.DateTime;
@@ -37,10 +38,11 @@ public class TsDbCountProcessor<RE extends JeeslRevisionEntity<?,?,?,?,?,?>,
 									BRIDGE extends JeeslTsBridge<EC>,
 									EC extends JeeslTsEntityClass<?,?,?>,
 									INT extends UtilsStatus<INT,?,?>,
+									STAT extends JeeslTsStatistic<?,?,STAT,?>,
 									DATA extends JeeslTsData<TS,TRANSACTION,?,WS>,
 									POINT extends JeeslTsDataPoint<DATA,MP>,
 									WS extends UtilsStatus<WS,?,?>>
-	extends AbstractTimeSeriesProcessor<SCOPE,MP,TS,TRANSACTION,BRIDGE,EC,INT,DATA,POINT,WS>
+	extends AbstractTimeSeriesProcessor<SCOPE,MP,TS,TRANSACTION,BRIDGE,EC,INT,STAT,DATA,POINT,WS>
 {
 	final static Logger logger = LoggerFactory.getLogger(TsDbCountProcessor.class);
 	
@@ -49,9 +51,9 @@ public class TsDbCountProcessor<RE extends JeeslRevisionEntity<?,?,?,?,?,?>,
 	private final JeeslIoDbFacade<?,?,?,?,?,?,?> fDb;
 	
 	public TsDbCountProcessor(IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?,?> fbRevision,
-									TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,DATA,POINT,?,?,WS,?> fbTs,
+									TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?> fbTs,
 									JeeslIoDbFacade<?,?,?,?,?,?,?> fDb,
-									JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,DATA,POINT,?,?,WS,?> fTs)
+									JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?> fTs)
 	{
 		super(fbTs,fTs);
 		this.fbRevision=fbRevision;

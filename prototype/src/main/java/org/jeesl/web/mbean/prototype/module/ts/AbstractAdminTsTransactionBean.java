@@ -73,7 +73,7 @@ public class AbstractAdminTsTransactionBean <L extends UtilsLang, D extends Util
 
 	private CodeConfirmationHandler cch;
 
-	public AbstractAdminTsTransactionBean(final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF> fbTs)
+	public AbstractAdminTsTransactionBean(final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF> fbTs)
 	{
 		super(fbTs);
 		sbDateHandler = new SbDateHandler(this);
@@ -81,7 +81,7 @@ public class AbstractAdminTsTransactionBean <L extends UtilsLang, D extends Util
 		sbDateHandler.initMonthsToNow(2);
 	}
 	
-	protected void initSuper(String[] langs, JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF> fTs, JeeslFacesMessageBean bMessage)
+	protected void initSuper(String[] langs, JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF> fTs, JeeslFacesMessageBean bMessage)
 	{
 		super.initTsSuper(langs,fTs,bMessage);
 		cch = new CodeConfirmationHandler();

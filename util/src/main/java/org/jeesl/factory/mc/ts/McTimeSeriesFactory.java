@@ -14,6 +14,7 @@ import org.jeesl.interfaces.model.module.ts.core.JeeslTsScope;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsBridge;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsDataPoint;
+import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
 import org.jeesl.model.xml.module.ts.TimeSeries;
 import org.metachart.factory.xml.chart.XmlChartFactory;
 import org.metachart.factory.xml.chart.XmlDataFactory;
@@ -36,6 +37,7 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 								BRIDGE extends JeeslTsBridge<EC>,
 								EC extends JeeslTsEntityClass<?,?,?>,
 								INT extends UtilsStatus<INT,?,?>,
+								STAT extends JeeslTsStatistic<?,?,STAT,?>,
 								DATA extends JeeslTsData<TS,?,?,WS>,
 								POINT extends JeeslTsDataPoint<DATA,MP>,
 								WS extends UtilsStatus<WS,?,?>>
@@ -44,9 +46,9 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 	
 	private final boolean debugOnInfo = false;
 	
-	private final JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,?,?,BRIDGE,EC,INT,DATA,POINT,?,?,WS,?> fTs;
+	private final JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,?,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?> fTs;
 	
-	private final TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,?,?,BRIDGE,EC,INT,DATA,POINT,?,?,WS,?> fbTs;
+	private final TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,?,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?> fbTs;
 	private final EjbTsDataPointFactory<MP,DATA,POINT> efPoint;
 	
 	private SCOPE scope; public SCOPE getScope() {return scope;} public void setScope(SCOPE scope) {this.scope = scope;}
@@ -54,8 +56,8 @@ public class McTimeSeriesFactory <SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 	private INT interval; public INT getInterval() {return interval;} public void setInterval(INT interval) {this.interval = interval;}
 	private WS workspace; public WS getWorkspace() {return workspace;} public void setWorkspace(WS workspace) {this.workspace = workspace;}
 	
-	public McTimeSeriesFactory(TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,?,?,BRIDGE,EC,INT,DATA,POINT,?,?,WS,?> fbTs,
-							   JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,?,?,BRIDGE,EC,INT,DATA,POINT,?,?,WS,?> fTs)
+	public McTimeSeriesFactory(TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,?,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?> fbTs,
+							   JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,?,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?> fTs)
 	{
 		this.fbTs=fbTs;
 		this.fTs=fTs;

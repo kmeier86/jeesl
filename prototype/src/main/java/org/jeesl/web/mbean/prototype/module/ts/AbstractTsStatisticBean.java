@@ -66,14 +66,14 @@ public class AbstractTsStatisticBean <L extends UtilsLang, D extends UtilsDescri
 
 	protected String jsonStream; public String getJsonStream() {return jsonStream;}
 	
-	public AbstractTsStatisticBean(final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF> fbTs)
+	public AbstractTsStatisticBean(final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF> fbTs)
 	{
 		super(fbTs);
 		sbhClass = new SbSingleHandler<EC>(fbTs.getClassEntity(),this);
 		th = new JsonTuple1Handler<TS>(fbTs.getClassTs());
 	}
 	
-	protected void postConstructSummary(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF> fTs, JeeslFacesMessageBean bMessage)
+	protected void postConstructSummary(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF> fTs, JeeslFacesMessageBean bMessage)
 	{
 		super.initTsSuper(bTranslation.getLangKeys().toArray(new String[bTranslation.getLangKeys().size()]),fTs,bMessage);
 		sbhClass.update(fTs.all(fbTs.getClassEntity()));

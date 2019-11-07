@@ -56,7 +56,7 @@ public class JeeslTsFacadeBean<L extends UtilsLang, D extends UtilsDescription,
 							BRIDGE extends JeeslTsBridge<EC>,
 							EC extends JeeslTsEntityClass<L,D,CAT>,
 							INT extends UtilsStatus<INT,L,D>,
-//							STAT extends JeeslTsStatistic<L,D,STAT,?>,
+							STAT extends JeeslTsStatistic<L,D,STAT,?>,
 							DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
 							POINT extends JeeslTsDataPoint<DATA,MP>,
 							SAMPLE extends JeeslTsSample, 
@@ -64,16 +64,16 @@ public class JeeslTsFacadeBean<L extends UtilsLang, D extends UtilsDescription,
 							WS extends UtilsStatus<WS,L,D>,
 							QAF extends UtilsStatus<QAF,L,D>>
 					extends UtilsFacadeBean
-					implements JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF>
+					implements JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF>
 {
 	private static final long serialVersionUID = 1L;
 
-	private final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF> fbTs;
+	private final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF> fbTs;
 	
 	private final EjbTsFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF> efTs;
 	private EjbTsBridgeFactory<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF> efBridge;
 	
-	public JeeslTsFacadeBean(EntityManager em, final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF> fbTs)
+	public JeeslTsFacadeBean(EntityManager em, final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF> fbTs)
 	{
 		super(em);
 		this.fbTs=fbTs;

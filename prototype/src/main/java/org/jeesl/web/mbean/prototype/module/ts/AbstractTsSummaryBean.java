@@ -74,7 +74,7 @@ public class AbstractTsSummaryBean <L extends UtilsLang, D extends UtilsDescript
 	private TS ts; public TS getTs() {return ts;} public void setTs(TS ts) {this.ts = ts;}
 	
 	
-	public AbstractTsSummaryBean(final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF> fbTs)
+	public AbstractTsSummaryBean(final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF> fbTs)
 	{
 		super(fbTs);
 		mapBridge = new HashMap<Long,EjbWithId>();
@@ -83,7 +83,7 @@ public class AbstractTsSummaryBean <L extends UtilsLang, D extends UtilsDescript
 		th = new JsonTuple1Handler<TS>(fbTs.getClassTs());
 	}
 	
-	protected void postConstructSummary(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF> fTs, JeeslFacesMessageBean bMessage)
+	protected void postConstructSummary(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF> fTs, JeeslFacesMessageBean bMessage)
 	{
 		super.initTsSuper(bTranslation.getLangKeys().toArray(new String[bTranslation.getLangKeys().size()]),fTs,bMessage);
 		sbhClass.update(fTs.all(fbTs.getClassEntity()));

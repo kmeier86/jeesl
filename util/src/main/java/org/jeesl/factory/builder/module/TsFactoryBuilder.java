@@ -22,6 +22,7 @@ import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsDataPoint;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsSample;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
+import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
 import org.jeesl.util.comparator.ejb.module.ts.TsScopeComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,7 @@ public class TsFactoryBuilder<L extends UtilsLang, D extends UtilsDescription,
 								BRIDGE extends JeeslTsBridge<EC>,
 								EC extends JeeslTsEntityClass<L,D,CAT>,
 								INT extends UtilsStatus<INT,L,D>,
+								STAT extends JeeslTsStatistic<L,D,STAT,?>,
 								DATA extends JeeslTsData<TS,TRANSACTION,SAMPLE,WS>,
 								POINT extends JeeslTsDataPoint<DATA,MP>,
 								SAMPLE extends JeeslTsSample,
@@ -130,9 +132,9 @@ public class TsFactoryBuilder<L extends UtilsLang, D extends UtilsDescription,
 		return new EjbTsMutliPointFactory<L,D,CAT,SCOPE,ST,UNIT,MP,EC,INT>(cMp);
 	}
 	
-	public McTimeSeriesFactory<SCOPE,MP,TS,BRIDGE,EC,INT,DATA,POINT,WS> metaChart(JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF> fTs)
+	public McTimeSeriesFactory<SCOPE,MP,TS,BRIDGE,EC,INT,STAT,DATA,POINT,WS> metaChart(JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF> fTs)
 	{
-		return new McTimeSeriesFactory<SCOPE,MP,TS,BRIDGE,EC,INT,DATA,POINT,WS>(this,fTs);
+		return new McTimeSeriesFactory<SCOPE,MP,TS,BRIDGE,EC,INT,STAT,DATA,POINT,WS>(this,fTs);
 	}
 	
 	public Comparator<SCOPE> cmpScope(TsScopeComparator.Type type)

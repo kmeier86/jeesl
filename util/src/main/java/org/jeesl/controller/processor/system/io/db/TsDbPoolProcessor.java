@@ -13,6 +13,7 @@ import org.jeesl.interfaces.model.module.ts.data.JeeslTsBridge;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsDataPoint;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
+import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
 import org.jeesl.interfaces.model.system.io.ssi.JeeslIoSsiSystem;
 import org.metachart.xml.chart.Chart;
 import org.metachart.xml.chart.Ds;
@@ -30,17 +31,18 @@ public class TsDbPoolProcessor<SYSTEM extends JeeslIoSsiSystem,
 									BRIDGE extends JeeslTsBridge<EC>,
 									EC extends JeeslTsEntityClass<?,?,?>,
 									INT extends UtilsStatus<INT,?,?>,
+									STAT extends JeeslTsStatistic<?,?,STAT,?>,
 									DATA extends JeeslTsData<TS,TRANSACTION,?,WS>,
 									POINT extends JeeslTsDataPoint<DATA,MP>,
 									WS extends UtilsStatus<WS,?,?>>
-	extends AbstractTimeSeriesProcessor<SCOPE,MP,TS,TRANSACTION,BRIDGE,EC,INT,DATA,POINT,WS>
+	extends AbstractTimeSeriesProcessor<SCOPE,MP,TS,TRANSACTION,BRIDGE,EC,INT,STAT,DATA,POINT,WS>
 {
 	final static Logger logger = LoggerFactory.getLogger(TsDbPoolProcessor.class);
 	
 	
 	
-	public TsDbPoolProcessor(TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,DATA,POINT,?,?,WS,?> fbTs,
-									JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,DATA,POINT,?,?,WS,?> fTs)
+	public TsDbPoolProcessor(TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?> fbTs,
+									JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?> fTs)
 	{
 		super(fbTs,fTs);
 		

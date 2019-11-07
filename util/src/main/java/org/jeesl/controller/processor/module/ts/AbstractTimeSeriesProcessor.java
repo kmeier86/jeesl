@@ -13,6 +13,7 @@ import org.jeesl.interfaces.model.module.ts.data.JeeslTsBridge;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsData;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsDataPoint;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
+import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,6 +29,7 @@ public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,?,?,EC
 									BRIDGE extends JeeslTsBridge<EC>,
 									EC extends JeeslTsEntityClass<?,?,?>,
 									INT extends UtilsStatus<INT,?,?>,
+									STAT extends JeeslTsStatistic<?,?,STAT,?>,
 									DATA extends JeeslTsData<TS,TRANSACTION,?,WS>,
 									POINT extends JeeslTsDataPoint<DATA,MP>,
 									WS extends UtilsStatus<WS,?,?>
@@ -35,11 +37,11 @@ public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,?,?,EC
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractTimeSeriesProcessor.class);
 	
-	protected final TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,DATA,POINT,?,?,WS,?> fbTs;
+	protected final TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?> fbTs;
 	
-	protected final JeeslTsFacade<?,?,?,SCOPE,?,?,?,TS,TRANSACTION,?,BRIDGE,EC,INT,DATA,?,?,?,WS,?> fTs;
+	protected final JeeslTsFacade<?,?,?,SCOPE,?,?,?,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,?,?,?,WS,?> fTs;
 	
-	protected final McTimeSeriesFactory<SCOPE,MP,TS,BRIDGE,EC,INT,DATA,POINT,WS> mfTs;
+	protected final McTimeSeriesFactory<SCOPE,MP,TS,BRIDGE,EC,INT,STAT,DATA,POINT,WS> mfTs;
 	protected final EjbTsDataFactory<TS,TRANSACTION,DATA,WS> efData;
 	protected final EjbTsDataPointFactory<MP,DATA,POINT> efPoint;
 	
@@ -49,12 +51,12 @@ public class AbstractTimeSeriesProcessor<SCOPE extends JeeslTsScope<?,?,?,?,?,EC
 	protected INT interval;
 	protected EC ec;
 	
-	public AbstractTimeSeriesProcessor(TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,DATA,POINT,?,?,WS,?> fbTs,
-									JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,DATA,POINT,?,?,WS,?> fTs)
+	public AbstractTimeSeriesProcessor(TsFactoryBuilder<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?> fbTs,
+									JeeslTsFacade<?,?,?,SCOPE,?,?,MP,TS,TRANSACTION,?,BRIDGE,EC,INT,STAT,DATA,POINT,?,?,WS,?> fTs)
 	{
 		this.fbTs=fbTs;
 		this.fTs=fTs;
-		mfTs = new McTimeSeriesFactory<SCOPE,MP,TS,BRIDGE,EC,INT,DATA,POINT,WS>(fbTs,fTs);
+		mfTs = new McTimeSeriesFactory<SCOPE,MP,TS,BRIDGE,EC,INT,STAT,DATA,POINT,WS>(fbTs,fTs);
 		efData = fbTs.data();
 		efPoint = fbTs.ejbDataPoint();
 	}

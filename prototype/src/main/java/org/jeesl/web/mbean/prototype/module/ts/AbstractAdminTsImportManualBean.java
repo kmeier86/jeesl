@@ -97,7 +97,7 @@ public class AbstractAdminTsImportManualBean<L extends UtilsLang, D extends Util
 	private List<DATA> datas; public List<DATA> getDatas() {return datas;}
 	private DATA data; public DATA getData() { return data; } public void setData(DATA data) { this.data = data; }
 
-	public AbstractAdminTsImportManualBean(final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF> fbTs)
+	public AbstractAdminTsImportManualBean(final TsFactoryBuilder<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF> fbTs)
 	{
 		super(fbTs);
 		entities = new ArrayList<EjbWithId>();
@@ -107,7 +107,7 @@ public class AbstractAdminTsImportManualBean<L extends UtilsLang, D extends Util
 	}
 
 	protected void postConstructTsManual(JeeslTranslationBean<L,D,?> bTranslation,
-								JeeslFacesMessageBean bMessage, JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,POINT,SAMPLE,USER,WS,QAF> fTs,
+								JeeslFacesMessageBean bMessage, JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF> fTs,
 								USER transactionUser)
 	{
 		super.postConstructTs(bTranslation,bMessage,fTs);
