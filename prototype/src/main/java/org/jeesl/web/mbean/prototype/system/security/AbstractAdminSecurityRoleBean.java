@@ -51,7 +51,7 @@ public class AbstractAdminSecurityRoleBean <L extends UtilsLang, D extends Utils
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAdminSecurityRoleBean.class);
 			
-	private List<R> roles; public List<R> getRoles(){return roles;}
+	protected List<R> roles; public List<R> getRoles(){return roles;}
 	private List<V> views; public List<V> getViews(){return views;}
 	private List<A> actions; public List<A> getActions(){return actions;}
 	private List<U> usecases; public List<U> getUsecases(){return usecases;}

@@ -71,7 +71,6 @@ public class AbstractAdminSecurityBean <L extends UtilsLang, D extends UtilsDesc
 	protected final EjbSecurityUsecaseFactory<C,U> efUsecase;
 	protected final EjbSecurityActionFactory<V,A> efAction;
 	protected final EjbSecurityActionTemplateFactory<C,AT> efTemplate;
-	
 
 	protected final Comparator<R> comparatorRole;
 	protected final Comparator<V> comparatorView;
@@ -159,7 +158,8 @@ public class AbstractAdminSecurityBean <L extends UtilsLang, D extends UtilsDesc
 		}
 		else
 		{
-			logger.warn(fbSecurity.getClassCategory().getSimpleName()+" not removeable ... in use!");
+			
+			logger.warn(fbSecurity.getClassCategory().getSimpleName()+" not removeable. It may be in use or feature not activted (@Override)");
 			bMessage.errorConstraintViolationInUse("category");
 		}
 	}
