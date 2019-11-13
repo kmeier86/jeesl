@@ -93,7 +93,7 @@ public abstract class AbstractAdminRevisionBean <L extends UtilsLang, D extends 
 		
 		comparatorEntity = (new RevisionEntityComparator<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>()).factory(RevisionEntityComparator.Type.position);
 		comparatorScope = (new RevisionScopeComparator<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT>()).factory(RevisionScopeComparator.Type.position);
-		cpDiagram = (new RevisionDiagramComparator<L,D,RC,ERD>()).factory(RevisionDiagramComparator.Type.category);
+		cpDiagram = (new RevisionDiagramComparator<RC,ERD>()).factory(RevisionDiagramComparator.Type.category);
 		
 		efView = fbRevision.ejbView();
 		efMappingView = fbRevision.ejbMappingView();

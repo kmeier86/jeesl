@@ -62,7 +62,7 @@ public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDes
 	public AbstractAdminErDiagramBean(final IoRevisionFactoryBuilder<L,D,RC,RV,RVM,RS,RST,RE,REM,RA,RER,RAT,ERD> fbRevision)
 	{
 		super(fbRevision);
-		cpDiagram = (new RevisionDiagramComparator<L,D,RC,ERD>()).factory(RevisionDiagramComparator.Type.category);
+		cpDiagram = (new RevisionDiagramComparator<RC,ERD>()).factory(RevisionDiagramComparator.Type.category);
 		efErDiagram = fbRevision.ejbDiagram();
 	}
 
@@ -72,10 +72,10 @@ public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDes
 		super.initRevisionSuper(langs,bMessage,fRevision);
 
 		sbhCategory.selectAll();
-		refreshList();
+		reloadDiagrams();
 	}
 
-	private void refreshList()
+	private void reloadDiagrams()
 	{
 		diagrams = fRevision.allForParents(fbRevision.getClassDiagram(), sbhCategory.getSelected());
 //		diagrams = fRevision.all(fbRevision.getClassDiagram());
@@ -115,7 +115,7 @@ public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDes
 		if(debugOnInfo) {logger.info(AbstractLogMessage.saveEntity(diagram));}
 		if(diagram.getCategory()!=null){diagram.setCategory(fRevision.find(fbRevision.getClassCategory(),diagram.getCategory()));}
 		diagram = fRevision.save(diagram);
-		refreshList();
+		reloadDiagrams();
 		bMessage.growlSuccessSaved();
 		reloadDiagram();
 	}
@@ -127,7 +127,7 @@ public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDes
 		fRevision.rm(diagram);
 		diagram=null;
 		dot = null;
-		refreshList();
+		reloadDiagrams();
 		bMessage.growlSuccessRemoved();
 	}
 
@@ -137,7 +137,11 @@ public class AbstractAdminErDiagramBean <L extends UtilsLang, D extends UtilsDes
 		dot = null;
 	}
 	
-	public void reorderDiagrams() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fRevision,fbRevision.getClassDiagram(),diagrams);
+	public void reorderDiagrams() throws UtilsConstraintViolationException, UtilsLockingException
+	{
+		logger.info(AbstractLogMessage.reorder(fbRevision.getClassDiagram(), diagrams));
+		PositionListReorderer.reorder(fRevision,fbRevision.getClassDiagram(),diagrams);
+		reloadDiagrams();
 //	Collections.sort(diagrams,cpDiagram);
 	}
 }

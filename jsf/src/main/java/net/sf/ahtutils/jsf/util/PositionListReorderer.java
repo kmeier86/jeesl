@@ -35,6 +35,7 @@ public class PositionListReorderer
 	
 	public static <T extends EjbWithPositionParent> void reorder(UtilsFacade facade, Class<T> c, List<T> list) throws UtilsConstraintViolationException, UtilsLockingException
 	{
+		logger.info("Reorder: "+c.getSimpleName());
 		Method m = null;
 		try
 		{
@@ -43,7 +44,7 @@ public class PositionListReorderer
 			attribute = attribute.substring(0,1).toUpperCase()+attribute.substring(1,attribute.length());
 //			logger.info("M: "+attribute);
 			m = c.getDeclaredMethod("get"+attribute);
-//			logger.info("Method: "+m.getName());
+			logger.info("Method: "+m.getName());
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}
@@ -58,13 +59,14 @@ public class PositionListReorderer
 		{
 			try
 			{
-				Object o = m.invoke(t);
-				if(o instanceof EjbWithPosition)
+				Object parent = m.invoke(t);
+				if(parent instanceof EjbWithPosition)
 				{
-					EjbWithPosition pos = (EjbWithPosition)o;
-					if(!map.containsKey(pos.getPosition())){map.put(pos.getPosition(), 1);}
-//					logger.info(o.toString()+" jhas püos");
+					EjbWithPosition parentPosition = (EjbWithPosition)parent;
+					if(!map.containsKey(parentPosition.getPosition())){map.put(parentPosition.getPosition(),1);}
+//					logger.info(parent.toString()+" has ");
 				}
+//				else {logger.warn("No EjbWithPosition");}		
 			}
 			catch (IllegalAccessException e) {e.printStackTrace();}
 			catch (IllegalArgumentException e) {e.printStackTrace();}
@@ -73,8 +75,7 @@ public class PositionListReorderer
 			i++;
 		}
 		
-		PositionComparator<T> comparator = new PositionComparator<T>();
-		Collections.sort(list,comparator);
+		Collections.sort(list,new PositionComparator<T>());
 		
 		for(T t : list)
 		{
