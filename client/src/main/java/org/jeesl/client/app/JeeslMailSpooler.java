@@ -20,6 +20,7 @@ import org.jeesl.api.rest.system.io.mail.JeeslIoMailRest;
 import org.jeesl.client.JeeslBootstrap;
 import org.jeesl.factory.txt.system.io.mail.core.TxtMailFactory;
 import org.jeesl.mail.smtp.TextMailSender;
+import org.jeesl.model.xml.system.io.mail.Attachment;
 import org.jeesl.model.xml.system.io.mail.Mail;
 import org.jeesl.model.xml.system.io.mail.Mails;
 import org.slf4j.Logger;
@@ -81,8 +82,15 @@ public class JeeslMailSpooler
 		buildRest(cfgUrl);
 		buildSmtp(cfgSmtp);
 		
-//		spooler();
-		localShow(false);
+		spooler();
+//		discard();
+//		localShow(true);
+	}
+	
+	public void discard()
+	{
+		Mails xml = rest.discard(1);
+		JaxbUtil.info(xml);
 	}
 	
 	public void localShow(boolean confirm)
@@ -90,6 +98,10 @@ public class JeeslMailSpooler
 		Mails mails = rest.spool();
 		for(Mail mail : mails.getMail())
 		{
+			if(!mail.getAttachment().isEmpty())
+			{
+				for(Attachment att : mail.getAttachment()) {att.setData(null);}
+			}
 			JaxbUtil.info(mail);
 			if(confirm) {rest.confirm(mail.getId());}
 		}
@@ -171,14 +183,13 @@ public class JeeslMailSpooler
 	{
 		JeeslMailSpooler notifier = new JeeslMailSpooler();
 		
-//		notifier.local(); System.exit(-1);
+		notifier.local(); System.exit(-1);
 		
 		UtilsCliOption jco = new UtilsCliOption(org.jeesl.Version.class.getPackage().getImplementationVersion());
 		jco.setLog4jPaths("jeesl/client/config");
 		
 		try
 		{
-			
 			notifier.parseArguments(jco,args);
 		}
 		catch (ParseException e) {logger.error(e.getMessage());jco.help();}

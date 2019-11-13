@@ -1,6 +1,7 @@
 package org.jeesl.web.rest.system.io;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import org.jeesl.model.xml.jeesl.Container;
 import org.jeesl.model.xml.system.io.mail.Mail;
 import org.jeesl.model.xml.system.io.mail.Mails;
 import org.jeesl.web.rest.AbstractJeeslRestService;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -114,8 +116,7 @@ public class IoMailRestService <L extends UtilsLang,D extends UtilsDescription,
 		return xml;
 	}
 
-	@Override
-	public Mail confirm(long id)
+	@Override public Mail confirm(long id)
 	{
 		Mail xMail = XmlMailFactory.build("pending");
 		try
@@ -131,5 +132,37 @@ public class IoMailRestService <L extends UtilsLang,D extends UtilsDescription,
 		catch (UtilsConstraintViolationException e) {xMail.setCode("error");}
 		catch (UtilsLockingException e) {xMail.setCode("error");}
 		return xMail;
+	}
+
+	@Override public Mails discard(int days)
+	{
+		DateTime dt = new DateTime().minusDays(days);
+		
+		List<CATEGORY> categories = fMail.all(cCategory);
+		List<RETENTION> retentions = fMail.all(cRetention);
+		
+		List<STATUS> status = new ArrayList<>();
+		try {status.add(fMail.fByCode(cStatus,JeeslMailStatus.Code.queue));}
+		catch (UtilsNotFoundException e) {e.printStackTrace();}
+		
+		List<MAIL> mails = fMail.fMails(categories, status, retentions, null, dt.toDate(), null);
+		
+		if(!mails.isEmpty())
+		{
+			try
+			{
+				STATUS discard = fMail.fByCode(cStatus,JeeslMailStatus.Code.discarded);
+				for(MAIL mail : mails)
+				{
+					mail.setStatus(discard);
+				}
+				fMail.save(mails);
+			}
+			catch (UtilsNotFoundException | UtilsConstraintViolationException | UtilsLockingException e) {e.printStackTrace();}
+		}
+		
+		Mails xml = new Mails();
+		xml.setQueue(mails.size());
+		return xml;
 	}
 }

@@ -16,4 +16,7 @@ public interface JeeslIoMailRestInterface
 	
 	@GET @Path("/queue/confirm/{id:[1-9][0-9]*}") @Produces(MediaType.APPLICATION_XML)
 	Mail confirm(@PathParam("id") long id);
+	
+	@GET @Path("/queue/discard/{days:[1-9][0-9]*}") @Produces(MediaType.APPLICATION_XML)
+	Mails discard(@PathParam("days") int days);
 }
