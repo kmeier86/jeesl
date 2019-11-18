@@ -18,6 +18,7 @@
 		<composite:attribute name="type" required="true"/>
 		<composite:attribute name="tooltip" required="false"/>
 		<composite:attribute name="immediate" required="false" default="false"/>
+		<composite:attribute name="svg" required="false" type="java.lang.Boolean" default="false"/>
 	</composite:interface>
 
 	<composite:implementation>
@@ -34,7 +35,7 @@
 				<h:graphicImage id="image"
 						rendered="#{not cc.attrs.disabled}"
 						styleClass="#{cc.attrs.styleClass}"
-						library="gfx" name="#{appIconBean.icon12[cc.attrs.type]}"/>
+						library="gfx" name="#{cc.attrs.svg ? appIconBean.svg[cc.attrs.type] : appIconBean.icon12[cc.attrs.type]}"/>
 				<p:tooltip rendered="#{not empty cc.attrs.tooltip}" for="image" value="#{cc.attrs.tooltip}" />
 			</p:commandLink>
 	    </c:if>
@@ -52,7 +53,7 @@
 						rendered="#{not cc.attrs.disabled}"
 						styleClass="#{cc.attrs.styleClass}"
 						library="gfx"
-						name="#{appIconBean.icon12[cc.attrs.type]}"/>
+						name="#{cc.attrs.svg ? appIconBean.svg[cc.attrs.type] : appIconBean.icon12[cc.attrs.type]}"/>
 						<p:tooltip for="image2" value="#{cc.attrs.tooltip}" showDelay="1500"/>
 				</p:commandLink>
 			</c:if>
@@ -68,7 +69,7 @@
 						rendered="#{not cc.attrs.disabled}"
 						styleClass="#{cc.attrs.styleClass}"
 						library="gfx"
-						name="#{appIconBean.icon12[cc.attrs.type]}"/>
+						name="#{cc.attrs.svg ? appIconBean.svg[cc.attrs.type] : appIconBean.icon12[cc.attrs.type]}"/>
 						<p:tooltip for="image2" value="#{cc.attrs.tooltip}" widgetVar="wvTtDisappear" showDelay="1500"/>
 				</p:commandLink>
 			</c:if>

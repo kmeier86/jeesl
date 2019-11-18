@@ -82,9 +82,9 @@ public class JeeslMailSpooler
 		buildRest(cfgUrl);
 		buildSmtp(cfgSmtp);
 		
-		spooler();
-//		discard();
-//		localShow(true);
+//		spooler();
+		discard();
+		localShow(false);
 	}
 	
 	public void discard()
