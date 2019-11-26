@@ -163,7 +163,14 @@ public class ErGraphProcessor
 				String[] items = er.subset().split(",");
 				for(String s : items)
 				{
-					if(subSet.contains(s)){logger.trace(c.getName());add=true;}
+					if(subSet.contains(s))
+					{
+						if(node.getLabel().startsWith("**"))
+						{
+							logger.error("No Translation "+c.getName());
+						}	
+						add=true;
+					}
 				}
 			}
 

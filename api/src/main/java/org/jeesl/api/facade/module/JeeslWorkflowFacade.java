@@ -1,5 +1,7 @@
 package org.jeesl.api.facade.module;
 
+import java.util.List;
+
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowAction;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowBot;
 import org.jeesl.interfaces.model.module.workflow.action.JeeslWorkflowCommunication;
@@ -33,8 +35,8 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface JeeslWorkflowFacade <L extends UtilsLang, D extends UtilsDescription, LOC extends UtilsStatus<LOC,L,D>,
 										AX extends JeeslWorkflowContext<L,D,AX,?>,
-										AP extends JeeslWorkflowProcess<L,D,AX,WS>,
-										WS extends JeeslWorkflowStage<L,D,AP,WST,WSP,WT,?>,
+										WP extends JeeslWorkflowProcess<L,D,AX,WS>,
+										WS extends JeeslWorkflowStage<L,D,WP,WST,WSP,WT,?>,
 										WST extends JeeslWorkflowStageType<L,D,WST,?>,
 										WSP extends JeeslWorkflowStagePermission<WS,APT,WML,SR>,
 										APT extends JeeslWorkflowPermissionType<L,D,APT,?>,
@@ -50,15 +52,16 @@ public interface JeeslWorkflowFacade <L extends UtilsLang, D extends UtilsDescri
 										SR extends JeeslSecurityRole<L,D,?,?,?,?,?>,
 										RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 										RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
-										AL extends JeeslApprovalLink<AW,RE>,
-										AW extends JeeslApprovalWorkflow<AP,WS,WY>,
-										WY extends JeeslApprovalActivity<WT,AW,FRC,USER>,
+										AL extends JeeslApprovalLink<WF,RE>,
+										WF extends JeeslApprovalWorkflow<WP,WS,WY>,
+										WY extends JeeslApprovalActivity<WT,WF,FRC,USER>,
 										FRC extends JeeslFileContainer<?,?>,
 										USER extends JeeslUser<SR>>
 			extends UtilsFacade
 {	
-	WT fTransitionBegin(AP process);
+	WT fTransitionBegin(WP process);
 	
-	<W extends JeeslWithWorkflow<AW>> AL fLink(AP process, W owner) throws UtilsNotFoundException;
+	<W extends JeeslWithWorkflow<WF>> AL fWorkflowLink(WP process, W owner) throws UtilsNotFoundException;
 //	<W extends JeeslWithWorkflow<AW>> AW fWorkflow(Class<W> cWith, W with) throws UtilsNotFoundException;
+	List<WF> fWorkflows(WP process, List<WS> stages);
 }

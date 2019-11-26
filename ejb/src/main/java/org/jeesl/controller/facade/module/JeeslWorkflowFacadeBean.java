@@ -1,5 +1,6 @@
 package org.jeesl.controller.facade.module;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -7,6 +8,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.module.JeeslWorkflowFacade;
@@ -105,8 +107,7 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 		return null;
 	}
 
-	@Override
-	public <W extends JeeslWithWorkflow<AW>> WL fLink(AP process, W owner) throws UtilsNotFoundException
+	@Override public <W extends JeeslWithWorkflow<AW>> WL fWorkflowLink(AP process, W owner) throws UtilsNotFoundException
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<WL> cQ = cB.createQuery(fbWorkflow.getClassLink());
@@ -134,5 +135,21 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 		{
 			{throw new UtilsNotFoundException("No "+fbWorkflow.getClassLink()+" found for "+owner);}
 		}
+	}
+
+	@Override public List<AW> fWorkflows(AP process, List<WS> stages) 
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<AW> cQ = cB.createQuery(fbWorkflow.getClassWorkflow());
+		Root<AW> workflow = cQ.from(fbWorkflow.getClassWorkflow());
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		Path<AP> pProcess = workflow.get(JeeslApprovalWorkflow.Attributes.process.toString());
+		predicates.add(cB.equal(pProcess,process));
+		
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(workflow);
+		
+		return em.createQuery(cQ).getResultList();
 	}
 }

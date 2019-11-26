@@ -223,7 +223,7 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 		this.entity = ejb;
 		reset(true,true,true,true,true);
 		
-		link = fWorkflow.fLink(process,ejb);
+		link = fWorkflow.fWorkflowLink(process,ejb);
 		workflow = link.getWorkflow();
 		if(debugOnInfo) {logger.info("Select: Workflow and Link");}
 		reloadWorkflow(false);
@@ -236,7 +236,7 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 		{
 			try
 			{
-				AL link = fWorkflow.fLink(process,w);
+				AL link = fWorkflow.fWorkflowLink(process,w);
 				mapWorkflow.put(w,link.getWorkflow());
 			}
 			catch (UtilsNotFoundException e) {}

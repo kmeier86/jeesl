@@ -26,7 +26,7 @@ public class JeeslLazyListHandler <T extends EjbWithId>
 			try
 			{
 				if (first+pageSize < tmp.size()){result.addAll(tmp.subList(first, first + pageSize));}
-				else{result.addAll(tmp.subList(first, tmp.size()-1));}
+				else{result.addAll(tmp.subList(first,tmp.size()));}
 			}
 			catch(IndexOutOfBoundsException e){result.addAll(tmp.subList(first, first + (tmp.size() % pageSize)));}
 		}
