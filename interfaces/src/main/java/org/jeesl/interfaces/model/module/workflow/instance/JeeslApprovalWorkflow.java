@@ -20,7 +20,7 @@ public interface JeeslApprovalWorkflow <WP extends JeeslWorkflowProcess<?,?,?,WS
 		extends Serializable,EjbPersistable,EjbRemoveable,EjbSaveable,
 				EjbWithId,EjbWithParentAttributeResolver
 {
-	public static enum Attributes{process,currentStage}
+	public static enum Attributes{process,currentStage,lastActivity}
 	
 	WP getProcess();
 	void setProcess(WP process);
@@ -30,4 +30,7 @@ public interface JeeslApprovalWorkflow <WP extends JeeslWorkflowProcess<?,?,?,WS
 	
 	List<WY> getActivities();
 	void setActivities(List<WY> activities);
+	
+	WY getLastActivity();
+	void setLastActivity(WY lastActivity);
 }

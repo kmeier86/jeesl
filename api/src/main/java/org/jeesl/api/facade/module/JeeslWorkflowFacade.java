@@ -52,7 +52,7 @@ public interface JeeslWorkflowFacade <L extends UtilsLang, D extends UtilsDescri
 										SR extends JeeslSecurityRole<L,D,?,?,?,?,?>,
 										RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 										RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
-										AL extends JeeslApprovalLink<WF,RE>,
+										WL extends JeeslApprovalLink<WF,RE>,
 										WF extends JeeslApprovalWorkflow<WP,WS,WY>,
 										WY extends JeeslApprovalActivity<WT,WF,FRC,USER>,
 										FRC extends JeeslFileContainer<?,?>,
@@ -61,7 +61,7 @@ public interface JeeslWorkflowFacade <L extends UtilsLang, D extends UtilsDescri
 {	
 	WT fTransitionBegin(WP process);
 	
-	<W extends JeeslWithWorkflow<WF>> AL fWorkflowLink(WP process, W owner) throws UtilsNotFoundException;
+	<W extends JeeslWithWorkflow<WF>> WL fWorkflowLink(WP process, W owner) throws UtilsNotFoundException;
 //	<W extends JeeslWithWorkflow<AW>> AW fWorkflow(Class<W> cWith, W with) throws UtilsNotFoundException;
 	List<WF> fWorkflows(WP process, List<WS> stages);
 }

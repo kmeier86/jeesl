@@ -65,21 +65,21 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 									SR extends JeeslSecurityRole<L,D,?,?,?,?,?>,
 									RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 									RA extends JeeslRevisionAttribute<L,D,RE,?,?>,
-									WL extends JeeslApprovalLink<AW,RE>,
-									AW extends JeeslApprovalWorkflow<AP,WS,WY>,
-									WY extends JeeslApprovalActivity<WT,AW,FRC,USER>,
+									WL extends JeeslApprovalLink<WF,RE>,
+									WF extends JeeslApprovalWorkflow<AP,WS,WY>,
+									WY extends JeeslApprovalActivity<WT,WF,FRC,USER>,
 									FRC extends JeeslFileContainer<?,?>,
 									USER extends JeeslUser<SR>>
 					extends UtilsFacadeBean
-					implements JeeslWorkflowFacade<L,D,LOC,AX,AP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,AW,WY,FRC,USER>
+					implements JeeslWorkflowFacade<L,D,LOC,AX,AP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,FRC,USER>
 {	
 	private static final long serialVersionUID = 1L;
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslWorkflowFacadeBean.class);
 	
-	private final WorkflowFactoryBuilder<L,D,AX,AP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,AW,WY,FRC,USER> fbWorkflow;
+	private final WorkflowFactoryBuilder<L,D,AX,AP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,FRC,USER> fbWorkflow;
 	
-	public JeeslWorkflowFacadeBean(EntityManager em, final WorkflowFactoryBuilder<L,D,AX,AP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,AW,WY,FRC,USER> fbApproval)
+	public JeeslWorkflowFacadeBean(EntityManager em, final WorkflowFactoryBuilder<L,D,AX,AP,WS,WST,WSP,WPT,WML,WT,WTT,AC,AA,AB,AO,MT,MC,SR,RE,RA,WL,WF,WY,FRC,USER> fbApproval)
 	{
 		super(em);
 		this.fbWorkflow=fbApproval;
@@ -107,13 +107,13 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 		return null;
 	}
 
-	@Override public <W extends JeeslWithWorkflow<AW>> WL fWorkflowLink(AP process, W owner) throws UtilsNotFoundException
+	@Override public <W extends JeeslWithWorkflow<WF>> WL fWorkflowLink(AP process, W owner) throws UtilsNotFoundException
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<WL> cQ = cB.createQuery(fbWorkflow.getClassLink());
 		Root<WL> link = cQ.from(fbWorkflow.getClassLink());
 		
-		Join<WL,AW> jWorkflow = link.join(JeeslApprovalLink.Attributes.workflow.toString());
+		Join<WL,WF> jWorkflow = link.join(JeeslApprovalLink.Attributes.workflow.toString());
 		Path<AP> pProcess = jWorkflow.get(JeeslApprovalWorkflow.Attributes.process.toString());
 		Path<Long> pRefId = link.get(JeeslApprovalLink.Attributes.refId.toString());
 		
@@ -137,15 +137,25 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 		}
 	}
 
-	@Override public List<AW> fWorkflows(AP process, List<WS> stages) 
+	@Override public List<WF> fWorkflows(AP process, List<WS> stages) 
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
-		CriteriaQuery<AW> cQ = cB.createQuery(fbWorkflow.getClassWorkflow());
-		Root<AW> workflow = cQ.from(fbWorkflow.getClassWorkflow());
+		CriteriaQuery<WF> cQ = cB.createQuery(fbWorkflow.getClassWorkflow());
+		Root<WF> workflow = cQ.from(fbWorkflow.getClassWorkflow());
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		
 		Path<AP> pProcess = workflow.get(JeeslApprovalWorkflow.Attributes.process.toString());
 		predicates.add(cB.equal(pProcess,process));
+		
+		if(stages!=null)
+		{
+			if(stages.isEmpty()) {return new ArrayList<>();}
+			else
+			{
+				Join<WF,WS> jStage = workflow.join(JeeslApprovalWorkflow.Attributes.currentStage.toString());
+				predicates.add(jStage.in(stages));
+			}
+		}
 		
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
 		cQ.select(workflow);

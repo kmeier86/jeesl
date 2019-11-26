@@ -192,6 +192,7 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 		
 		WY activity = fbWorkflow.ejbActivity().build(workflow,transition,user);
 		workflow.getActivities().add(activity);
+		workflow.setLastActivity(activity);
 		
 		RE entity = null;
 		try {entity = fWorkflow.fByCode(fbRevision.getClassEntity(),ejb.getClass().getName());}
@@ -377,6 +378,9 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 			activity.setRemark(remark);
 			activity.setScreenSignature(screenSignature);
 			activity = fWorkflow.save(activity);
+			
+			workflow.setLastActivity(activity);
+			workflow = fWorkflow.save(workflow);
 			
 			communicator.build(activity,entity,communications);
 			
