@@ -61,6 +61,7 @@ public interface JeeslWorkflowFacade <L extends UtilsLang, D extends UtilsDescri
 {	
 	WT fTransitionBegin(WP process);
 	
+	WL fWorkflowLink(WF workflow) throws UtilsNotFoundException;
 	<W extends JeeslWithWorkflow<WF>> WL fWorkflowLink(WP process, W owner) throws UtilsNotFoundException;
 //	<W extends JeeslWithWorkflow<AW>> AW fWorkflow(Class<W> cWith, W with) throws UtilsNotFoundException;
 	List<WF> fWorkflows(WP process, List<WS> stages);

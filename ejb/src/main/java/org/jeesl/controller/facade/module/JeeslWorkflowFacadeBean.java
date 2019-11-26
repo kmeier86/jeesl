@@ -106,6 +106,34 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 		}
 		return null;
 	}
+	
+	@Override public WL fWorkflowLink(WF workflow) throws UtilsNotFoundException
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<WL> cQ = cB.createQuery(fbWorkflow.getClassLink());
+		Root<WL> link = cQ.from(fbWorkflow.getClassLink());
+		
+		Join<WL,WF> jWorkflow = link.join(JeeslApprovalLink.Attributes.workflow.toString());
+		
+		cQ.where(cB.and(cB.equal(jWorkflow,workflow)));
+		cQ.select(link);
+		
+		List<WL> links = em.createQuery(cQ).getResultList();
+		
+		if(!links.isEmpty())
+		{
+			if(links.size()==1) {return links.get(0);}
+			else
+			{
+				logger.warn("NYI Multiple links");
+				return links.get(0);
+			}
+		}
+		else
+		{
+			throw new UtilsNotFoundException("No "+fbWorkflow.getClassLink()+" found for "+workflow.toString());
+		}
+	}
 
 	@Override public <W extends JeeslWithWorkflow<WF>> WL fWorkflowLink(AP process, W owner) throws UtilsNotFoundException
 	{
@@ -162,4 +190,6 @@ public class JeeslWorkflowFacadeBean<L extends UtilsLang, D extends UtilsDescrip
 		
 		return em.createQuery(cQ).getResultList();
 	}
+
+	
 }
