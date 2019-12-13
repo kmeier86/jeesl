@@ -4,20 +4,21 @@ import org.jeesl.factory.builder.AbstractFactoryBuilder;
 import org.jeesl.factory.ejb.module.log.EjbLogFactory;
 import org.jeesl.factory.ejb.module.log.EjbLogItemFactory;
 import org.jeesl.interfaces.model.module.log.JeeslLog;
+import org.jeesl.interfaces.model.module.log.JeeslLogImpact;
 import org.jeesl.interfaces.model.module.log.JeeslLogItem;
+import org.jeesl.interfaces.model.module.log.JeeslLogScope;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class LogFactoryBuilder<L extends UtilsLang, D extends UtilsDescription,
-								LOG extends JeeslLog<L,D,LOG,ITEM,IMPACT,SCOPE,USER>,
-								ITEM extends JeeslLogItem<L,D,LOG,ITEM,IMPACT,SCOPE,USER>,
-								IMPACT extends UtilsStatus<IMPACT,L,D>,
-								SCOPE extends UtilsStatus<SCOPE,L,D>,
+								LOG extends JeeslLog<ITEM>,
+								ITEM extends JeeslLogItem<L,D,?,?,LOG,IMPACT,SCOPE,USER>,
+								IMPACT extends JeeslLogImpact<L,D,IMPACT,?>,
+								SCOPE extends JeeslLogScope<L,D,SCOPE,?>,
 								USER extends EjbWithId
 								>
 	extends AbstractFactoryBuilder<L,D>
@@ -34,6 +35,6 @@ public class LogFactoryBuilder<L extends UtilsLang, D extends UtilsDescription,
         this.cItem = cItem;
 	}
 	
-	public EjbLogFactory<L,D,LOG,ITEM,IMPACT,SCOPE,USER> log(){return new EjbLogFactory<L,D,LOG,ITEM,IMPACT,SCOPE,USER>(cLog);}
-	public EjbLogItemFactory<L,D,LOG,ITEM,IMPACT,SCOPE,USER> item(){return new EjbLogItemFactory<L,D,LOG,ITEM,IMPACT,SCOPE,USER>(cItem);}
+	public EjbLogFactory<LOG> log(){return new EjbLogFactory<>(cLog);}
+	public EjbLogItemFactory<L,D,LOG,ITEM,IMPACT,SCOPE,USER> item(){return new EjbLogItemFactory<>(cItem);}
 }
