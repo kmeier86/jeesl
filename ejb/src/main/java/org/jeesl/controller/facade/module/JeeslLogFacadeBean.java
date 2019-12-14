@@ -16,6 +16,7 @@ import org.jeesl.factory.builder.module.LogFactoryBuilder;
 import org.jeesl.interfaces.model.module.log.JeeslLogBook;
 import org.jeesl.interfaces.model.module.log.JeeslLogImpact;
 import org.jeesl.interfaces.model.module.log.JeeslLogItem;
+import org.jeesl.interfaces.model.module.log.JeeslLogScope;
 import org.jeesl.interfaces.model.module.log.JeeslLogConfidentiality;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,22 +27,23 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class JeeslLogFacadeBean<L extends UtilsLang, D extends UtilsDescription,
-									LOG extends JeeslLogBook<ITEM>,
-									ITEM extends JeeslLogItem<L,D,?,?,LOG,IMPACT,SCOPE,USER>,
+									LOG extends JeeslLogBook<SCOPE,ITEM>,
+									SCOPE extends JeeslLogScope<L,D,SCOPE,?>,
+									ITEM extends JeeslLogItem<L,D,?,?,LOG,IMPACT,CONF,USER>,
 									IMPACT extends JeeslLogImpact<L,D,IMPACT,?>,
-									SCOPE extends JeeslLogConfidentiality<L,D,SCOPE,?>,
+									CONF extends JeeslLogConfidentiality<L,D,CONF,?>,
 									USER extends EjbWithId
 									>
 					extends UtilsFacadeBean
-					implements JeeslLogFacade<L,D,LOG,ITEM,IMPACT,SCOPE,USER>
+					implements JeeslLogFacade<L,D,LOG,SCOPE,ITEM,IMPACT,CONF,USER>
 {	
 	private static final long serialVersionUID = 1L;
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslLogFacadeBean.class);
 	
-	private final LogFactoryBuilder<L,D,LOG,ITEM,IMPACT,SCOPE,USER> fbLog;
+	private final LogFactoryBuilder<L,D,LOG,SCOPE,ITEM,IMPACT,CONF,USER> fbLog;
 	
-	public JeeslLogFacadeBean(EntityManager em, final LogFactoryBuilder<L,D,LOG,ITEM,IMPACT,SCOPE,USER> fbLog)
+	public JeeslLogFacadeBean(EntityManager em, final LogFactoryBuilder<L,D,LOG,SCOPE,ITEM,IMPACT,CONF,USER> fbLog)
 	{
 		super(em);
 		this.fbLog=fbLog;

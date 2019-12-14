@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public class EjbLogItemFactory<LOG extends JeeslLogBook<ITEM>,
+public class EjbLogItemFactory<LOG extends JeeslLogBook<?,ITEM>,
 								ITEM extends JeeslLogItem<?,?,?,?,LOG,IMPACT,CONF,USER>,
 								IMPACT extends JeeslLogImpact<?,?,IMPACT,?>,
 								CONF extends JeeslLogConfidentiality<?,?,CONF,?>,

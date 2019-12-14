@@ -1,12 +1,13 @@
 package org.jeesl.factory.builder.module;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
-import org.jeesl.factory.ejb.module.log.EjbLogFactory;
+import org.jeesl.factory.ejb.module.log.EjbLogBookFactory;
 import org.jeesl.factory.ejb.module.log.EjbLogItemFactory;
 import org.jeesl.interfaces.model.module.log.JeeslLogBook;
+import org.jeesl.interfaces.model.module.log.JeeslLogConfidentiality;
 import org.jeesl.interfaces.model.module.log.JeeslLogImpact;
 import org.jeesl.interfaces.model.module.log.JeeslLogItem;
-import org.jeesl.interfaces.model.module.log.JeeslLogConfidentiality;
+import org.jeesl.interfaces.model.module.log.JeeslLogScope;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +16,8 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class LogFactoryBuilder<L extends UtilsLang, D extends UtilsDescription,
-								LOG extends JeeslLogBook<ITEM>,
+								LOG extends JeeslLogBook<SCOPE,ITEM>,
+								SCOPE extends JeeslLogScope<L,D,SCOPE,?>,
 								ITEM extends JeeslLogItem<L,D,?,?,LOG,IMPACT,CONF,USER>,
 								IMPACT extends JeeslLogImpact<L,D,IMPACT,?>,
 								CONF extends JeeslLogConfidentiality<L,D,CONF,?>,
@@ -43,6 +45,6 @@ public class LogFactoryBuilder<L extends UtilsLang, D extends UtilsDescription,
         this.cUser = cUser;
 	}
 	
-	public EjbLogFactory<LOG> log(){return new EjbLogFactory<>(cLog);}
+	public EjbLogBookFactory<LOG,SCOPE> log(){return new EjbLogBookFactory<>(cLog);}
 	public EjbLogItemFactory<LOG,ITEM,IMPACT,CONF,USER> item(){return new EjbLogItemFactory<>(cItem,cImpact,cUser);}
 }

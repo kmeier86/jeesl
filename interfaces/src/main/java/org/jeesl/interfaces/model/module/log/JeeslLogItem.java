@@ -16,7 +16,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
 public interface JeeslLogItem <L extends UtilsLang, D extends UtilsDescription,
 								M extends JeeslMarkup<MT>, MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
-								LOG extends JeeslLogBook<?>,
+								LOG extends JeeslLogBook<?,?>,
 								IMPACT extends JeeslLogImpact<L,D,IMPACT,?>,
 								CONF extends JeeslLogConfidentiality<L,D,CONF,?>,
 								USER extends EjbWithId
