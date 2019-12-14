@@ -5,7 +5,7 @@ import java.io.Serializable;
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface JeeslLog <ITEM extends JeeslLogItem<?,?,?,?,?,?,?,?>>
+public interface JeeslLogBook <ITEM extends JeeslLogItem<?,?,?,?,?,?,?,?>>
 		extends Serializable,EjbSaveable,EjbWithId
 {
 	

@@ -16,20 +16,25 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
 public interface JeeslLogItem <L extends UtilsLang, D extends UtilsDescription,
 								M extends JeeslMarkup<MT>, MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
-								LOG extends JeeslLog,
+								LOG extends JeeslLogBook<?>,
 								IMPACT extends JeeslLogImpact<L,D,IMPACT,?>,
-								SCOPE extends JeeslLogScope<L,D,SCOPE,?>,
+								CONF extends JeeslLogConfidentiality<L,D,CONF,?>,
 								USER extends EjbWithId
 								>
 		extends Serializable,EjbWithId,
 				EjbSaveable,EjbPersistable,
 				EjbWithLang<L>,EjbWithRecord
 {
+	public enum Attributes{log}
+	
 	LOG getLog();
 	void setLog(LOG log);
 	
 	USER getAuthor();
 	void setAuthor(USER author);
+	
+	IMPACT getImpact();
+	void setImpact(IMPACT impact);
 	
 	public Map<String,M> getMarkup();
 	public void setMarkup(Map<String,M> markup);

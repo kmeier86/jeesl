@@ -1,10 +1,10 @@
 package org.jeesl.factory.ejb.module.log;
 
-import org.jeesl.interfaces.model.module.log.JeeslLog;
+import org.jeesl.interfaces.model.module.log.JeeslLogBook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbLogFactory<LOG extends JeeslLog<?>>
+public class EjbLogFactory<LOG extends JeeslLogBook<?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbLogFactory.class);
 	
