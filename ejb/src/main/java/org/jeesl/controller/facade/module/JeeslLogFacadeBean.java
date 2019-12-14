@@ -1,6 +1,7 @@
 package org.jeesl.controller.facade.module;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,16 +9,17 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.ListJoin;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.jeesl.api.facade.module.JeeslLogFacade;
 import org.jeesl.factory.builder.module.LogFactoryBuilder;
 import org.jeesl.interfaces.model.module.log.JeeslLogBook;
+import org.jeesl.interfaces.model.module.log.JeeslLogConfidentiality;
 import org.jeesl.interfaces.model.module.log.JeeslLogImpact;
 import org.jeesl.interfaces.model.module.log.JeeslLogItem;
 import org.jeesl.interfaces.model.module.log.JeeslLogScope;
-import org.jeesl.interfaces.model.module.log.JeeslLogConfidentiality;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,6 +62,29 @@ public class JeeslLogFacadeBean<L extends UtilsLang, D extends UtilsDescription,
 		Join<ITEM,LOG> jLog = item.join(JeeslLogItem.Attributes.log.toString());
 		
 		predicates.add(jLog.in(logs));
+		
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(item);
+
+		TypedQuery<ITEM> tQ = em.createQuery(cQ);
+		return tQ.getResultList();
+	}
+
+	@Override public List<ITEM> fLogItems(List<SCOPE> scopes, List<CONF> confidentialities, Date startDate, Date endDate)
+	{
+		if(scopes.isEmpty()) {return new ArrayList<ITEM>();}
+		if(confidentialities.isEmpty()) {return new ArrayList<ITEM>();}
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<ITEM> cQ = cB.createQuery(fbLog.getClassItem());
+		Root<ITEM> item = cQ.from(fbLog.getClassItem());
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		Join<ITEM,LOG> jLog = item.join(JeeslLogItem.Attributes.log.toString());
+		Join<LOG,SCOPE> jScope = jLog.join(JeeslLogBook.Attributes.scope.toString());
+		predicates.add(jScope.in(scopes));
+		
+//		ListJoin<ITEM,CONF> jConfidentiality = item.joinList(JeeslLogItem.Attributes.issues.toString());
+//		predicates.add(jConfidentiality.in(confidentialities));
 		
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
 		cQ.select(item);

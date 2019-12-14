@@ -9,5 +9,5 @@ public interface JeeslLogBook <SCOPE extends JeeslLogScope<?,?,SCOPE,?>,
 								ITEM extends JeeslLogItem<?,?,?,?,?,?,?,?>>
 		extends Serializable,EjbSaveable,EjbWithId
 {
-	
+	public enum Attributes{scope}
 }

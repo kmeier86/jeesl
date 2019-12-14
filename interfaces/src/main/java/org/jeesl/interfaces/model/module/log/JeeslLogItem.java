@@ -1,6 +1,7 @@
 package org.jeesl.interfaces.model.module.log;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsMarkupType;
@@ -36,6 +37,9 @@ public interface JeeslLogItem <L extends UtilsLang, D extends UtilsDescription,
 	IMPACT getImpact();
 	void setImpact(IMPACT impact);
 	
-	public Map<String,M> getMarkup();
+	Map<String,M> getMarkup();
 	public void setMarkup(Map<String,M> markup);
+	
+	List<CONF> getConfidentialities();
+	void setConfidentialities(List<CONF> scopes);
 }

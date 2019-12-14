@@ -1,5 +1,6 @@
 package org.jeesl.api.facade.module;
 
+import java.util.Date;
 import java.util.List;
 
 import org.jeesl.interfaces.model.module.log.JeeslLogBook;
@@ -24,4 +25,5 @@ public interface JeeslLogFacade <L extends UtilsLang, D extends UtilsDescription
 			extends UtilsFacade
 {	
 	List<ITEM> fLogItems(List<LOG> logs);
+	List<ITEM> fLogItems(List<SCOPE> scopes, List<CONF> confidentialities, Date startDate, Date endDate);
 }
