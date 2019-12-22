@@ -116,6 +116,21 @@
     	</s:langs>
     </s:translation>
     
+    <s:translation key="jeeslIoSsiBtnDelete">
+    	<s:langs>
+    		<s:lang key="de" translation="Löschen"/>
+    		<s:lang key="en" translation="Delete"/>
+    		<s:lang key="fr" translation="Delete"/>
+    	</s:langs>
+    </s:translation>
+    <s:translation key="jeeslIoSsiBtnDeleteDescription">
+    	<s:langs>
+    		<s:lang key="de" translation="Die Auswahl wird gelöscht."/>
+    		<s:lang key="en" translation="The selection will be deleted."/>
+    		<s:lang key="fr" translation="The selection will be deleted."/>
+    	</s:langs>
+    </s:translation>
+    
     
     <s:translation key="jeeslIoSsiAttributeLocalCode">
     	<s:langs>
