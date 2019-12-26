@@ -2,16 +2,16 @@ package org.jeesl.factory.ejb.module.workflow;
 
 import java.util.Date;
 
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalActivity;
-import org.jeesl.interfaces.model.module.workflow.instance.JeeslApprovalWorkflow;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflowActivity;
+import org.jeesl.interfaces.model.module.workflow.instance.JeeslWorkflow;
 import org.jeesl.interfaces.model.module.workflow.transition.JeeslWorkflowTransition;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EjbWorkflowActivityFactory<WT extends JeeslWorkflowTransition<?,?,?,?,?,?>,
-										AW extends JeeslApprovalWorkflow<?,?,AY>,
-										AY extends JeeslApprovalActivity<WT,AW,?,USER>,
+										AW extends JeeslWorkflow<?,?,AY>,
+										AY extends JeeslWorkflowActivity<WT,AW,?,USER>,
 										USER extends JeeslUser<?>
 
 >
