@@ -76,10 +76,7 @@ public class AbstractFrStorageBean <L extends UtilsLang, D extends UtilsDescript
 		{
 			typeUnknown = fFr.fByCode(fbFr.getClassType(), JeeslFileType.Code.unknown);
 		}
-		catch (UtilsNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		catch (UtilsNotFoundException e) {e.printStackTrace();}
 		reloadStorages();
 		engines = fFr.allOrderedPositionVisible(fbFr.getClassEngine());
 		thCount.init(fFr.tpIoFileByStorageType());
@@ -94,7 +91,7 @@ public class AbstractFrStorageBean <L extends UtilsLang, D extends UtilsDescript
 	
 	private void reloadStorages()
 	{
-		storages = fFr.all(fbFr.getClassStorage());
+		storages = fFr.allOrderedPosition(fbFr.getClassStorage());
 	}
 	
 	public void addStorage()
