@@ -104,9 +104,11 @@ public class AbstractAdminJobQueueBean <L extends UtilsLang, D extends UtilsDesc
 		clear(true);
 	}
 	
-	private void clear(boolean clearJob)
+	
+	public void cancelJob() {clear(true);}
+	private void clear(boolean rJob)
 	{
-		if(clearJob){job=null;}
+		if(rJob){job=null;}
 	}
 	
 	private void reloadJobs()
