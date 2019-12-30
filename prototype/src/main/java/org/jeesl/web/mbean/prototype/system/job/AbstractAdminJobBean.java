@@ -11,10 +11,14 @@ import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.job.JeeslJob;
 import org.jeesl.interfaces.model.system.job.JeeslJobCache;
+import org.jeesl.interfaces.model.system.job.JeeslJobCategory;
 import org.jeesl.interfaces.model.system.job.JeeslJobFeedback;
+import org.jeesl.interfaces.model.system.job.JeeslJobFeedbackType;
 import org.jeesl.interfaces.model.system.job.JeeslJobPriority;
 import org.jeesl.interfaces.model.system.job.JeeslJobRobot;
+import org.jeesl.interfaces.model.system.job.JeeslJobStatus;
 import org.jeesl.interfaces.model.system.job.JeeslJobTemplate;
+import org.jeesl.interfaces.model.system.job.JeeslJobType;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,13 +30,13 @@ import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 
 public abstract class AbstractAdminJobBean <L extends UtilsLang,D extends UtilsDescription,
 									TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY>,
-									CATEGORY extends UtilsStatus<CATEGORY,L,D>,
-									TYPE extends UtilsStatus<TYPE,L,D>,
+									CATEGORY extends JeeslJobCategory<L,D,CATEGORY,?>,
+									TYPE extends JeeslJobType<L,D,TYPE,?>,
 									JOB extends JeeslJob<TEMPLATE,PRIORITY,FEEDBACK,STATUS,USER>,
 									PRIORITY extends JeeslJobPriority<L,D,PRIORITY,?>,
 									FEEDBACK extends JeeslJobFeedback<JOB,FT,USER>,
-									FT extends UtilsStatus<FT,L,D>,
-									STATUS extends UtilsStatus<STATUS,L,D>,
+									FT extends JeeslJobFeedbackType<L,D,FT,?>,
+									STATUS extends JeeslJobStatus<L,D,STATUS,?>,
 									ROBOT extends JeeslJobRobot<L,D>,
 									CACHE extends JeeslJobCache<TEMPLATE,CONTAINER>,
 									CONTAINER extends JeeslFileContainer<?,?>,

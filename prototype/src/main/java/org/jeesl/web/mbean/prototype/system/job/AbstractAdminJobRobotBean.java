@@ -11,10 +11,14 @@ import org.jeesl.factory.ejb.system.job.EjbJobRobotFactory;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.job.JeeslJob;
 import org.jeesl.interfaces.model.system.job.JeeslJobCache;
+import org.jeesl.interfaces.model.system.job.JeeslJobCategory;
 import org.jeesl.interfaces.model.system.job.JeeslJobFeedback;
+import org.jeesl.interfaces.model.system.job.JeeslJobFeedbackType;
 import org.jeesl.interfaces.model.system.job.JeeslJobPriority;
 import org.jeesl.interfaces.model.system.job.JeeslJobRobot;
+import org.jeesl.interfaces.model.system.job.JeeslJobStatus;
 import org.jeesl.interfaces.model.system.job.JeeslJobTemplate;
+import org.jeesl.interfaces.model.system.job.JeeslJobType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,15 +30,15 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public class AbstractAdminJobRobotBean <L extends UtilsLang,D extends UtilsDescription,
+public class AbstractAdminJobRobotBean <L extends UtilsLang, D extends UtilsDescription, LOC extends UtilsStatus<LOC,L,D>,
 									TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY>,
-									CATEGORY extends UtilsStatus<CATEGORY,L,D>,
-									TYPE extends UtilsStatus<TYPE,L,D>,
+									CATEGORY extends JeeslJobCategory<L,D,CATEGORY,?>,
+									TYPE extends JeeslJobType<L,D,TYPE,?>,
 									JOB extends JeeslJob<TEMPLATE,PRIORITY,FEEDBACK,STATUS,USER>,
 									PRIORITY extends JeeslJobPriority<L,D,PRIORITY,?>,
 									FEEDBACK extends JeeslJobFeedback<JOB,FT,USER>,
-									FT extends UtilsStatus<FT,L,D>,
-									STATUS extends UtilsStatus<STATUS,L,D>,
+									FT extends JeeslJobFeedbackType<L,D,FT,?>,
+									STATUS extends JeeslJobStatus<L,D,STATUS,?>,
 									ROBOT extends JeeslJobRobot<L,D>,
 									CACHE extends JeeslJobCache<TEMPLATE,CONTAINER>,
 									CONTAINER extends JeeslFileContainer<?,?>,
@@ -50,11 +54,11 @@ public class AbstractAdminJobRobotBean <L extends UtilsLang,D extends UtilsDescr
 	
 	private ROBOT robot; public ROBOT getRobot() {return robot;} public void setRobot(ROBOT robot) {this.robot = robot;}
 	
-	private EjbJobRobotFactory<L,D,TEMPLATE,CATEGORY,TYPE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,USER> efRobot;
+	private EjbJobRobotFactory<ROBOT> efRobot;
 
 	public AbstractAdminJobRobotBean(JobFactoryBuilder<L,D,TEMPLATE,CATEGORY,TYPE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,USER> fbJob){super(fbJob);}
 	
-	protected void postConstructJobRobot(JeeslTranslationBean bTranslation, JeeslFacesMessageBean bMessage, JeeslJobFacade<L,D,TEMPLATE,CATEGORY,TYPE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,CONTAINER,USER> fJob)
+	protected void postConstructJobRobot(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslJobFacade<L,D,TEMPLATE,CATEGORY,TYPE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,CONTAINER,USER> fJob)
 	{
 		super.postConstructAbstractJob(bTranslation,bMessage,fJob);
 		efRobot = fbJob.robot();
