@@ -64,6 +64,11 @@
 									<f:selectItems value="#{cc.attrs.bean.sbhPriority.list}" var="p" itemLabel="#{p.name[userBean.localeCode].lang}" itemValue="#{p}"/>
 								</p:selectOneMenu>
 								
+								<p:outputLabel value="#{msg.jeeslJobExpiration}"/>
+								<p:selectOneMenu value="#{cc.attrs.bean.template.expiration}" effect="fade" >
+									<f:selectItems value="#{cc.attrs.bean.expirations}" var="e" itemLabel="#{e.name[userBean.localeCode].lang}" itemValue="#{e}"/>
+								</p:selectOneMenu>
+								
 								<p:outputLabel value="#{msg.jeeslJobTimeout}"/>
 								<p:inputText value="#{cc.attrs.bean.template.timeout}"/>
 							

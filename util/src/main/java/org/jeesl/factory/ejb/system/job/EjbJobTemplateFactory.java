@@ -11,7 +11,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 
 public class EjbJobTemplateFactory <L extends UtilsLang,D extends UtilsDescription,
-									TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY>,
+									TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY,?>,
 									CATEGORY extends JeeslJobCategory<L,D,CATEGORY,?>,
 									TYPE extends JeeslJobType<L,D,TYPE,?>,
 									PRIORITY extends JeeslJobPriority<L,D,PRIORITY,?>>

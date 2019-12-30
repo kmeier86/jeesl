@@ -108,7 +108,7 @@ public abstract class AbstractSurveyReportBean <L extends UtilsLang, D extends U
 						AQ extends JeeslSurveyAnalysisQuestion<L,D,QUESTION,ANALYSIS>,
 						TOOL extends JeeslSurveyAnalysisTool<L,D,QE,QUERY,DATTRIBUTE,AQ,ATT>,
 						ATT extends UtilsStatus<ATT,L,D>,
-						TOOLCACHETEMPLATE extends JeeslJobTemplate<L,D,?,?,?>,
+						TOOLCACHETEMPLATE extends JeeslJobTemplate<L,D,?,?,?,?>,
 						CACHE extends JeeslJobCache<TOOLCACHETEMPLATE,?>>
 					extends AbstractSurveyBean<L,D,LOC,SURVEY,SS,SCHEME,VALGORITHM,TEMPLATE,VERSION,TS,TC,SECTION,QUESTION,CONDITION,VALIDATION,QE,SCORE,UNIT,ANSWER,MATRIX,DATA,OPTIONS,OPTION,CORRELATION,DOMAIN,QUERY,PATH,DENTITY,DATTRIBUTE,ANALYSIS,AQ,TOOL,ATT,TOOLCACHETEMPLATE,CACHE>
 					implements Serializable,SbSingleBean

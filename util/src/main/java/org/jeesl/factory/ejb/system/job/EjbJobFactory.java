@@ -20,7 +20,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 
 public class EjbJobFactory <L extends UtilsLang,D extends UtilsDescription,
-									TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY>,
+									TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY,?>,
 									CATEGORY extends JeeslJobCategory<L,D,CATEGORY,?>,
 									TYPE extends JeeslJobType<L,D,TYPE,?>,
 									JOB extends JeeslJob<TEMPLATE,PRIORITY,FEEDBACK,STATUS,USER>,

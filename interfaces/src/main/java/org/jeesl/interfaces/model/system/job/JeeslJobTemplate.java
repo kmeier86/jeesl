@@ -15,7 +15,8 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 public interface JeeslJobTemplate<L extends UtilsLang,D extends UtilsDescription,
 									CATEGORY extends JeeslJobCategory<L,D,CATEGORY,?>,
 									TYPE extends JeeslJobType<L,D,TYPE,?>,
-									PRIORITY extends JeeslJobPriority<L,D,PRIORITY,?>
+									PRIORITY extends JeeslJobPriority<L,D,PRIORITY,?>,
+									EXPIRE extends JeeslJobExpiration<L,D,EXPIRE,?>
 									>
 		extends Serializable,EjbWithId,EjbSaveable,EjbRemoveable,
 				EjbWithCode,EjbWithLang<L>,EjbWithDescription<D>
@@ -34,4 +35,7 @@ public interface JeeslJobTemplate<L extends UtilsLang,D extends UtilsDescription
 	
 	int getTimeout();
 	void setTimeout(int timeout);
+	
+	EXPIRE getExpiration();
+	void setExpiration(EXPIRE expiration);
 }

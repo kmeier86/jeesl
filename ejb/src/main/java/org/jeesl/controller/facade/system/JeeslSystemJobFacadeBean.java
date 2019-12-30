@@ -44,7 +44,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 
 public class JeeslSystemJobFacadeBean<L extends UtilsLang,D extends UtilsDescription,
-									TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY>,
+									TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY,EXPIRE>,
 									CATEGORY extends JeeslJobCategory<L,D,CATEGORY,?>,
 									TYPE extends JeeslJobType<L,D,TYPE,?>,
 									EXPIRE extends JeeslJobExpiration<L,D,EXPIRE,?>,

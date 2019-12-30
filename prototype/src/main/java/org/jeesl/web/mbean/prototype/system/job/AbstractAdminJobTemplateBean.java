@@ -20,6 +20,7 @@ import org.jeesl.interfaces.model.system.job.JeeslJobRobot;
 import org.jeesl.interfaces.model.system.job.JeeslJobStatus;
 import org.jeesl.interfaces.model.system.job.JeeslJobTemplate;
 import org.jeesl.interfaces.model.system.job.JeeslJobType;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,12 +28,11 @@ import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public class AbstractAdminJobTemplateBean <L extends UtilsLang,D extends UtilsDescription,LOC extends UtilsStatus<LOC,L,D>,
-									TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY>,
+public class AbstractAdminJobTemplateBean <L extends UtilsLang, D extends UtilsDescription, LOC extends JeeslLocale<L,D,LOC,?>,
+									TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY,EXPIRE>,
 									CATEGORY extends JeeslJobCategory<L,D,CATEGORY,?>,
 									TYPE extends JeeslJobType<L,D,TYPE,?>,
 									EXPIRE extends JeeslJobExpiration<L,D,EXPIRE,?>,
@@ -46,13 +46,14 @@ public class AbstractAdminJobTemplateBean <L extends UtilsLang,D extends UtilsDe
 									CONTAINER extends JeeslFileContainer<?,?>,
 									USER extends EjbWithEmail
 									>
-					extends AbstractAdminJobBean<L,D,TEMPLATE,CATEGORY,TYPE,EXPIRE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,CONTAINER,USER>
+					extends AbstractAdminJobBean<L,D,LOC,TEMPLATE,CATEGORY,TYPE,EXPIRE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,CONTAINER,USER>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAdminJobTemplateBean.class);
 	
 	private List<TEMPLATE> templates; public List<TEMPLATE> getTemplates() {return templates;}
+	private List<EXPIRE> expirations; public List<EXPIRE> getExpirations() {return expirations;}
 	
 	private TEMPLATE template; public TEMPLATE getTemplate() {return template;} public void setTemplate(TEMPLATE template) {this.template = template;}
 
@@ -63,6 +64,8 @@ public class AbstractAdminJobTemplateBean <L extends UtilsLang,D extends UtilsDe
 	protected void postConstructJobTemplate(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslJobFacade<L,D,TEMPLATE,CATEGORY,TYPE,EXPIRE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,CONTAINER,USER> fJob)
 	{
 		super.postConstructAbstractJob(bTranslation,bMessage,fJob);
+		
+		expirations = fJob.allOrderedPosition(fbJob.getClassExpire());
 		
 		efTemplate = fbJob.template();
 		
@@ -114,9 +117,12 @@ public class AbstractAdminJobTemplateBean <L extends UtilsLang,D extends UtilsDe
 	public void saveTemplate() throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(template));}
+		
 		template.setCategory(fJob.find(fbJob.getClassCategory(),template.getCategory()));
 		template.setType(fJob.find(fbJob.getClassType(),template.getType()));
 		template.setPriority(fJob.find(fbJob.getClassPriority(),template.getPriority()));
+		template.setExpiration(fJob.find(fbJob.getClassExpire(),template.getExpiration()));
+		
 		template = fJob.save(template);
 		reloadTemplates();
 	}

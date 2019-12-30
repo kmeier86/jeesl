@@ -29,7 +29,7 @@ import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 import net.sf.ahtutils.xml.sync.DataUpdate;
 
 public class SystemJobRestService <L extends UtilsLang,D extends UtilsDescription,
-							TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY>,
+							TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY,EXPIRE>,
 							CATEGORY extends JeeslJobCategory<L,D,CATEGORY,?>,
 							TYPE extends JeeslJobType<L,D,TYPE,?>,
 							EXPIRE extends JeeslJobExpiration<L,D,EXPIRE,?>,
@@ -66,7 +66,7 @@ public class SystemJobRestService <L extends UtilsLang,D extends UtilsDescriptio
 	}
 	
 	public static <L extends UtilsLang,D extends UtilsDescription,
-					TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY>,
+					TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY,EXPIRE>,
 					CATEGORY extends JeeslJobCategory<L,D,CATEGORY,?>,
 					TYPE extends JeeslJobType<L,D,TYPE,?>,
 					EXPIRE extends JeeslJobExpiration<L,D,EXPIRE,?>,

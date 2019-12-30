@@ -30,7 +30,7 @@ import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public class AbstractAdminJobTriggerBean <L extends UtilsLang,D extends UtilsDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-									TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY>,
+									TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY,EXPIRE>,
 									CATEGORY extends JeeslJobCategory<L,D,CATEGORY,?>,
 									TYPE extends JeeslJobType<L,D,TYPE,?>,
 									EXPIRE extends JeeslJobExpiration<L,D,EXPIRE,?>,
@@ -44,7 +44,7 @@ public class AbstractAdminJobTriggerBean <L extends UtilsLang,D extends UtilsDes
 									CONTAINER extends JeeslFileContainer<?,?>,
 									USER extends EjbWithEmail
 									>
-					extends AbstractAdminJobBean<L,D,TEMPLATE,CATEGORY,TYPE,EXPIRE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,CONTAINER,USER>
+					extends AbstractAdminJobBean<L,D,LOC,TEMPLATE,CATEGORY,TYPE,EXPIRE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,CONTAINER,USER>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;

@@ -11,7 +11,8 @@ import net.sf.ahtutils.interfaces.model.with.code.EjbWithNonUniqueCode;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
-public interface JeeslJobCache<TEMPLATE extends JeeslJobTemplate<?,?,?,?,?>, CONTAINER extends JeeslFileContainer<?,?>>
+public interface JeeslJobCache<TEMPLATE extends JeeslJobTemplate<?,?,?,?,?,?>,
+								CONTAINER extends JeeslFileContainer<?,?>>
 		extends Serializable,EjbWithId,EjbSaveable,EjbRemoveable,EjbWithNonUniqueCode,EjbWithRecord,EjbWithValidUntil
 {
 	public static enum Attributes{template,code};

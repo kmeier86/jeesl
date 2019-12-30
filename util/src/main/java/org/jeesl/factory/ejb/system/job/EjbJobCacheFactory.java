@@ -7,7 +7,7 @@ import org.jeesl.interfaces.model.system.job.JeeslJobTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EjbJobCacheFactory <TEMPLATE extends JeeslJobTemplate<?,?,?,?,?>,
+public class EjbJobCacheFactory <TEMPLATE extends JeeslJobTemplate<?,?,?,?,?,?>,
 									CACHE extends JeeslJobCache<TEMPLATE,?>
 									>
 {

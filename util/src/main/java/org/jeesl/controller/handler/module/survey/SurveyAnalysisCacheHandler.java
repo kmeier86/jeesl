@@ -83,7 +83,7 @@ public class SurveyAnalysisCacheHandler<L extends UtilsLang, D extends UtilsDesc
 										AQ extends JeeslSurveyAnalysisQuestion<L,D,QUESTION,ANALYSIS>,
 										TOOL extends JeeslSurveyAnalysisTool<L,D,QE,QUERY,DATTRIBUTE,AQ,ATT>,
 										ATT extends UtilsStatus<ATT,L,D>,
-										TOOLCACHETEMPLATE extends JeeslJobTemplate<L,D,?,?,?>,
+										TOOLCACHETEMPLATE extends JeeslJobTemplate<L,D,?,?,?,?>,
 										CACHE extends JeeslJobCache<TOOLCACHETEMPLATE,?>>
 	implements Serializable
 {

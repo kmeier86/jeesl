@@ -24,7 +24,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 
 public class JobFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
-								TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY>,
+								TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY,EXPIRE>,
 								CATEGORY extends JeeslJobCategory<L,D,CATEGORY,?>,
 								TYPE extends JeeslJobType<L,D,TYPE,?>,
 								EXPIRE extends JeeslJobExpiration<L,D,EXPIRE,?>,
@@ -44,18 +44,22 @@ public class JobFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 	private final Class<TEMPLATE> cTemplate; public Class<TEMPLATE> getClassTemplate(){return cTemplate;}
 	private final Class<CATEGORY> cCategory; public Class<CATEGORY> getClassCategory(){return cCategory;}
 	private final Class<TYPE> cType; public Class<TYPE> getClassType(){return cType;}
+	private final Class<EXPIRE> cExpire; public Class<EXPIRE> getClassExpire(){return cExpire;}
 	private final Class<JOB> cJob; public Class<JOB> getClassJob(){return cJob;}
 	private final Class<PRIORITY> cPriority; public Class<PRIORITY> getClassPriority(){return cPriority;}
 	private final Class<STATUS> cStatus; public Class<STATUS> getClassStatus(){return cStatus;}
 	private final Class<ROBOT> cRobot; public Class<ROBOT> getClassRobot(){return cRobot;}
 	private final Class<CACHE> cCache; public Class<CACHE> getClassCache(){return cCache;}
 	
-	public JobFactoryBuilder(final Class<L> cL, final Class<D> cD, final Class<TEMPLATE> cTemplate, final Class<CATEGORY> cCategory, final Class<TYPE> cType, final Class<JOB> cJob, final Class<PRIORITY> cPriority, final Class<STATUS> cStatus, final Class<ROBOT> cRobot, final Class<CACHE> cCache)
+	public JobFactoryBuilder(final Class<L> cL, final Class<D> cD,
+			final Class<TEMPLATE> cTemplate, final Class<CATEGORY> cCategory, final Class<TYPE> cType, final Class<EXPIRE> cExpire,
+			final Class<JOB> cJob, final Class<PRIORITY> cPriority, final Class<STATUS> cStatus, final Class<ROBOT> cRobot, final Class<CACHE> cCache)
 	{
 		super(cL,cD);
 		this.cTemplate = cTemplate;
 		this.cCategory=cCategory;
 		this.cType=cType;
+		this.cExpire=cExpire;
 		this.cJob = cJob;
 		this.cPriority = cPriority;
 		this.cStatus=cStatus;
