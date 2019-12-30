@@ -29,6 +29,7 @@ import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
+import net.sf.ahtutils.jsf.util.PositionListReorderer;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public class AbstractAdminJobTemplateBean <L extends UtilsLang, D extends UtilsDescription, LOC extends JeeslLocale<L,D,LOC,?>,
@@ -133,5 +134,10 @@ public class AbstractAdminJobTemplateBean <L extends UtilsLang, D extends UtilsD
 		fJob.rm(template);
 		reloadTemplates();
 		reset(true);
+	}
+	
+	public void reorderTemplates() throws UtilsConstraintViolationException, UtilsLockingException
+	{
+//		PositionListReorderer.reorder(fJob,templates);
 	}
 }
