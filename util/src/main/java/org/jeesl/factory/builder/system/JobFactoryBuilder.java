@@ -8,6 +8,7 @@ import org.jeesl.factory.ejb.system.job.EjbJobTemplateFactory;
 import org.jeesl.interfaces.model.system.job.JeeslJob;
 import org.jeesl.interfaces.model.system.job.JeeslJobCache;
 import org.jeesl.interfaces.model.system.job.JeeslJobCategory;
+import org.jeesl.interfaces.model.system.job.JeeslJobExpiration;
 import org.jeesl.interfaces.model.system.job.JeeslJobFeedback;
 import org.jeesl.interfaces.model.system.job.JeeslJobFeedbackType;
 import org.jeesl.interfaces.model.system.job.JeeslJobPriority;
@@ -26,6 +27,7 @@ public class JobFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 								TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY>,
 								CATEGORY extends JeeslJobCategory<L,D,CATEGORY,?>,
 								TYPE extends JeeslJobType<L,D,TYPE,?>,
+								EXPIRE extends JeeslJobExpiration<L,D,EXPIRE,?>,
 								JOB extends JeeslJob<TEMPLATE,PRIORITY,FEEDBACK,STATUS,USER>,
 								PRIORITY extends JeeslJobPriority<L,D,PRIORITY,?>,
 								FEEDBACK extends JeeslJobFeedback<JOB,FT,USER>,	

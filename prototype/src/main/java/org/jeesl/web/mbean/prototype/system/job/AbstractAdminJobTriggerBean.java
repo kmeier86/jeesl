@@ -12,6 +12,7 @@ import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.job.JeeslJob;
 import org.jeesl.interfaces.model.system.job.JeeslJobCache;
 import org.jeesl.interfaces.model.system.job.JeeslJobCategory;
+import org.jeesl.interfaces.model.system.job.JeeslJobExpiration;
 import org.jeesl.interfaces.model.system.job.JeeslJobFeedback;
 import org.jeesl.interfaces.model.system.job.JeeslJobFeedbackType;
 import org.jeesl.interfaces.model.system.job.JeeslJobPriority;
@@ -25,7 +26,6 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
@@ -33,6 +33,7 @@ public class AbstractAdminJobTriggerBean <L extends UtilsLang,D extends UtilsDes
 									TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY>,
 									CATEGORY extends JeeslJobCategory<L,D,CATEGORY,?>,
 									TYPE extends JeeslJobType<L,D,TYPE,?>,
+									EXPIRE extends JeeslJobExpiration<L,D,EXPIRE,?>,
 									JOB extends JeeslJob<TEMPLATE,PRIORITY,FEEDBACK,STATUS,USER>,
 									PRIORITY extends JeeslJobPriority<L,D,PRIORITY,?>,
 									FEEDBACK extends JeeslJobFeedback<JOB,FT,USER>,
@@ -43,7 +44,7 @@ public class AbstractAdminJobTriggerBean <L extends UtilsLang,D extends UtilsDes
 									CONTAINER extends JeeslFileContainer<?,?>,
 									USER extends EjbWithEmail
 									>
-					extends AbstractAdminJobBean<L,D,TEMPLATE,CATEGORY,TYPE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,CONTAINER,USER>
+					extends AbstractAdminJobBean<L,D,TEMPLATE,CATEGORY,TYPE,EXPIRE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,CONTAINER,USER>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -53,9 +54,9 @@ public class AbstractAdminJobTriggerBean <L extends UtilsLang,D extends UtilsDes
 	
 	protected TEMPLATE template; public TEMPLATE getTemplate() {return template;} public void setTemplate(TEMPLATE template) {this.template = template;}
 	
-	public AbstractAdminJobTriggerBean(JobFactoryBuilder<L,D,TEMPLATE,CATEGORY,TYPE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,USER> fbJob){super(fbJob);}
+	public AbstractAdminJobTriggerBean(JobFactoryBuilder<L,D,TEMPLATE,CATEGORY,TYPE,EXPIRE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,USER> fbJob){super(fbJob);}
 	
-	protected void postConstructJobTrigger(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslJobFacade<L,D,TEMPLATE,CATEGORY,TYPE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,CONTAINER,USER> fJob)
+	protected void postConstructJobTrigger(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslJobFacade<L,D,TEMPLATE,CATEGORY,TYPE,EXPIRE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,CONTAINER,USER> fJob)
 	{
 		super.postConstructAbstractJob(bTranslation,bMessage,fJob);
 		

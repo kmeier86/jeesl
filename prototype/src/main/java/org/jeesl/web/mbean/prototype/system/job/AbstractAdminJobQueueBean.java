@@ -13,6 +13,7 @@ import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.job.JeeslJob;
 import org.jeesl.interfaces.model.system.job.JeeslJobCache;
 import org.jeesl.interfaces.model.system.job.JeeslJobCategory;
+import org.jeesl.interfaces.model.system.job.JeeslJobExpiration;
 import org.jeesl.interfaces.model.system.job.JeeslJobFeedback;
 import org.jeesl.interfaces.model.system.job.JeeslJobFeedbackType;
 import org.jeesl.interfaces.model.system.job.JeeslJobPriority;
@@ -36,6 +37,7 @@ public class AbstractAdminJobQueueBean <L extends UtilsLang, D extends UtilsDesc
 									TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY>,
 									CATEGORY extends JeeslJobCategory<L,D,CATEGORY,?>,
 									TYPE extends JeeslJobType<L,D,TYPE,?>,
+									EXPIRE extends JeeslJobExpiration<L,D,EXPIRE,?>,
 									JOB extends JeeslJob<TEMPLATE,PRIORITY,FEEDBACK,STATUS,USER>,
 									PRIORITY extends JeeslJobPriority<L,D,PRIORITY,?>,
 									FEEDBACK extends JeeslJobFeedback<JOB,FT,USER>,
@@ -46,7 +48,7 @@ public class AbstractAdminJobQueueBean <L extends UtilsLang, D extends UtilsDesc
 									CONTAINER extends JeeslFileContainer<?,?>,
 									USER extends EjbWithEmail
 									>
-					extends AbstractAdminJobBean<L,D,TEMPLATE,CATEGORY,TYPE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,CONTAINER,USER>
+					extends AbstractAdminJobBean<L,D,TEMPLATE,CATEGORY,TYPE,EXPIRE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,CONTAINER,USER>
 					implements Serializable,SbDateIntervalSelection
 {
 	private static final long serialVersionUID = 1L;
@@ -58,9 +60,9 @@ public class AbstractAdminJobQueueBean <L extends UtilsLang, D extends UtilsDesc
 	
 	private SbDateHandler sbhDate; public SbDateHandler getSbhDate() {return sbhDate;}
 
-	public AbstractAdminJobQueueBean(JobFactoryBuilder<L,D,TEMPLATE,CATEGORY,TYPE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,USER> fbJob){super(fbJob);}
+	public AbstractAdminJobQueueBean(JobFactoryBuilder<L,D,TEMPLATE,CATEGORY,TYPE,EXPIRE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,USER> fbJob){super(fbJob);}
 	
-	protected void postConstructJobQueue(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslJobFacade<L,D,TEMPLATE,CATEGORY,TYPE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,CONTAINER,USER> fJob)
+	protected void postConstructJobQueue(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage, JeeslJobFacade<L,D,TEMPLATE,CATEGORY,TYPE,EXPIRE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,CONTAINER,USER> fJob)
 	{
 		super.postConstructAbstractJob(bTranslation,bMessage,fJob);
 		
