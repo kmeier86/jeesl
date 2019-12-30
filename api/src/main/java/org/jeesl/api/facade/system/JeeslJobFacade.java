@@ -7,6 +7,7 @@ import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.job.JeeslJob;
 import org.jeesl.interfaces.model.system.job.JeeslJobCache;
 import org.jeesl.interfaces.model.system.job.JeeslJobFeedback;
+import org.jeesl.interfaces.model.system.job.JeeslJobPriority;
 import org.jeesl.interfaces.model.system.job.JeeslJobRobot;
 import org.jeesl.interfaces.model.system.job.JeeslJobTemplate;
 
@@ -24,7 +25,7 @@ public interface JeeslJobFacade <L extends UtilsLang,D extends UtilsDescription,
 								CATEGORY extends UtilsStatus<CATEGORY,L,D>,
 								TYPE extends UtilsStatus<TYPE,L,D>,
 								JOB extends JeeslJob<TEMPLATE,PRIORITY,FEEDBACK,STATUS,USER>,
-								PRIORITY extends UtilsStatus<PRIORITY,L,D>,
+								PRIORITY extends JeeslJobPriority<L,D,PRIORITY,?>,
 								FEEDBACK extends JeeslJobFeedback<JOB,FT,USER>,
 								FT extends UtilsStatus<FT,L,D>,
 								STATUS extends UtilsStatus<STATUS,L,D>,

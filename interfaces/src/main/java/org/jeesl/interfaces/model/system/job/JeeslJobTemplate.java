@@ -16,7 +16,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 public interface JeeslJobTemplate<L extends UtilsLang,D extends UtilsDescription,
 									CATEGORY extends UtilsStatus<CATEGORY,L,D>,
 									TYPE extends UtilsStatus<TYPE,L,D>,
-									PRIORITY extends UtilsStatus<PRIORITY,L,D>
+									PRIORITY extends JeeslJobPriority<L,D,PRIORITY,?>
 									>
 		extends Serializable,EjbWithId,EjbSaveable,EjbRemoveable,
 				EjbWithCode,EjbWithLang<L>,EjbWithDescription<D>

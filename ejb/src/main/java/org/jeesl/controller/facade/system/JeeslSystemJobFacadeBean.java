@@ -44,7 +44,7 @@ public class JeeslSystemJobFacadeBean<L extends UtilsLang,D extends UtilsDescrip
 									CATEGORY extends UtilsStatus<CATEGORY,L,D>,
 									TYPE extends UtilsStatus<TYPE,L,D>,
 									JOB extends JeeslJob<TEMPLATE,PRIORITY,FEEDBACK,STATUS,USER>,
-									PRIORITY extends UtilsStatus<PRIORITY,L,D>,
+									PRIORITY extends JeeslJobPriority<L,D,PRIORITY,?>,
 									FEEDBACK extends JeeslJobFeedback<JOB,FT,USER>,
 									FT extends UtilsStatus<FT,L,D>,
 									STATUS extends UtilsStatus<STATUS,L,D>,
@@ -56,6 +56,8 @@ public class JeeslSystemJobFacadeBean<L extends UtilsLang,D extends UtilsDescrip
 					extends UtilsFacadeBean
 					implements JeeslJobFacade<L,D,TEMPLATE,CATEGORY,TYPE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,CONTAINER,USER>
 {
+	private static final long serialVersionUID = 1L;
+
 	private final JobFactoryBuilder<L,D,TEMPLATE,CATEGORY,TYPE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,USER> fbJob;
 	
 	private EjbJobCacheFactory<L,D,TEMPLATE,CATEGORY,TYPE,JOB,PRIORITY,FEEDBACK,FT,STATUS,ROBOT,CACHE,USER> efCache;

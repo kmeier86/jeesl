@@ -1,5 +1,6 @@
 package org.jeesl.factory.ejb.system.job;
 
+import org.jeesl.interfaces.model.system.job.JeeslJobPriority;
 import org.jeesl.interfaces.model.system.job.JeeslJobTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +13,7 @@ public class EjbJobTemplateFactory <L extends UtilsLang,D extends UtilsDescripti
 									TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY>,
 									CATEGORY extends UtilsStatus<CATEGORY,L,D>,
 									TYPE extends UtilsStatus<TYPE,L,D>,
-									PRIORITY extends UtilsStatus<PRIORITY,L,D>>
+									PRIORITY extends JeeslJobPriority<L,D,PRIORITY,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbJobTemplateFactory.class);
 	

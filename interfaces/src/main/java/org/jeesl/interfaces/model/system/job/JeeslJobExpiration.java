@@ -11,9 +11,11 @@ import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
-public interface JeeslJobType <L extends UtilsLang, D extends UtilsDescription,
-								S extends UtilsStatus<S,L,D>,G extends JeeslGraphic<L,D,?,?,?>>
-		extends Serializable,EjbPersistable,JeeslOptionRestDownload,EjbWithCodeGraphic<G>,UtilsStatus<S,L,D>
+public interface JeeslJobExpiration <L extends UtilsLang,D extends UtilsDescription,
+										S extends UtilsStatus<S,L,D>,
+										G extends JeeslGraphic<L,D,?,?,?>>
+		extends Serializable,EjbPersistable,JeeslOptionRestDownload,EjbWithCodeGraphic<G>,
+							UtilsStatus<S,L,D>
 {
-	public static enum Code{mail,json};
+	public static enum Code{never,h24,endOfDay,endOfWeek}
 }
