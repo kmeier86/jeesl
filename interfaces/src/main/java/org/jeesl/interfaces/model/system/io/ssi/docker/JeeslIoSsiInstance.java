@@ -8,7 +8,8 @@ import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface JeeslIoSsiInstance <SYSTEM extends JeeslIoSsiSystem>
+public interface JeeslIoSsiInstance <SYSTEM extends JeeslIoSsiSystem,
+									HOST extends JeeslIoSsiHost<?,?>>
 		extends Serializable,EjbWithId,EjbSaveable,EjbRemoveable
 {	
 	public enum Attributes {entity,json}
@@ -16,5 +17,6 @@ public interface JeeslIoSsiInstance <SYSTEM extends JeeslIoSsiSystem>
 	public SYSTEM getSystem();
 	public void setSystem(SYSTEM system);
 	
-
+	HOST getHost();
+	void setHost(HOST host);
 }

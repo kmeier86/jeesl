@@ -20,14 +20,21 @@
     		<s:lang key="en" translation="Mapping ID"/>
     		<s:lang key="fr" translation="Mapping ID"/>
     	</s:langs>
-    </s:translation>
+	</s:translation>
+	<s:translation key="jeeslIoSsiSystems">
+    	<s:langs>
+    		<s:lang key="de" translation="Systeme"/>
+    		<s:lang key="en" translation="Systems"/>
+    		<s:lang key="fr" translation="Systems"/>
+    	</s:langs>
+	</s:translation>
 	<s:translation key="jeeslIoSsiSystem">
     	<s:langs>
     		<s:lang key="de" translation="System"/>
     		<s:lang key="en" translation="System"/>
     		<s:lang key="fr" translation="System"/>
     	</s:langs>
-    </s:translation>
+	</s:translation>
 	<s:translation key="jeeslIoSsiJsonClass">
     	<s:langs>
     		<s:lang key="de" translation="JSON Klasse"/>
@@ -146,5 +153,27 @@
     		<s:lang key="fr" translation="Remote Code"/>
     	</s:langs>
     </s:translation>
+    
+    <s:translation key="jeeslIoSsiInstances">
+    	<s:langs>
+    		<s:lang key="de" translation="Instanzen"/>
+    		<s:lang key="en" translation="Instances"/>
+    		<s:lang key="fr" translation="Instances"/>
+    	</s:langs>
+	</s:translation>
+	<s:translation key="jeeslIoSsiInstance">
+    	<s:langs>
+    		<s:lang key="de" translation="Instanz"/>
+    		<s:lang key="en" translation="Instance"/>
+    		<s:lang key="fr" translation="Instance"/>
+    	</s:langs>
+	</s:translation>
+	<s:translation key="jeeslIoSsiHost">
+    	<s:langs>
+    		<s:lang key="de" translation="Host"/>
+    		<s:lang key="en" translation="Host"/>
+    		<s:lang key="fr" translation="Host"/>
+    	</s:langs>
+	</s:translation>
     
 </s:translations>

@@ -6,7 +6,7 @@ import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface JeeslIoSsiScript <INSTANCE extends JeeslIoSsiInstance<?>>
+public interface JeeslIoSsiScript <INSTANCE extends JeeslIoSsiInstance<?,?>>
 		extends Serializable,EjbWithId,EjbSaveable,EjbRemoveable
 {	
 	public enum Attributes {entity,json}

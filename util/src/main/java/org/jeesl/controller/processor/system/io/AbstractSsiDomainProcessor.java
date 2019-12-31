@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.jeesl.api.facade.io.JeeslIoSsiFacade;
 import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
-import org.jeesl.factory.ejb.system.io.ssi.EjbIoSsiDataFactory;
+import org.jeesl.factory.ejb.system.io.ssi.data.EjbIoSsiDataFactory;
 import org.jeesl.interfaces.controller.processor.SsiMappingProcessor;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiAttribute;

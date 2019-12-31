@@ -9,7 +9,7 @@ import org.jeesl.controller.handler.sb.SbMultiHandler;
 import org.jeesl.controller.handler.sb.SbSingleHandler;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.factory.builder.io.IoSsiFactoryBuilder;
-import org.jeesl.factory.ejb.system.io.ssi.EjbIoSsiAttributeFactory;
+import org.jeesl.factory.ejb.system.io.ssi.data.EjbIoSsiAttributeFactory;
 import org.jeesl.interfaces.bean.sb.SbSingleBean;
 import org.jeesl.interfaces.bean.sb.SbToggleBean;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
