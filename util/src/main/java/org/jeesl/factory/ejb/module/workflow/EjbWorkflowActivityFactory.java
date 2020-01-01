@@ -32,6 +32,10 @@ public class EjbWorkflowActivityFactory<WT extends JeeslWorkflowTransition<?,?,?
 	
 	public AY build(AW workflow, WT transition, USER user, Date date)
 	{
+		return build(workflow,transition,user,new Date(),null);
+	}
+	public AY build(AW workflow, WT transition, USER user, Date date, String remark)
+	{
 		AY ejb = null;
 		try
 		{
@@ -40,6 +44,7 @@ public class EjbWorkflowActivityFactory<WT extends JeeslWorkflowTransition<?,?,?
 			ejb.setTransition(transition);
 			ejb.setRecord(date);
 			ejb.setUser(user);
+			ejb.setRemark(remark);
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}

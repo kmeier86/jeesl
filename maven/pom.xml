@@ -170,17 +170,17 @@
 				<artifactId>exlp-maven</artifactId>
 				<executions>
  					<execution>
-						<id>create-view-identifier</id>
+						<id>create-merged-maven-ignore</id>
 						<phase>process-resources</phase> 
 						<goals><goal>mvnVersionIgnore</goal></goals>
 						<configuration>
-	              			<log>WARN</log>
-	              			<files>
+							<log>WARN</log>
+							<files>
 							  <param>exlp/maven/exlp-versions.xml</param>
 							  <param>${basedir}/src/main/resources/jeesl/maven/jeesl-versions.xml</param>
 							</files>
 							<saveTo>${basedir}/src/main/resources/jeesl/maven/ignore-versions.xml</saveTo>
-	              		</configuration>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

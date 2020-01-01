@@ -213,7 +213,7 @@ public class JeeslWorkflowEngine <L extends UtilsLang, D extends UtilsDescriptio
 			link.setRefId(ejb.getId());
 			link = fWorkflow.save(link);
 			
-			if(debugOnInfo) {logger.info("Saved: Workflow and Link");}
+			if(debugOnInfo) {logger.info("Saved: Workflow and Link ("+workflow.toString()+" , "+link.toString()+")");}
 		}
 	}
 	
