@@ -1,6 +1,7 @@
 package org.jeesl.factory.builder.module;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
+import org.jeesl.factory.ejb.module.asset.EjbAssetManufacturerFactory;
 import org.jeesl.interfaces.model.module.asset.JeeslAsset;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetManufacturer;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetStatus;
@@ -11,7 +12,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 
 public class AssetFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
-ASSET extends JeeslAsset,
+								ASSET extends JeeslAsset,
 								MANU extends JeeslAssetManufacturer,
 								AS extends JeeslAssetStatus<L,D,AS,?>>
 		extends AbstractFactoryBuilder<L,D>
@@ -29,4 +30,6 @@ ASSET extends JeeslAsset,
 		this.cAsset=cAsset;
 		this.cManu=cManu;
 	}
+	
+	public EjbAssetManufacturerFactory<MANU> ejbManufacturer() {return new EjbAssetManufacturerFactory<MANU>(cManu);}
 }
