@@ -26,7 +26,7 @@ public interface JeeslLogItem <L extends UtilsLang, D extends UtilsDescription,
 				EjbSaveable,EjbPersistable,
 				EjbWithLang<L>,EjbWithRecord
 {
-	public enum Attributes{log}
+	public enum Attributes{log,record}
 	
 	LOG getLog();
 	void setLog(LOG log);
