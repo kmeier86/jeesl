@@ -10,6 +10,8 @@
 		<composite:attribute name="process" required="false" default="@this"/>
 		<composite:attribute name="immediate" required="false" default="true"/>
 		<composite:attribute name="height" required="false" default="12"/>
+		<composite:attribute name="styleClass" required="false" default="12"/>
+		<composite:attribute name="header" required="false" default="false"/>
 	</composite:interface>
 
 	<composite:implementation>
@@ -21,7 +23,9 @@
 				   process="#{cc.attrs.process}" 
 				   immediate="#{cc.attrs.immediate}">
 				<h:graphicImage id="image"
-						styleClass="#{cc.attrs.handler.map[var] ? '' : 'jeeslDesaturate'}"
+						styleClass="#{cc.attrs.header ?
+							(cc.attrs.handler.map[var] ? 'jeeslPanelHeaderIcon' : 'jeeslPanelHeaderIcon jeeslDesaturate') :
+							(cc.attrs.handler.map[var] ? '' : 'jeeslDesaturate')}"
 						height="#{cc.attrs.height}" 
 						value="/image/symbolizer/graphic/#{var.class.name}/#{cc.attrs.height}/#{var.id}">
 				</h:graphicImage>
