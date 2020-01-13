@@ -28,6 +28,9 @@ public class SbDateHandler implements Serializable
 		enforceStartOfDay = true;
 	}
 	
+	public static SbDateHandler build() {return new SbDateHandler();}
+	public SbDateHandler enforceStartOfDay(boolean enforce) {this.setEnforceStartOfDay(enforce);return this;}
+	
 	public void initMonthsToNow(int months)
 	{
 		DateTime dt = new DateTime();
