@@ -31,7 +31,7 @@ public class TxtUserFactory <USER extends JeeslUser<?>>
     public static String buildSalt() 
     {
         SecureRandom random = new SecureRandom();
-        byte bytes[] = new byte[20];
+        byte bytes[] = new byte[32];
         random.nextBytes(bytes);
         return Base64.encodeBase64String(bytes);
     }
@@ -39,7 +39,7 @@ public class TxtUserFactory <USER extends JeeslUser<?>>
     public static String toHash(String clear, String salt)
     {
         MessageDigest digest;
-		try{digest = MessageDigest.getInstance("SHA-256");}
+		try{digest = MessageDigest.getInstance("SHA-512");}
 		catch (NoSuchAlgorithmException e) {throw new RuntimeException(e.getMessage());}
         digest.reset();
         digest.update(stringToByte(salt));
