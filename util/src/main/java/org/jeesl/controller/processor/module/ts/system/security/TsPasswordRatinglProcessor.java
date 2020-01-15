@@ -15,15 +15,19 @@ import org.jeesl.interfaces.model.module.ts.data.JeeslTsDataPoint;
 import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
 import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityPasswordRating;
+import org.jeesl.model.json.db.tuple.t1.Json1Tuple;
+import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public class TsPasswordRatinglProcessor<SYSTEM extends JeeslIoSsiSystem,
+									RATING extends JeeslSecurityPasswordRating<?,?,?,?>,
 									SCOPE extends JeeslTsScope<?,?,?,?,?,EC,INT>,
 									MP extends JeeslTsMultiPoint<?,?,SCOPE,?>,
 									TS extends JeeslTimeSeries<SCOPE,BRIDGE,INT>,
@@ -47,16 +51,38 @@ public class TsPasswordRatinglProcessor<SYSTEM extends JeeslIoSsiSystem,
 	
 	
 	
-	private void rating(TRANSACTION transaction, Date date) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException
+	public void update(SYSTEM system, Json1Tuples<RATING> tuples)
 	{
-		
-		for(MP mp : fTs.allForParent(fbTs.getClassMp(), scope))
+		try
 		{
-			if(mp.getCode().equals("request"))
+			DateTime dt = new DateTime(new Date());
+			Date date = dt.withMillisOfSecond(0).withSecondOfMinute(0).withMinuteOfHour(0).withHourOfDay(0).toDate();
+			
+			TS ts = fcTs(system);
+			TRANSACTION transaction = fTs.save(fbTs.transaction().build(null,null));
+			
+			DATA data = efData.build(ws, ts, transaction, date, null);
+			data = fTs.save(data);
+					
+			for(MP mp : fTs.allForParent(fbTs.getClassMp(), scope))
 			{
-//				POINT dp =  efDataPoint.build(data, mp, Double.valueOf(map.get(role)));
-//				fTs.save(dp);
+				for(Json1Tuple<RATING> t : tuples.getTuples())
+				{
+					
+					if(t.getEjb().getCode().equals(mp.getCode()))
+					{
+						if(t.getCount()!=null)
+						{
+							POINT dp =  efPoint.build(data,mp,t.getCount().doubleValue());
+							dp = fTs.save(dp);
+//							logger.info(dp.getId()+" "+t.getEjb().getCode()+" "+t.getCount());
+						}
+						
+					}
+				}
 			}
+			
 		}
+		catch (UtilsConstraintViolationException | UtilsLockingException e) {e.printStackTrace();}
 	}
 }

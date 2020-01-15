@@ -1,4 +1,4 @@
-package org.jeesl.controller.processor.system.health;
+package org.jeesl.controller.processor.module.ts.system.health;
 
 import java.util.Date;
 
