@@ -43,11 +43,11 @@ public class TxtUserFactory <USER extends JeeslUser<?>>
 		catch (NoSuchAlgorithmException e) {throw new RuntimeException(e.getMessage());}
         digest.reset();
         digest.update(stringToByte(salt));
-        byte[] hashedBytes = digest.digest(stringToByte(clear));
+        byte[] hashedBytes = digest.digest(clear.getBytes());
         return Base64.encodeBase64String(hashedBytes);
     }
 
-	public static byte[] stringToByte(String input)
+	private static byte[] stringToByte(String input)
 	{
         if (Base64.isBase64(input)) {return Base64.decodeBase64(input);}
         else {return Base64.encodeBase64(input.getBytes());}
