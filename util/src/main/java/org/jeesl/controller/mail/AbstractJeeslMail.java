@@ -54,7 +54,7 @@ public class AbstractJeeslMail<L extends UtilsLang,D extends UtilsDescription,LO
 								STATUS extends JeeslMailStatus<L,D,STATUS,?>,
 								RETENTION extends JeeslMailRetention<L,D,RETENTION,?>,
 								FRC extends JeeslFileContainer<?,?>>
-							implements JeeslMail
+							implements JeeslMail<TEMPLATE>
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractJeeslMail.class);
 	
@@ -69,15 +69,16 @@ public class AbstractJeeslMail<L extends UtilsLang,D extends UtilsDescription,LO
 	protected final Map<String,Template> mapTemplateHeader;
 	protected final Map<String,Template> mapTemplateBody;
 
-	protected TEMPLATE template; public TEMPLATE getTemplate() {return template;}
+	protected TEMPLATE template; @Override public TEMPLATE getTemplate() {return template;}
 
 	protected MAILCAT categoryMail;
+	protected RETENTION retention;
 	protected EmailAddress mailFrom;
 	
 	protected final Mails mails;
 	
 	protected String subjectPreifx;
-	private final String dummyLocaleCode = "xx";
+//	private final String dummyLocaleCode = "xx";
 	
 	public AbstractJeeslMail(IoTemplateFactoryBuilder<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fbTemplate,
 							IoMailFactoryBuilder<L,D,MAILCAT,MAIL,STATUS,RETENTION,FRC> fbMail,
@@ -121,25 +122,30 @@ public class AbstractJeeslMail<L extends UtilsLang,D extends UtilsDescription,LO
 		return result;
 	}
 	
-	protected void compile(String header, String body) throws IOException {compile(dummyLocaleCode,header,body);}
+//	protected void compile(String header, String body) throws IOException {compile(dummyLocaleCode,header,body);}
 	protected void compile(JeeslTemplateHandler<L,D,LOC,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> handler) throws IOException
 	{
 		for(DEFINITION def : handler.getDefinitons())
 		{
 			for(LOC loc : handler.getLocales())
 			{
-				compile(handler.toHeader(def,loc),handler.toBody(def,loc));
+				compile(loc.getCode(),handler.toHeader(def,loc),handler.toBody(def,loc));
 			}
 		}
 		
 	}
 	protected void compile(String localeCode, String header, String body) throws IOException
 	{
-		mapTemplateHeader.put(localeCode, new Template("name", new StringReader(header),new Configuration()));
-		mapTemplateBody.put(localeCode, new Template("name", new StringReader(body),new Configuration()));
+		mapTemplateHeader.put(localeCode, AbstractJeeslMail.compile(header));
+		mapTemplateBody.put(localeCode, AbstractJeeslMail.compile(body));
 	}
 	
-	protected String processHeader(Map<String,Object> model) throws TemplateException, IOException {return processHeader(dummyLocaleCode,model);}
+	public static Template compile(String text) throws IOException
+	{
+		return new Template("name", new StringReader(text),new Configuration());
+	}
+	
+//	protected String processHeader(Map<String,Object> model) throws TemplateException, IOException {return processHeader(dummyLocaleCode,model);}
 	protected String processHeader(String localeCode, Map<String,Object> model) throws TemplateException, IOException
 	{
 		StringWriter swHeader = new StringWriter();
@@ -148,13 +154,30 @@ public class AbstractJeeslMail<L extends UtilsLang,D extends UtilsDescription,LO
 		return swHeader.toString();
 	}
 	
-	protected String processBody(Map<String,Object> model) throws TemplateException, IOException {return processBody(dummyLocaleCode,model);}
+//	protected String processBody(Map<String,Object> model) throws TemplateException, IOException {return processBody(dummyLocaleCode,model);}
 	protected String processBody(String localeCode, Map<String,Object> model) throws TemplateException, IOException
 	{
 		StringWriter swBody = new StringWriter();
 		mapTemplateBody.get(localeCode).process(model,swBody);
 		swBody.flush();
 		return swBody.toString();
+	}
+	
+	public static String preview(Map<String,Object> model, Template template)
+	{
+		String result;
+		
+		try
+		{
+			StringWriter swHeader = new StringWriter();
+			template.process(model,swHeader);
+			swHeader.flush();
+			result = swHeader.toString();
+		}
+    	catch (IOException e) {result="Error: "+e.getMessage();}
+    	catch (TemplateException e) {result="Error: "+e.getMessage();}
+		
+		return result;
 	}
 	
 	public void spool(Mail mail) throws UtilsConstraintViolationException, UtilsNotFoundException
@@ -175,7 +198,7 @@ public class AbstractJeeslMail<L extends UtilsLang,D extends UtilsDescription,LO
 	{
 		for(Mail mail : mails.getMail())
 		{
-			try {fMail.queueMail(categoryMail,null,mail);}
+			try {fMail.queueMail(categoryMail,retention,mail);}
 			catch (UtilsConstraintViolationException | UtilsNotFoundException e) {e.printStackTrace();}
 		}
 	}

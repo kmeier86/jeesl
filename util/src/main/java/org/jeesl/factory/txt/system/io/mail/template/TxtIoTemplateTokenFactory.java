@@ -1,6 +1,7 @@
 package org.jeesl.factory.txt.system.io.mail.template;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
@@ -27,8 +28,13 @@ public class TxtIoTemplateTokenFactory <L extends UtilsLang,D extends UtilsDescr
 		
 	public Map<String,Object> buildModel(TEMPLATE template)
 	{
+		return buildModel(template.getTokens());
+	}
+	
+	public Map<String,Object> buildModel(List<TOKEN> tokens)
+	{
 		Map<String,Object> model = new HashMap<String,Object>();
-		for(TOKEN token : template.getTokens())
+		for(TOKEN token : tokens)
 		{
 			model.put(token.getCode(), token.getExample());
 		}

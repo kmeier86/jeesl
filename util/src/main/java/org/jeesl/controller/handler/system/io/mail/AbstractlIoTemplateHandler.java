@@ -1,19 +1,30 @@
 package org.jeesl.controller.handler.system.io.mail;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jeesl.api.facade.io.JeeslIoTemplateFacade;
+import org.jeesl.controller.mail.AbstractJeeslMail;
+import org.jeesl.factory.builder.io.IoTemplateFactoryBuilder;
+import org.jeesl.factory.txt.system.security.TxtUserFactory;
+import org.jeesl.interfaces.bean.system.IoTemplateBean;
+import org.jeesl.interfaces.controller.JeeslMail;
 import org.jeesl.interfaces.controller.handler.system.io.JeeslTemplateHandler;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinition;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateToken;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
+import org.jeesl.interfaces.model.system.security.user.JeeslUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import net.sf.ahtutils.exception.processing.UtilsProcessingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -31,15 +42,34 @@ public class AbstractlIoTemplateHandler<L extends UtilsLang,D extends UtilsDescr
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractlIoTemplateHandler.class);
 
-	private final List<LOC> locales; @Override public List<LOC> getLocales() {return locales;}
-	private final List<DEFINITION> definitons; @Override public List<DEFINITION> getDefinitons() {return definitons;}
+	private final IoTemplateFactoryBuilder<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fbTemplate;
+	private final IoTemplateBean bean;
 	
+	private final JeeslMail<TEMPLATE> mail; public JeeslMail<TEMPLATE> getMail() {return mail;}
+	private final List<LOC> locales; @Override public List<LOC> getLocales() {return locales;}
+	private final List<CHANNEL> channels;
+	private final List<DEFINITION> definitons; @Override public List<DEFINITION> getDefinitons() {return definitons;}
+	private List<TOKEN> tokens; @Override public List<TOKEN> getTokens() {return tokens;}
 	private final Map<CHANNEL,Map<String,String>> header; public Map<CHANNEL,Map<String, String>> getHeader() {return header;}
 	private final Map<CHANNEL,Map<String,String>> body; public Map<CHANNEL,Map<String, String>> getBody() {return body;}
 	
-	public AbstractlIoTemplateHandler()
+	private LOC locale; public LOC getLocale() {return locale;} public void setLocale(LOC locale) {this.locale = locale;}
+	private CHANNEL channel; public CHANNEL getChannel() {return channel;} public void setChannel(CHANNEL channel) {this.channel = channel;}
+	private String recipients; @Override public String getRecipients() {return recipients;} @Override public void setRecipients(String recipients) {this.recipients = recipients;} 
+	private String previewHeader; @Override public String getPreviewHeader() {return previewHeader;}
+	private String previewBody; @Override public String getPreviewBody() {return previewBody;}
+	
+	public AbstractlIoTemplateHandler(IoTemplateFactoryBuilder<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fbTemplate,
+										JeeslIoTemplateFacade<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fTemplate,
+										IoTemplateBean bean,
+										JeeslMail<TEMPLATE> mail)
 	{
+		this.fbTemplate=fbTemplate;
+		this.bean=bean;
+		this.mail=mail;
+		tokens = fTemplate.allForParent(fbTemplate.getClassToken(),mail.getTemplate());
 		locales = new ArrayList<>();
+		channels = new ArrayList<>();
 		definitons = new ArrayList<>();
 		header = new HashMap<>();
 		body = new HashMap<>();
@@ -55,14 +85,37 @@ public class AbstractlIoTemplateHandler<L extends UtilsLang,D extends UtilsDescr
 		logger.info("adding "+definitions.size());
 		for(DEFINITION d : definitions)
 		{
-			header.put(d.getType(),new HashMap<>());
-			body.put(d.getType(),new HashMap<>());
+			CHANNEL c = d.getType();
+			channels.add(c);
+			header.put(c,new HashMap<>());
+			body.put(c,new HashMap<>());
 			for(LOC loc : locales)
 			{
-				header.get(d.getType()).put(loc.getCode(),d.getHeader().get(loc.getCode()).getLang());
-				body.get(d.getType()).put(loc.getCode(),d.getDescription().get(loc.getCode()).getLang());
+				header.get(c).put(loc.getCode(),d.getHeader().get(loc.getCode()).getLang());
+				body.get(c).put(loc.getCode(),d.getDescription().get(loc.getCode()).getLang());
 			}
 		}
+	}
+	
+	public void setDefault()
+	{
+		locale = locales.get(0);
+		channel = channels.get(0);
+		try
+		{
+			preview();
+		}
+		catch (IOException e) {e.printStackTrace();}
+	}
+	
+	private void preview() throws IOException
+	{
+		Template ptHeader = AbstractJeeslMail.compile(header.get(channel).get(locale.getCode()));
+		Template ptBody = AbstractJeeslMail.compile(body.get(channel).get(locale.getCode()));
+		
+		Map<String,Object> model = fbTemplate.txtToken().buildModel(tokens);
+		previewHeader = AbstractJeeslMail.preview(model, ptHeader);
+		previewBody = AbstractJeeslMail.preview(model, ptBody);
 	}
 	
 	@Override public String toHeader(DEFINITION definition, LOC locale)
@@ -74,5 +127,30 @@ public class AbstractlIoTemplateHandler<L extends UtilsLang,D extends UtilsDescr
 	{
 		if(body.containsKey(definition.getType()) && body.get(definition.getType()).containsKey(locale.getCode())) {return body.get(definition.getType()).get(locale.getCode());}
 		else {return "";}
+	}
+	
+	public boolean hasOneLocale() {return locales.size()==1;}
+	
+	public <USER extends JeeslUser<?>> void updateRecipients(List<USER> users)
+	{
+		TxtUserFactory<USER> tfUser = new TxtUserFactory<USER>();
+		recipients = tfUser.names(users);
+	}
+	
+	public void saveTemplate()
+	{
+		logger.info("saveTemplate");
+		try {
+			preview();
+		} catch (IOException e) {logger.error(e.getMessage());}
+	}
+	
+	public void sendMails()
+	{
+		if(bean!=null)
+		{
+			try {bean.sendIoMailsFromTemplateHandler();}
+			catch (UtilsProcessingException | IOException | TemplateException e) {e.printStackTrace();}
+		}
 	}
 }
