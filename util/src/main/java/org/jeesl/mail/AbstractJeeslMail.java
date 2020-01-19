@@ -1,7 +1,15 @@
 package org.jeesl.mail;
 
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.jeesl.api.facade.io.JeeslIoMailFacade;
 import org.jeesl.api.facade.io.JeeslIoTemplateFacade;
+import org.jeesl.factory.builder.io.IoMailFactoryBuilder;
+import org.jeesl.factory.builder.io.IoTemplateFactoryBuilder;
 import org.jeesl.factory.xml.system.io.mail.XmlMailFactory;
 import org.jeesl.factory.xml.system.io.mail.XmlMailsFactory;
 import org.jeesl.interfaces.controller.JeeslMail;
@@ -12,12 +20,17 @@ import org.jeesl.interfaces.model.system.io.mail.core.JeeslMailStatus;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinition;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateToken;
+import org.jeesl.interfaces.model.system.io.mail.template.JeeslTemplateChannel;
+import org.jeesl.mail.freemarker.FreemarkerIoTemplateEngine;
 import org.jeesl.model.xml.system.io.mail.EmailAddress;
 import org.jeesl.model.xml.system.io.mail.Mail;
 import org.jeesl.model.xml.system.io.mail.Mails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
 import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
@@ -26,10 +39,10 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 
 public class AbstractJeeslMail<L extends UtilsLang,D extends UtilsDescription,
 								CATEGORY extends UtilsStatus<CATEGORY,L,D>,
-								TYPE extends UtilsStatus<TYPE,L,D>,
+								CHANNEL extends JeeslTemplateChannel<L,D,CHANNEL,?>,
 								TEMPLATE extends JeeslIoTemplate<L,D,CATEGORY,SCOPE,DEFINITION,TOKEN>,
 								SCOPE extends UtilsStatus<SCOPE,L,D>,
-								DEFINITION extends JeeslIoTemplateDefinition<D,TYPE,TEMPLATE>,
+								DEFINITION extends JeeslIoTemplateDefinition<D,CHANNEL,TEMPLATE>,
 								TOKEN extends JeeslIoTemplateToken<L,D,TEMPLATE,TOKENTYPE>,
 								TOKENTYPE extends UtilsStatus<TOKENTYPE,L,D>,
 								MAILCAT extends UtilsStatus<MAILCAT,L,D>,
@@ -41,11 +54,19 @@ public class AbstractJeeslMail<L extends UtilsLang,D extends UtilsDescription,
 {
 	final static Logger logger = LoggerFactory.getLogger(AbstractJeeslMail.class);
 	
-	protected final JeeslIoTemplateFacade<L,D,CATEGORY,TYPE,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fTemplate;
+	private final IoTemplateFactoryBuilder<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fbTemplate;
+	private final IoMailFactoryBuilder<L,D,MAILCAT,MAIL,STATUS,RETENTION,FRC> fbMail;
+	
+	protected final JeeslIoTemplateFacade<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fTemplate;
 	protected final JeeslIoMailFacade<L,D,MAILCAT,MAIL,STATUS,RETENTION,FRC> fMail;
 	
+	protected final FreemarkerIoTemplateEngine<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fmEngine;
 
-	protected TEMPLATE template;
+	protected final Map<String,Template> mapTemplateHeader;
+	protected final Map<String,Template> mapTemplateBody;
+
+	protected TEMPLATE template; public TEMPLATE getTemplate() {return template;}
+
 	protected MAILCAT categoryMail;
 	protected EmailAddress mailFrom;
 	
@@ -53,14 +74,58 @@ public class AbstractJeeslMail<L extends UtilsLang,D extends UtilsDescription,
 	
 	protected String subjectPreifx;
 	
-	public AbstractJeeslMail(JeeslIoTemplateFacade<L,D,CATEGORY,TYPE,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fTemplate,
+	public AbstractJeeslMail(IoTemplateFactoryBuilder<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fbTemplate,
+							IoMailFactoryBuilder<L,D,MAILCAT,MAIL,STATUS,RETENTION,FRC> fbMail,
+							JeeslIoTemplateFacade<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fTemplate,
 							JeeslIoMailFacade<L,D,MAILCAT,MAIL,STATUS,RETENTION,FRC> fMail)
 	{
+		this.fbTemplate=fbTemplate;
+		this.fbMail=fbMail;
 		this.fTemplate=fTemplate;
 		this.fMail=fMail;
 		
+		fmEngine = new FreemarkerIoTemplateEngine<>(fbTemplate);
+		
+		mapTemplateHeader = new HashMap<String,Template>();
+		mapTemplateBody = new HashMap<String,Template>();
+		
 		subjectPreifx = "";
 		mails = XmlMailsFactory.build();
+	}
+	
+	protected <E extends Enum<E>> void initIo(Class<?> c, E code)
+	{
+		try
+		{
+			categoryMail = fMail.fByCode(fbMail.getClassCategory(), code);
+			
+			template = fTemplate.fByCode(fbTemplate.getClassTemplate(), c.getSimpleName());
+			template = fTemplate.load(template);
+			fmEngine.addTemplate(template);
+		}
+		catch (UtilsNotFoundException e) {e.printStackTrace();}
+	}
+	
+	protected void compile(String localeCode, String header, String body) throws IOException
+	{
+		mapTemplateHeader.put(localeCode, new Template("name", new StringReader(header),new Configuration()));
+		mapTemplateBody.put(localeCode, new Template("name", new StringReader(body),new Configuration()));
+	}
+	
+	protected String processHeader(String localeCode, Map<String,Object> model) throws TemplateException, IOException
+	{
+		StringWriter swHeader = new StringWriter();
+		mapTemplateHeader.get(localeCode).process(model,swHeader);
+		swHeader.flush();
+		return swHeader.toString();
+	}
+	
+	protected String processBody(String localeCode, Map<String,Object> model) throws TemplateException, IOException
+	{
+		StringWriter swBody = new StringWriter();
+		mapTemplateBody.get(localeCode).process(model,swBody);
+		swBody.flush();
+		return swBody.toString();
 	}
 	
 	public void spool(Mail mail) throws UtilsConstraintViolationException, UtilsNotFoundException
