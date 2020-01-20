@@ -56,8 +56,11 @@ public class AbstractlIoTemplateHandler<L extends UtilsLang,D extends UtilsDescr
 	private LOC locale; public LOC getLocale() {return locale;} public void setLocale(LOC locale) {this.locale = locale;}
 	private CHANNEL channel; public CHANNEL getChannel() {return channel;} public void setChannel(CHANNEL channel) {this.channel = channel;}
 	private String recipients; @Override public String getRecipients() {return recipients;} @Override public void setRecipients(String recipients) {this.recipients = recipients;} 
+	private int numberRecipients; public int getNumberRecipients() {return numberRecipients;} public void setNumberRecipients(int numberRecipients) {this.numberRecipients = numberRecipients;}
+	
 	private String previewHeader; @Override public String getPreviewHeader() {return previewHeader;}
 	private String previewBody; @Override public String getPreviewBody() {return previewBody;}
+	
 	
 	public AbstractlIoTemplateHandler(IoTemplateFactoryBuilder<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fbTemplate,
 										JeeslIoTemplateFacade<L,D,CATEGORY,CHANNEL,TEMPLATE,SCOPE,DEFINITION,TOKEN,TOKENTYPE> fTemplate,
@@ -135,6 +138,7 @@ public class AbstractlIoTemplateHandler<L extends UtilsLang,D extends UtilsDescr
 	{
 		TxtUserFactory<USER> tfUser = new TxtUserFactory<USER>();
 		recipients = tfUser.names(users);
+		numberRecipients = users.size();
 	}
 	
 	public void saveTemplate()

@@ -22,7 +22,7 @@
 		<p:dialog id="dialog" header="#{cc.attrs.handler.mail.template.name[localeCode].lang}" widgetVar="#{cc.attrs.widgetVar}" modal="true" resizable="false">
 			<j:row>
 				<j:slot width="5">
-					<p:panel header="#{msg.jeeslTemplateRecipients}" styleClass="jeeslPanel">
+					<p:panel header="#{msg.jeeslTemplateRecipients} (#{cc.attrs.handler.numberRecipients})" styleClass="jeeslPanel">
 						<p:panelGrid columns="1" columnClasses="jeeslGrid100">
 							<h:outputText value="#{cc.attrs.handler.recipients}"/>
 						</p:panelGrid>
@@ -51,7 +51,7 @@
 								<j:icon type="jeeslSave" listener="#{cc.attrs.handler.saveTemplate()}" update="@form"/>
 							</f:facet>
 							<p:panelGrid columns="1" columnClasses="jeeslGrid100">
-								<p:inputTextarea value="#{cc.attrs.handler.header[cc.attrs.handler.channel][cc.attrs.handler.locale.code]}" autocomplete="off" style="width:100%" autoResize="true"/>
+								<jtp:inputRemark value="#{cc.attrs.handler.header[cc.attrs.handler.channel][cc.attrs.handler.locale.code]}" rows="1"/>
 						  		<p:inputTextarea value="#{cc.attrs.handler.body[cc.attrs.handler.channel][cc.attrs.handler.locale.code]}" autocomplete="off" style="width:100%" autoResize="true"/>
 							</p:panelGrid>
 						</p:panel>
