@@ -66,7 +66,7 @@ public class JsonTuple3Handler <A extends EjbWithId, B extends EjbWithId, C exte
 	}
 	
 	public void init(Json3Tuples<A,B,C> tuples) {init(null,tuples,false);}
-	public void init(UtilsFacade fJeesl, Json3Tuples<A,B,C> tuples, boolean load){init(null,tuples,true);}
+	public void init(UtilsFacade fJeesl, Json3Tuples<A,B,C> tuples, boolean load){init(fJeesl,tuples,true,true,true);}
 	public void init(UtilsFacade fJeesl, Json3Tuples<A,B,C> tuples, boolean loadA, boolean loadB, boolean loadC)
 	{
 		clear();
