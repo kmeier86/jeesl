@@ -41,9 +41,9 @@ public abstract class AbstractOfxCmsFactory <L extends UtilsLang,D extends Utils
 	final static Logger logger = LoggerFactory.getLogger(AbstractOfxCmsFactory.class);
 	
 	protected final String localeCode;
-	protected final JeeslIoCmsFacade<L,D,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM,LOC> fCms;
+	protected final JeeslIoCmsFacade<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fCms;
 	
-	public AbstractOfxCmsFactory(String localeCode, JeeslIoCmsFacade<L,D,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM,LOC> fCms)
+	public AbstractOfxCmsFactory(String localeCode, JeeslIoCmsFacade<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fCms)
 	{
 		this.localeCode=localeCode;
 		this.fCms = fCms;

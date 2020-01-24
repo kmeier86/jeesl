@@ -1,5 +1,6 @@
 package org.jeesl.controller.facade.system.io;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -20,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
 import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
+import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -38,26 +40,23 @@ public class JeeslIoCmsFacadeBean<L extends UtilsLang,D extends UtilsDescription
 									FM extends JeeslFileMeta<D,FC,?,?>,
 									LOC extends UtilsStatus<LOC,L,D>>
 					extends UtilsFacadeBean
-					implements JeeslIoCmsFacade<L,D,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM,LOC>
+					implements JeeslIoCmsFacade<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM>
 {	
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(JeeslIoCmsFacadeBean.class);
 	
-	private final Class<S> cSection;
-	private final Class<E> cElement;
+	private final IoCmsFactoryBuilder<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fbCms;
 	
 	public JeeslIoCmsFacadeBean(EntityManager em,
-//			IoCmsFactoryBuilder<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fbCms,
-			final Class<S> cSection, final Class<E> cElement)
+			IoCmsFactoryBuilder<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fbCms)
 	{
 		super(em);
-		this.cSection=cSection;
-		this.cElement=cElement;
+		this.fbCms=fbCms;
 	}
 	
 	@Override public S load(S section, boolean recursive)
 	{
-		section = em.find(cSection, section.getId());
+		section = em.find(fbCms.getClassSection(), section.getId());
 		if(recursive)
 		{
 			for(S s : section.getSections())
@@ -68,13 +67,30 @@ public class JeeslIoCmsFacadeBean<L extends UtilsLang,D extends UtilsDescription
 		return section;
 	}
 
-	@Override public List<E> fCmsElements(S section) {return this.allForParent(cElement,section);}
+	@Override public List<E> fCmsElements(S section) {return this.allForParent(fbCms.getClassElement(),section);}
 
-	@Override public void deleteCmsElement(E element) throws UtilsConstraintViolationException
+	@Override public void deleteCmsElement(E element) throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		if(element.getFrContainer()!=null)
 		{
-//			List<FM> files = this.allForParent(fbCms., parent)
+			List<FM> files = this.allForParent(fbCms.getClassFileMeta(),element.getFrContainer());
+			if(!files.isEmpty()) {throw new UtilsConstraintViolationException("There are still files");}
+			else
+			{
+				FC container = element.getFrContainer();
+				element.setFrContainer(null);
+				element = this.save(element);
+				this.rm(container);
+			}
+		}
+		if(!element.getContent().isEmpty())
+		{
+			List<C> list = new ArrayList<>(element.getContent().values());
+			for(C c : list)
+			{
+				c.getElement().getContent().remove(c.getLkey());
+				this.rm(c);
+			}
 		}
 		
 		this.rmProtected(element);

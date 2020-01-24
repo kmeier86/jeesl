@@ -52,7 +52,7 @@ public abstract class AbstractCmsCacheBean <L extends UtilsLang,D extends UtilsD
 	
 	private final IoCmsFactoryBuilder<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fbCms;
 	private JeeslCmsRenderer<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC> ofx;
-	private JeeslIoCmsFacade<L,D,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM,LOC> fCms;
+	private JeeslIoCmsFacade<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fCms;
 	
 	private final Map<Long,S> mapId;
 	private final Map<S,Map<String,Section>> mapSection;
@@ -66,7 +66,7 @@ public abstract class AbstractCmsCacheBean <L extends UtilsLang,D extends UtilsD
 		mapId = new HashMap<Long,S>();
 	}
 	
-	protected void postConstructCms(JeeslIoCmsFacade<L,D,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM,LOC> fCms,
+	protected void postConstructCms(JeeslIoCmsFacade<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fCms,
 									JeeslCmsRenderer<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC> ofx)
 	{
 		this.fCms=fCms;
