@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.jeesl.api.facade.io.JeeslIoReportFacade;
 import org.jeesl.controller.db.updater.JeeslDbCodeEjbUpdater;
@@ -66,28 +67,30 @@ import net.sf.exlp.util.io.JsonUtil;
 import net.sf.exlp.util.io.StringUtil;
 
 public class JeeslReportUpdater <L extends UtilsLang,D extends UtilsDescription,
-CATEGORY extends UtilsStatus<CATEGORY,L,D>,
-REPORT extends JeeslIoReport<L,D,CATEGORY,WORKBOOK>,
-IMPLEMENTATION extends UtilsStatus<IMPLEMENTATION,L,D>,
-WORKBOOK extends JeeslReportWorkbook<REPORT,SHEET>,
-SHEET extends JeeslReportSheet<L,D,IMPLEMENTATION,WORKBOOK,GROUP,ROW>,
-GROUP extends JeeslReportColumnGroup<L,D,SHEET,COLUMN,STYLE>,
-COLUMN extends JeeslReportColumn<L,D,GROUP,STYLE,CDT,CW,TLS>,
-ROW extends JeeslReportRow<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS>,
-TEMPLATE extends JeeslReportTemplate<L,D,CELL>,
-CELL extends JeeslReportCell<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS>,
-STYLE extends JeeslReportStyle<L,D>,
-CDT extends UtilsStatus<CDT,L,D>,CW extends UtilsStatus<CW,L,D>,
-RT extends UtilsStatus<RT,L,D>,
-RCAT extends UtilsStatus<RCAT,L,D>,
-ENTITY extends EjbWithId,
-ATTRIBUTE extends EjbWithId,
-TL extends JeeslTrafficLight<L,D,TLS>,
-TLS extends UtilsStatus<TLS,L,D>,
-FILLING extends UtilsStatus<FILLING,L,D>,
-TRANSFORMATION extends UtilsStatus<TRANSFORMATION,L,D>>
+								CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+								REPORT extends JeeslIoReport<L,D,CATEGORY,WORKBOOK>,
+								IMPLEMENTATION extends UtilsStatus<IMPLEMENTATION,L,D>,
+								WORKBOOK extends JeeslReportWorkbook<REPORT,SHEET>,
+								SHEET extends JeeslReportSheet<L,D,IMPLEMENTATION,WORKBOOK,GROUP,ROW>,
+								GROUP extends JeeslReportColumnGroup<L,D,SHEET,COLUMN,STYLE>,
+								COLUMN extends JeeslReportColumn<L,D,GROUP,STYLE,CDT,CW,TLS>,
+								ROW extends JeeslReportRow<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS>,
+								TEMPLATE extends JeeslReportTemplate<L,D,CELL>,
+								CELL extends JeeslReportCell<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS>,
+								STYLE extends JeeslReportStyle<L,D>,
+								CDT extends UtilsStatus<CDT,L,D>,CW extends UtilsStatus<CW,L,D>,
+								RT extends UtilsStatus<RT,L,D>,
+								RCAT extends UtilsStatus<RCAT,L,D>,
+								ENTITY extends EjbWithId,
+								ATTRIBUTE extends EjbWithId,
+								TL extends JeeslTrafficLight<L,D,TLS>,
+								TLS extends UtilsStatus<TLS,L,D>,
+								FILLING extends UtilsStatus<FILLING,L,D>,
+								TRANSFORMATION extends UtilsStatus<TRANSFORMATION,L,D>>
 {
 	final static Logger logger = LoggerFactory.getLogger(JeeslReportUpdater.class);
+	
+	private final boolean debugCreation = false;
 	
 	private final JeeslIoReportFacade<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fReport;
 	private final ReportFactoryBuilder<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,RCAT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fbReport;
@@ -113,13 +116,52 @@ TRANSFORMATION extends UtilsStatus<TRANSFORMATION,L,D>>
 		efRow = fbReport.row();
 	}
 	
+	public REPORT cloneIoReport(Report xReport) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException, UtilsProcessingException
+	{
+		xReport.setCode(UUID.randomUUID().toString());
+		if(xReport.isSetXlsWorkbook() && xReport.getXlsWorkbook().isSetXlsSheets())
+		{
+			for(XlsSheet xSheet : xReport.getXlsWorkbook().getXlsSheets().getXlsSheet())
+			{
+				xSheet.setCode(UUID.randomUUID().toString());
+				for(Serializable s : xSheet.getContent())
+				{
+					if(s instanceof ColumnGroup)
+					{
+						ColumnGroup xGroup = (ColumnGroup)s;
+						xGroup.setCode(UUID.randomUUID().toString());
+						for(XlsColumn xColumn : xGroup.getXlsColumn())
+						{
+							xColumn.setCode(UUID.randomUUID().toString());
+						}
+					}
+					else if(s instanceof Rows)
+					{
+						Rows xRows = (Rows)s;
+						for(Row xRow : xRows.getRow())
+						{
+							xRow.setCode(UUID.randomUUID().toString());
+						}
+					}
+				}
+			}
+		}
+		
+		return importSystemIoReport(xReport);
+	}
+	
 	public REPORT importSystemIoReport(Report xReport) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException, UtilsProcessingException
 	{
 		REPORT eReport;
 		
-		try {eReport = fReport.fByCode(fbReport.getClassReport(), xReport.getCode());}
+		try
+		{
+			eReport = fReport.fByCode(fbReport.getClassReport(), xReport.getCode());
+			if(debugCreation) {logger.debug("Existing "+fbReport.getClassReport());}
+		}
 		catch (UtilsNotFoundException e)
 		{
+			if(debugCreation) {logger.debug("New "+fbReport.getClassReport());}
 			eReport = efReport.build(fReport,xReport);
 			eReport = fReport.save(eReport);
 		}
@@ -139,9 +181,14 @@ TRANSFORMATION extends UtilsStatus<TRANSFORMATION,L,D>>
 	private REPORT importWorkbook(REPORT eReport, XlsWorkbook xWorkbook) throws UtilsConstraintViolationException, UtilsLockingException, UtilsProcessingException
 	{
 		WORKBOOK eWorkbook;
-		if(eReport.getWorkbook()!=null){eWorkbook = eReport.getWorkbook();}
+		if(eReport.getWorkbook()!=null)
+		{
+			eWorkbook = eReport.getWorkbook();
+			if(debugCreation) {logger.debug("Existing WB");}
+		}
 		else
 		{
+			if(debugCreation) {logger.debug("NEW WB");}
 			eWorkbook = efWorkbook.build(eReport);
 			eWorkbook = fReport.save(eWorkbook);
 			eReport.setWorkbook(eWorkbook);
@@ -174,9 +221,14 @@ TRANSFORMATION extends UtilsStatus<TRANSFORMATION,L,D>>
 	{
 		logger.trace("Importing "+fbReport.getClassSheet().getSimpleName()+" "+workbook.getReport().getCategory().getPosition()+"."+workbook.getReport().getPosition()+"."+xSheet.getPosition());
 		SHEET eSheet;
-		try {eSheet = fReport.fSheet(workbook, xSheet.getCode());}
+		try
+		{
+			eSheet = fReport.fSheet(workbook, xSheet.getCode());
+			if(debugCreation) {logger.debug("Existing Sheet");}
+		}
 		catch (UtilsNotFoundException e)
 		{
+			if(debugCreation) {logger.debug("NEW Sheet");}
 			eSheet = efSheet.build(fReport,workbook,xSheet);
 			eSheet = fReport.save(eSheet);
 		}
@@ -218,9 +270,14 @@ TRANSFORMATION extends UtilsStatus<TRANSFORMATION,L,D>>
 	private ROW importRow(SHEET eSheet, Row xRow) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException, ExlpXpathNotFoundException, UtilsProcessingException
 	{
 		ROW eRow;
-		try {eRow = fReport.fByCode(fbReport.getClassRow(), xRow.getCode());}
+		try
+		{
+			eRow = fReport.fByCode(fbReport.getClassRow(), xRow.getCode());
+			if(debugCreation) {logger.debug("Existing "+fbReport.getClassRow());}
+		}
 		catch (UtilsNotFoundException e)
 		{
+			if(debugCreation) {logger.debug("NEW "+fbReport.getClassRow());}
 			eRow = efRow.build(fReport,eSheet,xRow);
 			eRow = fReport.save(eRow);
 		}
@@ -234,9 +291,14 @@ TRANSFORMATION extends UtilsStatus<TRANSFORMATION,L,D>>
 	private GROUP importGroup(SHEET eSheet, ColumnGroup xGroup) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException, ExlpXpathNotFoundException, UtilsProcessingException
 	{
 		GROUP eGroup;
-		try {eGroup = fReport.fByCode(fbReport.getClassGroup(),xGroup.getCode());}
+		try
+		{
+			eGroup = fReport.fByCode(fbReport.getClassGroup(),xGroup.getCode());
+			if(debugCreation) {logger.debug("Existing "+fbReport.getClassGroup());}
+		}
 		catch (UtilsNotFoundException e)
 		{
+			if(debugCreation) {logger.debug("New "+fbReport.getClassGroup());}
 			eGroup = efGroup.build(fReport,eSheet,xGroup);
 			eGroup = fReport.save(eGroup);
 		}
@@ -260,9 +322,14 @@ TRANSFORMATION extends UtilsStatus<TRANSFORMATION,L,D>>
 	private COLUMN importColumn(GROUP eGroup, XlsColumn xColumn) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException, ExlpXpathNotFoundException
 	{
 		COLUMN eColumn;
-		try {eColumn = fReport.fByCode(fbReport.getClassColumn(), xColumn.getCode());}
+		try
+		{
+			eColumn = fReport.fByCode(fbReport.getClassColumn(), xColumn.getCode());
+			if(debugCreation) {logger.debug("Existing "+fbReport.getClassColumn());}
+		}
 		catch (UtilsNotFoundException e)
 		{
+			if(debugCreation) {logger.debug("NEW "+fbReport.getClassColumn());}
 			eColumn = efColumn.build(fReport,eGroup,xColumn);
 			eColumn = fReport.save(eColumn);
 		}

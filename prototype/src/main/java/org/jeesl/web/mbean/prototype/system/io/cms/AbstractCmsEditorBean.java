@@ -72,7 +72,7 @@ public abstract class AbstractCmsEditorBean <L extends UtilsLang,D extends Utils
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractCmsEditorBean.class);
 	
-	protected JeeslIoCmsFacade<L,D,CAT,CMS,V,S,E,EC,ET,C,MT,FC,LOC> fCms;
+	protected JeeslIoCmsFacade<L,D,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM,LOC> fCms;
 	private JeeslCmsCacheBean<S> bCache;
 	private final IoCmsFactoryBuilder<L,D,LOC,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM> fbCms;
 	
@@ -127,7 +127,7 @@ public abstract class AbstractCmsEditorBean <L extends UtilsLang,D extends Utils
 	
 	protected void postConstructCms(JeeslTranslationBean<L,D,LOC> bTranslation, String currentLocaleCode,
 									List<LOC> locales, JeeslFacesMessageBean bMessage, JeeslCmsCacheBean<S> bCache,
-									JeeslIoCmsFacade<L,D,CAT,CMS,V,S,E,EC,ET,C,MT,FC,LOC> fCms,
+									JeeslIoCmsFacade<L,D,CAT,CMS,V,S,E,EC,ET,C,MT,FC,FM,LOC> fCms,
 									JeeslFileRepositoryHandler<FS,FC,FM> hFileRepository)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
@@ -401,7 +401,7 @@ public abstract class AbstractCmsEditorBean <L extends UtilsLang,D extends Utils
 	public void deleteElement() throws UtilsConstraintViolationException, UtilsLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(element));}
-		fCms.rm(element);
+		fCms.deleteCmsElement(element);
 		reset(true);
 		reloadSection();
 	}

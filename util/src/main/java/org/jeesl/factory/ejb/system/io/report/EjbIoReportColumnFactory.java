@@ -84,6 +84,7 @@ public class EjbIoReportColumnFactory<L extends UtilsLang,D extends UtilsDescrip
 			ejb.setCode(UUID.randomUUID().toString());
 			ejb.setGroup(group);
 			
+			ejb.setColumSize(0);
 			ejb.setVisible(false);
 			ejb.setShowLabel(true);
 			if(list==null) {ejb.setPosition(1);}
