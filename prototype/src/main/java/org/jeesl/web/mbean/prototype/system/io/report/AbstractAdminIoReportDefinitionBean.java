@@ -149,7 +149,7 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 	}
 	
 	protected void postConstructReportDefinition(JeeslIoReportFacade<L,D,CATEGORY,REPORT,IMPLEMENTATION,WORKBOOK,SHEET,GROUP,COLUMN,ROW,TEMPLATE,CELL,STYLE,CDT,CW,RT,ENTITY,ATTRIBUTE,TL,TLS,FILLING,TRANSFORMATION> fReport,
-												UtilsFacade fRest,JeeslTranslationBean bTranslation, JeeslFacesMessageBean bMessage)
+												UtilsFacade fRest,JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage)
 	{
 		super.initSuperReport(bTranslation,bMessage,fReport);
 		this.fRest=fRest;
@@ -564,7 +564,7 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 	{
 		logger.info("Cloning");
 		Report xml  = xfReport.build(report);
-		reportUpdater.importSystemIoReport(xml);
+		reportUpdater.cloneIoReport(xml);
 		reloadReports();
 	}
     
