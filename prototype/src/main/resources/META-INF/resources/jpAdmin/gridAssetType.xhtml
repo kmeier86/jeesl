@@ -28,6 +28,7 @@
 			            <p:ajax event="expand" listener="#{cc.attrs.bean.onNodeExpand}" />
 						<p:ajax event="collapse" listener="#{cc.attrs.bean.onNodeCollapse}" />
 			            <p:treeNode>
+			            	<jtp:symbolizer value="#{node}" marginRight="5"/>
 			                <h:outputText value="#{node.name[localeCode].lang}" />
 			            </p:treeNode>
 			        </p:tree>

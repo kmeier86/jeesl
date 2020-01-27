@@ -32,7 +32,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class JeeslAssetFacadeBean<L extends UtilsLang, D extends UtilsDescription,
 										REALM extends JeeslAssetRealm<L,D,REALM,?>,
-										ASSET extends JeeslAsset<REALM,ASSET,STATUS>,
+										ASSET extends JeeslAsset<REALM,ASSET,STATUS,TYPE>,
 										MANU extends JeeslAssetManufacturer,
 										STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
 										TYPE extends JeeslAssetType<L,D,REALM,TYPE,?>>
@@ -74,9 +74,17 @@ public class JeeslAssetFacadeBean<L extends UtilsLang, D extends UtilsDescriptio
 		try	{return tQ.getSingleResult();}
 		catch (NoResultException ex)
 		{
-			ASSET result = null;
-			
-			return result;
+			TYPE type = this.fcAssetRootType(realm,realmReference);
+			STATUS status = this.fByEnum(fbAsset.getClassStatus(), JeeslAssetStatus.Code.na);
+			ASSET result = fbAsset.ejbAsset().build(realm,realmReference, null, status, type);
+			try
+			{
+				return this.save(result);
+			}
+			catch (JeeslConstraintViolationException | JeeslLockingException e)
+			{
+				return this.fcAssetRoot(realm,realmReference);
+			}
 		}
 	}
 
@@ -106,13 +114,12 @@ public class JeeslAssetFacadeBean<L extends UtilsLang, D extends UtilsDescriptio
 			TYPE result = fbAsset.ejbType().build(realm, realmReference, null, "root");
 			try
 			{
-				result = this.save(result);
+				return this.save(result);
 			}
 			catch (JeeslConstraintViolationException | JeeslLockingException e)
 			{
 				return this.fcAssetRootType(realm,realmReference);
 			}
-			return result;
 		}
 	}
 }

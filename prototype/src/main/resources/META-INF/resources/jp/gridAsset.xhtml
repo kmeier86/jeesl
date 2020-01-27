@@ -14,7 +14,7 @@
 	<composite:implementation>
 <jp:grid id="grid">
 	<j:row>
-		<j:slot id="sAssets" width="3">
+		<j:slot id="sAssets" width="5">
 			<h:form id="fTree" >
 				<p:panel header="#{msg.jeeslCmsDocumentStructure}" styleClass="jeeslTree" >
 					<f:facet name="actions">
@@ -28,14 +28,32 @@
 			            <p:ajax event="expand" listener="#{cc.attrs.bean.onNodeExpand}" />
 						<p:ajax event="collapse" listener="#{cc.attrs.bean.onNodeCollapse}" />
 			            <p:treeNode>
-			                <h:outputText value="#{node.name.lang}" />
+			            	<jtp:symbolizer value="#{node.status}" marginRight="5"/>
+			                <h:outputText value="#{node.name}" />
 			            </p:treeNode>
 			        </p:tree>
 				</p:panel>
 			</h:form>
 		</j:slot>
-		<j:slot id="sAsset" width="3">
-		
+		<j:slot id="sAsset" width="7">
+			<h:form id="fType" rendered="#{not empty cc.attrs.bean.asset}">
+				<p:panel header="#{msg.jeeslAsset}" styleClass="jeeslPanel">
+					<f:facet name="actions">
+						<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.cancelAsset()}" update=":#{cc.id}:grid" mayDisappear="true"/>
+						<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveAsset()}" update=":#{cc.id}:grid"/>
+						<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteAsset()}" update=":#{cc.id}:grid" rendered="#{false and cc.attrs.bean.asset.id gt 0}" mayDisappear="true"/>
+					</f:facet>
+					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
+						<p:outputLabel value="#{msg.jeeslCode}"/>
+						<jtp:inputText value="#{cc.attrs.bean.asset.name}"/>
+						
+						<p:outputLabel value="#{msg.jeeslAssetStatus}"/>
+						<p:selectOneMenu value="#{cc.attrs.bean.asset.status}" effect="fade" autoWidth="false">
+                        	<f:selectItems value="#{cc.attrs.bean.status}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s}"/>
+                        </p:selectOneMenu>
+					</p:panelGrid>
+				</p:panel>
+			</h:form>
 		</j:slot>
 	</j:row>
 </jp:grid>

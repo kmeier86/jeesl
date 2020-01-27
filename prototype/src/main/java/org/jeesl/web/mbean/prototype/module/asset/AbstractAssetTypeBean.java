@@ -43,7 +43,7 @@ public abstract class AbstractAssetTypeBean <L extends UtilsLang, D extends Util
 										G extends JeeslGraphic<L,D,GT,F,FS>, GT extends UtilsStatus<GT,L,D>,
 										F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends UtilsStatus<FS,L,D>,
 										REALM extends JeeslAssetRealm<L,D,REALM,?>, RREF extends EjbWithId,
-										ASSET extends JeeslAsset<REALM,ASSET,STATUS>,
+										ASSET extends JeeslAsset<REALM,ASSET,STATUS,TYPE>,
 										MANU extends JeeslAssetManufacturer,
 										STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
 										TYPE extends JeeslAssetType<L,D,REALM,TYPE,G>>

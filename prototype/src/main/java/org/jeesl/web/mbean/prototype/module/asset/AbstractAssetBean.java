@@ -1,18 +1,16 @@
 package org.jeesl.web.mbean.prototype.module.asset;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
-import org.jeesl.api.bean.callback.JeeslFileRepositoryCallback;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslAssetFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
-import org.jeesl.interfaces.bean.op.OpEntityBean;
-import org.jeesl.interfaces.bean.sb.SbSingleBean;
-import org.jeesl.interfaces.bean.sb.SbToggleBean;
+import org.jeesl.factory.ejb.module.asset.EjbAssetFactory;
 import org.jeesl.interfaces.model.module.asset.JeeslAsset;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetManufacturer;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetRealm;
@@ -35,7 +33,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 										REALM extends JeeslAssetRealm<L,D,REALM,?>, RREF extends EjbWithId,
-										ASSET extends JeeslAsset<REALM,ASSET,STATUS>,
+										ASSET extends JeeslAsset<REALM,ASSET,STATUS,TYPE>,
 										MANU extends JeeslAssetManufacturer,
 										STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
 										TYPE extends JeeslAssetType<L,D,REALM,TYPE,?>>
@@ -49,17 +47,27 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 	
 	private final AssetFactoryBuilder<L,D,REALM,ASSET,MANU,STATUS,TYPE> fbAsset;
 	
+	private final EjbAssetFactory<REALM,ASSET,STATUS,TYPE> efAsset;
+	
 	private TreeNode tree; public TreeNode getTree() {return tree;}
     private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
 
-    private REALM realm;
+    private final List<STATUS> status; public List<STATUS> getStatus() {return status;}
+	
+	private REALM realm;
     private RREF realmReference;
+    private ASSET root;
+    private TYPE type;
     private ASSET asset; public ASSET getAsset() {return asset;} public void setAsset(ASSET asset) {this.asset = asset;}
 
 	public AbstractAssetBean(AssetFactoryBuilder<L,D,REALM,ASSET,MANU,STATUS,TYPE> fbAsset)
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
+		
+		efAsset = fbAsset.ejbAsset();
+		
+		status = new ArrayList<>();
 	}
 	
 	protected <E extends Enum<E>> void postConstructAsset(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
@@ -73,24 +81,43 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 		realm = fAsset.fByEnum(fbAsset.getClassRealm(),eRealm);
 		this.realmReference=realmReference;
 		
+		status.addAll(fAsset.allOrderedPositionVisible(fbAsset.getClassStatus()));
+		type = fAsset.fcAssetRootType(realm, realmReference);
+		
 		reloadTree();
 	}
 	
 	private void reloadTree()
 	{
-		ASSET root = null;//fAsset.load(cms.getRoot(),true);
+		root = fAsset.fcAssetRoot(realm, realmReference);
 		
 		tree = new DefaultTreeNode(root, null);
-//		buildTree(tree,root.getSections());
+		buildTree(tree,fAsset.allForParent(fbAsset.getClassAsset(), root));
 	}
 	
-	private void buildTree(TreeNode parent, List<ASSET> childs)
+	private void buildTree(TreeNode parent, List<ASSET> assets)
 	{
-		for(ASSET a : childs)
+		for(ASSET a : assets)
 		{
 			TreeNode n = new DefaultTreeNode(a,parent);
-//			if(!s.getSections().isEmpty()) {buildTree(n,s.getSections());}
+			List<ASSET> childs = fAsset.allForParent(fbAsset.getClassAsset(),a);
+			if(!childs.isEmpty()){buildTree(n,childs);}
 		}
+	}
+	
+	public void addAsset()
+	{
+		ASSET parent = null; if(asset!=null) {parent = asset;} else {parent = root;}
+		STATUS status = fAsset.fByEnum(fbAsset.getClassStatus(),JeeslAssetStatus.Code.na);
+		TYPE type = fAsset.fcAssetRootType(realm,realmReference);
+		asset = efAsset.build(realm,realmReference, parent, status,type);
+	}
+	
+	public void saveAsset() throws JeeslConstraintViolationException, JeeslLockingException
+	{
+		efAsset.converter(asset);
+		asset = fAsset.save(asset);
+		reloadTree();
 	}
 	
 	public void onNodeExpand(NodeExpandEvent event) {if(debugOnInfo) {logger.info("Expanded "+event.getTreeNode().toString());}}
@@ -120,11 +147,10 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
     }
 
     @SuppressWarnings("unchecked")
-	public void onSectionSelect(NodeSelectEvent event)
+	public void onNodeSelect(NodeSelectEvent event)
     {
 		logger.info("Selected "+event.getTreeNode().toString());
 		asset = (ASSET)event.getTreeNode().getData();
 		
     }
-
 }
