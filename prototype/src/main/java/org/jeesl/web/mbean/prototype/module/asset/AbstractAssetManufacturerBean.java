@@ -6,6 +6,9 @@ import java.util.List;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslAssetFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.interfaces.model.module.asset.JeeslAsset;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetManufacturer;
@@ -16,9 +19,6 @@ import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
@@ -62,14 +62,14 @@ public class AbstractAssetManufacturerBean <L extends UtilsLang, D extends Utils
 		logger.info(AbstractLogMessage.reloaded(fbAsset.getClassManufacturer(),manufacturers));
 	}
 	
-	public void addManufacturer() throws UtilsNotFoundException
+	public void addManufacturer() throws JeeslNotFoundException
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbAsset.getClassManufacturer()));}
 		
 		manufacturer = fbAsset.ejbManufacturer().build();
 	}
 	
-	public void saveManufacturer() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveManufacturer() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		manufacturer = fAsset.save(manufacturer);
 		reloadManufacturers();

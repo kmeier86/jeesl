@@ -2,6 +2,8 @@ package org.jeesl.api.facade.io;
 
 import java.util.List;
 
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCms;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsCategory;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsContent;
@@ -12,8 +14,6 @@ import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsVisiblity;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -37,5 +37,5 @@ public interface JeeslIoCmsFacade <L extends UtilsLang,D extends UtilsDescriptio
 	S load(S section, boolean recursive);
 	List<E> fCmsElements(S section);
 	
-	void deleteCmsElement(E element) throws UtilsConstraintViolationException, UtilsLockingException;
+	void deleteCmsElement(E element) throws JeeslConstraintViolationException, JeeslLockingException;
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.jeesl.api.facade.io.JeeslIoCmsFacade;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.io.IoCmsFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCms;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsCategory;
@@ -20,8 +22,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.controller.facade.UtilsFacadeBean;
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
@@ -69,12 +69,12 @@ public class JeeslIoCmsFacadeBean<L extends UtilsLang,D extends UtilsDescription
 
 	@Override public List<E> fCmsElements(S section) {return this.allForParent(fbCms.getClassElement(),section);}
 
-	@Override public void deleteCmsElement(E element) throws UtilsConstraintViolationException, UtilsLockingException
+	@Override public void deleteCmsElement(E element) throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(element.getFrContainer()!=null)
 		{
 			List<FM> files = this.allForParent(fbCms.getClassFileMeta(),element.getFrContainer());
-			if(!files.isEmpty()) {throw new UtilsConstraintViolationException("There are still files");}
+			if(!files.isEmpty()) {throw new JeeslConstraintViolationException("There are still files");}
 			else
 			{
 				FC container = element.getFrContainer();

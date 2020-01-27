@@ -17,6 +17,9 @@ import org.jeesl.api.rest.system.io.report.JeeslIoReportRestExport;
 import org.jeesl.controller.handler.sb.SbMultiHandler;
 import org.jeesl.controller.handler.ui.helper.UiHelperIoReport;
 import org.jeesl.controller.report.JeeslReportUpdater;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.ReportFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.report.EjbIoReportColumnFactory;
 import org.jeesl.factory.ejb.system.io.report.EjbIoReportColumnGroupFactory;
@@ -51,9 +54,6 @@ import org.jeesl.util.query.xml.system.io.XmlReportQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 import net.sf.ahtutils.exception.processing.UtilsProcessingException;
 import net.sf.ahtutils.interfaces.facade.UtilsFacade;
@@ -235,8 +235,8 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 				WORKBOOK wb = efWorkbook.build(report);
 				fReport.saveTransaction(wb);
 			}
-			catch (UtilsConstraintViolationException e) {logger.error(e.getMessage());}
-			catch (UtilsLockingException e) {logger.error(e.getMessage());}
+			catch (JeeslConstraintViolationException e) {logger.error(e.getMessage());}
+			catch (JeeslLockingException e) {logger.error(e.getMessage());}
 		}
 		report = fReport.load(report,false);
 		sheets = report.getWorkbook().getSheets();
@@ -244,7 +244,7 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 		Collections.sort(sheets, comparatorSheet);
 	}
 	
-	public void selectReport() throws UtilsConstraintViolationException, UtilsLockingException
+	public void selectReport() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.selectEntity(report));}
 		report = fReport.find(fbReport.getClassReport(), report);
@@ -260,7 +260,7 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 		uiHelper.check(report);
 	}
 	
-	public void saveReport() throws UtilsConstraintViolationException, UtilsLockingException
+	public void saveReport() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(report));}
 		if(report.getCategory()!=null){report.setCategory(fReport.find(fbReport.getClassCategory(), report.getCategory()));}
@@ -271,7 +271,7 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 		updatePerformed();
 	}
 	
-	public void rmReport() throws UtilsConstraintViolationException, UtilsLockingException
+	public void rmReport() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(report));}
 		fReport.rm(report);
@@ -312,8 +312,8 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 				sheet.setCode(UUID.randomUUID().toString());
 				sheet = fReport.save(sheet);
 			}
-			catch (UtilsConstraintViolationException e) {logger.error(e.getMessage());}
-			catch (UtilsLockingException e) {logger.error(e.getMessage());}
+			catch (JeeslConstraintViolationException e) {logger.error(e.getMessage());}
+			catch (JeeslLockingException e) {logger.error(e.getMessage());}
 		}
 		reloadSheet();
 		reset(false,false,true,true,true);
@@ -330,7 +330,7 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 		Collections.sort(rows,comparatorRow);
 	}
 		
-	public void saveSheet() throws UtilsLockingException
+	public void saveSheet() throws JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(sheet));}
 		try
@@ -343,10 +343,10 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 			updatePerformed();
 			uiHelper.check(sheet);
 		}
-		catch (UtilsConstraintViolationException e) {bMessage.errorConstraintViolationDuplicateObject();}
+		catch (JeeslConstraintViolationException e) {bMessage.errorConstraintViolationDuplicateObject();}
 	}
 		
-	public void rmSheet() throws UtilsConstraintViolationException, UtilsLockingException, UtilsNotFoundException
+	public void rmSheet() throws JeeslConstraintViolationException, JeeslLockingException, JeeslNotFoundException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(sheet));}
 		fReport.rmSheet(sheet);
@@ -386,8 +386,8 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 				group.setCode(UUID.randomUUID().toString());
 				group = fReport.save(group);
 			}
-			catch (UtilsConstraintViolationException e) {logger.error(e.getMessage());}
-			catch (UtilsLockingException e) {logger.error(e.getMessage());}
+			catch (JeeslConstraintViolationException e) {logger.error(e.getMessage());}
+			catch (JeeslLockingException e) {logger.error(e.getMessage());}
 		}
 		reloadGroup();
 		reset(false,false,true,false,true);
@@ -401,7 +401,7 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 		Collections.sort(columns, comparatorColumn);
 	}
 	
-	public void saveGroup() throws UtilsLockingException
+	public void saveGroup() throws JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(group));}
 		try
@@ -415,10 +415,10 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 			updatePerformed();
 			uiHelper.check(group);
 		}
-		catch (UtilsConstraintViolationException e) {bMessage.errorConstraintViolationDuplicateObject();}
+		catch (JeeslConstraintViolationException e) {bMessage.errorConstraintViolationDuplicateObject();}
 	}
 	
-	public void rmGroup() throws UtilsConstraintViolationException
+	public void rmGroup() throws JeeslConstraintViolationException
 	{
 		fReport.rmGroup(group);
 		reloadReport();
@@ -453,8 +453,8 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 				column.setCode(UUID.randomUUID().toString());
 				column = fReport.save(column);
 			}
-			catch (UtilsConstraintViolationException e) {logger.error(e.getMessage());}
-			catch (UtilsLockingException e) {logger.error(e.getMessage());}
+			catch (JeeslConstraintViolationException e) {logger.error(e.getMessage());}
+			catch (JeeslLockingException e) {logger.error(e.getMessage());}
 		}
 		reloadColumn();
 	}
@@ -464,7 +464,7 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 		column = fReport.find(fbReport.getClassColumn(), column);
 	}
 	
-	public void saveColumn() throws UtilsLockingException
+	public void saveColumn() throws JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(column));}
 		try
@@ -482,10 +482,10 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 			bMessage.growlSuccessSaved();
 			updatePerformed();
 		}
-		catch (UtilsConstraintViolationException e) {bMessage.errorConstraintViolationDuplicateObject();}
+		catch (JeeslConstraintViolationException e) {bMessage.errorConstraintViolationDuplicateObject();}
 	}
 		
-	public void rmColumn() throws UtilsConstraintViolationException, UtilsLockingException
+	public void rmColumn() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.rmEntity(column));}
 		fReport.rmColumn(column);
@@ -533,7 +533,7 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 		row = fReport.find(fbReport.getClassRow(),row);
 	}
 	
-	public void saveRow() throws UtilsLockingException
+	public void saveRow() throws JeeslLockingException
 	{
 		if(debugOnInfo){logger.info(AbstractLogMessage.saveEntity(row));}
 		try
@@ -548,10 +548,10 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 			bMessage.growlSuccessSaved();
 			updatePerformed();
 		}
-		catch (UtilsConstraintViolationException e) {bMessage.errorConstraintViolationDuplicateObject();}
+		catch (JeeslConstraintViolationException e) {bMessage.errorConstraintViolationDuplicateObject();}
 	}
 	
-	public void rmRow() throws UtilsConstraintViolationException
+	public void rmRow() throws JeeslConstraintViolationException
 	{
 		fReport.rmRow(row);
 		reloadReport();
@@ -560,7 +560,7 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 	}
 	public void cancelRow(){reset(false,false,true,true,true);}
 	
-	public void cloneReport() throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException, UtilsProcessingException
+	public void cloneReport() throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException, UtilsProcessingException
 	{
 		logger.info("Cloning");
 		Report xml  = xfReport.build(report);
@@ -569,11 +569,11 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 	}
     
 	//*************************************************************************************
-	public void reorderReports() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fReport, fbReport.getClassReport(), reports);Collections.sort(reports, comparatorReport);}
-	public void reorderSheets() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fReport, fbReport.getClassSheet(), sheets);Collections.sort(sheets, comparatorSheet);}
-	public void reorderGroups() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fReport, fbReport.getClassGroup(), groups);Collections.sort(groups, comparatorGroup);}
-	public void reorderColumns() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fReport, fbReport.getClassColumn(), columns);Collections.sort(columns, comparatorColumn);}
-	public void reorderRows() throws UtilsConstraintViolationException, UtilsLockingException {PositionListReorderer.reorder(fReport, fbReport.getClassRow(), rows);Collections.sort(rows, comparatorRow);}
+	public void reorderReports() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fReport, fbReport.getClassReport(), reports);Collections.sort(reports, comparatorReport);}
+	public void reorderSheets() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fReport, fbReport.getClassSheet(), sheets);Collections.sort(sheets, comparatorSheet);}
+	public void reorderGroups() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fReport, fbReport.getClassGroup(), groups);Collections.sort(groups, comparatorGroup);}
+	public void reorderColumns() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fReport, fbReport.getClassColumn(), columns);Collections.sort(columns, comparatorColumn);}
+	public void reorderRows() throws JeeslConstraintViolationException, JeeslLockingException {PositionListReorderer.reorder(fReport, fbReport.getClassRow(), rows);Collections.sort(rows, comparatorRow);}
 	
 	protected void updatePerformed(){}	
 	
@@ -588,7 +588,7 @@ public class AbstractAdminIoReportDefinitionBean <L extends UtilsLang,D extends 
 		}
 	}
 	
-	public  void download() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UtilsConfigurationException, UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException, UtilsProcessingException
+	public  void download() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UtilsConfigurationException, JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException, UtilsProcessingException
 	{
 		logger.info("Downloading Report from REST: "+restUrl);
 	

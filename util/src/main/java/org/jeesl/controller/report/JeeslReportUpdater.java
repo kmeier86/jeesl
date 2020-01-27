@@ -12,6 +12,9 @@ import java.util.UUID;
 import org.jeesl.api.facade.io.JeeslIoReportFacade;
 import org.jeesl.controller.db.updater.JeeslDbCodeEjbUpdater;
 import org.jeesl.controller.processor.JobCodeProcessor;
+import org.jeesl.exception.ejb.JeeslConstraintViolationException;
+import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.system.ReportFactoryBuilder;
 import org.jeesl.factory.ejb.system.io.report.EjbIoReportColumnFactory;
 import org.jeesl.factory.ejb.system.io.report.EjbIoReportColumnGroupFactory;
@@ -47,9 +50,6 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import net.sf.ahtutils.exception.ejb.UtilsConstraintViolationException;
-import net.sf.ahtutils.exception.ejb.UtilsLockingException;
-import net.sf.ahtutils.exception.ejb.UtilsNotFoundException;
 import net.sf.ahtutils.exception.processing.UtilsProcessingException;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -116,7 +116,7 @@ public class JeeslReportUpdater <L extends UtilsLang,D extends UtilsDescription,
 		efRow = fbReport.row();
 	}
 	
-	public REPORT cloneIoReport(Report xReport) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException, UtilsProcessingException
+	public REPORT cloneIoReport(Report xReport) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException, UtilsProcessingException
 	{
 		xReport.setCode(UUID.randomUUID().toString());
 		if(xReport.isSetXlsWorkbook() && xReport.getXlsWorkbook().isSetXlsSheets())
@@ -150,7 +150,7 @@ public class JeeslReportUpdater <L extends UtilsLang,D extends UtilsDescription,
 		return importSystemIoReport(xReport);
 	}
 	
-	public REPORT importSystemIoReport(Report xReport) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException, UtilsProcessingException
+	public REPORT importSystemIoReport(Report xReport) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException, UtilsProcessingException
 	{
 		REPORT eReport;
 		
@@ -159,7 +159,7 @@ public class JeeslReportUpdater <L extends UtilsLang,D extends UtilsDescription,
 			eReport = fReport.fByCode(fbReport.getClassReport(), xReport.getCode());
 			if(debugCreation) {logger.debug("Existing "+fbReport.getClassReport());}
 		}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			if(debugCreation) {logger.debug("New "+fbReport.getClassReport());}
 			eReport = efReport.build(fReport,xReport);
@@ -178,7 +178,7 @@ public class JeeslReportUpdater <L extends UtilsLang,D extends UtilsDescription,
 		return eReport;
 	}
 	
-	private REPORT importWorkbook(REPORT eReport, XlsWorkbook xWorkbook) throws UtilsConstraintViolationException, UtilsLockingException, UtilsProcessingException
+	private REPORT importWorkbook(REPORT eReport, XlsWorkbook xWorkbook) throws JeeslConstraintViolationException, JeeslLockingException, UtilsProcessingException
 	{
 		WORKBOOK eWorkbook;
 		if(eReport.getWorkbook()!=null)
@@ -206,9 +206,9 @@ public class JeeslReportUpdater <L extends UtilsLang,D extends UtilsDescription,
 					SHEET eSheet = importSheet(eWorkbook,xSheet);
 					dbUpdaterSheet.handled(eSheet);
 				}
-				catch (UtilsNotFoundException e) {throw new UtilsProcessingException(e.getMessage());}
-				catch (UtilsConstraintViolationException e) {throw new UtilsProcessingException(e.getMessage());}
-				catch (UtilsLockingException e) {throw new UtilsProcessingException(e.getMessage());}
+				catch (JeeslNotFoundException e) {throw new UtilsProcessingException(e.getMessage());}
+				catch (JeeslConstraintViolationException e) {throw new UtilsProcessingException(e.getMessage());}
+				catch (JeeslLockingException e) {throw new UtilsProcessingException(e.getMessage());}
 				catch (ExlpXpathNotFoundException e) {throw new UtilsProcessingException(e.getMessage());}
 			}
 		}
@@ -217,7 +217,7 @@ public class JeeslReportUpdater <L extends UtilsLang,D extends UtilsDescription,
 		return eReport;
 	}
 	
-	private SHEET importSheet(WORKBOOK workbook, XlsSheet xSheet) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException, ExlpXpathNotFoundException, UtilsProcessingException
+	private SHEET importSheet(WORKBOOK workbook, XlsSheet xSheet) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException, ExlpXpathNotFoundException, UtilsProcessingException
 	{
 		logger.trace("Importing "+fbReport.getClassSheet().getSimpleName()+" "+workbook.getReport().getCategory().getPosition()+"."+workbook.getReport().getPosition()+"."+xSheet.getPosition());
 		SHEET eSheet;
@@ -226,7 +226,7 @@ public class JeeslReportUpdater <L extends UtilsLang,D extends UtilsDescription,
 			eSheet = fReport.fSheet(workbook, xSheet.getCode());
 			if(debugCreation) {logger.debug("Existing Sheet");}
 		}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			if(debugCreation) {logger.debug("NEW Sheet");}
 			eSheet = efSheet.build(fReport,workbook,xSheet);
@@ -267,7 +267,7 @@ public class JeeslReportUpdater <L extends UtilsLang,D extends UtilsDescription,
 		return eSheet;
 	}
 	
-	private ROW importRow(SHEET eSheet, Row xRow) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException, ExlpXpathNotFoundException, UtilsProcessingException
+	private ROW importRow(SHEET eSheet, Row xRow) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException, ExlpXpathNotFoundException, UtilsProcessingException
 	{
 		ROW eRow;
 		try
@@ -275,7 +275,7 @@ public class JeeslReportUpdater <L extends UtilsLang,D extends UtilsDescription,
 			eRow = fReport.fByCode(fbReport.getClassRow(), xRow.getCode());
 			if(debugCreation) {logger.debug("Existing "+fbReport.getClassRow());}
 		}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			if(debugCreation) {logger.debug("NEW "+fbReport.getClassRow());}
 			eRow = efRow.build(fReport,eSheet,xRow);
@@ -288,7 +288,7 @@ public class JeeslReportUpdater <L extends UtilsLang,D extends UtilsDescription,
 		return eRow;
 	}
 	
-	private GROUP importGroup(SHEET eSheet, ColumnGroup xGroup) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException, ExlpXpathNotFoundException, UtilsProcessingException
+	private GROUP importGroup(SHEET eSheet, ColumnGroup xGroup) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException, ExlpXpathNotFoundException, UtilsProcessingException
 	{
 		GROUP eGroup;
 		try
@@ -296,7 +296,7 @@ public class JeeslReportUpdater <L extends UtilsLang,D extends UtilsDescription,
 			eGroup = fReport.fByCode(fbReport.getClassGroup(),xGroup.getCode());
 			if(debugCreation) {logger.debug("Existing "+fbReport.getClassGroup());}
 		}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			if(debugCreation) {logger.debug("New "+fbReport.getClassGroup());}
 			eGroup = efGroup.build(fReport,eSheet,xGroup);
@@ -319,7 +319,7 @@ public class JeeslReportUpdater <L extends UtilsLang,D extends UtilsDescription,
 		return eGroup;
 	}
 	
-	private COLUMN importColumn(GROUP eGroup, XlsColumn xColumn) throws UtilsNotFoundException, UtilsConstraintViolationException, UtilsLockingException, ExlpXpathNotFoundException
+	private COLUMN importColumn(GROUP eGroup, XlsColumn xColumn) throws JeeslNotFoundException, JeeslConstraintViolationException, JeeslLockingException, ExlpXpathNotFoundException
 	{
 		COLUMN eColumn;
 		try
@@ -327,7 +327,7 @@ public class JeeslReportUpdater <L extends UtilsLang,D extends UtilsDescription,
 			eColumn = fReport.fByCode(fbReport.getClassColumn(), xColumn.getCode());
 			if(debugCreation) {logger.debug("Existing "+fbReport.getClassColumn());}
 		}
-		catch (UtilsNotFoundException e)
+		catch (JeeslNotFoundException e)
 		{
 			if(debugCreation) {logger.debug("NEW "+fbReport.getClassColumn());}
 			eColumn = efColumn.build(fReport,eGroup,xColumn);
