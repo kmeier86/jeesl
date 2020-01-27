@@ -129,19 +129,16 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
         TreeNode dragNode = event.getDragNode();
         TreeNode dropNode = event.getDropNode();
         int dropIndex = event.getDropIndex();
-        logger.info("Dragged " + dragNode.getData() + "Dropped on " + dropNode.getData() + " at " + dropIndex);
+        logger.info("Dragged " + dragNode.getData() + " Dropped on " + dropNode.getData() + " at " + dropIndex);
         
-        logger.info("Childs of "+dropNode.getData());
         ASSET parent = (ASSET)dropNode.getData();
         int index=1;
         for(TreeNode n : dropNode.getChildren())
         {
     		ASSET child =(ASSET)n.getData();
-//    		S db = fCms.load(child,false);
-//    		efS.update(db,child);
-//    		child.setSection(parent);
-//    		child.setPosition(index);
-//    		fAsset.save(child);
+    		child.setParent(parent);
+    		child.setPosition(index);
+    		fAsset.save(child);
     		index++;
         }  
     }
