@@ -17,6 +17,7 @@ import org.jeesl.interfaces.model.module.asset.JeeslAsset;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetManufacturer;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetRealm;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetStatus;
+import org.jeesl.interfaces.model.module.asset.JeeslAssetType;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.primefaces.event.NodeCollapseEvent;
@@ -34,18 +35,19 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 										REALM extends JeeslAssetRealm<L,D,REALM,?>, RREF extends EjbWithId,
-										ASSET extends JeeslAsset<REALM,ASSET,AS>,
+										ASSET extends JeeslAsset<REALM,ASSET,STATUS>,
 										MANU extends JeeslAssetManufacturer,
-										AS extends JeeslAssetStatus<L,D,AS,?>>
+										STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
+										TYPE extends JeeslAssetType<L,D,REALM,TYPE,?>>
 					extends AbstractAdminBean<L,D>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetBean.class);
 	
-	protected JeeslAssetFacade<L,D,REALM,ASSET,MANU,AS> fAsset;
+	protected JeeslAssetFacade<L,D,REALM,ASSET,MANU,STATUS,TYPE> fAsset;
 	
-	private final AssetFactoryBuilder<L,D,REALM,ASSET,MANU,AS> fbAsset;
+	private final AssetFactoryBuilder<L,D,REALM,ASSET,MANU,STATUS,TYPE> fbAsset;
 	
 	private TreeNode tree; public TreeNode getTree() {return tree;}
     private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
@@ -54,14 +56,14 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
     private RREF realmReference;
     private ASSET asset; public ASSET getAsset() {return asset;} public void setAsset(ASSET asset) {this.asset = asset;}
 
-	public AbstractAssetBean(AssetFactoryBuilder<L,D,REALM,ASSET,MANU,AS> fbAsset)
+	public AbstractAssetBean(AssetFactoryBuilder<L,D,REALM,ASSET,MANU,STATUS,TYPE> fbAsset)
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
 	}
 	
 	protected <E extends Enum<E>> void postConstructAsset(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslAssetFacade<L,D,REALM,ASSET,MANU,AS> fAsset,
+									JeeslAssetFacade<L,D,REALM,ASSET,MANU,STATUS,TYPE> fAsset,
 									E eRealm, RREF realmReference
 									)
 	{

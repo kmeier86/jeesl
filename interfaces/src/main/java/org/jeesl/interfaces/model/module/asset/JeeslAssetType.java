@@ -1,17 +1,27 @@
 package org.jeesl.interfaces.model.module.asset;
 
 import java.io.Serializable;
+import java.util.List;
 
+import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
+import org.jeesl.interfaces.model.system.graphic.with.EjbWithCodeGraphic;
 import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
+import net.sf.ahtutils.interfaces.model.with.EjbWithLangDescription;
+import net.sf.ahtutils.interfaces.model.with.parent.EjbWithParentAttributeResolver;
+import net.sf.ahtutils.interfaces.model.with.position.EjbWithPosition;
 
 public interface JeeslAssetType <L extends UtilsLang, D extends UtilsDescription,
 							REALM extends JeeslAssetRealm<L,D,REALM,?>,
-							TYPE extends JeeslAssetType<L,D,REALM,TYPE>>
-			extends Serializable,EjbSaveable,EjbWithCode
+							TYPE extends JeeslAssetType<L,D,REALM,TYPE,G>,
+							G extends JeeslGraphic<L,D,?,?,?>>
+			extends Serializable,
+					EjbSaveable,EjbWithParentAttributeResolver,
+					EjbWithCode,EjbWithPosition,EjbWithLangDescription<L,D>,
+					EjbWithCodeGraphic<G>
 					
 {
 	public enum Attributes{realm,realmIdentifier,parent}
@@ -24,4 +34,7 @@ public interface JeeslAssetType <L extends UtilsLang, D extends UtilsDescription
 	
 	TYPE getParent();
 	void setParent(TYPE parent);
+	
+	List<TYPE> getTypes();
+	void setTypes(List<TYPE> types);
 }

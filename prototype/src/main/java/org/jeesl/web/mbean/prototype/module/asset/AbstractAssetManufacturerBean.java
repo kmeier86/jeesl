@@ -14,6 +14,7 @@ import org.jeesl.interfaces.model.module.asset.JeeslAsset;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetManufacturer;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetRealm;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetStatus;
+import org.jeesl.interfaces.model.module.asset.JeeslAssetType;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
@@ -25,31 +26,32 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public class AbstractAssetManufacturerBean <L extends UtilsLang, D extends UtilsDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 											REALM extends JeeslAssetRealm<L,D,REALM,?>,
-											ASSET extends JeeslAsset<REALM,ASSET,AS>,
+											ASSET extends JeeslAsset<REALM,ASSET,STATUS>,
 											MANU extends JeeslAssetManufacturer,
-											AS extends JeeslAssetStatus<L,D,AS,?>>
+											STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
+											TYPE extends JeeslAssetType<L,D,REALM,TYPE,?>>
 					extends AbstractAdminBean<L,D>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetManufacturerBean.class);
 	
-	protected JeeslAssetFacade<L,D,REALM,ASSET,MANU,AS> fAsset;
+	protected JeeslAssetFacade<L,D,REALM,ASSET,MANU,STATUS,TYPE> fAsset;
 	
-	private final AssetFactoryBuilder<L,D,REALM,ASSET,MANU,AS> fbAsset;
+	private final AssetFactoryBuilder<L,D,REALM,ASSET,MANU,STATUS,TYPE> fbAsset;
 	
 	private List<MANU> manufacturers; public List<MANU> getManufacturers() {return manufacturers;} public void setManufacturers(List<MANU> manufacturers) {this.manufacturers = manufacturers;}
 
 	private MANU manufacturer; public MANU getManufacturer() {return manufacturer;} public void setManufacturer(MANU manufacturer) {this.manufacturer = manufacturer;}
 
-	public AbstractAssetManufacturerBean(AssetFactoryBuilder<L,D,REALM,ASSET,MANU,AS> fbAsset)
+	public AbstractAssetManufacturerBean(AssetFactoryBuilder<L,D,REALM,ASSET,MANU,STATUS,TYPE> fbAsset)
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
 	}
 
 	protected void postConstructAssetManufacturer(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-													JeeslAssetFacade<L,D,REALM,ASSET,MANU,AS> fAsset)
+													JeeslAssetFacade<L,D,REALM,ASSET,MANU,STATUS,TYPE> fAsset)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fAsset=fAsset;
