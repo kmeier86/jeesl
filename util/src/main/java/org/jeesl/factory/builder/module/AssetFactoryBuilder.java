@@ -18,7 +18,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 public class AssetFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 								REALM extends JeeslAssetRealm<L,D,REALM,?>,
 								ASSET extends JeeslAsset<REALM,ASSET,STATUS,TYPE>,
-								MANU extends JeeslAssetManufacturer,
+								MANU extends JeeslAssetManufacturer<REALM>,
 								STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
 								TYPE extends JeeslAssetType<L,D,REALM,TYPE,?>>
 		extends AbstractFactoryBuilder<L,D>
@@ -46,7 +46,7 @@ public class AssetFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 		this.cType=cType;
 	}
 	
-	public EjbAssetManufacturerFactory<MANU> ejbManufacturer() {return new EjbAssetManufacturerFactory<>(cManu);}
+	public EjbAssetManufacturerFactory<REALM,MANU> ejbManufacturer() {return new EjbAssetManufacturerFactory<>(cManu);}
 	public EjbAssetTypeFactory<REALM,TYPE> ejbType() {return new EjbAssetTypeFactory<>(cType);}
 	public EjbAssetFactory<REALM,ASSET,STATUS,TYPE> ejbAsset() {return new EjbAssetFactory<>(cAsset);}
 }

@@ -22,12 +22,13 @@ import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
+import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public class AbstractAssetManufacturerBean <L extends UtilsLang, D extends UtilsDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-											REALM extends JeeslAssetRealm<L,D,REALM,?>,
+											REALM extends JeeslAssetRealm<L,D,REALM,?>, RREF extends EjbWithId,
 											ASSET extends JeeslAsset<REALM,ASSET,STATUS,TYPE>,
-											MANU extends JeeslAssetManufacturer,
+											MANU extends JeeslAssetManufacturer<REALM>,
 											STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
 											TYPE extends JeeslAssetType<L,D,REALM,TYPE,?>>
 					extends AbstractAdminBean<L,D>
@@ -42,6 +43,8 @@ public class AbstractAssetManufacturerBean <L extends UtilsLang, D extends Utils
 	
 	private List<MANU> manufacturers; public List<MANU> getManufacturers() {return manufacturers;} public void setManufacturers(List<MANU> manufacturers) {this.manufacturers = manufacturers;}
 
+    private REALM realm;
+    private RREF realmReference;
 	private MANU manufacturer; public MANU getManufacturer() {return manufacturer;} public void setManufacturer(MANU manufacturer) {this.manufacturer = manufacturer;}
 
 	public AbstractAssetManufacturerBean(AssetFactoryBuilder<L,D,REALM,ASSET,MANU,STATUS,TYPE> fbAsset)
@@ -50,11 +53,14 @@ public class AbstractAssetManufacturerBean <L extends UtilsLang, D extends Utils
 		this.fbAsset=fbAsset;
 	}
 
-	protected void postConstructAssetManufacturer(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-													JeeslAssetFacade<L,D,REALM,ASSET,MANU,STATUS,TYPE> fAsset)
+	protected <E extends Enum<E>> void postConstructAssetManufacturer(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+													JeeslAssetFacade<L,D,REALM,ASSET,MANU,STATUS,TYPE> fAsset,
+													E eRealm, RREF realmReference)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fAsset=fAsset;
+		realm = fAsset.fByEnum(fbAsset.getClassRealm(),eRealm);
+		this.realmReference=realmReference;
 		reloadManufacturers();
 	}
 	
@@ -68,12 +74,17 @@ public class AbstractAssetManufacturerBean <L extends UtilsLang, D extends Utils
 	{
 		if(debugOnInfo) {logger.info(AbstractLogMessage.addEntity(fbAsset.getClassManufacturer()));}
 		
-		manufacturer = fbAsset.ejbManufacturer().build();
+		manufacturer = fbAsset.ejbManufacturer().build(realm,realmReference);
 	}
 	
 	public void saveManufacturer() throws JeeslConstraintViolationException, JeeslLockingException
 	{
 		manufacturer = fAsset.save(manufacturer);
 		reloadManufacturers();
+	}
+	
+	public void selectManufacturer() throws JeeslConstraintViolationException, JeeslLockingException
+	{
+		manufacturer = fAsset.find(fbAsset.getClassManufacturer(),manufacturer);
 	}
 }

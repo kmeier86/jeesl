@@ -34,7 +34,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 										REALM extends JeeslAssetRealm<L,D,REALM,?>, RREF extends EjbWithId,
 										ASSET extends JeeslAsset<REALM,ASSET,STATUS,TYPE>,
-										MANU extends JeeslAssetManufacturer,
+										MANU extends JeeslAssetManufacturer<REALM>,
 										STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
 										TYPE extends JeeslAssetType<L,D,REALM,TYPE,?>>
 					extends AbstractAdminBean<L,D>

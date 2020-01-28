@@ -45,6 +45,9 @@
 					</f:facet>
 					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
 						<p:outputLabel value="#{msg.jeeslCode}"/>
+						<jtp:inputText value="#{cc.attrs.bean.asset.code}"/>
+					
+						<p:outputLabel value="#{msg.jeeslName}"/>
 						<jtp:inputText value="#{cc.attrs.bean.asset.name}"/>
 						
 						<p:outputLabel value="#{msg.jeeslAssetStatus}"/>
