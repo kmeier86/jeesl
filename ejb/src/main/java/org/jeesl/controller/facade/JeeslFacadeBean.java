@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller.facade;
+package org.jeesl.controller.facade;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +20,7 @@ import javax.persistence.criteria.Root;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
+import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.jeesl.interfaces.model.system.with.EjbWithGraphic;
@@ -41,7 +42,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.controller.util.ParentPredicate;
-import net.sf.ahtutils.interfaces.facade.UtilsFacade;
 import net.sf.ahtutils.interfaces.model.behaviour.EjbEquals;
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbMergeable;
@@ -66,19 +66,19 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 import net.sf.ahtutils.model.interfaces.with.EjbWithVisible;
 
-public class UtilsFacadeBean implements UtilsFacade 
+public class JeeslFacadeBean implements JeeslFacade 
 {
 	private static final long serialVersionUID = 1L;
 
-	final static Logger logger = LoggerFactory.getLogger(UtilsFacadeBean.class);
+	final static Logger logger = LoggerFactory.getLogger(JeeslFacadeBean.class);
 	
 	private static boolean isLoggingEnabled = false; 
 	
 	protected EntityManager em;
 	private boolean handleTransaction;
 	
-	public UtilsFacadeBean(EntityManager em){this(em,false);}
-	public UtilsFacadeBean(EntityManager em, boolean handleTransaction)
+	public JeeslFacadeBean(EntityManager em){this(em,false);}
+	public JeeslFacadeBean(EntityManager em, boolean handleTransaction)
 	{
 		this.em=em;
 		this.handleTransaction=handleTransaction;
@@ -1295,5 +1295,4 @@ public class UtilsFacadeBean implements UtilsFacade
 		
 		return em.createQuery(select).getResultList();
 	}
-		
 }

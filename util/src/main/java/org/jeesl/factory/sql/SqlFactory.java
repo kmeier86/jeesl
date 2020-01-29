@@ -26,10 +26,10 @@ public class SqlFactory
 		return sb.toString();
 	}
 	
-	public static <E extends Enum<E>> String path(String item, E attribute)
+	public static <E extends Enum<E>> String path(String alias, E attribute)
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append(item).append(".").append(attribute.toString());
+		sb.append(alias).append(".").append(attribute.toString());
 		return sb.toString();
 	}
 	
