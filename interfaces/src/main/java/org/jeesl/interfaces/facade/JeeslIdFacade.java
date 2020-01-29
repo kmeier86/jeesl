@@ -13,6 +13,9 @@ public interface JeeslIdFacade extends Serializable
 {
 	<T extends Object> List<T> all(Class<T> type);
 	<T extends Object> List<T> all(Class<T> type, int maxResults);
+	
+	<T extends EjbWithId> List<T> list(Class<T> c, List<Long> list);
+	
 	<T extends Object> T find(Class<T> type, long id) throws JeeslNotFoundException;
 	<T extends EjbWithId> T find(Class<T> type, T t);
 	<T extends EjbWithId> List<T> find(Class<T> c, List<Long> ids);

@@ -339,6 +339,23 @@ public class JeeslFacadeBean implements JeeslFacade
 		return typedQuery.getResultList();
 	}
 	
+	@Override
+	public <T extends EjbWithId> List<T> list(Class<T> c, List<Long> list)
+	{
+		if(list==null || list.isEmpty()) {return new ArrayList<>();}
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQuery = cB.createQuery(c);
+		Root<T> root = criteriaQuery.from(c);
+		
+		Path<Long> p1Path = root.get("id");
+		
+		CriteriaQuery<T> select = criteriaQuery.select(root);
+		select.where(p1Path.in(list));
+		
+		return em.createQuery(select).getResultList();
+		
+	}
+	
 	@Override public <T, I extends EjbWithId> List<T> allOrderedParent(Class<T> cl,String by, boolean ascending, String p1Name, I p1)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();

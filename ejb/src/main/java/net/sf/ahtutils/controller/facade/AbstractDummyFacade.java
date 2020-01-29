@@ -534,4 +534,10 @@ public class AbstractDummyFacade implements JeeslFacade
 
 	@Override public <T extends EjbWithVisible, P extends EjbWithId> List<T> allVisible(Class<T> cl) {return null;}
 
+	@Override
+	public <T extends EjbWithId> List<T> list(Class<T> c, List<Long> list) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

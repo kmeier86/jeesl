@@ -113,6 +113,7 @@ public class AbstractJeeslFacadeBean implements JeeslFacade
 	// All
 	@Override public <T extends Object> List<T> all(Class<T> type) {return fJeesl.all(type);}
 	@Override public <T extends Object> List<T> all(Class<T> type,int maxResults) {return fJeesl.all(type,maxResults);}
+	@Override public <T extends EjbWithId> List<T> list(Class<T> c, List<Long> list) {return fJeesl.list(c,list);}
 	@Override public <T extends EjbWithType> List<T> allForType(Class<T> cl, String type) {return fJeesl.allForType(cl, type);}
 	
 	@Override public <C extends UtilsStatus<C,?,?>, W extends JeeslWithContext<C>> List<W> allForContext(Class<W> w, C context) {return fJeesl.allForContext(w,context);}
