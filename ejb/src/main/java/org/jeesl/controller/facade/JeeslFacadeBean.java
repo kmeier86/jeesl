@@ -1,5 +1,6 @@
 package org.jeesl.controller.facade;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -17,6 +19,7 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.jeesl.controller.db.NativeQueryDebugger;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
@@ -339,8 +342,7 @@ public class JeeslFacadeBean implements JeeslFacade
 		return typedQuery.getResultList();
 	}
 	
-	@Override
-	public <T extends EjbWithId> List<T> list(Class<T> c, List<Long> list)
+	@Override public <T extends EjbWithId> List<T> list(Class<T> c, List<Long> list)
 	{
 		if(list==null || list.isEmpty()) {return new ArrayList<>();}
 		CriteriaBuilder cB = em.getCriteriaBuilder();
@@ -353,7 +355,18 @@ public class JeeslFacadeBean implements JeeslFacade
 		select.where(p1Path.in(list));
 		
 		return em.createQuery(select).getResultList();
-		
+	}
+	
+	@Override public List<Long> listId(String nativeQuery)
+	{	
+		List<Long> results = new ArrayList<>();
+		Query qEntitled = em.createNativeQuery(nativeQuery);
+		for(Object o : qEntitled.getResultList())
+        {
+            long id = ((BigInteger)o).longValue();
+            results.add(id);
+        }
+		return results;
 	}
 	
 	@Override public <T, I extends EjbWithId> List<T> allOrderedParent(Class<T> cl,String by, boolean ascending, String p1Name, I p1)

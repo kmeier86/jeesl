@@ -540,4 +540,10 @@ public class AbstractDummyFacade implements JeeslFacade
 		return null;
 	}
 
+	@Override
+	public List<Long> listId(String nativeQuery) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
