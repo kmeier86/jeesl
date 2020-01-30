@@ -13,8 +13,8 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface JeeslAssetFacade <L extends UtilsLang, D extends UtilsDescription,
 									REALM extends JeeslAssetRealm<L,D,REALM,?>,
-									ASSET extends JeeslAsset<REALM,ASSET,STATUS,TYPE>,
-									MANU extends JeeslAssetManufacturer,
+									ASSET extends JeeslAsset<REALM,ASSET,MANU,STATUS,TYPE>,
+									MANU extends JeeslAssetManufacturer<REALM>,
 									STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
 									TYPE extends JeeslAssetType<L,D,REALM,TYPE,?>>
 			extends JeeslFacade
