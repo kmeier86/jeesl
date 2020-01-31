@@ -19,7 +19,7 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.interfaces.model.module.asset.JeeslAsset;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetManufacturer;
+import org.jeesl.interfaces.model.module.asset.JeeslAssetCompany;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetRealm;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetStatus;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetType;
@@ -32,20 +32,20 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class JeeslAssetFacadeBean<L extends UtilsLang, D extends UtilsDescription,
 										REALM extends JeeslAssetRealm<L,D,REALM,?>,
-										ASSET extends JeeslAsset<REALM,ASSET,MANU,STATUS,TYPE>,
-										MANU extends JeeslAssetManufacturer<REALM>,
+										ASSET extends JeeslAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
+										COMPANY extends JeeslAssetCompany<REALM>,
 										STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
 										TYPE extends JeeslAssetType<L,D,REALM,TYPE,?>>
 					extends JeeslFacadeBean
-					implements JeeslAssetFacade<L,D,REALM,ASSET,MANU,STATUS,TYPE>
+					implements JeeslAssetFacade<L,D,REALM,ASSET,COMPANY,STATUS,TYPE>
 {	
 	private static final long serialVersionUID = 1L;
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslAssetFacadeBean.class);
 	
-	private final AssetFactoryBuilder<L,D,REALM,ASSET,MANU,STATUS,TYPE> fbAsset;
+	private final AssetFactoryBuilder<L,D,REALM,ASSET,COMPANY,STATUS,TYPE> fbAsset;
 	
-	public JeeslAssetFacadeBean(EntityManager em, final AssetFactoryBuilder<L,D,REALM,ASSET,MANU,STATUS,TYPE> fbAsset)
+	public JeeslAssetFacadeBean(EntityManager em, final AssetFactoryBuilder<L,D,REALM,ASSET,COMPANY,STATUS,TYPE> fbAsset)
 	{
 		super(em);
 		this.fbAsset=fbAsset;

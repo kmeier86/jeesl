@@ -13,7 +13,7 @@ import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.factory.ejb.module.asset.EjbAssetFactory;
 import org.jeesl.interfaces.bean.system.JeeslAssetCacheBean;
 import org.jeesl.interfaces.model.module.asset.JeeslAsset;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetManufacturer;
+import org.jeesl.interfaces.model.module.asset.JeeslAssetCompany;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetRealm;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetStatus;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetType;
@@ -34,8 +34,8 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 										REALM extends JeeslAssetRealm<L,D,REALM,?>, RREF extends EjbWithId,
-										ASSET extends JeeslAsset<REALM,ASSET,MANU,STATUS,TYPE>,
-										MANU extends JeeslAssetManufacturer<REALM>,
+										ASSET extends JeeslAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
+										COMPANY extends JeeslAssetCompany<REALM>,
 										STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
 										TYPE extends JeeslAssetType<L,D,REALM,TYPE,?>>
 					extends AbstractAdminBean<L,D>
@@ -44,11 +44,11 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetBean.class);
 	
-	protected JeeslAssetFacade<L,D,REALM,ASSET,MANU,STATUS,TYPE> fAsset;
+	protected JeeslAssetFacade<L,D,REALM,ASSET,COMPANY,STATUS,TYPE> fAsset;
 	
-	private final AssetFactoryBuilder<L,D,REALM,ASSET,MANU,STATUS,TYPE> fbAsset;
+	private final AssetFactoryBuilder<L,D,REALM,ASSET,COMPANY,STATUS,TYPE> fbAsset;
 	
-	private final EjbAssetFactory<REALM,ASSET,MANU,STATUS,TYPE> efAsset;
+	private final EjbAssetFactory<REALM,ASSET,COMPANY,STATUS,TYPE> efAsset;
 	
 	private TreeNode tree; public TreeNode getTree() {return tree;}
     private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
@@ -61,7 +61,7 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 	private ASSET root;
     private ASSET asset; public ASSET getAsset() {return asset;} public void setAsset(ASSET asset) {this.asset = asset;}
 
-	public AbstractAssetBean(AssetFactoryBuilder<L,D,REALM,ASSET,MANU,STATUS,TYPE> fbAsset)
+	public AbstractAssetBean(AssetFactoryBuilder<L,D,REALM,ASSET,COMPANY,STATUS,TYPE> fbAsset)
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
@@ -72,8 +72,8 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 	}
 	
 	protected <E extends Enum<E>> void postConstructAsset(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslAssetFacade<L,D,REALM,ASSET,MANU,STATUS,TYPE> fAsset,
-									JeeslAssetCacheBean<L,D,REALM,RREF,ASSET,MANU,STATUS,TYPE> bCache,
+									JeeslAssetFacade<L,D,REALM,ASSET,COMPANY,STATUS,TYPE> fAsset,
+									JeeslAssetCacheBean<L,D,REALM,RREF,ASSET,COMPANY,STATUS,TYPE> bCache,
 									E eRealm, RREF rref
 									)
 	{

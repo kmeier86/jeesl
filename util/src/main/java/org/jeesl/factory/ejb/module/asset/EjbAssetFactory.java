@@ -3,7 +3,7 @@ package org.jeesl.factory.ejb.module.asset;
 import java.util.UUID;
 
 import org.jeesl.interfaces.model.module.asset.JeeslAsset;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetManufacturer;
+import org.jeesl.interfaces.model.module.asset.JeeslAssetCompany;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetRealm;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetStatus;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetType;
@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class EjbAssetFactory<REALM extends JeeslAssetRealm<?,?,REALM,?>,
-							ASSET extends JeeslAsset<REALM,ASSET,MANU,STATUS,TYPE>,
-							MANU extends JeeslAssetManufacturer<REALM>,
+							ASSET extends JeeslAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
+							COMPANY extends JeeslAssetCompany<REALM>,
 							STATUS extends JeeslAssetStatus<?,?,STATUS,?>,
 							TYPE extends JeeslAssetType<?,?,REALM,TYPE,?>>
 {

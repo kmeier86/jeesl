@@ -13,7 +13,7 @@ import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.factory.builder.system.SvgFactoryBuilder;
 import org.jeesl.factory.ejb.module.asset.EjbAssetTypeFactory;
 import org.jeesl.interfaces.model.module.asset.JeeslAsset;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetManufacturer;
+import org.jeesl.interfaces.model.module.asset.JeeslAssetCompany;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetRealm;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetStatus;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetType;
@@ -42,8 +42,8 @@ public abstract class AbstractAssetTypeBean <L extends UtilsLang, D extends Util
 										G extends JeeslGraphic<L,D,GT,F,FS>, GT extends UtilsStatus<GT,L,D>,
 										F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends UtilsStatus<FS,L,D>,
 										REALM extends JeeslAssetRealm<L,D,REALM,?>, RREF extends EjbWithId,
-										ASSET extends JeeslAsset<REALM,ASSET,MANU,STATUS,TYPE>,
-										MANU extends JeeslAssetManufacturer<REALM>,
+										ASSET extends JeeslAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
+										COMPANY extends JeeslAssetCompany<REALM>,
 										STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
 										TYPE extends JeeslAssetType<L,D,REALM,TYPE,G>>
 					extends AbstractAdminBean<L,D>
@@ -52,10 +52,10 @@ public abstract class AbstractAssetTypeBean <L extends UtilsLang, D extends Util
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetTypeBean.class);
 	
-	private JeeslAssetFacade<L,D,REALM,ASSET,MANU,STATUS,TYPE> fAsset;
+	private JeeslAssetFacade<L,D,REALM,ASSET,COMPANY,STATUS,TYPE> fAsset;
 	
 	private final SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg;
-	private final AssetFactoryBuilder<L,D,REALM,ASSET,MANU,STATUS,TYPE> fbAsset;
+	private final AssetFactoryBuilder<L,D,REALM,ASSET,COMPANY,STATUS,TYPE> fbAsset;
 	
 	private final EjbAssetTypeFactory<REALM,TYPE> efType;
 	
@@ -67,7 +67,7 @@ public abstract class AbstractAssetTypeBean <L extends UtilsLang, D extends Util
     private TYPE root;
     private TYPE type;  public TYPE getType() {return type;} public void setType(TYPE type) {this.type = type;}
 
-	public AbstractAssetTypeBean(AssetFactoryBuilder<L,D,REALM,ASSET,MANU,STATUS,TYPE> fbAsset, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg)
+	public AbstractAssetTypeBean(AssetFactoryBuilder<L,D,REALM,ASSET,COMPANY,STATUS,TYPE> fbAsset, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg)
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
@@ -77,7 +77,7 @@ public abstract class AbstractAssetTypeBean <L extends UtilsLang, D extends Util
 	}
 	
 	protected <E extends Enum<E>> void postConstructAssetType(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslAssetFacade<L,D,REALM,ASSET,MANU,STATUS,TYPE> fAsset,
+									JeeslAssetFacade<L,D,REALM,ASSET,COMPANY,STATUS,TYPE> fAsset,
 									E eRealm, RREF rRef)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
