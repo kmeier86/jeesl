@@ -12,10 +12,10 @@
 <composite:implementation>
 <jp:grid id="grid">
 	<j:row>
-		<j:slot id="sManufacturers" width="5">
+		<j:slot id="sManufacturers" width="6">
 			<h:form id="fManufacturers">
-				<p:dataTable var="m" value="#{cc.attrs.bean.manufacturers}" draggableRows="true"
-					selection="#{cc.attrs.bean.manufacturer}" selectionMode="single" rowKey="#{m.id}">
+				<p:dataTable var="c" value="#{cc.attrs.bean.companies}" draggableRows="true"
+					selection="#{cc.attrs.bean.company}" selectionMode="single" rowKey="#{c.id}">
 					<f:facet name="header">
 						<j:dtHeader title="#{msg.jeeslAssetManufacturers}">
 							<j:icon type="jeeslAdd" listener="#{cc.attrs.bean.addManufacturer()}" update=":#{cc.id}:grid"/>
@@ -23,16 +23,20 @@
 					</f:facet>
 					<p:ajax event="rowSelect" listener="#{cc.attrs.bean.selectManufacturer()}" update=":#{cc.id}:sManufacturer"/>
 					<p:column headerText="#{msg.jeeslCode}">
-						<h:outputText value="#{m.code}"/>
+						<h:outputText value="#{c.code}"/>
 		            </p:column>
 					<p:column headerText="#{msg.jeeslAssetManufacturerName}">
-						<h:outputText value="#{m.name}"/>
+						<h:outputText value="#{c.name}"/>
 		            </p:column>
-
+					<p:column>
+						<ui:repeat var="scope" value="#{c.scopes}">
+							<jtp:symbolizer value="#{scope}" marginRight="5"/>
+						</ui:repeat>
+		            </p:column>
 		       	</p:dataTable>
 			</h:form>
 		</j:slot>
-		<j:slot id="sManufacturer" width="7">
+		<j:slot id="sManufacturer" width="6">
 			<h:form id="fSection" rendered="#{not empty cc.attrs.bean.manufacturer}">
 				<p:panel header="#{msg.jeeslAssetManufacturer}" styleClass="jeeslPanel">
 					<f:facet name="actions">
@@ -50,6 +54,11 @@
 						
 						<p:outputLabel value="#{msg.jeeslAssetManufacturerUrl}"/>
 						<jtp:inputText value="#{cc.attrs.bean.manufacturer.url}"/>
+						
+						<p:outputLabel value="#{msg.jeeslAssetScopes}"/>
+						<p:selectManyCheckbox id="grid2" value="#{cc.attrs.bean.smh.codes}" layout="responsive" columns="2">
+							<f:selectItems value="#{cc.attrs.bean.smh.list}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s.code}" />
+					    </p:selectManyCheckbox>
 						
 					</p:panelGrid>
 				</p:panel>

@@ -1,4 +1,4 @@
-package org.jeesl.web.mbean.prototype.module.asset;
+package org.jeesl.web.mbean.prototype.module.aom;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,12 +12,12 @@ import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.factory.ejb.module.asset.EjbAssetFactory;
 import org.jeesl.interfaces.bean.system.JeeslAssetCacheBean;
-import org.jeesl.interfaces.model.module.asset.JeeslAsset;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetCompany;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetRealm;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetScope;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetStatus;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetType;
+import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
+import org.jeesl.interfaces.model.module.aom.JeeslAomCompany;
+import org.jeesl.interfaces.model.module.aom.JeeslAomRealm;
+import org.jeesl.interfaces.model.module.aom.JeeslAomScope;
+import org.jeesl.interfaces.model.module.aom.JeeslAomStatus;
+import org.jeesl.interfaces.model.module.aom.JeeslAomType;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.primefaces.event.NodeCollapseEvent;
@@ -34,12 +34,12 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-										REALM extends JeeslAssetRealm<L,D,REALM,?>, RREF extends EjbWithId,
-										ASSET extends JeeslAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
-										COMPANY extends JeeslAssetCompany<REALM,SCOPE>,
-										SCOPE extends JeeslAssetScope<L,D,SCOPE,?>,
-										STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
-										TYPE extends JeeslAssetType<L,D,REALM,TYPE,?>>
+										REALM extends JeeslAomRealm<L,D,REALM,?>, RREF extends EjbWithId,
+										COMPANY extends JeeslAomCompany<REALM,SCOPE>,
+										SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
+										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
+										STATUS extends JeeslAomStatus<L,D,STATUS,?>,
+										TYPE extends JeeslAomType<L,D,REALM,TYPE,?>>
 					extends AbstractAdminBean<L,D>
 					implements Serializable
 {
@@ -110,7 +110,7 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 	public void addAsset()
 	{
 		ASSET parent = null; if(asset!=null) {parent = asset;} else {parent = root;}
-		STATUS status = fAsset.fByEnum(fbAsset.getClassStatus(),JeeslAssetStatus.Code.na);
+		STATUS status = fAsset.fByEnum(fbAsset.getClassStatus(),JeeslAomStatus.Code.na);
 		TYPE type = fAsset.fcAssetRootType(realm,rref);
 		asset = efAsset.build(realm,rref, parent, status,type);
 	}

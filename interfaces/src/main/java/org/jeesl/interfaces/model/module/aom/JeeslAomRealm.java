@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.asset;
+package org.jeesl.interfaces.model.module.aom;
 
 import java.io.Serializable;
 
@@ -12,7 +12,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatusFixedCode;
 
-public interface JeeslAssetRealm <L extends UtilsLang, D extends UtilsDescription,
+public interface JeeslAomRealm <L extends UtilsLang, D extends UtilsDescription,
 									S extends UtilsStatus<S,L,D>,
 									G extends JeeslGraphic<L,D,?,?,?>>
 					extends Serializable,EjbPersistable,

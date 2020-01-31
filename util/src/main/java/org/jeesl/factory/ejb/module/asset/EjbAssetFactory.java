@@ -2,23 +2,23 @@ package org.jeesl.factory.ejb.module.asset;
 
 import java.util.UUID;
 
-import org.jeesl.interfaces.model.module.asset.JeeslAsset;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetCompany;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetRealm;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetScope;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetStatus;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetType;
+import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
+import org.jeesl.interfaces.model.module.aom.JeeslAomCompany;
+import org.jeesl.interfaces.model.module.aom.JeeslAomRealm;
+import org.jeesl.interfaces.model.module.aom.JeeslAomScope;
+import org.jeesl.interfaces.model.module.aom.JeeslAomStatus;
+import org.jeesl.interfaces.model.module.aom.JeeslAomType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public class EjbAssetFactory<REALM extends JeeslAssetRealm<?,?,REALM,?>,
-							ASSET extends JeeslAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
-							COMPANY extends JeeslAssetCompany<REALM,SCOPE>,
-							SCOPE extends JeeslAssetScope<?,?,SCOPE,?>,
-							STATUS extends JeeslAssetStatus<?,?,STATUS,?>,
-							TYPE extends JeeslAssetType<?,?,REALM,TYPE,?>>
+public class EjbAssetFactory<REALM extends JeeslAomRealm<?,?,REALM,?>,
+							ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
+							COMPANY extends JeeslAomCompany<REALM,SCOPE>,
+							SCOPE extends JeeslAomScope<?,?,SCOPE,?>,
+							STATUS extends JeeslAomStatus<?,?,STATUS,?>,
+							TYPE extends JeeslAomType<?,?,REALM,TYPE,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAssetFactory.class);
 	

@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.asset;
+package org.jeesl.interfaces.model.module.aom;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,11 +12,11 @@ import net.sf.ahtutils.interfaces.model.with.parent.EjbWithParentAttributeResolv
 import net.sf.ahtutils.interfaces.model.with.position.EjbWithPosition;
 import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 
-public interface JeeslAsset <REALM extends JeeslAssetRealm<?,?,REALM,?>,
-							ASSET extends JeeslAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
-							COMPANY extends JeeslAssetCompany<REALM,?>,
-							STATUS extends JeeslAssetStatus<?,?,STATUS,?>,
-							TYPE extends JeeslAssetType<?,?,REALM,TYPE,?>>
+public interface JeeslAomAsset <REALM extends JeeslAomRealm<?,?,REALM,?>,
+							ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
+							COMPANY extends JeeslAomCompany<REALM,?>,
+							STATUS extends JeeslAomStatus<?,?,STATUS,?>,
+							TYPE extends JeeslAomType<?,?,REALM,TYPE,?>>
 			extends Serializable,EjbSaveable,
 					EjbWithPosition,EjbWithParentAttributeResolver,
 					EjbWithNonUniqueCode,EjbWithName,EjbWithRemark,

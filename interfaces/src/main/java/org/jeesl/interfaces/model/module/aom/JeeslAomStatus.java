@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.asset;
+package org.jeesl.interfaces.model.module.aom;
 
 import java.io.Serializable;
 
@@ -13,7 +13,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatusFixedCode;
 
-public interface JeeslAssetScope <L extends UtilsLang, D extends UtilsDescription,
+public interface JeeslAomStatus <L extends UtilsLang, D extends UtilsDescription,
 									S extends UtilsStatus<S,L,D>,
 									G extends JeeslGraphic<L,D,?,?,?>>
 					extends Serializable,EjbPersistable,
@@ -21,7 +21,6 @@ public interface JeeslAssetScope <L extends UtilsLang, D extends UtilsDescriptio
 								JeeslOptionRestDownload,
 								EjbWithCodeGraphic<G>,
 								UtilsStatus<S,L,D>
-{
-	
-	public static enum Code{manufacturer,vendor};
+{	
+	public enum Code{na,planned,operational}
 }

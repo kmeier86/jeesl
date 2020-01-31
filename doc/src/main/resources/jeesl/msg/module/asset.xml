@@ -49,4 +49,12 @@
     		<s:lang key="fr" translation="Type"/>
     	</s:langs>
     </s:translation>
+        <s:translation key="jeeslAssetScopes">
+    	<s:langs>
+    		<s:lang key="de" translation="Geltungsbereiche"/>
+    		<s:lang key="en" translation="Scopes"/>
+    		<s:lang key="fr" translation="Scopes"/>
+    	</s:langs>
+    </s:translation>
+    
 </s:translations>

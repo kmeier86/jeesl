@@ -1,4 +1,4 @@
-package org.jeesl.web.mbean.prototype.module.asset;
+package org.jeesl.web.mbean.prototype.module.aom;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,12 +8,12 @@ import java.util.Map;
 import org.jeesl.api.facade.module.JeeslAssetFacade;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.interfaces.bean.system.JeeslAssetCacheBean;
-import org.jeesl.interfaces.model.module.asset.JeeslAsset;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetCompany;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetRealm;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetScope;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetStatus;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetType;
+import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
+import org.jeesl.interfaces.model.module.aom.JeeslAomCompany;
+import org.jeesl.interfaces.model.module.aom.JeeslAomRealm;
+import org.jeesl.interfaces.model.module.aom.JeeslAomScope;
+import org.jeesl.interfaces.model.module.aom.JeeslAomStatus;
+import org.jeesl.interfaces.model.module.aom.JeeslAomType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,12 +23,12 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public abstract class AbstractAssetCacheBean <L extends UtilsLang, D extends UtilsDescription,
-										REALM extends JeeslAssetRealm<L,D,REALM,?>, RREF extends EjbWithId,
-										ASSET extends JeeslAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
-										COMPANY extends JeeslAssetCompany<REALM,SCOPE>,
-										SCOPE extends JeeslAssetScope<L,D,SCOPE,?>,
-										STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
-										TYPE extends JeeslAssetType<L,D,REALM,TYPE,?>>
+										REALM extends JeeslAomRealm<L,D,REALM,?>, RREF extends EjbWithId,
+										COMPANY extends JeeslAomCompany<REALM,SCOPE>,
+										SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
+										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
+										STATUS extends JeeslAomStatus<L,D,STATUS,?>,
+										TYPE extends JeeslAomType<L,D,REALM,TYPE,?>>
 								implements JeeslAssetCacheBean<L,D,REALM,RREF,ASSET,COMPANY,SCOPE,STATUS,TYPE>
 {
 	private static final long serialVersionUID = 1L;

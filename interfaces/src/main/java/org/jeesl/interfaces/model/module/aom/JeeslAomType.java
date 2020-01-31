@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.asset;
+package org.jeesl.interfaces.model.module.aom;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,9 +14,9 @@ import net.sf.ahtutils.interfaces.model.with.code.EjbWithNonUniqueCode;
 import net.sf.ahtutils.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import net.sf.ahtutils.interfaces.model.with.position.EjbWithPosition;
 
-public interface JeeslAssetType <L extends UtilsLang, D extends UtilsDescription,
-							REALM extends JeeslAssetRealm<L,D,REALM,?>,
-							TYPE extends JeeslAssetType<L,D,REALM,TYPE,G>,
+public interface JeeslAomType <L extends UtilsLang, D extends UtilsDescription,
+							REALM extends JeeslAomRealm<L,D,REALM,?>,
+							TYPE extends JeeslAomType<L,D,REALM,TYPE,G>,
 							G extends JeeslGraphic<L,D,?,?,?>>
 			extends Serializable,
 					EjbSaveable,EjbWithParentAttributeResolver,

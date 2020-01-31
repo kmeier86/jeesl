@@ -1,24 +1,24 @@
 package org.jeesl.api.facade.module;
 
 import org.jeesl.interfaces.facade.JeeslFacade;
-import org.jeesl.interfaces.model.module.asset.JeeslAsset;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetCompany;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetRealm;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetScope;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetStatus;
-import org.jeesl.interfaces.model.module.asset.JeeslAssetType;
+import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
+import org.jeesl.interfaces.model.module.aom.JeeslAomCompany;
+import org.jeesl.interfaces.model.module.aom.JeeslAomRealm;
+import org.jeesl.interfaces.model.module.aom.JeeslAomScope;
+import org.jeesl.interfaces.model.module.aom.JeeslAomStatus;
+import org.jeesl.interfaces.model.module.aom.JeeslAomType;
 
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface JeeslAssetFacade <L extends UtilsLang, D extends UtilsDescription,
-									REALM extends JeeslAssetRealm<L,D,REALM,?>,
-									COMPANY extends JeeslAssetCompany<REALM,SCOPE>,
-									SCOPE extends JeeslAssetScope<L,D,SCOPE,?>,
-									ASSET extends JeeslAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
-									STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
-									TYPE extends JeeslAssetType<L,D,REALM,TYPE,?>>
+									REALM extends JeeslAomRealm<L,D,REALM,?>,
+									COMPANY extends JeeslAomCompany<REALM,SCOPE>,
+									SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
+									ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
+									STATUS extends JeeslAomStatus<L,D,STATUS,?>,
+									TYPE extends JeeslAomType<L,D,REALM,TYPE,?>>
 			extends JeeslFacade
 {	
 	<RREF extends EjbWithId> ASSET fcAssetRoot(REALM realm, RREF realmReference);

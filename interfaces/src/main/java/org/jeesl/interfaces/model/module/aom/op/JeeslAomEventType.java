@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.asset;
+package org.jeesl.interfaces.model.module.aom.op;
 
 import java.io.Serializable;
 
@@ -13,7 +13,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.status.UtilsStatusFixedCode;
 
-public interface JeeslAssetStatus <L extends UtilsLang, D extends UtilsDescription,
+public interface JeeslAomEventType <L extends UtilsLang, D extends UtilsDescription,
 									S extends UtilsStatus<S,L,D>,
 									G extends JeeslGraphic<L,D,?,?,?>>
 					extends Serializable,EjbPersistable,
@@ -22,5 +22,5 @@ public interface JeeslAssetStatus <L extends UtilsLang, D extends UtilsDescripti
 								EjbWithCodeGraphic<G>,
 								UtilsStatus<S,L,D>
 {	
-	public enum Code{na,planned,operational}
+	public enum Code{purchase,deployment}
 }

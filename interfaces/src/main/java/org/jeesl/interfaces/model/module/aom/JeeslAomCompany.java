@@ -1,13 +1,14 @@
-package org.jeesl.interfaces.model.module.asset;
+package org.jeesl.interfaces.model.module.aom;
 
 import java.io.Serializable;
+import java.util.List;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.with.code.EjbWithNonUniqueCode;
 import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 
-public interface JeeslAssetCompany <REALM extends JeeslAssetRealm<?,?,REALM,?>,
-									SCOPE extends JeeslAssetScope<?,?,SCOPE,?>>
+public interface JeeslAomCompany <REALM extends JeeslAomRealm<?,?,REALM,?>,
+									SCOPE extends JeeslAomScope<?,?,SCOPE,?>>
 		extends Serializable,EjbSaveable,EjbWithName,EjbWithNonUniqueCode
 {
 	REALM getRealm();
@@ -18,4 +19,7 @@ public interface JeeslAssetCompany <REALM extends JeeslAssetRealm<?,?,REALM,?>,
 	
 	String getUrl();
 	void setUrl(String url);
+	
+	List<SCOPE> getScopes();
+	void setScopes(List<SCOPE> scopes);
 }
