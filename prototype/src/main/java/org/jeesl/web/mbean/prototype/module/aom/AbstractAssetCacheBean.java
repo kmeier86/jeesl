@@ -5,15 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jeesl.api.bean.module.aom.JeeslAssetCacheBean;
 import org.jeesl.api.facade.module.JeeslAssetFacade;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
-import org.jeesl.interfaces.bean.system.JeeslAssetCacheBean;
 import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
-import org.jeesl.interfaces.model.module.aom.JeeslAomCompany;
-import org.jeesl.interfaces.model.module.aom.JeeslAomRealm;
-import org.jeesl.interfaces.model.module.aom.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.JeeslAomStatus;
 import org.jeesl.interfaces.model.module.aom.JeeslAomType;
+import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
+import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
+import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +29,7 @@ public abstract class AbstractAssetCacheBean <L extends UtilsLang, D extends Uti
 										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
 										STATUS extends JeeslAomStatus<L,D,STATUS,?>,
 										TYPE extends JeeslAomType<L,D,REALM,TYPE,?>>
-								implements JeeslAssetCacheBean<L,D,REALM,RREF,ASSET,COMPANY,SCOPE,STATUS,TYPE>
+								implements JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,STATUS,TYPE>
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetCacheBean.class);
@@ -38,32 +38,37 @@ public abstract class AbstractAssetCacheBean <L extends UtilsLang, D extends Uti
 	
 	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fbAsset;
 
-	private final Map<REALM,Map<RREF,List<TYPE>>> map; public Map<REALM, Map<RREF, List<TYPE>>> getMap() {return map;}
-
+	private final Map<REALM,Map<RREF,List<TYPE>>> mapAssetType; @Override public Map<REALM,Map<RREF,List<TYPE>>> getMapAssetType() {return mapAssetType;}
+	private final Map<REALM,Map<RREF,List<COMPANY>>> mapCompanyManufacturer; public Map<REALM,Map<RREF,List<COMPANY>>> getMapCompanyManufacturer() {return mapCompanyManufacturer;}
+	
 	public AbstractAssetCacheBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fbAsset)
 	{
 		this.fbAsset=fbAsset;
-		map = new HashMap<>();
+		
+		mapAssetType = new HashMap<>();
+		mapCompanyManufacturer = new HashMap<>();
 	}
 	
-	protected void reload(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset, REALM realm, RREF rref)
+	@Override public void reloadAssetTypes(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset, REALM realm, RREF rref)
 	{
 		this.fAsset=fAsset;
-		if(!map.containsKey(realm)) {map.put(realm,new HashMap<>());}
-		if(!map.get(realm).containsKey(rref)) {map.get(realm).put(rref,new ArrayList<>());}
-		else {map.get(realm).get(rref).clear();}
+		
+		if(!mapAssetType.containsKey(realm)) {mapAssetType.put(realm,new HashMap<>());}
+		
+		
+		if(!mapAssetType.get(realm).containsKey(rref)) {mapAssetType.get(realm).put(rref,new ArrayList<>());}
+		else {mapAssetType.get(realm).get(rref).clear();}
 
 		TYPE root = fAsset.fcAssetRootType(realm,rref);
 		reloadTypes(realm,rref,fAsset.allForParent(fbAsset.getClassType(),root));
-		logger.info(AbstractLogMessage.reloaded(fbAsset.getClassType(), map.get(realm).get(rref), rref)+" in realm "+realm.toString());
-		
+		logger.info(AbstractLogMessage.reloaded(fbAsset.getClassType(), mapAssetType.get(realm).get(rref), rref)+" in realm "+realm.toString());
 	}
 	
 	private void reloadTypes(REALM realm, RREF rref, List<TYPE> types)
 	{
 		for(TYPE type : types)
 		{
-			map.get(realm).get(rref).add(type);
+			mapAssetType.get(realm).get(rref).add(type);
 			reloadTypes(realm,rref,fAsset.allForParent(fbAsset.getClassType(),type));
 		}
 	}

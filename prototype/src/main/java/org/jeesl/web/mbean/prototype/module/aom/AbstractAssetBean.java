@@ -5,19 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jeesl.api.bean.JeeslTranslationBean;
+import org.jeesl.api.bean.module.aom.JeeslAssetCacheBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslAssetFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.factory.ejb.module.asset.EjbAssetFactory;
-import org.jeesl.interfaces.bean.system.JeeslAssetCacheBean;
 import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
-import org.jeesl.interfaces.model.module.aom.JeeslAomCompany;
-import org.jeesl.interfaces.model.module.aom.JeeslAomRealm;
-import org.jeesl.interfaces.model.module.aom.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.JeeslAomStatus;
 import org.jeesl.interfaces.model.module.aom.JeeslAomType;
+import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
+import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
+import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.primefaces.event.NodeCollapseEvent;
@@ -75,7 +75,7 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 	
 	protected <E extends Enum<E>> void postConstructAsset(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 									JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset,
-									JeeslAssetCacheBean<L,D,REALM,RREF,ASSET,COMPANY,SCOPE,STATUS,TYPE> bCache,
+									JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,STATUS,TYPE> bCache,
 									E eRealm, RREF rref
 									)
 	{

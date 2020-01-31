@@ -3,6 +3,8 @@ package org.jeesl.interfaces.model.module.aom;
 import java.io.Serializable;
 import java.util.List;
 
+import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
+import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
 import org.jeesl.interfaces.model.system.with.EjbWithRemark;
 import org.jeesl.interfaces.model.with.status.JeeslWithStatus;
 
@@ -34,10 +36,11 @@ public interface JeeslAomAsset <REALM extends JeeslAomRealm<?,?,REALM,?>,
 	ASSET getParent();
 	void setParent(ASSET parent);
 	
-	
-	
 	TYPE getType1();
 	void setType1(TYPE type1);
+	
+	COMPANY getManufacturer();
+	void setManufacturer(COMPANY manufacturer);
 	
 	List<ASSET> getAssets();
 	void setAssets(List<ASSET> assets);

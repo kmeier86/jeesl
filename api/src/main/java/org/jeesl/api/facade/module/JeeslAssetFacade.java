@@ -1,12 +1,14 @@
 package org.jeesl.api.facade.module;
 
+import java.util.List;
+
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
-import org.jeesl.interfaces.model.module.aom.JeeslAomCompany;
-import org.jeesl.interfaces.model.module.aom.JeeslAomRealm;
-import org.jeesl.interfaces.model.module.aom.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.JeeslAomStatus;
 import org.jeesl.interfaces.model.module.aom.JeeslAomType;
+import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
+import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
+import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
 
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -23,4 +25,5 @@ public interface JeeslAssetFacade <L extends UtilsLang, D extends UtilsDescripti
 {	
 	<RREF extends EjbWithId> ASSET fcAssetRoot(REALM realm, RREF realmReference);
 	<RREF extends EjbWithId> TYPE fcAssetRootType(REALM realm, RREF realmReference);
+	<RREF extends EjbWithId> List<COMPANY> fAssetCompanies(REALM realm, RREF realmReference, SCOPE scope);
 }

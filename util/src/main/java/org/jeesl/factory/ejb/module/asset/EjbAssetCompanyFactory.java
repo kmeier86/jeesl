@@ -1,8 +1,8 @@
 package org.jeesl.factory.ejb.module.asset;
 
-import org.jeesl.interfaces.model.module.aom.JeeslAomCompany;
-import org.jeesl.interfaces.model.module.aom.JeeslAomRealm;
-import org.jeesl.interfaces.model.module.aom.JeeslAomScope;
+import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
+import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
+import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -3,6 +3,7 @@ package org.jeesl.interfaces.model.module.aom;
 import java.io.Serializable;
 import java.util.List;
 
+import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.with.EjbWithCodeGraphic;
 

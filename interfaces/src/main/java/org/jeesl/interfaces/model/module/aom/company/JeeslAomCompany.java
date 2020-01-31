@@ -1,7 +1,9 @@
-package org.jeesl.interfaces.model.module.aom;
+package org.jeesl.interfaces.model.module.aom.company;
 
 import java.io.Serializable;
 import java.util.List;
+
+import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.with.code.EjbWithNonUniqueCode;
@@ -11,6 +13,8 @@ public interface JeeslAomCompany <REALM extends JeeslAomRealm<?,?,REALM,?>,
 									SCOPE extends JeeslAomScope<?,?,SCOPE,?>>
 		extends Serializable,EjbSaveable,EjbWithName,EjbWithNonUniqueCode
 {
+	public enum Attributes{realm,realmIdentifier,scopes}
+	
 	REALM getRealm();
 	void setRealm(REALM realm);
 	

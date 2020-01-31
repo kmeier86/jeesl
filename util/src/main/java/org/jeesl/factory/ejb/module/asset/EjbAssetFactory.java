@@ -3,11 +3,11 @@ package org.jeesl.factory.ejb.module.asset;
 import java.util.UUID;
 
 import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
-import org.jeesl.interfaces.model.module.aom.JeeslAomCompany;
-import org.jeesl.interfaces.model.module.aom.JeeslAomRealm;
-import org.jeesl.interfaces.model.module.aom.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.JeeslAomStatus;
 import org.jeesl.interfaces.model.module.aom.JeeslAomType;
+import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
+import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
+import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

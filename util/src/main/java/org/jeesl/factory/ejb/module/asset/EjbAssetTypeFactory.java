@@ -1,7 +1,7 @@
 package org.jeesl.factory.ejb.module.asset;
 
-import org.jeesl.interfaces.model.module.aom.JeeslAomRealm;
 import org.jeesl.interfaces.model.module.aom.JeeslAomType;
+import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

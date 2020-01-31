@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.ListJoin;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
@@ -19,11 +20,11 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
-import org.jeesl.interfaces.model.module.aom.JeeslAomCompany;
-import org.jeesl.interfaces.model.module.aom.JeeslAomRealm;
-import org.jeesl.interfaces.model.module.aom.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.JeeslAomStatus;
 import org.jeesl.interfaces.model.module.aom.JeeslAomType;
+import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
+import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
+import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -123,5 +124,30 @@ public class JeeslAssetFacadeBean<L extends UtilsLang, D extends UtilsDescriptio
 				return this.fcAssetRootType(realm,realmReference);
 			}
 		}
+	}
+
+	@Override public <RREF extends EjbWithId> List<COMPANY> fAssetCompanies(REALM realm, RREF realmReference, SCOPE scope)
+	{
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<COMPANY> cQ = cB.createQuery(fbAsset.getClassCompany());
+		Root<COMPANY> company = cQ.from(fbAsset.getClassCompany());
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		Expression<Long> eRefId = company.get(JeeslAomCompany.Attributes.realmIdentifier.toString());
+		predicates.add(cB.equal(eRefId,realmReference.getId()));
+		
+		Path<REALM> pRealm = company.get(JeeslAomCompany.Attributes.realm.toString());
+		predicates.add(cB.equal(pRealm,realm));
+		
+		if(scope!=null)
+		{
+			ListJoin<COMPANY,SCOPE> jScopes = company.joinList(JeeslAomCompany.Attributes.scopes.toString());
+			predicates.add(jScopes.in(scope));	
+		}
+		
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(company);
+
+		return em.createQuery(cQ).getResultList();
 	}
 }
