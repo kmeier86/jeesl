@@ -39,9 +39,9 @@ public class AbstractAssetManufacturerBean <L extends UtilsLang, D extends Utils
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetManufacturerBean.class);
 	
-	protected JeeslAssetFacade<L,D,REALM,ASSET,COMPANY,SCOPE,STATUS,TYPE> fAsset;
+	protected JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset;
 	
-	private final AssetFactoryBuilder<L,D,REALM,ASSET,COMPANY,SCOPE,STATUS,TYPE> fbAsset;
+	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fbAsset;
 	
 	private List<COMPANY> manufacturers; public List<COMPANY> getManufacturers() {return manufacturers;} public void setManufacturers(List<COMPANY> manufacturers) {this.manufacturers = manufacturers;}
 
@@ -49,14 +49,14 @@ public class AbstractAssetManufacturerBean <L extends UtilsLang, D extends Utils
     private RREF realmReference;
 	private COMPANY manufacturer; public COMPANY getManufacturer() {return manufacturer;} public void setManufacturer(COMPANY manufacturer) {this.manufacturer = manufacturer;}
 
-	public AbstractAssetManufacturerBean(AssetFactoryBuilder<L,D,REALM,ASSET,COMPANY,SCOPE,STATUS,TYPE> fbAsset)
+	public AbstractAssetManufacturerBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fbAsset)
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
 	}
 
 	protected <E extends Enum<E>> void postConstructAssetManufacturer(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-													JeeslAssetFacade<L,D,REALM,ASSET,COMPANY,SCOPE,STATUS,TYPE> fAsset,
+													JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset,
 													E eRealm, RREF realmReference)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);

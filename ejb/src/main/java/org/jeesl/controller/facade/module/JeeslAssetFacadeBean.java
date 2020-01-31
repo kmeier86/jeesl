@@ -33,21 +33,21 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class JeeslAssetFacadeBean<L extends UtilsLang, D extends UtilsDescription,
 										REALM extends JeeslAssetRealm<L,D,REALM,?>,
-										ASSET extends JeeslAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
 										COMPANY extends JeeslAssetCompany<REALM,SCOPE>,
 										SCOPE extends JeeslAssetScope<L,D,SCOPE,?>,
+										ASSET extends JeeslAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
 										STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
 										TYPE extends JeeslAssetType<L,D,REALM,TYPE,?>>
 					extends JeeslFacadeBean
-					implements JeeslAssetFacade<L,D,REALM,ASSET,COMPANY,SCOPE,STATUS,TYPE>
+					implements JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE>
 {	
 	private static final long serialVersionUID = 1L;
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslAssetFacadeBean.class);
 	
-	private final AssetFactoryBuilder<L,D,REALM,ASSET,COMPANY,SCOPE,STATUS,TYPE> fbAsset;
+	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fbAsset;
 	
-	public JeeslAssetFacadeBean(EntityManager em, final AssetFactoryBuilder<L,D,REALM,ASSET,COMPANY,SCOPE,STATUS,TYPE> fbAsset)
+	public JeeslAssetFacadeBean(EntityManager em, final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fbAsset)
 	{
 		super(em);
 		this.fbAsset=fbAsset;

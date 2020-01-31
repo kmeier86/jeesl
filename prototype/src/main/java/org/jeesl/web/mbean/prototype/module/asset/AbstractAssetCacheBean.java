@@ -34,19 +34,19 @@ public abstract class AbstractAssetCacheBean <L extends UtilsLang, D extends Uti
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetCacheBean.class);
 	
-	private JeeslAssetFacade<L,D,REALM,ASSET,COMPANY,SCOPE,STATUS,TYPE> fAsset;
+	private JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset;
 	
-	private final AssetFactoryBuilder<L,D,REALM,ASSET,COMPANY,SCOPE,STATUS,TYPE> fbAsset;
+	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fbAsset;
 
 	private final Map<REALM,Map<RREF,List<TYPE>>> map; public Map<REALM, Map<RREF, List<TYPE>>> getMap() {return map;}
 
-	public AbstractAssetCacheBean(AssetFactoryBuilder<L,D,REALM,ASSET,COMPANY,SCOPE,STATUS,TYPE> fbAsset)
+	public AbstractAssetCacheBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fbAsset)
 	{
 		this.fbAsset=fbAsset;
 		map = new HashMap<>();
 	}
 	
-	protected void reload(JeeslAssetFacade<L,D,REALM,ASSET,COMPANY,SCOPE,STATUS,TYPE> fAsset, REALM realm, RREF rref)
+	protected void reload(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset, REALM realm, RREF rref)
 	{
 		this.fAsset=fAsset;
 		if(!map.containsKey(realm)) {map.put(realm,new HashMap<>());}

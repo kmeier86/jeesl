@@ -18,9 +18,9 @@ import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 
 public class AssetFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 								REALM extends JeeslAssetRealm<L,D,REALM,?>,
-								ASSET extends JeeslAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
 								COMPANY extends JeeslAssetCompany<REALM,SCOPE>,
 								SCOPE extends JeeslAssetScope<L,D,SCOPE,?>,
+								ASSET extends JeeslAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
 								STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
 								TYPE extends JeeslAssetType<L,D,REALM,TYPE,?>>
 		extends AbstractFactoryBuilder<L,D>

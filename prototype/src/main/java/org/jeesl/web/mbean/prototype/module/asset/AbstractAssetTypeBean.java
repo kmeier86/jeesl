@@ -54,10 +54,10 @@ public abstract class AbstractAssetTypeBean <L extends UtilsLang, D extends Util
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetTypeBean.class);
 	
-	private JeeslAssetFacade<L,D,REALM,ASSET,COMPANY,SCOPE,STATUS,TYPE> fAsset;
+	private JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset;
 	
 	private final SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg;
-	private final AssetFactoryBuilder<L,D,REALM,ASSET,COMPANY,SCOPE,STATUS,TYPE> fbAsset;
+	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fbAsset;
 	
 	private final EjbAssetTypeFactory<REALM,TYPE> efType;
 	
@@ -69,7 +69,7 @@ public abstract class AbstractAssetTypeBean <L extends UtilsLang, D extends Util
     private TYPE root;
     private TYPE type;  public TYPE getType() {return type;} public void setType(TYPE type) {this.type = type;}
 
-	public AbstractAssetTypeBean(AssetFactoryBuilder<L,D,REALM,ASSET,COMPANY,SCOPE,STATUS,TYPE> fbAsset, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg)
+	public AbstractAssetTypeBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fbAsset, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg)
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
@@ -79,7 +79,7 @@ public abstract class AbstractAssetTypeBean <L extends UtilsLang, D extends Util
 	}
 	
 	protected <E extends Enum<E>> void postConstructAssetType(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslAssetFacade<L,D,REALM,ASSET,COMPANY,SCOPE,STATUS,TYPE> fAsset,
+									JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset,
 									E eRealm, RREF rRef)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
