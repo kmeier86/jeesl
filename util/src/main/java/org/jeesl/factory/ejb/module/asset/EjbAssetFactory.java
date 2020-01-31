@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.jeesl.interfaces.model.module.asset.JeeslAsset;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetCompany;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetRealm;
+import org.jeesl.interfaces.model.module.asset.JeeslAssetScope;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetStatus;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetType;
 import org.slf4j.Logger;
@@ -14,7 +15,8 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class EjbAssetFactory<REALM extends JeeslAssetRealm<?,?,REALM,?>,
 							ASSET extends JeeslAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
-							COMPANY extends JeeslAssetCompany<REALM>,
+							COMPANY extends JeeslAssetCompany<REALM,SCOPE>,
+							SCOPE extends JeeslAssetScope<?,?,SCOPE,?>,
 							STATUS extends JeeslAssetStatus<?,?,STATUS,?>,
 							TYPE extends JeeslAssetType<?,?,REALM,TYPE,?>>
 {

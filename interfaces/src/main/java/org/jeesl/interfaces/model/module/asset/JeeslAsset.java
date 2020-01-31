@@ -14,7 +14,7 @@ import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 
 public interface JeeslAsset <REALM extends JeeslAssetRealm<?,?,REALM,?>,
 							ASSET extends JeeslAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
-							COMPANY extends JeeslAssetCompany<REALM>,
+							COMPANY extends JeeslAssetCompany<REALM,?>,
 							STATUS extends JeeslAssetStatus<?,?,STATUS,?>,
 							TYPE extends JeeslAssetType<?,?,REALM,TYPE,?>>
 			extends Serializable,EjbSaveable,

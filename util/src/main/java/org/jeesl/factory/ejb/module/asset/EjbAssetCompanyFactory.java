@@ -2,13 +2,15 @@ package org.jeesl.factory.ejb.module.asset;
 
 import org.jeesl.interfaces.model.module.asset.JeeslAssetCompany;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetRealm;
+import org.jeesl.interfaces.model.module.asset.JeeslAssetScope;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class EjbAssetCompanyFactory<REALM extends JeeslAssetRealm<?,?,REALM,?>,
-									COMPANY extends JeeslAssetCompany<REALM>>
+									COMPANY extends JeeslAssetCompany<REALM,SCOPE>,
+									SCOPE extends JeeslAssetScope<?,?,SCOPE,?>>
 {
 	final static Logger logger = LoggerFactory.getLogger(EjbAssetCompanyFactory.class);
 	

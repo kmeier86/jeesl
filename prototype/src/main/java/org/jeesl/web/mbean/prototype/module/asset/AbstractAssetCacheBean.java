@@ -11,6 +11,7 @@ import org.jeesl.interfaces.bean.system.JeeslAssetCacheBean;
 import org.jeesl.interfaces.model.module.asset.JeeslAsset;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetCompany;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetRealm;
+import org.jeesl.interfaces.model.module.asset.JeeslAssetScope;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetStatus;
 import org.jeesl.interfaces.model.module.asset.JeeslAssetType;
 import org.slf4j.Logger;
@@ -24,27 +25,28 @@ import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 public abstract class AbstractAssetCacheBean <L extends UtilsLang, D extends UtilsDescription,
 										REALM extends JeeslAssetRealm<L,D,REALM,?>, RREF extends EjbWithId,
 										ASSET extends JeeslAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
-										COMPANY extends JeeslAssetCompany<REALM>,
+										COMPANY extends JeeslAssetCompany<REALM,SCOPE>,
+										SCOPE extends JeeslAssetScope<L,D,SCOPE,?>,
 										STATUS extends JeeslAssetStatus<L,D,STATUS,?>,
 										TYPE extends JeeslAssetType<L,D,REALM,TYPE,?>>
-								implements JeeslAssetCacheBean<L,D,REALM,RREF,ASSET,COMPANY,STATUS,TYPE>
+								implements JeeslAssetCacheBean<L,D,REALM,RREF,ASSET,COMPANY,SCOPE,STATUS,TYPE>
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetCacheBean.class);
 	
-	private JeeslAssetFacade<L,D,REALM,ASSET,COMPANY,STATUS,TYPE> fAsset;
+	private JeeslAssetFacade<L,D,REALM,ASSET,COMPANY,SCOPE,STATUS,TYPE> fAsset;
 	
-	private final AssetFactoryBuilder<L,D,REALM,ASSET,COMPANY,STATUS,TYPE> fbAsset;
+	private final AssetFactoryBuilder<L,D,REALM,ASSET,COMPANY,SCOPE,STATUS,TYPE> fbAsset;
 
 	private final Map<REALM,Map<RREF,List<TYPE>>> map; public Map<REALM, Map<RREF, List<TYPE>>> getMap() {return map;}
 
-	public AbstractAssetCacheBean(AssetFactoryBuilder<L,D,REALM,ASSET,COMPANY,STATUS,TYPE> fbAsset)
+	public AbstractAssetCacheBean(AssetFactoryBuilder<L,D,REALM,ASSET,COMPANY,SCOPE,STATUS,TYPE> fbAsset)
 	{
 		this.fbAsset=fbAsset;
 		map = new HashMap<>();
 	}
 	
-	protected void reload(JeeslAssetFacade<L,D,REALM,ASSET,COMPANY,STATUS,TYPE> fAsset, REALM realm, RREF rref)
+	protected void reload(JeeslAssetFacade<L,D,REALM,ASSET,COMPANY,SCOPE,STATUS,TYPE> fAsset, REALM realm, RREF rref)
 	{
 		this.fAsset=fAsset;
 		if(!map.containsKey(realm)) {map.put(realm,new HashMap<>());}
