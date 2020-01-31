@@ -34,42 +34,63 @@ public abstract class AbstractAssetCacheBean <L extends UtilsLang, D extends Uti
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetCacheBean.class);
 	
-	private JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset;
+//	private JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset;
 	
 	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fbAsset;
 
 	private final Map<REALM,Map<RREF,List<TYPE>>> mapAssetType; @Override public Map<REALM,Map<RREF,List<TYPE>>> getMapAssetType() {return mapAssetType;}
-	private final Map<REALM,Map<RREF,List<COMPANY>>> mapCompanyManufacturer; public Map<REALM,Map<RREF,List<COMPANY>>> getMapCompanyManufacturer() {return mapCompanyManufacturer;}
+	private final Map<REALM,Map<RREF,List<COMPANY>>> mapManufacturer; public Map<REALM,Map<RREF,List<COMPANY>>> getMapManufacturer() {return mapManufacturer;}
+	private final Map<REALM,Map<RREF,List<COMPANY>>> mapVendor; public Map<REALM,Map<RREF,List<COMPANY>>> getMapVendor() {return mapVendor;}
 	
 	public AbstractAssetCacheBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fbAsset)
 	{
 		this.fbAsset=fbAsset;
 		
 		mapAssetType = new HashMap<>();
-		mapCompanyManufacturer = new HashMap<>();
+		mapManufacturer = new HashMap<>();
+		mapVendor = new HashMap<>();
 	}
 	
-	@Override public void reloadAssetTypes(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset, REALM realm, RREF rref)
+	public void reloadRealm(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset, REALM realm, RREF rref)
 	{
-		this.fAsset=fAsset;
-		
-		if(!mapAssetType.containsKey(realm)) {mapAssetType.put(realm,new HashMap<>());}
-		
-		
-		if(!mapAssetType.get(realm).containsKey(rref)) {mapAssetType.get(realm).put(rref,new ArrayList<>());}
-		else {mapAssetType.get(realm).get(rref).clear();}
-
-		TYPE root = fAsset.fcAssetRootType(realm,rref);
-		reloadTypes(realm,rref,fAsset.allForParent(fbAsset.getClassType(),root));
-		logger.info(AbstractLogMessage.reloaded(fbAsset.getClassType(), mapAssetType.get(realm).get(rref), rref)+" in realm "+realm.toString());
+		reloadAssetTypes(fAsset,realm,rref,false);
+		reloadCompanies(fAsset,realm,rref,false,fAsset.fByEnum(fbAsset.getClassScope(),JeeslAomScope.Code.manufacturer),mapManufacturer);
+		reloadCompanies(fAsset,realm,rref,false,fAsset.fByEnum(fbAsset.getClassScope(),JeeslAomScope.Code.vendor),mapVendor);
 	}
 	
-	private void reloadTypes(REALM realm, RREF rref, List<TYPE> types)
+	public void reloadAssetTypes(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset, REALM realm, RREF rref,boolean force)
+	{		
+		if(!mapAssetType.containsKey(realm)) {mapAssetType.put(realm,new HashMap<>());}	
+		if(!mapAssetType.get(realm).containsKey(rref)) {mapAssetType.get(realm).put(rref,new ArrayList<>());}
+
+		if(force || mapAssetType.get(realm).get(rref).isEmpty())
+		{
+			mapAssetType.get(realm).get(rref).clear();
+			TYPE root = fAsset.fcAssetRootType(realm,rref);
+			reloadTypes(fAsset,realm,rref,fAsset.allForParent(fbAsset.getClassType(),root));
+			logger.info(AbstractLogMessage.reloaded(fbAsset.getClassType(), mapAssetType.get(realm).get(rref), rref)+" in realm "+realm.toString());
+		}
+	}
+	private void reloadTypes(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset, REALM realm, RREF rref, List<TYPE> types)
 	{
 		for(TYPE type : types)
 		{
 			mapAssetType.get(realm).get(rref).add(type);
-			reloadTypes(realm,rref,fAsset.allForParent(fbAsset.getClassType(),type));
+			reloadTypes(fAsset,realm,rref,fAsset.allForParent(fbAsset.getClassType(),type));
+		}
+	}
+	
+	private void reloadCompanies(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset,
+								REALM realm, RREF rref, boolean force, SCOPE scope,
+								Map<REALM,Map<RREF,List<COMPANY>>> map)
+	{		
+		if(!map.containsKey(realm)) {map.put(realm,new HashMap<>());}
+		if(!map.get(realm).containsKey(rref)) {map.get(realm).put(rref,new ArrayList<>());}
+		
+		if(force || map.get(realm).get(rref).isEmpty())
+		{
+			map.get(realm).get(rref).addAll(fAsset.fAssetCompanies(realm, rref, scope));
+			logger.info(AbstractLogMessage.reloaded(fbAsset.getClassCompany(), map.get(realm).get(rref), rref)+" in realm "+realm.toString());
 		}
 	}
 }

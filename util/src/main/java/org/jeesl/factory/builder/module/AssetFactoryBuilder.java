@@ -53,5 +53,5 @@ public class AssetFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 	
 	public EjbAssetCompanyFactory<REALM,COMPANY,SCOPE> ejbManufacturer() {return new EjbAssetCompanyFactory<>(cCompany);}
 	public EjbAssetTypeFactory<REALM,TYPE> ejbType() {return new EjbAssetTypeFactory<>(cType);}
-	public EjbAssetFactory<REALM,ASSET,COMPANY,SCOPE,STATUS,TYPE> ejbAsset() {return new EjbAssetFactory<>(cAsset);}
+	public EjbAssetFactory<REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> ejbAsset() {return new EjbAssetFactory<>(this);}
 }

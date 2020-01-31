@@ -23,7 +23,7 @@ public interface JeeslAssetFacade <L extends UtilsLang, D extends UtilsDescripti
 									TYPE extends JeeslAomType<L,D,REALM,TYPE,?>>
 			extends JeeslFacade
 {	
-	<RREF extends EjbWithId> ASSET fcAssetRoot(REALM realm, RREF realmReference);
-	<RREF extends EjbWithId> TYPE fcAssetRootType(REALM realm, RREF realmReference);
-	<RREF extends EjbWithId> List<COMPANY> fAssetCompanies(REALM realm, RREF realmReference, SCOPE scope);
+	<RREF extends EjbWithId> ASSET fcAssetRoot(REALM realm, RREF rref);
+	<RREF extends EjbWithId> TYPE fcAssetRootType(REALM realm, RREF rref);
+	<RREF extends EjbWithId> List<COMPANY> fAssetCompanies(REALM realm, RREF rref, SCOPE scope);
 }

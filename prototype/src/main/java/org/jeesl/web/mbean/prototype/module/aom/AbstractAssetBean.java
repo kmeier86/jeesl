@@ -50,7 +50,7 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 	
 	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fbAsset;
 	
-	private final EjbAssetFactory<REALM,ASSET,COMPANY,SCOPE,STATUS,TYPE> efAsset;
+	private final EjbAssetFactory<REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> efAsset;
 	
 	private TreeNode tree; public TreeNode getTree() {return tree;}
     private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
@@ -117,7 +117,7 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 	
 	public void saveAsset() throws JeeslConstraintViolationException, JeeslLockingException
 	{
-		efAsset.converter(asset);
+		efAsset.converter(fAsset,asset);
 		asset = fAsset.save(asset);
 		reloadTree();
 	}

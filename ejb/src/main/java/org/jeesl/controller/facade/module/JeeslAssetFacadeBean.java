@@ -143,6 +143,7 @@ public class JeeslAssetFacadeBean<L extends UtilsLang, D extends UtilsDescriptio
 		{
 			ListJoin<COMPANY,SCOPE> jScopes = company.joinList(JeeslAomCompany.Attributes.scopes.toString());
 			predicates.add(jScopes.in(scope));	
+//			predicates.add(cB.isTrue(jScopes.in(scope)));
 		}
 		
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));

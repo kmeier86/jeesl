@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import org.jeesl.api.facade.module.JeeslAssetFacade;
 import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
 import org.jeesl.interfaces.model.module.aom.JeeslAomStatus;
 import org.jeesl.interfaces.model.module.aom.JeeslAomType;
@@ -25,6 +24,6 @@ public interface JeeslAssetCacheBean <L extends UtilsLang, D extends UtilsDescri
 										TYPE extends JeeslAomType<L,D,REALM,TYPE,?>>
 								extends Serializable
 {
-	void reloadAssetTypes(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset, REALM realm, RREF rref);
+//	void reloadAssetTypes(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset, REALM realm, RREF rref);
 	Map<REALM,Map<RREF,List<TYPE>>> getMapAssetType();
 }

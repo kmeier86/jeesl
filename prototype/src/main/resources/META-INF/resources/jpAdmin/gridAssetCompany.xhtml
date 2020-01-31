@@ -37,23 +37,23 @@
 			</h:form>
 		</j:slot>
 		<j:slot id="sManufacturer" width="6">
-			<h:form id="fSection" rendered="#{not empty cc.attrs.bean.manufacturer}">
+			<h:form id="fSection" rendered="#{not empty cc.attrs.bean.company}">
 				<p:panel header="#{msg.jeeslAssetManufacturer}" styleClass="jeeslPanel">
 					<f:facet name="actions">
 						<j:icon type="jeeslCancel" listener="#{cc.attrs.bean.cancelManufacturer()}" update=":#{cc.id}:grid"/>
 						<j:icon type="jeeslSave"   listener="#{cc.attrs.bean.saveManufacturer()}" update=":#{cc.id}:grid"/>
-						<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteManufacturer()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.manufacturer.id gt 0}"/>
+						<j:icon type="jeeslDelete" listener="#{cc.attrs.bean.deleteManufacturer()}" update=":#{cc.id}:grid" rendered="#{cc.attrs.bean.company.id gt 0}"/>
 					</f:facet>
 					<p:panelGrid columns="2" columnClasses="jeeslGrid20,jeeslGrid80">
 						
 						<p:outputLabel value="#{msg.jeeslCode}"/>
-						<jtp:inputText value="#{cc.attrs.bean.manufacturer.code}"/>
+						<jtp:inputText value="#{cc.attrs.bean.company.code}"/>
 						
 						<p:outputLabel value="#{msg.jeeslAssetManufacturerName}"/>
-						<jtp:inputText value="#{cc.attrs.bean.manufacturer.name}"/>
+						<jtp:inputText value="#{cc.attrs.bean.company.name}"/>
 						
 						<p:outputLabel value="#{msg.jeeslAssetManufacturerUrl}"/>
-						<jtp:inputText value="#{cc.attrs.bean.manufacturer.url}"/>
+						<jtp:inputText value="#{cc.attrs.bean.company.url}"/>
 						
 						<p:outputLabel value="#{msg.jeeslAssetScopes}"/>
 						<p:selectManyCheckbox id="grid2" value="#{cc.attrs.bean.smh.codes}" layout="responsive" columns="2">
