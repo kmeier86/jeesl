@@ -36,7 +36,7 @@ import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDescription, LOC extends JeeslLocale<L,D,LOC,?>,
+public abstract class AbstractAssetOpBean <L extends UtilsLang, D extends UtilsDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 										REALM extends JeeslAomRealm<L,D,REALM,?>, RREF extends EjbWithId,
 										COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 										SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
@@ -49,7 +49,7 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
-	final static Logger logger = LoggerFactory.getLogger(AbstractAssetBean.class);
+	final static Logger logger = LoggerFactory.getLogger(AbstractAssetOpBean.class);
 	
 	protected JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE> fAsset;
 	
@@ -62,15 +62,13 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 
     private final Set<ASSET> path;
 	
-
-    
 	private REALM realm; public REALM getRealm() {return realm;}
 	private RREF rref; public RREF getRref() {return rref;}
 
 	private ASSET root;
     private ASSET asset; public ASSET getAsset() {return asset;} public void setAsset(ASSET asset) {this.asset = asset;}
 
-	public AbstractAssetBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,EVENT,ETYPE> fbAsset)
+	public AbstractAssetOpBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,EVENT,ETYPE> fbAsset)
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
@@ -112,14 +110,6 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 			List<ASSET> childs = fAsset.allForParent(fbAsset.getClassAsset(),a);
 			if(!childs.isEmpty()){buildTree(n,childs);}
 		}
-	}
-	
-	public void addAsset()
-	{
-		ASSET parent = null; if(asset!=null) {parent = asset;} else {parent = root;}
-		STATUS status = fAsset.fByEnum(fbAsset.getClassStatus(),JeeslAomStatus.Code.na);
-		ATYPE type = fAsset.fcAssetRootType(realm,rref);
-		asset = efAsset.build(realm,rref, parent, status,type);
 	}
 	
 	public void saveAsset() throws JeeslConstraintViolationException, JeeslLockingException

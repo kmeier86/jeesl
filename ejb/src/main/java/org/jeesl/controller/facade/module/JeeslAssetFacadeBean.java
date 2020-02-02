@@ -25,6 +25,8 @@ import org.jeesl.interfaces.model.module.aom.JeeslAomType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
+import org.jeesl.interfaces.model.module.aom.op.JeeslAomEvent;
+import org.jeesl.interfaces.model.module.aom.op.JeeslAomEventType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,19 +38,21 @@ public class JeeslAssetFacadeBean<L extends UtilsLang, D extends UtilsDescriptio
 										REALM extends JeeslAomRealm<L,D,REALM,?>,
 										COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 										SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
-										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
+										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,ATYPE>,
 										STATUS extends JeeslAomStatus<L,D,STATUS,?>,
-										TYPE extends JeeslAomType<L,D,REALM,TYPE,?>>
+										ATYPE extends JeeslAomType<L,D,REALM,ATYPE,?>,
+										EVENT extends JeeslAomEvent<COMPANY,ASSET>,
+										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>>
 					extends JeeslFacadeBean
-					implements JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE>
+					implements JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE>
 {	
 	private static final long serialVersionUID = 1L;
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslAssetFacadeBean.class);
 	
-	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fbAsset;
+	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,EVENT,ETYPE> fbAsset;
 	
-	public JeeslAssetFacadeBean(EntityManager em, final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fbAsset)
+	public JeeslAssetFacadeBean(EntityManager em, final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,EVENT,ETYPE> fbAsset)
 	{
 		super(em);
 		this.fbAsset=fbAsset;
@@ -77,7 +81,7 @@ public class JeeslAssetFacadeBean<L extends UtilsLang, D extends UtilsDescriptio
 		try	{return tQ.getSingleResult();}
 		catch (NoResultException ex)
 		{
-			TYPE type = this.fcAssetRootType(realm,realmReference);
+			ATYPE type = this.fcAssetRootType(realm,realmReference);
 			STATUS status = this.fByEnum(fbAsset.getClassStatus(), JeeslAomStatus.Code.na);
 			ASSET result = fbAsset.ejbAsset().build(realm,realmReference, null, status, type);
 			try
@@ -92,11 +96,11 @@ public class JeeslAssetFacadeBean<L extends UtilsLang, D extends UtilsDescriptio
 	}
 
 	@Override
-	public <RREF extends EjbWithId> TYPE fcAssetRootType(REALM realm, RREF realmReference)
+	public <RREF extends EjbWithId> ATYPE fcAssetRootType(REALM realm, RREF realmReference)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
-		CriteriaQuery<TYPE> cQ = cB.createQuery(fbAsset.getClassType());
-		Root<TYPE> root = cQ.from(fbAsset.getClassType());
+		CriteriaQuery<ATYPE> cQ = cB.createQuery(fbAsset.getClassAssetType());
+		Root<ATYPE> root = cQ.from(fbAsset.getClassAssetType());
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		
 		Expression<Long> eRefId = root.get(JeeslAomAsset.Attributes.realmIdentifier.toString());
@@ -110,11 +114,11 @@ public class JeeslAssetFacadeBean<L extends UtilsLang, D extends UtilsDescriptio
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
 		cQ.select(root);
 
-		TypedQuery<TYPE> tQ = em.createQuery(cQ);
+		TypedQuery<ATYPE> tQ = em.createQuery(cQ);
 		try	{return tQ.getSingleResult();}
 		catch (NoResultException ex)
 		{
-			TYPE result = fbAsset.ejbType().build(realm, realmReference, null, "root");
+			ATYPE result = fbAsset.ejbType().build(realm, realmReference, null, "root");
 			try
 			{
 				return this.save(result);

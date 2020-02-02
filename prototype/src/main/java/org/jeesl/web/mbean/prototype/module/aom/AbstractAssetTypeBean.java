@@ -7,8 +7,10 @@ import java.util.UUID;
 import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslAssetFacade;
+import org.jeesl.api.facade.system.graphic.JeeslGraphicFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
+import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.factory.builder.system.SvgFactoryBuilder;
 import org.jeesl.factory.ejb.module.asset.EjbAssetTypeFactory;
@@ -18,6 +20,8 @@ import org.jeesl.interfaces.model.module.aom.JeeslAomType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
+import org.jeesl.interfaces.model.module.aom.op.JeeslAomEvent;
+import org.jeesl.interfaces.model.module.aom.op.JeeslAomEventType;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicType;
@@ -40,14 +44,16 @@ import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public abstract class AbstractAssetTypeBean <L extends UtilsLang, D extends UtilsDescription, LOC extends JeeslLocale<L,D,LOC,?>,
-										G extends JeeslGraphic<L,D,GT,F,FS>, GT extends UtilsStatus<GT,L,D>,
+										S extends EjbWithId, G extends JeeslGraphic<L,D,GT,F,FS>, GT extends UtilsStatus<GT,L,D>,
 										F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends UtilsStatus<FS,L,D>,
 										REALM extends JeeslAomRealm<L,D,REALM,?>, RREF extends EjbWithId,
 										COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 										SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
 										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
 										STATUS extends JeeslAomStatus<L,D,STATUS,?>,
-										TYPE extends JeeslAomType<L,D,REALM,TYPE,G>>
+										TYPE extends JeeslAomType<L,D,REALM,TYPE,G>,
+										EVENT extends JeeslAomEvent<COMPANY,ASSET>,
+										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>>
 					extends AbstractAdminBean<L,D>
 					implements Serializable
 {
@@ -55,9 +61,10 @@ public abstract class AbstractAssetTypeBean <L extends UtilsLang, D extends Util
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetTypeBean.class);
 	
 	private JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset;
+	private JeeslGraphicFacade<L,D,S,G,GT,F,FS> fGraphic;
 	
 	private final SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg;
-	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fbAsset;
+	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE,EVENT,ETYPE> fbAsset;
 	
 	private final EjbAssetTypeFactory<REALM,TYPE> efType;
 	
@@ -69,7 +76,7 @@ public abstract class AbstractAssetTypeBean <L extends UtilsLang, D extends Util
     private TYPE root;
     private TYPE type;  public TYPE getType() {return type;} public void setType(TYPE type) {this.type = type;}
 
-	public AbstractAssetTypeBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fbAsset, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg)
+	public AbstractAssetTypeBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE,EVENT,ETYPE> fbAsset, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg)
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
@@ -80,10 +87,12 @@ public abstract class AbstractAssetTypeBean <L extends UtilsLang, D extends Util
 	
 	protected <E extends Enum<E>> void postConstructAssetType(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 									JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset,
+									JeeslGraphicFacade<L,D,S,G,GT,F,FS> fGraphic,
 									E eRealm, RREF rRef)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fAsset=fAsset;
+		this.fGraphic=fGraphic;
 		
 		realm = fAsset.fByEnum(fbAsset.getClassRealm(),eRealm);
 		this.rRef=rRef;
@@ -96,7 +105,7 @@ public abstract class AbstractAssetTypeBean <L extends UtilsLang, D extends Util
 		root = fAsset.fcAssetRootType(realm,rRef);
 		
 		tree = new DefaultTreeNode(root, null);
-		buildTree(tree,fAsset.allForParent(fbAsset.getClassType(),root));
+		buildTree(tree,fAsset.allForParent(fbAsset.getClassAssetType(),root));
 	}
 	
 	private void buildTree(TreeNode parent, List<TYPE> types)
@@ -104,7 +113,7 @@ public abstract class AbstractAssetTypeBean <L extends UtilsLang, D extends Util
 		for(TYPE t : types)
 		{
 			TreeNode n = new DefaultTreeNode(t,parent);
-			List<TYPE> childs = fAsset.allForParent(fbAsset.getClassType(),t);
+			List<TYPE> childs = fAsset.allForParent(fbAsset.getClassAssetType(),t);
 			if(!childs.isEmpty()){buildTree(n,childs);}
 		}
 	}
@@ -170,8 +179,21 @@ public abstract class AbstractAssetTypeBean <L extends UtilsLang, D extends Util
 			g = fAsset.save(g);
 			type.setGraphic(g);
 			type = fAsset.save(type);
+			type.getGraphic().setData(file.getContents());
+			type = fAsset.save(type);
 		}
-		type.getGraphic().setData(file.getContents());
-		type = fAsset.save(type);
+		else
+		{
+			try
+			{
+				G g = fGraphic.fGraphic(fbAsset.getClassAssetType(),type);
+				g.setData(file.getContents());
+				fAsset.save(g);
+			}
+			catch (JeeslNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }

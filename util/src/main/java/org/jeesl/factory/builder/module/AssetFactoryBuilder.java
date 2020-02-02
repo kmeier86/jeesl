@@ -10,6 +10,8 @@ import org.jeesl.interfaces.model.module.aom.JeeslAomType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
+import org.jeesl.interfaces.model.module.aom.op.JeeslAomEvent;
+import org.jeesl.interfaces.model.module.aom.op.JeeslAomEventType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,9 +22,11 @@ public class AssetFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 								REALM extends JeeslAomRealm<L,D,REALM,?>,
 								COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 								SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
-								ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
+								ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,ATYPE>,
 								STATUS extends JeeslAomStatus<L,D,STATUS,?>,
-								TYPE extends JeeslAomType<L,D,REALM,TYPE,?>>
+								ATYPE extends JeeslAomType<L,D,REALM,ATYPE,?>,
+								EVENT extends JeeslAomEvent<COMPANY,ASSET>,
+								ETYPE extends JeeslAomEventType<L,D,ETYPE,?>>
 		extends AbstractFactoryBuilder<L,D>
 {
 	final static Logger logger = LoggerFactory.getLogger(AssetFactoryBuilder.class);
@@ -32,7 +36,7 @@ public class AssetFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 	private final Class<ASSET> cAsset; public Class<ASSET> getClassAsset() {return cAsset;}
 	private final Class<COMPANY> cCompany; public Class<COMPANY> getClassCompany() {return cCompany;}
 	private final Class<STATUS> cStatus; public Class<STATUS> getClassStatus() {return cStatus;}
-	private final Class<TYPE> cType; public Class<TYPE> getClassType() {return cType;}
+	private final Class<ATYPE> cType; public Class<ATYPE> getClassAssetType() {return cType;}
 
 	public AssetFactoryBuilder(final Class<L> cL,final Class<D> cD,
 								final Class<REALM> cRealm,
@@ -40,7 +44,7 @@ public class AssetFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 								final Class<COMPANY> cCompany,
 								final Class<SCOPE> cScope,
 								final Class<STATUS> cStatus,
-								final Class<TYPE> cType)
+								final Class<ATYPE> cType)
 	{       
 		super(cL,cD);
 		this.cRealm=cRealm;
@@ -52,6 +56,6 @@ public class AssetFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 	}
 	
 	public EjbAssetCompanyFactory<REALM,COMPANY,SCOPE> ejbManufacturer() {return new EjbAssetCompanyFactory<>(cCompany);}
-	public EjbAssetTypeFactory<REALM,TYPE> ejbType() {return new EjbAssetTypeFactory<>(cType);}
-	public EjbAssetFactory<REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> ejbAsset() {return new EjbAssetFactory<>(this);}
+	public EjbAssetTypeFactory<REALM,ATYPE> ejbType() {return new EjbAssetTypeFactory<>(cType);}
+	public EjbAssetFactory<REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE> ejbAsset() {return new EjbAssetFactory<>(this);}
 }

@@ -16,6 +16,8 @@ import org.jeesl.interfaces.model.module.aom.JeeslAomType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
+import org.jeesl.interfaces.model.module.aom.op.JeeslAomEvent;
+import org.jeesl.interfaces.model.module.aom.op.JeeslAomEventType;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.jsf.util.JeeslSelectManyHandler;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
@@ -33,7 +35,9 @@ public class AbstractAssetCompanyBean <L extends UtilsLang, D extends UtilsDescr
 											SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
 											ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
 											STATUS extends JeeslAomStatus<L,D,STATUS,?>,
-											TYPE extends JeeslAomType<L,D,REALM,TYPE,?>>
+											TYPE extends JeeslAomType<L,D,REALM,TYPE,?>,
+											EVENT extends JeeslAomEvent<COMPANY,ASSET>,
+											ETYPE extends JeeslAomEventType<L,D,ETYPE,?>>
 					extends AbstractAdminBean<L,D>
 					implements Serializable
 {
@@ -42,7 +46,7 @@ public class AbstractAssetCompanyBean <L extends UtilsLang, D extends UtilsDescr
 	
 	protected JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset;
 	
-	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fbAsset;
+	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE,EVENT,ETYPE> fbAsset;
 	
 	private JeeslSelectManyHandler<SCOPE> smh; public JeeslSelectManyHandler<SCOPE> getSmh() {return smh;}
 	
@@ -52,7 +56,7 @@ public class AbstractAssetCompanyBean <L extends UtilsLang, D extends UtilsDescr
     private RREF realmReference;
 	private COMPANY company; public COMPANY getCompany() {return company;} public void setCompany(COMPANY company) {this.company = company;}
 
-	public AbstractAssetCompanyBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fbAsset)
+	public AbstractAssetCompanyBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE,EVENT,ETYPE> fbAsset)
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
