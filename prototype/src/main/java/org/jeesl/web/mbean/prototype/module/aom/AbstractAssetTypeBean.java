@@ -52,7 +52,7 @@ public abstract class AbstractAssetTypeBean <L extends UtilsLang, D extends Util
 										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
 										STATUS extends JeeslAomStatus<L,D,STATUS,?>,
 										TYPE extends JeeslAomType<L,D,REALM,TYPE,G>,
-										EVENT extends JeeslAomEvent<COMPANY,ASSET>,
+										EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE>,
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>>
 					extends AbstractAdminBean<L,D>
 					implements Serializable

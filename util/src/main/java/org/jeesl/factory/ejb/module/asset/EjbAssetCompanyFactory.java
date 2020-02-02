@@ -16,9 +16,9 @@ public class EjbAssetCompanyFactory<REALM extends JeeslAomRealm<?,?,REALM,?>,
 	
 	private final Class<COMPANY> cCompany;
 	
-    public EjbAssetCompanyFactory(final Class<COMPANY> cManu)
+    public EjbAssetCompanyFactory(final Class<COMPANY> cCompany)
     {
-        this.cCompany = cManu;
+        this.cCompany = cCompany;
     }
 	
 	public <RREF extends EjbWithId> COMPANY build(REALM realm, RREF rRef)

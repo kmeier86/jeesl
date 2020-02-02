@@ -15,10 +15,10 @@ import net.sf.ahtutils.interfaces.model.with.position.EjbWithPosition;
 import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 
 public interface JeeslAomAsset <REALM extends JeeslAomRealm<?,?,REALM,?>,
-							ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
+							ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,ATYPE>,
 							COMPANY extends JeeslAomCompany<REALM,?>,
 							STATUS extends JeeslAomStatus<?,?,STATUS,?>,
-							TYPE extends JeeslAomType<?,?,REALM,TYPE,?>>
+							ATYPE extends JeeslAomType<?,?,REALM,ATYPE,?>>
 			extends Serializable,EjbSaveable,
 					EjbWithPosition,EjbWithParentAttributeResolver,
 					EjbWithNonUniqueCode,EjbWithName,EjbWithRemark,
@@ -36,8 +36,8 @@ public interface JeeslAomAsset <REALM extends JeeslAomRealm<?,?,REALM,?>,
 	ASSET getParent();
 	void setParent(ASSET parent);
 	
-	TYPE getType1();
-	void setType1(TYPE type1);
+	ATYPE getType1();
+	void setType1(ATYPE type1);
 	
 	COMPANY getManufacturer();
 	void setManufacturer(COMPANY manufacturer);

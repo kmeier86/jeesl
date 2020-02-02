@@ -1,6 +1,7 @@
 package org.jeesl.web.mbean.prototype.module.aom;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,6 +13,7 @@ import org.jeesl.api.facade.module.JeeslAssetFacade;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
+import org.jeesl.factory.ejb.module.asset.EjbAssetEventFactory;
 import org.jeesl.factory.ejb.module.asset.EjbAssetFactory;
 import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
 import org.jeesl.interfaces.model.module.aom.JeeslAomStatus;
@@ -35,6 +37,7 @@ import org.slf4j.LoggerFactory;
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
+import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 										REALM extends JeeslAomRealm<L,D,REALM,?>, RREF extends EjbWithId,
@@ -43,7 +46,7 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,ATYPE>,
 										STATUS extends JeeslAomStatus<L,D,STATUS,?>,
 										ATYPE extends JeeslAomType<L,D,REALM,ATYPE,?>,
-										EVENT extends JeeslAomEvent<COMPANY,ASSET>,
+										EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE>,
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>>
 					extends AbstractAdminBean<L,D>
 					implements Serializable
@@ -56,19 +59,21 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,EVENT,ETYPE> fbAsset;
 	
 	private final EjbAssetFactory<REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE> efAsset;
+	private final EjbAssetEventFactory<COMPANY,ASSET,EVENT,ETYPE> efEvent;
 	
 	private TreeNode tree; public TreeNode getTree() {return tree;}
     private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
 
     private final Set<ASSET> path;
 	
-
+    private final List<EVENT> events; public List<EVENT> getEvents() {return events;}
     
 	private REALM realm; public REALM getRealm() {return realm;}
 	private RREF rref; public RREF getRref() {return rref;}
 
 	private ASSET root;
     private ASSET asset; public ASSET getAsset() {return asset;} public void setAsset(ASSET asset) {this.asset = asset;}
+    private EVENT event; public EVENT getEvent() {return event;} public void setEvent(EVENT event) {this.event = event;}
 
 	public AbstractAssetBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,EVENT,ETYPE> fbAsset)
 	{
@@ -76,8 +81,10 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 		this.fbAsset=fbAsset;
 		
 		efAsset = fbAsset.ejbAsset();
+		efEvent = fbAsset.ejbEvent();
 		
 		path = new HashSet<>();
+		events = new ArrayList<>();
 	}
 	
 	protected <E extends Enum<E>> void postConstructAsset(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
@@ -93,6 +100,12 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 		this.rref=rref;
 		
 		reloadTree();
+	}
+	
+	private void reset(boolean rAsset, boolean rEvents)
+	{
+		if(rAsset) {asset=null;}
+		if(rEvents) {events.clear();}
 	}
 	
 	private void reloadTree()
@@ -116,6 +129,7 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 	
 	public void addAsset()
 	{
+		reset(true,true);
 		ASSET parent = null; if(asset!=null) {parent = asset;} else {parent = root;}
 		STATUS status = fAsset.fByEnum(fbAsset.getClassStatus(),JeeslAomStatus.Code.na);
 		ATYPE type = fAsset.fcAssetRootType(realm,rref);
@@ -163,8 +177,35 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
     @SuppressWarnings("unchecked")
 	public void onNodeSelect(NodeSelectEvent event)
     {
+    	reset(true,true);
 		logger.info("Selected "+event.getTreeNode().toString());
 		asset = (ASSET)event.getTreeNode().getData();
-		
+		reloadEvents();
+    }
+    
+	private void reloadEvents()
+	{
+		events.clear();
+		events.addAll(fAsset.all(fbAsset.getClassEvent()));
+	}
+    
+    public void addEvent()
+    {
+    	logger.info(AbstractLogMessage.addEntity(fbAsset.getClassEvent()));
+    	event = efEvent.build(asset);
+    }
+    
+    public void saveEvent() throws JeeslConstraintViolationException, JeeslLockingException
+    {
+    	logger.info(AbstractLogMessage.saveEntity(event));
+    	efEvent.converter(fAsset,event);
+    	event = fAsset.save(event);
+    	reloadEvents();
+    }
+    
+    public void selectEvent()
+    {
+    	logger.info(AbstractLogMessage.selectEntity(event));
+    	event = fAsset.find(fbAsset.getClassEvent(),event);
     }
 }

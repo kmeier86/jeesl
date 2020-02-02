@@ -2,6 +2,7 @@ package org.jeesl.factory.builder.module;
 
 import org.jeesl.factory.builder.AbstractFactoryBuilder;
 import org.jeesl.factory.ejb.module.asset.EjbAssetCompanyFactory;
+import org.jeesl.factory.ejb.module.asset.EjbAssetEventFactory;
 import org.jeesl.factory.ejb.module.asset.EjbAssetFactory;
 import org.jeesl.factory.ejb.module.asset.EjbAssetTypeFactory;
 import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
@@ -22,10 +23,10 @@ public class AssetFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 								REALM extends JeeslAomRealm<L,D,REALM,?>,
 								COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 								SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
-								ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,ATYPE>,
-								STATUS extends JeeslAomStatus<L,D,STATUS,?>,
+								ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,ASTATUS,ATYPE>,
+								ASTATUS extends JeeslAomStatus<L,D,ASTATUS,?>,
 								ATYPE extends JeeslAomType<L,D,REALM,ATYPE,?>,
-								EVENT extends JeeslAomEvent<COMPANY,ASSET>,
+								EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE>,
 								ETYPE extends JeeslAomEventType<L,D,ETYPE,?>>
 		extends AbstractFactoryBuilder<L,D>
 {
@@ -35,16 +36,20 @@ public class AssetFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 	private final Class<SCOPE> cScope; public Class<SCOPE> getClassScope() {return cScope;}
 	private final Class<ASSET> cAsset; public Class<ASSET> getClassAsset() {return cAsset;}
 	private final Class<COMPANY> cCompany; public Class<COMPANY> getClassCompany() {return cCompany;}
-	private final Class<STATUS> cStatus; public Class<STATUS> getClassStatus() {return cStatus;}
-	private final Class<ATYPE> cType; public Class<ATYPE> getClassAssetType() {return cType;}
+	private final Class<ASTATUS> cStatus; public Class<ASTATUS> getClassStatus() {return cStatus;}
+	private final Class<ATYPE> cAssetType; public Class<ATYPE> getClassAssetType() {return cAssetType;}
+	private final Class<EVENT> cEvent; public Class<EVENT> getClassEvent() {return cEvent;}
+	private final Class<ETYPE> cEventType; public Class<ETYPE> getClassEventType() {return cEventType;}
 
 	public AssetFactoryBuilder(final Class<L> cL,final Class<D> cD,
 								final Class<REALM> cRealm,
 								final Class<ASSET> cAsset,
 								final Class<COMPANY> cCompany,
 								final Class<SCOPE> cScope,
-								final Class<STATUS> cStatus,
-								final Class<ATYPE> cType)
+								final Class<ASTATUS> cStatus,
+								final Class<ATYPE> cAssetType,
+								final Class<EVENT> cEvent,
+								final Class<ETYPE> cEventType)
 	{       
 		super(cL,cD);
 		this.cRealm=cRealm;
@@ -52,10 +57,13 @@ public class AssetFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
 		this.cScope=cScope;
 		this.cAsset=cAsset;
 		this.cStatus=cStatus;
-		this.cType=cType;
+		this.cAssetType=cAssetType;
+		this.cEvent=cEvent;
+		this.cEventType=cEventType;
 	}
 	
 	public EjbAssetCompanyFactory<REALM,COMPANY,SCOPE> ejbManufacturer() {return new EjbAssetCompanyFactory<>(cCompany);}
-	public EjbAssetTypeFactory<REALM,ATYPE> ejbType() {return new EjbAssetTypeFactory<>(cType);}
-	public EjbAssetFactory<REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE> ejbAsset() {return new EjbAssetFactory<>(this);}
+	public EjbAssetTypeFactory<REALM,ATYPE> ejbType() {return new EjbAssetTypeFactory<>(cAssetType);}
+	public EjbAssetFactory<REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE> ejbAsset() {return new EjbAssetFactory<>(this);}
+	public EjbAssetEventFactory<COMPANY,ASSET,EVENT,ETYPE> ejbEvent() {return new EjbAssetEventFactory<>(this);}
 }

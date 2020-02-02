@@ -4,14 +4,16 @@ import java.io.Serializable;
 
 import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
+import org.jeesl.interfaces.model.with.status.JeeslWithType;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
 public interface JeeslAomEvent <COMPANY extends JeeslAomCompany<?,?>,
-							ASSET extends JeeslAomAsset<?,ASSET,COMPANY,?,?>>
+								ASSET extends JeeslAomAsset<?,ASSET,COMPANY,?,?>,
+								ETYPE extends JeeslAomEventType<?,?,ETYPE,?>>
 			extends Serializable,EjbSaveable,
-					EjbWithRecord
+					EjbWithRecord,JeeslWithType<ETYPE>
 				
 					
 {

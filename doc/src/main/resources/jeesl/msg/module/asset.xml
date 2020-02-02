@@ -44,17 +44,38 @@
     </s:translation>
     <s:translation key="jeeslAssetType">
     	<s:langs>
-    		<s:lang key="de" translation="Type"/>
+    		<s:lang key="de" translation="Typ"/>
     		<s:lang key="en" translation="Type"/>
     		<s:lang key="fr" translation="Type"/>
     	</s:langs>
     </s:translation>
-        <s:translation key="jeeslAssetScopes">
+	<s:translation key="jeeslAssetEvents">
     	<s:langs>
-    		<s:lang key="de" translation="Geltungsbereiche"/>
-    		<s:lang key="en" translation="Scopes"/>
-    		<s:lang key="fr" translation="Scopes"/>
+    		<s:lang key="de" translation="Eregnisse"/>
+    		<s:lang key="en" translation="Events"/>
+    		<s:lang key="fr" translation="Events"/>
     	</s:langs>
     </s:translation>
+	<s:translation key="jeeslAssetEvent">
+    	<s:langs>
+    		<s:lang key="de" translation="Ereignis"/>
+    		<s:lang key="en" translation="Event"/>
+    		<s:lang key="fr" translation="Event"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslAssetEventDate">
+    	<s:langs>
+    		<s:lang key="de" translation="Datum"/>
+    		<s:lang key="en" translation="Date"/>
+    		<s:lang key="fr" translation="Date"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslAssetEventType">
+    	<s:langs>
+    		<s:lang key="de" translation="Typ"/>
+    		<s:lang key="en" translation="Type"/>
+    		<s:lang key="fr" translation="Type"/>
+    	</s:langs>
+    </s:translation>     
     
 </s:translations>
