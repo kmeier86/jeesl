@@ -44,7 +44,7 @@ public class JeeslAssetFacadeBean<L extends UtilsLang, D extends UtilsDescriptio
 										EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE>,
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>>
 					extends JeeslFacadeBean
-					implements JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE>
+					implements JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,EVENT,ETYPE>
 {	
 	private static final long serialVersionUID = 1L;
 
@@ -154,5 +154,11 @@ public class JeeslAssetFacadeBean<L extends UtilsLang, D extends UtilsDescriptio
 		cQ.select(company);
 
 		return em.createQuery(cQ).getResultList();
+	}
+
+	@Override
+	public List<EVENT> fAssetEvents(ASSET asset)
+	{
+		return new ArrayList<>();
 	}
 }

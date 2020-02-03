@@ -1,4 +1,4 @@
-package org.jeesl.api.bean.module.aom;
+package org.jeesl.api.bean.module;
 
 import java.io.Serializable;
 import java.util.List;

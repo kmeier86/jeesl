@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.jeesl.api.bean.module.aom.JeeslAssetCacheBean;
+import org.jeesl.api.bean.module.JeeslAssetCacheBean;
 import org.jeesl.api.facade.module.JeeslAssetFacade;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
@@ -61,20 +61,20 @@ public abstract class AbstractAssetCacheBean <L extends UtilsLang, D extends Uti
 		eventType = new ArrayList<>();
 	}
 	
-	public void postConstruct(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,TYPE> fAsset)
+	public void postConstruct(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,TYPE,EVENT,ETYPE> fAsset)
 	{
 		if(assetStatus.isEmpty()) {assetStatus.addAll(fAsset.allOrderedPositionVisible(fbAsset.getClassStatus()));}
 		if(eventType.isEmpty()) {eventType.addAll(fAsset.allOrderedPositionVisible(fbAsset.getClassEventType()));}
 	}
 	
-	public void reloadRealm(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,TYPE> fAsset, REALM realm, RREF rref)
+	public void reloadRealm(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,TYPE,EVENT,ETYPE> fAsset, REALM realm, RREF rref)
 	{
 		reloadAssetTypes(fAsset,realm,rref,false);
 		reloadCompanies(fAsset,realm,rref,false,fAsset.fByEnum(fbAsset.getClassScope(),JeeslAomScope.Code.manufacturer),mapManufacturer);
 		reloadCompanies(fAsset,realm,rref,false,fAsset.fByEnum(fbAsset.getClassScope(),JeeslAomScope.Code.vendor),mapVendor);
 	}
 	
-	public void reloadAssetTypes(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,TYPE> fAsset, REALM realm, RREF rref,boolean force)
+	public void reloadAssetTypes(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,TYPE,EVENT,ETYPE> fAsset, REALM realm, RREF rref,boolean force)
 	{		
 		if(!mapAssetType.containsKey(realm)) {mapAssetType.put(realm,new HashMap<>());}	
 		if(!mapAssetType.get(realm).containsKey(rref)) {mapAssetType.get(realm).put(rref,new ArrayList<>());}
@@ -87,7 +87,7 @@ public abstract class AbstractAssetCacheBean <L extends UtilsLang, D extends Uti
 			logger.info(AbstractLogMessage.reloaded(fbAsset.getClassAssetType(), mapAssetType.get(realm).get(rref), rref)+" in realm "+realm.toString());
 		}
 	}
-	private void reloadTypes(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,TYPE> fAsset, REALM realm, RREF rref, List<TYPE> types)
+	private void reloadTypes(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,TYPE,EVENT,ETYPE> fAsset, REALM realm, RREF rref, List<TYPE> types)
 	{
 		for(TYPE type : types)
 		{
@@ -96,7 +96,7 @@ public abstract class AbstractAssetCacheBean <L extends UtilsLang, D extends Uti
 		}
 	}
 	
-	private void reloadCompanies(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,TYPE> fAsset,
+	private void reloadCompanies(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,TYPE,EVENT,ETYPE> fAsset,
 								REALM realm, RREF rref, boolean force, SCOPE scope,
 								Map<REALM,Map<RREF,List<COMPANY>>> map)
 	{		

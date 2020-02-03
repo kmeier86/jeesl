@@ -9,6 +9,8 @@ import org.jeesl.interfaces.model.module.aom.JeeslAomType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
+import org.jeesl.interfaces.model.module.aom.op.JeeslAomEvent;
+import org.jeesl.interfaces.model.module.aom.op.JeeslAomEventType;
 
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;
@@ -18,12 +20,15 @@ public interface JeeslAssetFacade <L extends UtilsLang, D extends UtilsDescripti
 									REALM extends JeeslAomRealm<L,D,REALM,?>,
 									COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 									SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
-									ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
+									ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,ATYPE>,
 									STATUS extends JeeslAomStatus<L,D,STATUS,?>,
-									TYPE extends JeeslAomType<L,D,REALM,TYPE,?>>
+									ATYPE extends JeeslAomType<L,D,REALM,ATYPE,?>,
+									EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE>,
+									ETYPE extends JeeslAomEventType<L,D,ETYPE,?>>
 			extends JeeslFacade
 {	
 	<RREF extends EjbWithId> ASSET fcAssetRoot(REALM realm, RREF rref);
-	<RREF extends EjbWithId> TYPE fcAssetRootType(REALM realm, RREF rref);
+	<RREF extends EjbWithId> ATYPE fcAssetRootType(REALM realm, RREF rref);
 	<RREF extends EjbWithId> List<COMPANY> fAssetCompanies(REALM realm, RREF rref, SCOPE scope);
+	List<EVENT> fAssetEvents(ASSET asset);
 }

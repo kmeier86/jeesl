@@ -1,6 +1,7 @@
 package org.jeesl.interfaces.model.module.aom.op;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
@@ -17,6 +18,6 @@ public interface JeeslAomEvent <COMPANY extends JeeslAomCompany<?,?>,
 				
 					
 {
-//	List<ASSET> getAssets();
-//	void setAsset(List<ASSET> assets);	
+	List<ASSET> getAssets();
+	void setAssets(List<ASSET> assets);	
 }
