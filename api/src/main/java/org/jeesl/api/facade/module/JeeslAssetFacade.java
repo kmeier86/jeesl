@@ -9,8 +9,8 @@ import org.jeesl.interfaces.model.module.aom.JeeslAomType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
-import org.jeesl.interfaces.model.module.aom.op.JeeslAomEvent;
-import org.jeesl.interfaces.model.module.aom.op.JeeslAomEventType;
+import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
+import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
 
 import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
 import net.sf.ahtutils.interfaces.model.status.UtilsLang;

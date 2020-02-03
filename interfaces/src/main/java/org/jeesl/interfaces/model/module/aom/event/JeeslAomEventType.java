@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.aom.op;
+package org.jeesl.interfaces.model.module.aom.event;
 
 import java.io.Serializable;
 
@@ -22,5 +22,5 @@ public interface JeeslAomEventType <L extends UtilsLang, D extends UtilsDescript
 								EjbWithCodeGraphic<G>,
 								UtilsStatus<S,L,D>
 {	
-	public enum Code{purchase,deployment}
+	public enum Code{procurement,stock,deployment,maintenance,check,pause,decommissioning,sale,disposal}
 }

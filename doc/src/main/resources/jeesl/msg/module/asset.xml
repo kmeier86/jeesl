@@ -14,6 +14,20 @@
     		<s:lang key="fr" translation="Manufacturer"/>
     	</s:langs>
     </s:translation>
+    <s:translation key="jeeslAssetVendor">
+    	<s:langs>
+    		<s:lang key="de" translation="Händler"/>
+    		<s:lang key="en" translation="Vendor"/>
+    		<s:lang key="fr" translation="Vendor"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslAssetCompanyScopes">
+    	<s:langs>
+    		<s:lang key="de" translation="Geltungsbereiche"/>
+    		<s:lang key="en" translation="Scopes"/>
+    		<s:lang key="fr" translation="Scopes"/>
+    	</s:langs>
+    </s:translation>
 	<s:translation key="jeeslAssetManufacturerName">
     	<s:langs>
     		<s:lang key="de" translation="Name"/>
@@ -77,5 +91,12 @@
     		<s:lang key="fr" translation="Type"/>
     	</s:langs>
     </s:translation>     
+    	<s:translation key="jeeslAssetEventAmountProcurement">
+    	<s:langs>
+    		<s:lang key="de" translation="Anschaffungspreis"/>
+    		<s:lang key="en" translation="Procurement Amount"/>
+    		<s:lang key="fr" translation="Procurement Amount"/>
+    	</s:langs>
+    </s:translation>
     
 </s:translations>

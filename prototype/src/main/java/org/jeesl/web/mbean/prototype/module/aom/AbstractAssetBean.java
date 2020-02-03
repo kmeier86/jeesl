@@ -10,6 +10,7 @@ import org.jeesl.api.bean.JeeslTranslationBean;
 import org.jeesl.api.bean.module.JeeslAssetCacheBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslAssetFacade;
+import org.jeesl.controller.handler.NullNumberBinder;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
@@ -21,8 +22,8 @@ import org.jeesl.interfaces.model.module.aom.JeeslAomType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
-import org.jeesl.interfaces.model.module.aom.op.JeeslAomEvent;
-import org.jeesl.interfaces.model.module.aom.op.JeeslAomEventType;
+import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
+import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.primefaces.event.NodeCollapseEvent;
@@ -63,8 +64,9 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 	
 	private TreeNode tree; public TreeNode getTree() {return tree;}
     private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
-
-    private final Set<ASSET> path;
+    private final NullNumberBinder nnb; public NullNumberBinder getNnb() {return nnb;}
+    
+	private final Set<ASSET> path;
 	
     private final List<EVENT> events; public List<EVENT> getEvents() {return events;}
     
@@ -79,6 +81,8 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
+		
+		nnb = new NullNumberBinder();
 		
 		efAsset = fbAsset.ejbAsset();
 		efEvent = fbAsset.ejbEvent();
@@ -102,10 +106,11 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 		reloadTree();
 	}
 	
-	private void reset(boolean rAsset, boolean rEvents)
+	private void reset(boolean rAsset, boolean rEvents, boolean rEvent)
 	{
 		if(rAsset) {asset=null;}
 		if(rEvents) {events.clear();}
+		if(rEvent) {event=null;}
 	}
 	
 	private void reloadTree()
@@ -129,11 +134,11 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 	
 	public void addAsset()
 	{
-		reset(true,true);
 		ASSET parent = null; if(asset!=null) {parent = asset;} else {parent = root;}
 		STATUS status = fAsset.fByEnum(fbAsset.getClassStatus(),JeeslAomStatus.Code.na);
 		ATYPE type = fAsset.fcAssetRootType(realm,rref);
-		asset = efAsset.build(realm,rref, parent, status,type);
+		reset(true,true,true);
+		asset = efAsset.build(realm,rref,parent,status,type);
 	}
 	
 	public void saveAsset() throws JeeslConstraintViolationException, JeeslLockingException
@@ -177,7 +182,7 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
     @SuppressWarnings("unchecked")
 	public void onNodeSelect(NodeSelectEvent event)
     {
-    	reset(true,true);
+    	reset(true,true,true);
 		logger.info("Selected "+event.getTreeNode().toString());
 		asset = (ASSET)event.getTreeNode().getData();
 		reloadEvents();
@@ -186,19 +191,21 @@ public abstract class AbstractAssetBean <L extends UtilsLang, D extends UtilsDes
 	private void reloadEvents()
 	{
 		events.clear();
-		events.addAll(fAsset.all(fbAsset.getClassEvent()));
+		events.addAll(fAsset.fAssetEvents(asset));
 	}
     
     public void addEvent()
     {
     	logger.info(AbstractLogMessage.addEntity(fbAsset.getClassEvent()));
     	event = efEvent.build(asset);
+    	efEvent.ejb2nnb(event,nnb);
     }
     
     public void saveEvent() throws JeeslConstraintViolationException, JeeslLockingException
     {
     	logger.info(AbstractLogMessage.saveEntity(event));
     	efEvent.converter(fAsset,event);
+    	efEvent.nnb2ejb(event,nnb);
     	event = fAsset.save(event);
     	reloadEvents();
     }

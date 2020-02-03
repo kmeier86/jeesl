@@ -55,7 +55,7 @@
 						<p:outputLabel value="#{msg.jeeslAssetManufacturerUrl}"/>
 						<jtp:inputText value="#{cc.attrs.bean.company.url}"/>
 						
-						<p:outputLabel value="#{msg.jeeslAssetScopes}"/>
+						<p:outputLabel value="#{msg.jeeslAssetCompanyScopes}"/>
 						<p:selectManyCheckbox id="grid2" value="#{cc.attrs.bean.smh.codes}" layout="responsive" columns="2">
 							<f:selectItems value="#{cc.attrs.bean.smh.list}" var="s" itemLabel="#{s.name[localeCode].lang}" itemValue="#{s.code}" />
 					    </p:selectManyCheckbox>

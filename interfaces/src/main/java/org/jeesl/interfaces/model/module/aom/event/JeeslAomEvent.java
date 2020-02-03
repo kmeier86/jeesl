@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.aom.op;
+package org.jeesl.interfaces.model.module.aom.event;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,6 +18,14 @@ public interface JeeslAomEvent <COMPANY extends JeeslAomCompany<?,?>,
 				
 					
 {
+	public enum Attributes{assets}
+	
 	List<ASSET> getAssets();
-	void setAssets(List<ASSET> assets);	
+	void setAssets(List<ASSET> assets);
+	
+	COMPANY getVendor();
+	void setVendor(COMPANY vendor);
+	
+	Double getAmountProcurement();
+	void setAmountProcurement(Double amountProcurement);
 }

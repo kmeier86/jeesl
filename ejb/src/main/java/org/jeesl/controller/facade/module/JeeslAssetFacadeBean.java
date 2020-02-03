@@ -25,8 +25,8 @@ import org.jeesl.interfaces.model.module.aom.JeeslAomType;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
-import org.jeesl.interfaces.model.module.aom.op.JeeslAomEvent;
-import org.jeesl.interfaces.model.module.aom.op.JeeslAomEventType;
+import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
+import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -147,7 +147,6 @@ public class JeeslAssetFacadeBean<L extends UtilsLang, D extends UtilsDescriptio
 		{
 			ListJoin<COMPANY,SCOPE> jScopes = company.joinList(JeeslAomCompany.Attributes.scopes.toString());
 			predicates.add(jScopes.in(scope));	
-//			predicates.add(cB.isTrue(jScopes.in(scope)));
 		}
 		
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
@@ -156,9 +155,19 @@ public class JeeslAssetFacadeBean<L extends UtilsLang, D extends UtilsDescriptio
 		return em.createQuery(cQ).getResultList();
 	}
 
-	@Override
-	public List<EVENT> fAssetEvents(ASSET asset)
+	@Override public List<EVENT> fAssetEvents(ASSET asset)
 	{
-		return new ArrayList<>();
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<EVENT> cQ = cB.createQuery(fbAsset.getClassEvent());
+		Root<EVENT> event = cQ.from(fbAsset.getClassEvent());
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		ListJoin<EVENT,ASSET> jAsset = event.joinList(JeeslAomEvent.Attributes.assets.toString());
+		predicates.add(jAsset.in(asset));	
+		
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(event);
+
+		return em.createQuery(cQ).getResultList();
 	}
 }
