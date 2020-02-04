@@ -1,4 +1,4 @@
-package net.sf.ahtutils.interfaces.model.with;
+package org.jeesl.interfaces.model.with.text;
 
 public interface EjbWithEmail
 {

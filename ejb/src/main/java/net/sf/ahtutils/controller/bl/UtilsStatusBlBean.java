@@ -9,9 +9,9 @@ import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.with.EjbWithLangDescription;
 
 import net.sf.ahtutils.interfaces.bl.UtilsStatusBl;
-import net.sf.ahtutils.interfaces.model.with.EjbWithLangDescription;
 
 public class UtilsStatusBlBean extends JeeslFacadeBean implements UtilsStatusBl
 {	

@@ -19,6 +19,7 @@ import org.jeesl.interfaces.model.module.bb.post.JeeslBbThread;
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.with.text.EjbWithEmail;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
@@ -31,7 +32,6 @@ import org.primefaces.model.TreeNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 

@@ -11,7 +11,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.with.image.EjbWithImage;
+import net.sf.ahtutils.interfaces.model.with.EjbWithImage;
 import net.sf.ahtutils.jsf.filter.UtilsStatusFilter;
 
 public class AbstractIconBean implements Serializable

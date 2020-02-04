@@ -21,8 +21,7 @@ import org.jeesl.interfaces.model.system.job.JeeslJobType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-
-import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
+import org.jeesl.interfaces.model.with.text.EjbWithEmail;
 
 public interface JeeslJobFacade <L extends JeeslLang,D extends JeeslDescription,
 								TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY,EXPIRE>,

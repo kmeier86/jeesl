@@ -7,9 +7,9 @@ import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.number.EjbWithRefId;
 import org.jeesl.interfaces.model.with.position.EjbWithPosition;
+import org.jeesl.interfaces.model.with.text.EjbWithEmail;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 

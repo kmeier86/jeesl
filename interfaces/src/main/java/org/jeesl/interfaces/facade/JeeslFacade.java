@@ -36,13 +36,13 @@ import org.jeesl.interfaces.model.with.status.JeeslWithCategory;
 import org.jeesl.interfaces.model.with.status.JeeslWithContext;
 import org.jeesl.interfaces.model.with.status.JeeslWithStatus;
 import org.jeesl.interfaces.model.with.status.JeeslWithType;
+import org.jeesl.interfaces.model.with.text.EjbWithEmail;
 
 import net.sf.ahtutils.controller.util.ParentPredicate;
 import net.sf.ahtutils.interfaces.model.behaviour.EjbEquals;
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbMergeable;
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
-import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;

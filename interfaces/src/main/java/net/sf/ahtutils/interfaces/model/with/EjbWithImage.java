@@ -1,4 +1,4 @@
-package net.sf.ahtutils.interfaces.model.with.image;
+package net.sf.ahtutils.interfaces.model.with;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 

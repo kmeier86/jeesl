@@ -8,12 +8,12 @@ import org.jeesl.interfaces.model.module.ts.data.JeeslTsTransaction;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
+import org.jeesl.interfaces.model.with.EjbWithLangDescription;
 import org.jeesl.model.xml.jeesl.QueryTs;
 import org.jeesl.model.xml.module.ts.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.with.EjbWithLangDescription;
 import net.sf.ahtutils.xml.status.Source;
 import net.sf.exlp.util.DateUtil;
 

@@ -8,8 +8,8 @@ import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOptionSet;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveySection;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.with.status.JeeslWithCategory;
 import org.jeesl.interfaces.model.with.status.JeeslWithStatus;
-import org.jeesl.interfaces.model.with.status.UtilsWithCategory;
 import org.jeesl.interfaces.model.with.text.EjbWithRemark;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
@@ -29,7 +29,7 @@ public interface JeeslSurveyTemplate<L extends JeeslLang, D extends JeeslDescrip
 										ANALYSIS extends JeeslSurveyAnalysis<L,D,TEMPLATE,?,?,?>>
 			extends EjbWithId,EjbWithRecord,EjbWithName,EjbWithRemark,Serializable,EjbRemoveable,EjbSaveable,
 						JeeslWithStatus<TS>,
-						UtilsWithCategory<L,D,TC>
+						JeeslWithCategory<TC>
 {
 	enum Attributes {category,version,status}
 	

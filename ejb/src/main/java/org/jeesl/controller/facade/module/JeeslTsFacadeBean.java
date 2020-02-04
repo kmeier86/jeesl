@@ -38,10 +38,10 @@ import org.jeesl.interfaces.model.module.ts.stat.JeeslTsStatistic;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.with.EjbWithLangDescription;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 
 import net.sf.ahtutils.controller.util.ParentPredicate;
-import net.sf.ahtutils.interfaces.model.with.EjbWithLangDescription;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public class JeeslTsFacadeBean<L extends JeeslLang, D extends JeeslDescription,

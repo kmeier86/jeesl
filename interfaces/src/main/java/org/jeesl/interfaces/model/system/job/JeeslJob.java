@@ -7,10 +7,10 @@ import java.util.List;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.code.EjbWithNonUniqueCode;
 import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
+import org.jeesl.interfaces.model.with.text.EjbWithEmail;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
-import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface JeeslJob<TEMPLATE extends JeeslJobTemplate<?,?,?,?,?,?>,

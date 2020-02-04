@@ -39,9 +39,8 @@ import org.jeesl.interfaces.model.system.job.JeeslJobType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.with.text.EjbWithEmail;
 import org.joda.time.DateTime;
-
-import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 
 public class JeeslSystemJobFacadeBean<L extends JeeslLang,D extends JeeslDescription,
 									TEMPLATE extends JeeslJobTemplate<L,D,CATEGORY,TYPE,PRIORITY,EXPIRE>,

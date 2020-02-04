@@ -1,4 +1,4 @@
-package net.sf.ahtutils.interfaces.model.with;
+package org.jeesl.interfaces.model.with;
 
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
