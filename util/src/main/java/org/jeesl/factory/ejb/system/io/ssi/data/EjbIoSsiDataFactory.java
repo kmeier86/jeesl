@@ -2,15 +2,15 @@ package org.jeesl.factory.ejb.system.io.ssi.data;
 
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiData;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.exlp.util.io.JsonUtil;
 
 public class EjbIoSsiDataFactory <MAPPING extends JeeslIoSsiMapping<?,?>,
 									DATA extends JeeslIoSsiData<MAPPING,LINK>,
-									LINK extends UtilsStatus<LINK,?,?>>
+									LINK extends JeeslStatus<LINK,?,?>>
 {
 	private final Class<DATA> cData;
 

@@ -6,20 +6,20 @@ import java.util.List;
 import org.jeesl.interfaces.model.system.io.revision.EjbWithRevisionAttributes;
 import org.jeesl.interfaces.model.system.io.revision.core.JeeslRevisionCategory;
 import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbPersistable;
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.with.parent.EjbWithParentAttributeResolver;
 import net.sf.ahtutils.interfaces.model.with.position.EjbWithPositionParent;
 import net.sf.ahtutils.interfaces.model.with.position.EjbWithPositionVisible;
 import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
 import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 
-public interface JeeslRevisionEntity<L extends UtilsLang, D extends UtilsDescription,
+public interface JeeslRevisionEntity<L extends JeeslLang, D extends JeeslDescription,
 									RC extends JeeslRevisionCategory<L,D,RC,?>,
 									REM extends JeeslRevisionEntityMapping<?,?,?>,
 									RA extends JeeslRevisionAttribute<L,D,?,?,?>,

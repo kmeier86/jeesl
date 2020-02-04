@@ -5,15 +5,15 @@ import java.io.Serializable;
 import org.jeesl.interfaces.model.module.attribute.JeeslAttributeSet;
 import org.jeesl.interfaces.model.system.io.domain.JeeslDomainSet;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorage;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 
-public interface JeeslIoDms<L extends UtilsLang, D extends UtilsDescription,
+public interface JeeslIoDms<L extends JeeslLang, D extends JeeslDescription,
 							STORAGE extends JeeslFileStorage<L,D,?,?>,
 							AS extends JeeslAttributeSet<L,D,?,?>,
 							DS extends JeeslDomainSet<L,D,?>,

@@ -6,16 +6,16 @@ import org.jeesl.interfaces.model.module.attribute.JeeslAttributeContainer;
 import org.jeesl.interfaces.model.module.attribute.JeeslWithAttributeContainer;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
 import org.jeesl.interfaces.model.system.io.fr.JeeslWithFileRepositoryContainer;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbPersistable;
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.interfaces.model.with.position.EjbWithPositionVisibleParent;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 
-public interface JeeslIoDmsDocument<L extends UtilsLang, S extends JeeslIoDmsSection<L,?,S>,
+public interface JeeslIoDmsDocument<L extends JeeslLang, S extends JeeslIoDmsSection<L,?,S>,
 								FC extends JeeslFileContainer<?,?>, AC extends JeeslAttributeContainer<?,?>>
 					extends Serializable,EjbWithId,
 							EjbRemoveable,EjbPersistable,EjbSaveable,

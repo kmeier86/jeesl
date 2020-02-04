@@ -4,19 +4,19 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileContainer;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbPersistable;
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface JeeslIoMail<L extends UtilsLang,D extends UtilsDescription,
-								CATEGORY extends UtilsStatus<CATEGORY,L,D>,
+public interface JeeslIoMail<L extends JeeslLang,D extends JeeslDescription,
+								CATEGORY extends JeeslStatus<CATEGORY,L,D>,
 								STATUS extends JeeslMailStatus<L,D,STATUS,?>,
-								RETENTION extends UtilsStatus<RETENTION,L,D>,
+								RETENTION extends JeeslStatus<RETENTION,L,D>,
 								FRC extends JeeslFileContainer<?,?>
 								>
 		extends Serializable,EjbWithId,

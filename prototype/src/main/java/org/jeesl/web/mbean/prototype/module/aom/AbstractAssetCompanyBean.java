@@ -19,17 +19,17 @@ import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.jsf.util.JeeslSelectManyHandler;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
-public class AbstractAssetCompanyBean <L extends UtilsLang, D extends UtilsDescription, LOC extends JeeslLocale<L,D,LOC,?>,
+public class AbstractAssetCompanyBean <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 											REALM extends JeeslAomRealm<L,D,REALM,?>, RREF extends EjbWithId,
 											COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 											SCOPE extends JeeslAomScope<L,D,SCOPE,?>,

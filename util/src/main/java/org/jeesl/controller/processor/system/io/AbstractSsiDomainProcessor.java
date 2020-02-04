@@ -15,19 +15,18 @@ import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiData;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiLink;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
-
-public abstract class AbstractSsiDomainProcessor<L extends UtilsLang,D extends UtilsDescription,
+public abstract class AbstractSsiDomainProcessor<L extends JeeslLang,D extends JeeslDescription,
 										SYSTEM extends JeeslIoSsiSystem,
 										MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
 										ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,
 										DATA extends JeeslIoSsiData<MAPPING,LINK>,
-										LINK extends UtilsStatus<LINK,L,D>,
+										LINK extends JeeslStatus<LINK,L,D>,
 										ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>
 										>
 						implements SsiMappingProcessor<MAPPING,DATA>

@@ -1,11 +1,12 @@
 package net.sf.ahtutils.interfaces.model.with.status;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface UtilsWithScope<L extends UtilsLang,D extends UtilsDescription,SCOPE extends UtilsStatus<SCOPE,L,D>>
+public interface UtilsWithScope<L extends JeeslLang,D extends JeeslDescription,SCOPE extends JeeslStatus<SCOPE,L,D>>
 						extends EjbWithId
 {	
 	SCOPE getScope();

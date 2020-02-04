@@ -6,17 +6,17 @@ import java.util.Map;
 
 import org.jeesl.interfaces.model.system.io.cms.JeeslIoCmsMarkupType;
 import org.jeesl.interfaces.model.system.locale.JeeslMarkup;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbPersistable;
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
-public interface JeeslLogItem <L extends UtilsLang, D extends UtilsDescription,
+public interface JeeslLogItem <L extends JeeslLang, D extends JeeslDescription,
 								M extends JeeslMarkup<MT>, MT extends JeeslIoCmsMarkupType<L,D,MT,?>,
 								LOG extends JeeslLogBook<?,?>,
 								IMPACT extends JeeslLogImpact<L,D,IMPACT,?>,

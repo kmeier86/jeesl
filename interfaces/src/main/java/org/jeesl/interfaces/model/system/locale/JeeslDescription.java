@@ -1,16 +1,17 @@
-package net.sf.ahtutils.interfaces.model.status;
+package org.jeesl.interfaces.model.system.locale;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface UtilsLang extends EjbWithId,EjbRemoveable,EjbSaveable
-{	
-	public static String attributeLang = "lang";
-	
+public interface JeeslDescription extends EjbWithId,EjbRemoveable,EjbSaveable
+{
 	String getLkey();
 	void setLkey(String lkey);
 	
 	String getLang();
-	void setLang(String lang);
+	void setLang(String name);
+	
+	public Boolean getStyled();
+	public void setStyled(Boolean styled);
 }

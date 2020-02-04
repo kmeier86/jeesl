@@ -10,6 +10,9 @@ import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.facade.JeeslFacade;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
 import org.jeesl.interfaces.model.system.with.code.EjbWithNrString;
 import org.jeesl.interfaces.model.util.date.EjbWithTimeline;
@@ -31,9 +34,6 @@ import net.sf.ahtutils.interfaces.model.behaviour.EjbEquals;
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbMergeable;
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.with.EjbWithEmail;
 import net.sf.ahtutils.interfaces.model.with.EjbWithNr;
 import net.sf.ahtutils.interfaces.model.with.code.EjbWithNonUniqueCode;
@@ -471,14 +471,14 @@ public class AbstractDummyFacade implements JeeslFacade
 	}
 
 	@Override
-	public <L extends UtilsLang, D extends UtilsDescription, S extends EjbWithId, G extends JeeslGraphic<L,D,GT,F,FS>, GT extends UtilsStatus<GT, L, D>, F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends UtilsStatus<FS, L, D>> S loadGraphic(
+	public <L extends JeeslLang, D extends JeeslDescription, S extends EjbWithId, G extends JeeslGraphic<L,D,GT,F,FS>, GT extends JeeslStatus<GT, L, D>, F extends JeeslGraphicFigure<L,D,G,GT,F,FS>, FS extends JeeslStatus<FS, L, D>> S loadGraphic(
 			Class<S> cS, S status) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <L extends UtilsLang, D extends UtilsDescription, C extends UtilsStatus<C, L, D>, W extends JeeslWithCategory<C>> List<W> allForCategory(Class<W> w, C c) {
+	public <L extends JeeslLang, D extends JeeslDescription, C extends JeeslStatus<C, L, D>, W extends JeeslWithCategory<C>> List<W> allForCategory(Class<W> w, C c) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -490,14 +490,14 @@ public class AbstractDummyFacade implements JeeslFacade
 	}
 
 	@Override
-	public <L extends UtilsLang, D extends UtilsDescription, S extends UtilsStatus<S, L, D>, W extends JeeslWithStatus<S>> List<W> allForStatus(
+	public <L extends JeeslLang, D extends JeeslDescription, S extends JeeslStatus<S, L, D>, W extends JeeslWithStatus<S>> List<W> allForStatus(
 			Class<W> w, S status) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <L extends UtilsLang, D extends UtilsDescription, T extends UtilsStatus<T,L,D>, W extends JeeslWithType<T>> List<W> allForType(
+	public <L extends JeeslLang, D extends JeeslDescription, T extends JeeslStatus<T,L,D>, W extends JeeslWithType<T>> List<W> allForType(
 			Class<W> w, T type) {
 		// TODO Auto-generated method stub
 		return null;
@@ -517,20 +517,20 @@ public class AbstractDummyFacade implements JeeslFacade
 	}
 
 	@Override
-	public <T extends JeeslWithParentAttributeStatus<STATUS>, P extends EjbWithId, STATUS extends UtilsStatus<STATUS, ?, ?>> List<T> allForParentStatus(
+	public <T extends JeeslWithParentAttributeStatus<STATUS>, P extends EjbWithId, STATUS extends JeeslStatus<STATUS, ?, ?>> List<T> allForParentStatus(
 			Class<T> type, P parent, List<STATUS> status) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <T extends JeeslWithParentAttributeType<TYPE>, P extends EjbWithId, TYPE extends UtilsStatus<TYPE, ?, ?>> List<T> allForParentType(
+	public <T extends JeeslWithParentAttributeType<TYPE>, P extends EjbWithId, TYPE extends JeeslStatus<TYPE, ?, ?>> List<T> allForParentType(
 			Class<T> type, P parent, List<TYPE> type2) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override public <C extends UtilsStatus<C,?,?>, W extends JeeslWithContext<C>> List<W> allForContext(Class<W> w, C category) {return null;}
+	@Override public <C extends JeeslStatus<C,?,?>, W extends JeeslWithContext<C>> List<W> allForContext(Class<W> w, C category) {return null;}
 
 	@Override public <T extends EjbWithVisible, P extends EjbWithId> List<T> allVisible(Class<T> cl) {return null;}
 

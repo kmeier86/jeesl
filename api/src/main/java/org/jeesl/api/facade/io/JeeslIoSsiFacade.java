@@ -9,19 +9,19 @@ import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiAttribute;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiData;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiMapping;
 import org.jeesl.interfaces.model.system.io.ssi.data.JeeslIoSsiSystem;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.json.db.tuple.t1.Json1Tuples;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface JeeslIoSsiFacade <L extends UtilsLang,D extends UtilsDescription,
+public interface JeeslIoSsiFacade <L extends JeeslLang,D extends JeeslDescription,
 									SYSTEM extends JeeslIoSsiSystem,
 									MAPPING extends JeeslIoSsiMapping<SYSTEM,ENTITY>,
 									ATTRIBUTE extends JeeslIoSsiAttribute<MAPPING,ENTITY>,
 									DATA extends JeeslIoSsiData<MAPPING,LINK>,
-									LINK extends UtilsStatus<LINK,L,D>,
+									LINK extends JeeslStatus<LINK,L,D>,
 									ENTITY extends JeeslRevisionEntity<?,?,?,?,?,?>
 									>
 			extends JeeslFacade

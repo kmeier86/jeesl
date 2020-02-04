@@ -1,12 +1,13 @@
 package net.sf.ahtutils.interfaces.model.with;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+
 import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 
-public interface EjbWithLangDescription<L extends UtilsLang, D extends UtilsDescription>
+public interface EjbWithLangDescription<L extends JeeslLang, D extends JeeslDescription>
 					extends EjbWithId, EjbWithLang<L>, EjbWithDescription<D>
 {
 

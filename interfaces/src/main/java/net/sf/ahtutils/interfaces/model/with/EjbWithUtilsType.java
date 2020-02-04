@@ -1,11 +1,12 @@
 package net.sf.ahtutils.interfaces.model.with;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface EjbWithUtilsType<S extends UtilsStatus<S,L,D>, L extends UtilsLang, D extends UtilsDescription> extends EjbWithId
+public interface EjbWithUtilsType<S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription> extends EjbWithId
 {
 	S getType();
 	void setType(S type);

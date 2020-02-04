@@ -5,13 +5,12 @@ import org.jeesl.factory.ejb.module.asset.EjbAssetCompanyFactory;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
-
-public class OmFactoryBuilder<L extends UtilsLang,D extends UtilsDescription,
+public class OmFactoryBuilder<L extends JeeslLang,D extends JeeslDescription,
 								REALM extends JeeslAomRealm<L,D,REALM,?>,
 								COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 								SCOPE extends JeeslAomScope<L,D,SCOPE,?>>

@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.status.UtilsStatus;
 import net.sf.ahtutils.interfaces.model.with.EjbWithNr;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithName;
@@ -18,7 +18,7 @@ public interface UtilsQaTest<
 							QAR extends UtilsQaResult<?,?,?>,
 							QATD extends UtilsQaTestDiscussion<?,?>,
 							QATI extends UtilsQaTestInfo<?>,
-							QATS extends UtilsStatus<QATS,?,?>>
+							QATS extends JeeslStatus<QATS,?,?>>
 			extends Serializable,EjbSaveable,EjbWithNr,EjbWithId,EjbWithName,EjbWithCode
 {
 	QAC getCategory();

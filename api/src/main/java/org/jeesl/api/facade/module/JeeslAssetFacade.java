@@ -11,12 +11,12 @@ import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
 
-import net.sf.ahtutils.interfaces.model.status.UtilsDescription;
-import net.sf.ahtutils.interfaces.model.status.UtilsLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
-public interface JeeslAssetFacade <L extends UtilsLang, D extends UtilsDescription,
+public interface JeeslAssetFacade <L extends JeeslLang, D extends JeeslDescription,
 									REALM extends JeeslAomRealm<L,D,REALM,?>,
 									COMPANY extends JeeslAomCompany<REALM,SCOPE>,
 									SCOPE extends JeeslAomScope<L,D,SCOPE,?>,
