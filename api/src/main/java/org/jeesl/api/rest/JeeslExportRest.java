@@ -6,12 +6,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.jeesl.exception.processing.UtilsConfigurationException;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.model.xml.system.revision.Entity;
-
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
 
 @Path("/rest/jeesl/export")
 public interface JeeslExportRest <L extends JeeslLang,D extends JeeslDescription> extends org.jeesl.interfaces.rest.JeeslExportRest<L,D>

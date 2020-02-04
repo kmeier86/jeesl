@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.jeesl.api.facade.io.JeeslIoTemplateFacade;
 import org.jeesl.controller.mail.AbstractJeeslMail;
+import org.jeesl.exception.processing.UtilsProcessingException;
 import org.jeesl.factory.builder.io.IoTemplateFactoryBuilder;
 import org.jeesl.factory.txt.system.security.TxtUserFactory;
 import org.jeesl.interfaces.bean.system.IoTemplateBean;
@@ -27,7 +28,6 @@ import org.slf4j.LoggerFactory;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import net.sf.ahtutils.exception.processing.UtilsProcessingException;
 
 public class AbstractlIoTemplateHandler<L extends JeeslLang,D extends JeeslDescription,LOC extends JeeslLocale<L,D,LOC,?>,
 									CATEGORY extends JeeslStatus<CATEGORY,L,D>,

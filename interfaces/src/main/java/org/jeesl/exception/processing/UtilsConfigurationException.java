@@ -1,4 +1,4 @@
-package net.sf.ahtutils.exception.processing;
+package org.jeesl.exception.processing;
 
 import java.io.Serializable;
 

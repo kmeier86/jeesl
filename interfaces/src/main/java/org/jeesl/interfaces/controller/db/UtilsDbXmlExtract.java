@@ -2,7 +2,7 @@ package org.jeesl.interfaces.controller.db;
 
 import java.io.FileNotFoundException;
 
-import net.sf.ahtutils.exception.processing.UtilsConfigurationException;
+import org.jeesl.exception.processing.UtilsConfigurationException;
 
 public interface UtilsDbXmlExtract
 {

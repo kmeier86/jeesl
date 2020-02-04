@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jeesl.exception.processing.UtilsProcessingException;
 import org.jeesl.factory.builder.io.IoTemplateFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplate;
 import org.jeesl.interfaces.model.system.io.mail.template.JeeslIoTemplateDefinition;
@@ -25,7 +26,6 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
-import net.sf.ahtutils.exception.processing.UtilsProcessingException;
 
 public class FreemarkerIoTemplateEngine<L extends JeeslLang,D extends JeeslDescription,
 										CATEGORY extends JeeslStatus<CATEGORY,L,D>,

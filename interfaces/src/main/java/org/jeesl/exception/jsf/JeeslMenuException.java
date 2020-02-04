@@ -1,4 +1,4 @@
-package net.sf.ahtutils.exception.processing;
+package org.jeesl.exception.jsf;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,15 +10,15 @@ import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UtilsReportException extends Exception implements Serializable
+public class JeeslMenuException extends RuntimeException implements Serializable
 {
 	private static final long serialVersionUID = 1L;
-	final static Logger logger = LoggerFactory.getLogger(UtilsReportException.class);
+	final static Logger logger = LoggerFactory.getLogger(JeeslMenuException.class);
 
 	private List<Exception> exceptions;
 	private List<String> errors;
 	 
-	public UtilsReportException(String s) 
+	public JeeslMenuException(String s) 
 	{ 
 		super(s);
 		errors = new ArrayList<String>();
@@ -86,7 +86,7 @@ public class UtilsReportException extends Exception implements Serializable
 		logger.info("Uniquefy: "+exceptions.size());
 	}
 	
-	public void throwIfErrors() throws UtilsReportException
+	public void throwIfErrors() throws JeeslMenuException
 	{
 		if(this.hasErrors()){throw this;}
 	}
