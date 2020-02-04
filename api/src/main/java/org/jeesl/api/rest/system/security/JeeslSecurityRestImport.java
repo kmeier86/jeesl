@@ -1,6 +1,6 @@
 package org.jeesl.api.rest.system.security;
 
-import net.sf.ahtutils.interfaces.rest.security.UtilsSecurityViewImport;
+import org.jeesl.interfaces.rest.UtilsSecurityViewImport;
 
 public interface JeeslSecurityRestImport extends
 											UtilsSecurityViewImport,

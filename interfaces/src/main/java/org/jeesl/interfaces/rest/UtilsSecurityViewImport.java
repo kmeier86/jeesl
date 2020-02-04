@@ -1,4 +1,4 @@
-package net.sf.ahtutils.interfaces.rest.security;
+package org.jeesl.interfaces.rest;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;

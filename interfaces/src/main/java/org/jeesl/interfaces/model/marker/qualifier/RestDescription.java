@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.qualifier;
+package org.jeesl.interfaces.model.marker.qualifier;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
