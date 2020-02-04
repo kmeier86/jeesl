@@ -2,14 +2,14 @@ package net.sf.ahtutils.model.interfaces.link;
 
 import java.io.Serializable;
 
+import org.jeesl.interfaces.model.marker.jpa.EjbPersistable;
+import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.interfaces.model.util.date.EjbWithValidUntil;
 import org.jeesl.interfaces.model.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.date.EjbWithValidUntil;
 
-import net.sf.ahtutils.interfaces.model.crud.EjbPersistable;
-import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface UtilsLink<S extends JeeslStatus<S,L,D>,

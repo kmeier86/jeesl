@@ -3,6 +3,8 @@ package org.jeesl.interfaces.model.module.survey.core;
 import java.io.Serializable;
 import java.util.List;
 
+import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.survey.analysis.JeeslSurveyAnalysis;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOptionSet;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveySection;
@@ -12,8 +14,6 @@ import org.jeesl.interfaces.model.with.status.JeeslWithCategory;
 import org.jeesl.interfaces.model.with.status.JeeslWithStatus;
 import org.jeesl.interfaces.model.with.text.EjbWithRemark;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;

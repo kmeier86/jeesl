@@ -2,12 +2,12 @@ package org.jeesl.interfaces.model.module.hydro;
 
 import java.io.Serializable;
 
+import org.jeesl.interfaces.model.marker.crud.EjbCrud;
+import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.crud.EjbCrud;
-import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 

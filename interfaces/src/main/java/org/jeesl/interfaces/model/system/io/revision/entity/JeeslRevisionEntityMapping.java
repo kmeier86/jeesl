@@ -2,13 +2,12 @@ package org.jeesl.interfaces.model.system.io.revision.entity;
 
 import java.io.Serializable;
 
+import org.jeesl.interfaces.model.marker.jpa.EjbPersistable;
+import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionScope;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.with.position.EjbWithPositionVisible;
-
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.crud.EjbPersistable;
-import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
 
 public interface JeeslRevisionEntityMapping<RS extends JeeslRevisionScope<?,?,?,?>,
 											RST extends JeeslStatus<RST,?,?>,

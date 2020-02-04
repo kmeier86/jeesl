@@ -3,9 +3,9 @@ package net.sf.ahtutils.interfaces.model.qa;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 

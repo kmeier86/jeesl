@@ -2,11 +2,10 @@ package org.jeesl.interfaces.model.module.survey.core;
 
 import java.io.Serializable;
 
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyQuestion;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 
 public interface JeeslSurveyScore<L extends JeeslLang, D extends JeeslDescription,
 									SCHEME extends JeeslSurveyScheme<L,D,?,?>,

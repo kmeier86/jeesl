@@ -3,14 +3,14 @@ package org.jeesl.interfaces.model.module.survey.core;
 import java.io.Serializable;
 import java.util.List;
 
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyData;
 import org.jeesl.interfaces.model.module.survey.data.JeeslSurveyStatus;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.util.date.EjbWithDateRange;
+import org.jeesl.interfaces.model.with.date.EjbWithDateRange;
 import org.jeesl.interfaces.model.with.status.JeeslWithStatus;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
 import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 

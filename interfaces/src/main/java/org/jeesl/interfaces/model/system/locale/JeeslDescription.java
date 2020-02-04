@@ -1,7 +1,8 @@
 package org.jeesl.interfaces.model.system.locale;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
+import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
+
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface JeeslDescription extends EjbWithId,EjbRemoveable,EjbSaveable

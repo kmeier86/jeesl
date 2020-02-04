@@ -2,11 +2,11 @@ package org.jeesl.interfaces.model.module.ts.stat;
 
 import java.io.Serializable;
 
+import org.jeesl.interfaces.model.marker.jpa.EjbPersistable;
+import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.module.ts.core.JeeslTsScope;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 
-import net.sf.ahtutils.interfaces.model.crud.EjbPersistable;
-import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithVisible;
 

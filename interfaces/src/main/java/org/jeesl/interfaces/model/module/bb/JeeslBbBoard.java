@@ -2,6 +2,7 @@ package org.jeesl.interfaces.model.module.bb;
 
 import java.io.Serializable;
 
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
@@ -9,7 +10,6 @@ import org.jeesl.interfaces.model.with.number.EjbWithRefId;
 import org.jeesl.interfaces.model.with.position.EjbWithPosition;
 import org.jeesl.interfaces.model.with.text.EjbWithEmail;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 

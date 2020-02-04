@@ -2,6 +2,7 @@ package org.jeesl.interfaces.model.module.ts.config;
 
 import java.io.Serializable;
 
+import org.jeesl.interfaces.model.marker.jpa.EjbPersistable;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatusWithSymbol;
 import org.jeesl.interfaces.model.with.code.EjbWithCode;
@@ -9,8 +10,6 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
-
-import net.sf.ahtutils.interfaces.model.crud.EjbPersistable;
 
 public interface JeeslTsUnit <L extends JeeslLang, D extends JeeslDescription,
 								S extends JeeslStatus<S,L,D>, 

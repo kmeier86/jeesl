@@ -3,11 +3,11 @@ package org.jeesl.interfaces.model.module.aom.event;
 import java.io.Serializable;
 import java.util.List;
 
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.with.status.JeeslWithType;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
 public interface JeeslAomEvent <COMPANY extends JeeslAomCompany<?,?>,

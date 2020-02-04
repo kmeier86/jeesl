@@ -3,6 +3,8 @@ package org.jeesl.interfaces.model.system.io.fr;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
+import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.with.code.EjbWithCode;
 import org.jeesl.interfaces.model.with.number.EjbWithSize;
@@ -11,8 +13,6 @@ import org.jeesl.interfaces.model.with.position.EjbWithPosition;
 import org.jeesl.interfaces.model.with.status.JeeslWithStatus;
 import org.jeesl.interfaces.model.with.status.JeeslWithType;
 
-import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;

@@ -1,5 +1,6 @@
 package org.jeesl.interfaces.model.system.locale.status;
 
+import org.jeesl.interfaces.model.marker.jpa.EjbRemoveable;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.with.EjbWithLangDescription;
@@ -7,7 +8,6 @@ import org.jeesl.interfaces.model.with.code.EjbWithCode;
 import org.jeesl.interfaces.model.with.parent.EjbWithParent;
 import org.jeesl.interfaces.model.with.position.EjbWithPositionVisible;
 
-import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
 import net.sf.ahtutils.interfaces.model.with.EjbWithImage;
 import net.sf.ahtutils.interfaces.model.with.EjbWithImageAlt;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
