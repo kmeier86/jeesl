@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName(value="FileRepositoryAmazonS3")
-public class JsonFrAmasonS3 implements Serializable
+public class JsonFrAmazonS3 implements Serializable
 {
 	public static final long serialVersionUID=1;
 

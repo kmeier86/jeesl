@@ -13,7 +13,7 @@ import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.interfaces.controller.handler.system.io.JeeslFileRepositoryStore;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileMeta;
 import org.jeesl.interfaces.model.system.io.fr.JeeslFileStorage;
-import org.jeesl.model.json.system.io.fr.JsonFrAmasonS3;
+import org.jeesl.model.json.system.io.fr.JsonFrAmazonS3;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,13 +38,13 @@ public class FileRepositoryAmazonS3<STORAGE extends JeeslFileStorage<?,?,?,?>,
 	final static Logger logger = LoggerFactory.getLogger(FileRepositoryAmazonS3.class);
 
 	private AmazonS3 s3client;
-	private JsonFrAmasonS3 json; 
+	private JsonFrAmazonS3 json; 
 	
 	public FileRepositoryAmazonS3(STORAGE storage)
 	{
 		try
 		{
-			json = JsonUtil.read(storage.getJson(),JsonFrAmasonS3.class);
+			json = JsonUtil.read(storage.getJson(),JsonFrAmazonS3.class);
 			AWSCredentials credentials = new BasicAWSCredentials(json.getId(), json.getKey());
 			s3client = AmazonS3ClientBuilder
 					  .standard()
