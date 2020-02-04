@@ -3,7 +3,7 @@ package org.jeesl.web.rest.util;
 import org.jeesl.api.exception.xml.JeeslXmlStructureException;
 import org.jeesl.api.rest.system.traffic.JeeslTrafficLightRestExport;
 import org.jeesl.api.rest.system.traffic.JeeslTrafficLightRestImport;
-import org.jeesl.controller.monitor.DataUpdateTracker;
+import org.jeesl.controller.monitoring.counter.DataUpdateTracker;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.ejb.system.util.EjbTrafficLightFactory;

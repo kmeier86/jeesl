@@ -9,7 +9,7 @@ import java.util.Set;
 import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
 import org.jeesl.api.rest.system.io.revision.JeeslRevisionRestExport;
 import org.jeesl.api.rest.system.io.revision.JeeslRevisionRestImport;
-import org.jeesl.controller.monitor.DataUpdateTracker;
+import org.jeesl.controller.monitoring.counter.DataUpdateTracker;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;

@@ -8,7 +8,7 @@ import org.jeesl.api.facade.io.JeeslIoReportFacade;
 import org.jeesl.api.rest.system.io.report.JeeslIoReportRestExport;
 import org.jeesl.api.rest.system.io.report.JeeslIoReportRestImport;
 import org.jeesl.controller.db.updater.JeeslDbCodeEjbUpdater;
-import org.jeesl.controller.monitor.DataUpdateTracker;
+import org.jeesl.controller.monitoring.counter.DataUpdateTracker;
 import org.jeesl.controller.report.JeeslReportUpdater;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;

@@ -11,7 +11,7 @@ import org.jeesl.api.rest.survey.JeeslSurveyJsonRest;
 import org.jeesl.api.rest.survey.JeeslSurveyRestExport;
 import org.jeesl.api.rest.survey.JeeslSurveyRestImport;
 import org.jeesl.api.rest.survey.JeeslSurveyXmlRest;
-import org.jeesl.controller.monitor.DataUpdateTracker;
+import org.jeesl.controller.monitoring.counter.DataUpdateTracker;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;

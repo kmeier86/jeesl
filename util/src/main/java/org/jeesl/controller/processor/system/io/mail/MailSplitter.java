@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.jeesl.api.facade.io.JeeslIoMailFacade;
-import org.jeesl.controller.monitor.BucketSizeCounter;
+import org.jeesl.controller.monitoring.counter.BucketSizeCounter;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;

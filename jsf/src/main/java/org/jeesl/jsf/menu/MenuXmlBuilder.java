@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.jeesl.controller.monitor.ProcessingTimeTracker;
+import org.jeesl.controller.monitoring.counter.ProcessingTimeTracker;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.exception.jsf.JeeslMenuException;
 import org.jeesl.factory.xml.system.navigation.XmlMenuItemFactory;

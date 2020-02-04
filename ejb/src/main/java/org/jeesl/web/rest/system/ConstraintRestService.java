@@ -3,7 +3,7 @@ package org.jeesl.web.rest.system;
 import org.jeesl.api.facade.system.JeeslSystemConstraintFacade;
 import org.jeesl.api.rest.system.constraint.JeeslConstraintRestExport;
 import org.jeesl.api.rest.system.constraint.JeeslConstraintRestImport;
-import org.jeesl.controller.monitor.DataUpdateTracker;
+import org.jeesl.controller.monitoring.counter.DataUpdateTracker;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
 import org.jeesl.exception.ejb.JeeslNotFoundException;

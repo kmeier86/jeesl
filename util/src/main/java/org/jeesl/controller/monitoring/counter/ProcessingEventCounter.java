@@ -1,4 +1,4 @@
-package org.jeesl.controller.monitor;
+package org.jeesl.controller.monitoring.counter;
 
 import java.util.Hashtable;
 import java.util.Map;
