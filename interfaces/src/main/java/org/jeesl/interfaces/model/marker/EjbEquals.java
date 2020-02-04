@@ -1,4 +1,4 @@
-package net.sf.ahtutils.interfaces.model.behaviour;
+package org.jeesl.interfaces.model.marker;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 

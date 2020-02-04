@@ -47,6 +47,8 @@ import org.jeesl.interfaces.model.system.option.JeeslOptionUploadable;
 import org.jeesl.interfaces.model.with.code.EjbWithCode;
 import org.jeesl.interfaces.model.with.graphic.EjbWithGraphic;
 import org.jeesl.interfaces.model.with.graphic.EjbWithGraphicFigure;
+import org.jeesl.interfaces.model.with.graphic.EjbWithImage;
+import org.jeesl.interfaces.model.with.graphic.EjbWithImageAlt;
 import org.jeesl.interfaces.model.with.parent.EjbWithParent;
 import org.jeesl.interfaces.model.with.position.EjbWithPosition;
 import org.jeesl.interfaces.web.JeeslJsfSecurityHandler;
@@ -59,8 +61,6 @@ import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.sf.ahtutils.interfaces.model.with.EjbWithImage;
-import net.sf.ahtutils.interfaces.model.with.EjbWithImageAlt;
 import net.sf.ahtutils.jsf.util.PositionListReorderer;
 import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;

@@ -1,4 +1,4 @@
-package net.sf.ahtutils.interfaces.model.ranking;
+package org.jeesl.interfaces.model.util;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
