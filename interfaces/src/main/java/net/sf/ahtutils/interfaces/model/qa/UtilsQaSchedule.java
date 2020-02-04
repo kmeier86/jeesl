@@ -3,7 +3,7 @@ package net.sf.ahtutils.interfaces.model.qa;
 import java.io.Serializable;
 import java.util.List;
 
-import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.code.EjbWithCode;
 
 import net.sf.ahtutils.interfaces.model.crud.EjbCrudWithParent;
 import net.sf.ahtutils.interfaces.model.crud.EjbPersistable;

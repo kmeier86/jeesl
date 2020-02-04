@@ -22,7 +22,7 @@ import javax.persistence.UniqueConstraint;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.code.EjbWithCode;
 
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
 import net.sf.ahtutils.model.qualifier.EjbErNode;

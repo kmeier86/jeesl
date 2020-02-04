@@ -1,5 +1,6 @@
 package org.jeesl.interfaces.model.module.survey.core;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.jeesl.interfaces.model.module.survey.analysis.JeeslSurveyAnalysis;
@@ -7,10 +8,12 @@ import org.jeesl.interfaces.model.module.survey.question.JeeslSurveyOptionSet;
 import org.jeesl.interfaces.model.module.survey.question.JeeslSurveySection;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.system.with.EjbWithRemark;
+import org.jeesl.interfaces.model.with.status.JeeslWithStatus;
+import org.jeesl.interfaces.model.with.status.UtilsWithCategory;
+import org.jeesl.interfaces.model.with.text.EjbWithRemark;
 
-import net.sf.ahtutils.interfaces.model.with.utils.UtilsWithCategory;
-import net.sf.ahtutils.interfaces.model.with.utils.UtilsWithStatus;
+import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
+import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
@@ -24,8 +27,8 @@ public interface JeeslSurveyTemplate<L extends JeeslLang, D extends JeeslDescrip
 										SECTION extends JeeslSurveySection<L,D,TEMPLATE,SECTION,?>,
 										OPTIONS extends JeeslSurveyOptionSet<L,D,TEMPLATE,?>,
 										ANALYSIS extends JeeslSurveyAnalysis<L,D,TEMPLATE,?,?,?>>
-			extends EjbWithId,EjbWithRecord,EjbWithName,EjbWithRemark,
-						UtilsWithStatus<L,D,TS>,
+			extends EjbWithId,EjbWithRecord,EjbWithName,EjbWithRemark,Serializable,EjbRemoveable,EjbSaveable,
+						JeeslWithStatus<TS>,
 						UtilsWithCategory<L,D,TC>
 {
 	enum Attributes {category,version,status}

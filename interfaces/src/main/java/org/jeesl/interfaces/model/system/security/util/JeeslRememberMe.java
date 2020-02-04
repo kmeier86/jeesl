@@ -1,8 +1,8 @@
 package org.jeesl.interfaces.model.system.security.util;
 
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
-import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
 import org.jeesl.interfaces.model.util.date.EjbWithValidUntil;
+import org.jeesl.interfaces.model.with.code.EjbWithCode;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;

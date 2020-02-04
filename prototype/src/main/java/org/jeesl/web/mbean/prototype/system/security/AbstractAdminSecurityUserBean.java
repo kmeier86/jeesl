@@ -18,6 +18,7 @@ import org.jeesl.factory.txt.system.security.TxtUserFactory;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityView;
 import org.jeesl.interfaces.model.system.security.framework.JeeslSecurityTemplate;
 import org.jeesl.interfaces.model.system.security.user.JeeslUser;
+import org.jeesl.interfaces.model.with.text.EjbWithPwd;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.security.doc.JeeslSecurityHelp;
@@ -31,7 +32,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.ahtutils.interfaces.controller.audit.UtilsRevisionPageFlow;
-import net.sf.ahtutils.interfaces.model.with.EjbWithPwd;
 import net.sf.ahtutils.web.mbean.util.AbstractLogMessage;
 
 public abstract class AbstractAdminSecurityUserBean <L extends JeeslLang,

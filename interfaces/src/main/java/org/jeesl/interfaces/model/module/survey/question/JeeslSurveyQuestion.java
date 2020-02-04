@@ -8,14 +8,14 @@ import org.jeesl.interfaces.model.module.survey.analysis.JeeslSurveyAnalysisQues
 import org.jeesl.interfaces.model.module.survey.core.JeeslSurveyScore;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.system.with.EjbWithRemark;
-import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
 import org.jeesl.interfaces.model.with.EjbWithRendered;
+import org.jeesl.interfaces.model.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.parent.EjbWithParentAttributeResolver;
+import org.jeesl.interfaces.model.with.position.EjbWithPosition;
+import org.jeesl.interfaces.model.with.text.EjbWithRemark;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
-import net.sf.ahtutils.interfaces.model.with.parent.EjbWithParentAttributeResolver;
-import net.sf.ahtutils.interfaces.model.with.position.EjbWithPosition;
 import net.sf.ahtutils.model.interfaces.with.EjbWithDescription;
 import net.sf.ahtutils.model.interfaces.with.EjbWithLang;
 import net.sf.ahtutils.model.interfaces.with.EjbWithVisible;

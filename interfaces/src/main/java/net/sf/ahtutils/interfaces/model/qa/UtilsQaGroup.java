@@ -3,10 +3,11 @@ package net.sf.ahtutils.interfaces.model.qa;
 import java.io.Serializable;
 import java.util.List;
 
+import org.jeesl.interfaces.model.with.position.EjbWithPosition;
+
 import net.sf.ahtutils.interfaces.model.crud.EjbPersistable;
 import net.sf.ahtutils.interfaces.model.crud.EjbPositionCrudWithParent;
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
-import net.sf.ahtutils.interfaces.model.with.position.EjbWithPosition;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface UtilsQaGroup<STAFF extends UtilsQaStaff<?,?,?,QA,?>,

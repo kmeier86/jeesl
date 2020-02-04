@@ -9,7 +9,7 @@ import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.interfaces.model.system.with.EjbWithGraphic;
+import org.jeesl.interfaces.model.with.graphic.EjbWithGraphic;
 
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 

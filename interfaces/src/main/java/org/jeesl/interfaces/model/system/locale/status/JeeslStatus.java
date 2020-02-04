@@ -2,14 +2,14 @@ package org.jeesl.interfaces.model.system.locale.status;
 
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.parent.EjbWithParent;
+import org.jeesl.interfaces.model.with.position.EjbWithPositionVisible;
 
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
 import net.sf.ahtutils.interfaces.model.with.EjbWithLangDescription;
 import net.sf.ahtutils.interfaces.model.with.image.EjbWithImage;
 import net.sf.ahtutils.interfaces.model.with.image.EjbWithImageAlt;
-import net.sf.ahtutils.interfaces.model.with.parent.EjbWithParent;
-import net.sf.ahtutils.interfaces.model.with.position.EjbWithPositionVisible;
 import net.sf.ahtutils.model.interfaces.with.EjbWithId;
 
 public interface JeeslStatus<S extends JeeslStatus<S,L,D>, L extends JeeslLang, D extends JeeslDescription>

@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 import org.jeesl.interfaces.model.system.io.revision.JeeslRevisionScope;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.with.position.EjbWithPositionVisible;
 
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
 import net.sf.ahtutils.interfaces.model.crud.EjbPersistable;
 import net.sf.ahtutils.interfaces.model.crud.EjbRemoveable;
-import net.sf.ahtutils.interfaces.model.with.position.EjbWithPositionVisible;
 
 public interface JeeslRevisionEntityMapping<RS extends JeeslRevisionScope<?,?,?,?>,
 											RST extends JeeslStatus<RST,?,?>,

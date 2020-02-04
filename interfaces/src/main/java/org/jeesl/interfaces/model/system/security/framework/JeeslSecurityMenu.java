@@ -2,8 +2,9 @@ package org.jeesl.interfaces.model.system.security.framework;
 
 import java.io.Serializable;
 
+import org.jeesl.interfaces.model.with.position.EjbWithPosition;
+
 import net.sf.ahtutils.interfaces.model.behaviour.EjbSaveable;
-import net.sf.ahtutils.interfaces.model.with.position.EjbWithPosition;
 
 public interface JeeslSecurityMenu<V extends JeeslSecurityView<?,?,?,?,?,?>,
 								   M extends JeeslSecurityMenu<V,M>>

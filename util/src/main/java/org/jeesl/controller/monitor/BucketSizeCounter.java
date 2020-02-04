@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
-import org.jeesl.interfaces.model.system.with.code.EjbWithCode;
+import org.jeesl.interfaces.model.with.code.EjbWithCode;
 import org.openfuxml.factory.xml.table.XmlTableFactory;
 import org.openfuxml.renderer.text.OfxTextSilentRenderer;
 import org.slf4j.Logger;

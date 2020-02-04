@@ -16,7 +16,7 @@ import org.jeesl.interfaces.model.system.io.revision.er.JeeslRevisionDiagram;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
-import org.jeesl.interfaces.model.system.with.EjbWithGraphic;
+import org.jeesl.interfaces.model.with.graphic.EjbWithGraphic;
 import org.jeesl.interfaces.rest.JeeslExportRest;
 import org.jeesl.model.xml.system.revision.Entity;
 import org.jeesl.util.query.xml.SymbolQuery;
