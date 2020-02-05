@@ -193,6 +193,22 @@ public abstract class AbstractAdminSecurityViewBean <L extends JeeslLang, D exte
 	{
 		logger.info(AbstractLogMessage.rmEntity(view));
 		
+		try
+		{
+			M m = fSecurity.oneForParent(fbSecurity.getClassMenu(), JeeslSecurityMenu.Attributes.view.toString(), view);
+			List<M> childs = fSecurity.allForParent(fbSecurity.getClassMenu(), m);
+			if(!childs.isEmpty())
+			{
+				bMessage.errorConstraintViolationInUse();
+				return;
+			}
+			else
+			{
+				fSecurity.rm(m);
+			}
+		}
+		catch (JeeslNotFoundException e) {}
+		
 		fSecurity.rm(view);
 		reset(true,true,true);
 		reloadViews();
