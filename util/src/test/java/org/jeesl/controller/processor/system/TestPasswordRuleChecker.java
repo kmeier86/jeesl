@@ -20,35 +20,31 @@ public class TestPasswordRuleChecker extends AbstractJeeslUtilTest
 	
 	@Test public void length()
 	{
-		Assert.assertEquals(true,checker.validLength("abc",3));
-		Assert.assertEquals(false,checker.validLength("abc",4));
+		Assert.assertEquals(true,checker.validLength("abc", 3));
+		Assert.assertEquals(false,checker.validLength("abc", 4));
 	}
 	
-//	@Test
-	public void digits()
+	@Test public void digits()
 	{
-		Assert.assertEquals(true,checker.validDigits("ab1c",1));
-		Assert.assertEquals(false,checker.validDigits("abc",1));
+		Assert.assertEquals(true,checker.validDigits("a1b2c", 2));
+		Assert.assertEquals(false,checker.validDigits("ab1c", 2));
 	}
 	
-//	@Test
-	public void lower()
+	@Test public void lower()
 	{
-		Assert.assertEquals(true,checker.validLower("abc",1));
-		Assert.assertEquals(false,checker.validLower("ABC",1));
+		Assert.assertEquals(true,checker.validLower("abc", 2));
+		Assert.assertEquals(false,checker.validLower("AbC", 2));
 	}
 	
-//	@Test
-	public void upper()
+	@Test public void upper()
 	{
-		Assert.assertEquals(true,checker.validUpper("ABC",1));
-		Assert.assertEquals(false,checker.validUpper("abc",1));
+		Assert.assertEquals(true,checker.validUpper("ABC", 2));
+		Assert.assertEquals(false,checker.validUpper("Abc", 2));
 	}
 	
-//	@Test
-	public void symbols()
+	@Test public void symbols()
 	{
-		Assert.assertEquals(true,checker.validSymbols("abc*",1));
-		Assert.assertEquals(false,checker.validSymbols("abc",1));
+		Assert.assertEquals(true,checker.validSymbols("a-bc*", 2));
+		Assert.assertEquals(false,checker.validSymbols("ab=c", 2));
 	}
 }
