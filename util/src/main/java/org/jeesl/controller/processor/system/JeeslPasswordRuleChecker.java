@@ -1,7 +1,13 @@
 package org.jeesl.controller.processor.system;
 
+import java.util.regex.*;
+
 public class JeeslPasswordRuleChecker
 {
+	private final String regexDigits = ".*\\d.*";
+	private final String regexLower = ".*[a-z].*";
+	private final String regexUpper = ".*[A-Z].*";
+	private final String regexSymbols = ".*[\\W_].*";
 	
 	public JeeslPasswordRuleChecker()
 	{		
@@ -13,23 +19,23 @@ public class JeeslPasswordRuleChecker
 		return pwd.length()>=min;
 	}
 	
-	protected boolean validDigits(String pwd, int min)
+	protected boolean validDigits(String pwd)
 	{
-		return false;
+		return Pattern.matches(regexDigits, pwd);
 	}
 	
-	protected boolean validLower(String pwd, int min)
+	protected boolean validLower(String pwd)
 	{
-		return false;
+		return Pattern.matches(regexLower, pwd);
 	}
 	
-	protected boolean validUpper(String pwd, int min)
+	protected boolean validUpper(String pwd)
 	{
-		return false;
+		return Pattern.matches(regexUpper, pwd);
 	}
 	
-	protected boolean validSymbols(String pwd, int min)
+	protected boolean validSymbols(String pwd)
 	{
-		return false;
+		return Pattern.matches(regexSymbols, pwd);
 	}
 }
