@@ -4,10 +4,10 @@ import java.util.regex.*;
 
 public class JeeslPasswordRuleChecker
 {
-	private final String regexDigits = ".*\\d.*";
-	private final String regexLower = ".*[a-z].*";
-	private final String regexUpper = ".*[A-Z].*";
-	private final String regexSymbols = ".*[\\W_].*";
+	private final String regexDigits = "(.*?\\d){%d,}.*?";
+	private final String regexLower = "(.*?[a-z]){%d,}.*?";
+	private final String regexUpper = "(.*?[A-Z]){%d,}.*?";
+	private final String regexSymbols = "(.*?[_.*+:#!?%%{}\\|@\\[\\];=\"&$\\\\/,()-]){%d,}.*?";
 	
 	public JeeslPasswordRuleChecker()
 	{		
@@ -19,23 +19,23 @@ public class JeeslPasswordRuleChecker
 		return pwd.length()>=min;
 	}
 	
-	protected boolean validDigits(String pwd)
+	protected boolean validDigits(String pwd, int min)
 	{
-		return Pattern.matches(regexDigits, pwd);
+		return Pattern.matches(String.format(regexDigits, min), pwd);
 	}
 	
-	protected boolean validLower(String pwd)
+	protected boolean validLower(String pwd, int min)
 	{
-		return Pattern.matches(regexLower, pwd);
+		return Pattern.matches(String.format(regexLower, min), pwd);
 	}
 	
-	protected boolean validUpper(String pwd)
+	protected boolean validUpper(String pwd, int min)
 	{
-		return Pattern.matches(regexUpper, pwd);
+		return Pattern.matches(String.format(regexUpper, min), pwd);
 	}
 	
-	protected boolean validSymbols(String pwd)
+	protected boolean validSymbols(String pwd, int min)
 	{
-		return Pattern.matches(regexSymbols, pwd);
+		return Pattern.matches(String.format(regexSymbols, min), pwd);
 	}
 }
