@@ -11,11 +11,11 @@ public class TestPasswordRuleChecker extends AbstractJeeslUtilTest
 {
 	final static Logger logger = LoggerFactory.getLogger(TestPasswordRuleChecker.class);
 	
-	private JeeslPasswordRuleChecker checker;
+	private JeeslPasswordRuleChecker<?,?> checker;
 	
 	@Before public void init()
 	{
-		checker = new JeeslPasswordRuleChecker();
+		checker = new JeeslPasswordRuleChecker<>();
 	}
 	
 	@Test public void length()
@@ -27,12 +27,21 @@ public class TestPasswordRuleChecker extends AbstractJeeslUtilTest
 	@Test public void digits()
 	{
 		Assert.assertEquals(true,checker.validDigits("a1b2c", 2));
+		Assert.assertEquals(true,checker.validDigits("abcdefghijklmn12", 2));
+		Assert.assertEquals(true,checker.validDigits("11abcdefghijklmn", 2));
 		Assert.assertEquals(false,checker.validDigits("ab1c", 2));
 	}
 	
 	@Test public void lower()
 	{
 		Assert.assertEquals(true,checker.validLower("abc", 2));
+		Assert.assertEquals(true,checker.validLower("ABCDEFGHIKLMNxy", 2));
+		Assert.assertEquals(true,checker.validLower("ABCDEFGHIKLMNxy", 2));
+		Assert.assertEquals(true,checker.validLower("xABCDEFGHIKLMNx", 2));
+		Assert.assertEquals(true,checker.validLower("AxxBCDEFGHIKLMN", 2));
+		Assert.assertEquals(true,checker.validLower("ABxCDEFGHIKxLMN", 2));
+		Assert.assertEquals(false,checker.validLower("ABCDEFGHIKLMNxy", 3));
+		Assert.assertEquals(true,checker.validLower("ABCDEFGHIKLMNxyy", 3));
 		Assert.assertEquals(false,checker.validLower("AbC", 2));
 	}
 	
@@ -40,6 +49,8 @@ public class TestPasswordRuleChecker extends AbstractJeeslUtilTest
 	{
 		Assert.assertEquals(true,checker.validUpper("ABC", 2));
 		Assert.assertEquals(false,checker.validUpper("Abc", 2));
+		Assert.assertEquals(false,checker.validUpper("Abcksdfjnvgkjwnv", 2));
+		Assert.assertEquals(true,checker.validUpper("AbcksdfjBvgkjwnv", 2));
 	}
 	
 	@Test public void symbols()

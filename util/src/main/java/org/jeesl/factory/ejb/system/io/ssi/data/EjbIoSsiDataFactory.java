@@ -28,12 +28,20 @@ public class EjbIoSsiDataFactory <MAPPING extends JeeslIoSsiMapping<?,?>,
 			ejb.setMapping(mapping);
 			ejb.setCode(code);
 			ejb.setLink(link);
-			if(json!=null) {ejb.setJson(JsonUtil.toString(json));}
+			this.updateJson(ejb,json);
 	       
 		}
 		catch (InstantiationException e) {e.printStackTrace();}
 		catch (IllegalAccessException e) {e.printStackTrace();}
-		catch (JsonProcessingException e) {e.printStackTrace();}
 		return ejb;
+	}
+	
+	public void updateJson(DATA data, Object json)
+	{
+		if(json!=null)
+		{
+			try{data.setJson(JsonUtil.toString(json));}
+			catch (JsonProcessingException e) {e.printStackTrace();}
+		}
 	}
 }
