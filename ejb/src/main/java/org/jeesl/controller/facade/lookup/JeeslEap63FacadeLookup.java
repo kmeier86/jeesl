@@ -24,7 +24,10 @@ public class JeeslEap63FacadeLookup implements JeeslFacadeLookup
 	
 	private String appName;
 	private String moduleName;
-	private final Properties properties;
+
+	private String host;
+	private int port;
+	private String username,password;
 	
 	public JeeslEap63FacadeLookup(String appName, String moduleName)
 	{
@@ -42,23 +45,16 @@ public class JeeslEap63FacadeLookup implements JeeslFacadeLookup
 	{
 		this.appName=appName;
 		this.moduleName=moduleName;
+		this.host=host;
+		this.port=port;
+		this.username=username;
+		this.password=password;
 		
-		properties = new Properties();
+		if(this.host==null){this.host="localhost";}
+		
 		Security.addProvider(new JBossSaslProvider());
 		
-		properties.put("remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED", "false");
-		properties.put("remote.connections", "default");
-
-		if(host==null){host="localhost";}
-		logger.info("Connecting to "+host);
-		properties.put("remote.connection.default.host", host);
-		properties.put("remote.connection.default.port", Integer.valueOf(port).toString());
-
-		properties.put("remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS", "false");
-		if(username!=null){properties.put("remote.connection.default.username", username);}
-		if(password!=null){properties.put("remote.connection.default.password", password);}
-		
-		EJBClientConfiguration clientConfiguration = new PropertiesBasedEJBClientConfiguration(properties);
+		EJBClientConfiguration clientConfiguration = new PropertiesBasedEJBClientConfiguration(properties());
 		ContextSelector<EJBClientContext> contextSelector = new ConfigBasedEJBClientContextSelector(clientConfiguration);
 
 		EJBClientContext.setSelector(contextSelector);
@@ -67,31 +63,39 @@ public class JeeslEap63FacadeLookup implements JeeslFacadeLookup
 	@SuppressWarnings("unchecked")
 	@Override public <F extends Object> F lookup(Class<F> facade) throws NamingException
     {
-        final Context context = createContext();
-        
-        final String distinctName = "";
+        Context context = new InitialContext(properties());
  
         final String beanName = facade.getSimpleName()+"Bean";
-        final String viewClassName = facade.getName();
+        final String interfaceName = facade.getName();
         
         StringBuilder sb = new StringBuilder();
-        sb.append("ejb:");
+//        sb.append("ejb:");
         sb.append(appName).append("/");
         sb.append(moduleName).append("/");
-        sb.append(distinctName).append("/");
+        sb.append("/");
+//        sb.append(distinctName).append("/");
         sb.append(beanName);
-        sb.append("!").append(viewClassName);
-        logger.trace("Trying: "+sb.toString());
+        sb.append("!").append(interfaceName);
+        logger.info("Trying: "+sb.toString());
         return (F) context.lookup(sb.toString());
     }
    
-   private Context createContext() throws NamingException
-   {
-       Hashtable<String,String> jndiProperties = new Hashtable<String,String>();
-       jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
-//       jndiProperties.put(Context.PROVIDER_URL, "remote://" +host +":4447");
-//       if(username!=null){jndiProperties.put(Context.SECURITY_PRINCIPAL, username);}
-//       if(password!=null){jndiProperties.put(Context.SECURITY_CREDENTIALS, password);}
-       return new InitialContext(jndiProperties);
+	private Properties properties()
+	{
+		Properties properties = new Properties();
+//		properties.setProperty(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");  
+		properties.setProperty("endpoint.name", "client-endpoint"); 
+		properties.put("remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED", "false");
+		properties.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.remote.client.InitialContextFactory");
+		properties.put(Context.PROVIDER_URL, "remote://localhost:4447");
+		properties.put("jboss.naming.client.ejb.context", true);
+
+		properties.put("remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS", "false");
+		properties.put("remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOPLAINTEXT", "false");
+		if(username!=null){properties.put("remote.connection.default.username", username);}
+		if(password!=null){properties.put("remote.connection.default.password", password);}
+		
+		properties.setProperty("org.jboss.ejb.client.scoped.context", "true");
+		return properties;
    }
 }
