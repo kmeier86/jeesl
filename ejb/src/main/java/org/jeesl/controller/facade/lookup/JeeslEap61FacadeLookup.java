@@ -1,4 +1,4 @@
-package net.sf.ahtutils.controller;
+package org.jeesl.controller.facade.lookup;
 
 import java.security.Security;
 import java.util.Hashtable;
@@ -18,31 +18,32 @@ import org.jeesl.api.facade.JeeslFacadeLookup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UtilsJbossFacadeLookup implements JeeslFacadeLookup
+public class JeeslEap61FacadeLookup implements JeeslFacadeLookup
 {
-	final static Logger logger = LoggerFactory.getLogger(UtilsJbossFacadeLookup.class);
+	final static Logger logger = LoggerFactory.getLogger(JeeslEap61FacadeLookup.class);
 	
 	private String appName;
 	private String moduleName;
-	private final Properties properties = new Properties();
+	private final Properties properties;
 	
-	public UtilsJbossFacadeLookup(String appName, String moduleName)
+	public JeeslEap61FacadeLookup(String appName, String moduleName)
 	{
 		this(appName,moduleName,null,4447,null,null);
 	}
-	public UtilsJbossFacadeLookup(String appName, String moduleName, String host)
+	public JeeslEap61FacadeLookup(String appName, String moduleName, String host)
 	{
 		this(appName,moduleName,host,4447,null,null);
 	}
-	public UtilsJbossFacadeLookup(String appName, String moduleName, String host, String username, String password)
+	public JeeslEap61FacadeLookup(String appName, String moduleName, String host, String username, String password)
 	{
 		this(appName,moduleName,host,4447,username,password);
 	}
-	public UtilsJbossFacadeLookup(String appName, String moduleName, String host, int port, String username, String password)
+	public JeeslEap61FacadeLookup(String appName, String moduleName, String host, int port, String username, String password)
 	{
 		this.appName=appName;
 		this.moduleName=moduleName;
 		
+		properties = new Properties();
 		Security.addProvider(new JBossSaslProvider());
 		
 		properties.put("remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED", "false");
