@@ -77,6 +77,21 @@
     		<s:lang key="fr" translation="Event"/>
     	</s:langs>
     </s:translation>
+	<s:translation key="jeeslAssetEventName">
+    	<s:langs>
+    		<s:lang key="de" translation="Betreff"/>
+    		<s:lang key="en" translation="Subject"/>
+    		<s:lang key="fr" translation="Subject"/>
+    	</s:langs>
+    </s:translation>  
+	<s:translation key="jeeslAssetEventRemark">
+    	<s:langs>
+    		<s:lang key="de" translation="Beschreibung"/>
+    		<s:lang key="en" translation="Remark"/>
+    		<s:lang key="fr" translation="Remark"/>
+    	</s:langs>
+    </s:translation>  
+    
 	<s:translation key="jeeslAssetEventDate">
     	<s:langs>
     		<s:lang key="de" translation="Datum"/>
@@ -90,13 +105,36 @@
     		<s:lang key="en" translation="Type"/>
     		<s:lang key="fr" translation="Type"/>
     	</s:langs>
-    </s:translation>     
-    	<s:translation key="jeeslAssetEventAmountProcurement">
+    </s:translation>
+    <s:translation key="jeeslAssetEventStatus">
+    	<s:langs>
+    		<s:lang key="de" translation="Status"/>
+    		<s:lang key="en" translation="Status"/>
+    		<s:lang key="fr" translation="Status"/>
+    	</s:langs>
+    </s:translation>
+	<s:translation key="jeeslAssetEventAmountProcurement">
     	<s:langs>
     		<s:lang key="de" translation="Anschaffungspreis"/>
     		<s:lang key="en" translation="Procurement Amount"/>
     		<s:lang key="fr" translation="Procurement Amount"/>
     	</s:langs>
     </s:translation>
+	<s:translation key="jeeslAssetEventAmountMaintenance">
+    	<s:langs>
+    		<s:lang key="de" translation="Wartungspreis"/>
+    		<s:lang key="en" translation="Maintenance Amount"/>
+    		<s:lang key="fr" translation="Maintenance Amount"/>
+    	</s:langs>
+    </s:translation>
+    
+	<s:translation key="jeeslAssetMaintainer">
+    	<s:langs>
+    		<s:lang key="de" translation="Instandhalter"/>
+    		<s:lang key="en" translation="Maintainer"/>
+    		<s:lang key="fr" translation="Maintainer"/>
+    	</s:langs>
+    </s:translation>   
+    
     
 </s:translations>

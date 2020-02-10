@@ -1,4 +1,4 @@
-package org.jeesl.interfaces.model.module.aom.company;
+package org.jeesl.interfaces.model.module.aom.event;
 
 import java.io.Serializable;
 
@@ -12,7 +12,7 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 import org.jeesl.interfaces.model.with.code.EjbWithCode;
 
-public interface JeeslAomScope <L extends JeeslLang, D extends JeeslDescription,
+public interface JeeslAomEventStatus <L extends JeeslLang, D extends JeeslDescription,
 									S extends JeeslStatus<S,L,D>,
 									G extends JeeslGraphic<L,D,?,?,?>>
 					extends Serializable,EjbPersistable,
@@ -20,7 +20,6 @@ public interface JeeslAomScope <L extends JeeslLang, D extends JeeslDescription,
 								JeeslOptionRestDownload,
 								EjbWithCodeGraphic<G>,
 								JeeslStatus<S,L,D>
-{
-	
-	public static enum Code{manufacturer,vendor,maintainer};
+{	
+	public enum Code{planned,postponed,cancelled,performed}
 }
