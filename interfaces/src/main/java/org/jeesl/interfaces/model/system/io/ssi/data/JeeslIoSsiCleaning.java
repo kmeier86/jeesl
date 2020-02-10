@@ -11,12 +11,12 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 
-public interface JeeslIoSsiLink <L extends JeeslLang, D extends JeeslDescription,
+public interface JeeslIoSsiCleaning <L extends JeeslLang, D extends JeeslDescription,
 						S extends JeeslStatus<S,L,D>,
 						G extends JeeslGraphic<L,D,?,?,?>>
 		extends Serializable,EjbPersistable,
 				JeeslOptionRestDownload,JeeslStatusFixedCode,
 				EjbWithCodeGraphic<G>,JeeslStatus<S,L,D>
 {
-	public static enum Code{unlinked,precondition,possible,linked,ignore};
+	public static enum Code{undecided,delete,keep};
 }

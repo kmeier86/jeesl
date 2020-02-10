@@ -108,7 +108,14 @@ public class SbSingleHandler <T extends EjbWithId> implements Serializable,SbSin
 		}
 		update(list2,preferred);
 	}
+	
 	public void update(List<T> list){update(list, null);}
+	public void update(T t, T preferred)
+	{
+		List<T> list = new ArrayList<T>();
+		list.add(t);
+		update(list,preferred);
+	}
 	public void update(List<T> list, T preferred)
 	{
 		this.list.clear();
