@@ -105,13 +105,17 @@ public abstract class AbstractAssetMaintenanceBean <L extends JeeslLang, D exten
 		this.rref=rref;
 		
 		sbhEventStatus.setList(fAsset.all(fbAsset.getClassEventStatus()));
+		sbhEventStatus.preSelect(JeeslAomEventStatus.Code.planned);
+		sbhEventStatus.preSelect(JeeslAomEventStatus.Code.postponed);
+		sbhEventStatus.preSelect(JeeslAomEventStatus.Code.confirmed);
 		
 		reloadEvents();
 	}
 	
 	@Override public void toggled(Class<?> c)
 	{
-		
+		logger.info("Toggled");
+		reloadEvents();
 	}
 	
 	
@@ -119,7 +123,7 @@ public abstract class AbstractAssetMaintenanceBean <L extends JeeslLang, D exten
 	private void reloadEvents()
 	{
 		events.clear();
-		events.addAll(fAsset.all(fbAsset.getClassEvent()));
+		events.addAll(fAsset.fAssetEvents(realm, rref, sbhEventStatus.getSelected()));
 	}
     
     public void addEvent()
