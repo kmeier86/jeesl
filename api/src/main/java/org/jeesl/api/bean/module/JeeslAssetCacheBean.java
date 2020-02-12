@@ -26,4 +26,7 @@ public interface JeeslAssetCacheBean <L extends JeeslLang, D extends JeeslDescri
 {
 //	void reloadAssetTypes(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE> fAsset, REALM realm, RREF rref);
 	Map<REALM,Map<RREF,List<ATYPE>>> getMapAssetType();
+	
+	Map<REALM,Map<RREF,List<COMPANY>>> getMapVendor();
+	Map<REALM,Map<RREF,List<COMPANY>>> getMapMaintainer();
 }
