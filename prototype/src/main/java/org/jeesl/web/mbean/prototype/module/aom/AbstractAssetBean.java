@@ -33,6 +33,7 @@ import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.jeesl.util.comparator.ejb.module.asset.EjbAssetComparator;
+import org.jeesl.util.comparator.ejb.module.asset.EjbEventComparator;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
 import org.primefaces.event.DragDropEvent;
 import org.primefaces.event.NodeCollapseEvent;
@@ -71,6 +72,7 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
 	private final EjbAssetEventFactory<COMPANY,ASSET,EVENT,ETYPE,ESTATUS> efEvent;
 	
 	private final Comparator<ASSET> cpAsset;
+	private final Comparator<EVENT> cpEvent;
 	
 	private final UiHelperAsset<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> uiHelper; public UiHelperAsset<L, D, REALM, RREF, COMPANY, SCOPE, ASSET, ASTATUS, ATYPE, EVENT, ETYPE, ESTATUS> getUiHelper() {return uiHelper;}
 	private TreeNode tree; public TreeNode getTree() {return tree;}
@@ -100,6 +102,7 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
 		efEvent = fbAsset.ejbEvent();
 		
 		cpAsset = fbAsset.cpAsset(EjbAssetComparator.Type.position);
+		cpEvent = fbAsset.cpEvent(EjbEventComparator.Type.record);
 		
 		path = new HashSet<>();
 		events = new ArrayList<>();
@@ -207,6 +210,7 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
 	{
 		events.clear();
 		events.addAll(fAsset.fAssetEvents(asset));
+		Collections.sort(events,cpEvent);
 	}
     
     public void addEvent()
