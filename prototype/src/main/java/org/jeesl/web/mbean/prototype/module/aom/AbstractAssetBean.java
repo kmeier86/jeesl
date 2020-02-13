@@ -65,6 +65,7 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetBean.class);
 	
 	protected JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fAsset;
+	private JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ETYPE> bCache;
 	
 	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fbAsset;
 	
@@ -110,12 +111,13 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
 	
 	protected <E extends Enum<E>> void postConstructAsset(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 									JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fAsset,
-									JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE> bCache,
+									JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ETYPE> bCache,
 									E eRealm, RREF rref
 									)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fAsset=fAsset;
+		this.bCache=bCache;
 		uiHelper.setCacheBean(bCache);
 		
 		realm = fAsset.fByEnum(fbAsset.getClassRealm(),eRealm);
@@ -216,7 +218,7 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
     public void addEvent()
     {
     	logger.info(AbstractLogMessage.addEntity(fbAsset.getClassEvent()));
-    	event = efEvent.build(asset);
+    	event = efEvent.build(asset,bCache.getEventType().get(0));
     	efEvent.ejb2nnb(event,nnb);
     	uiHelper.update(realm,rref,event);
     }
