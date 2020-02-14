@@ -59,8 +59,6 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
     private final List<ETYPE> eventType; @Override public List<ETYPE> getEventType() {return eventType;}
     private final List<ESTATUS> eventStatus; public List<ESTATUS> getEventStatus() {return eventStatus;}
     
-    
-    
 	public AbstractAssetCacheBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fbAsset)
 	{
 		this.fbAsset=fbAsset;
@@ -80,6 +78,7 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 	public void postConstruct(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fAsset)
 	{
 		if(cacheScope==null) {cacheScope = new EjbCodeCache<SCOPE>(fAsset,fbAsset.getClassScope());}
+		
 		if(assetStatus.isEmpty()) {assetStatus.addAll(fAsset.allOrderedPositionVisible(fbAsset.getClassStatus()));}
 		if(eventType.isEmpty()) {eventType.addAll(fAsset.allOrderedPositionVisible(fbAsset.getClassEventType()));}
 		if(eventStatus.isEmpty()) {eventStatus.addAll(fAsset.allOrderedPositionVisible(fbAsset.getClassEventStatus()));}
@@ -97,7 +96,7 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 		reloadCompanies(realm,rref);
 	}
 	
-	public void reloadAssetTypes(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fAsset, REALM realm, RREF rref,boolean force)
+	private void reloadAssetTypes(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fAsset, REALM realm, RREF rref, boolean force)
 	{		
 		if(!mapAssetType.containsKey(realm)) {mapAssetType.put(realm,new HashMap<>());}	
 		if(!mapAssetType.get(realm).containsKey(rref)) {mapAssetType.get(realm).put(rref,new ArrayList<>());}

@@ -86,8 +86,8 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
     
 	private final Set<ASSET> path;
     
-	private REALM realm; public REALM getRealm() {return realm;}
-	private RREF rref; public RREF getRref() {return rref;}
+	protected REALM realm; public REALM getRealm() {return realm;}
+	protected RREF rref; public RREF getRref() {return rref;}
 
 	private ASSET root;
     private ASSET asset; public ASSET getAsset() {return asset;} public void setAsset(ASSET asset) {this.asset = asset;}
@@ -112,24 +112,26 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
 		path = new HashSet<>();
 	}
 	
-	protected <E extends Enum<E>> void postConstructAsset(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fAsset,
-									JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ETYPE> bCache,
-									E eRealm, RREF rref
-									)
+	protected void postConstructAsset(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+						JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fAsset,
+						JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ETYPE> bCache,
+						REALM realm)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fAsset=fAsset;
 		this.bCache=bCache;
 		uiHelper.setCacheBean(bCache);
 		
-		realm = fAsset.fByEnum(fbAsset.getClassRealm(),eRealm);
-		this.rref=rref;
+		this.realm=realm;
 		
 		thfEventType.getList().addAll(bCache.getEventType());
 		thfEventType.selectAll();
 //		thFilter.preSelect(MeisNsdsCandidateStatus.class,MeisNsdsCandidateStatus.Code.pending);
-		
+	}
+	
+	protected void updateRealmReference(RREF rref)
+	{
+		this.rref=rref;
 		reloadTree();
 	}
 	

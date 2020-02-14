@@ -57,7 +57,7 @@ public class AbstractAssetCompanyBean <L extends JeeslLang, D extends JeeslDescr
 	
 	private AssetCompanyLazyModel<REALM,RREF,COMPANY,SCOPE> lazyCompany; public AssetCompanyLazyModel<REALM,RREF,COMPANY,SCOPE> getLazyCompany() {return lazyCompany;}
 
-    private REALM realm; public REALM getRealm() {return realm;}
+    protected REALM realm; public REALM getRealm() {return realm;}
 	private RREF rref; public RREF getRref() {return rref;}
 	private COMPANY company; public COMPANY getCompany() {return company;} public void setCompany(COMPANY company) {this.company = company;}
 
@@ -69,17 +69,20 @@ public class AbstractAssetCompanyBean <L extends JeeslLang, D extends JeeslDescr
 		lazyCompany = new AssetCompanyLazyModel<>();
 	}
 
-	protected <E extends Enum<E>> void postConstructAssetManufacturer(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
+	protected void postConstructAssetCompany(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
 													JeeslAssetCacheBean<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,ETYPE> bCache,
 													JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fAsset,
-													E eRealm, RREF rref)
+													REALM realm)
 	{
 		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fAsset=fAsset;
 		this.bCache=bCache;
 		smh.updateList(fAsset.allOrderedPosition(fbAsset.getClassScope()));
-		realm = fAsset.fByEnum(fbAsset.getClassRealm(),eRealm);
-		this.rref=rref;
+		this.realm=realm;
+	}
+	
+	protected void updateRealmReference(RREF rref)
+	{
 		lazyCompany.setScope(bCache,realm,rref);
 	}
 	
