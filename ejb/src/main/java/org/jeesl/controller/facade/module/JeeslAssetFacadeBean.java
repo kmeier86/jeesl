@@ -9,6 +9,8 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.ListJoin;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
@@ -26,6 +28,7 @@ import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
+import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventStatus;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
@@ -41,18 +44,19 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,ATYPE>,
 										STATUS extends JeeslAomStatus<L,D,STATUS,?>,
 										ATYPE extends JeeslAomType<L,D,REALM,ATYPE,?>,
-										EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE>,
-										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>>
+										EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS>,
+										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
+										ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>>
 					extends JeeslFacadeBean
-					implements JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,EVENT,ETYPE>
+					implements JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,EVENT,ETYPE,ESTATUS>
 {	
 	private static final long serialVersionUID = 1L;
 
 	final static Logger logger = LoggerFactory.getLogger(JeeslAssetFacadeBean.class);
 	
-	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,EVENT,ETYPE> fbAsset;
+	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,EVENT,ETYPE,ESTATUS> fbAsset;
 	
-	public JeeslAssetFacadeBean(EntityManager em, final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,EVENT,ETYPE> fbAsset)
+	public JeeslAssetFacadeBean(EntityManager em, final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,ATYPE,EVENT,ETYPE,ESTATUS> fbAsset)
 	{
 		super(em);
 		this.fbAsset=fbAsset;
@@ -130,7 +134,7 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 		}
 	}
 
-	@Override public <RREF extends EjbWithId> List<COMPANY> fAssetCompanies(REALM realm, RREF realmReference, SCOPE scope)
+	@Override public <RREF extends EjbWithId> List<COMPANY> fAssetCompanies(REALM realm, RREF realmReference)
 	{
 		CriteriaBuilder cB = em.getCriteriaBuilder();
 		CriteriaQuery<COMPANY> cQ = cB.createQuery(fbAsset.getClassCompany());
@@ -142,12 +146,6 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 		
 		Path<REALM> pRealm = company.get(JeeslAomCompany.Attributes.realm.toString());
 		predicates.add(cB.equal(pRealm,realm));
-		
-		if(scope!=null)
-		{
-			ListJoin<COMPANY,SCOPE> jScopes = company.joinList(JeeslAomCompany.Attributes.scopes.toString());
-			predicates.add(jScopes.in(scope));	
-		}
 		
 		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
 		cQ.select(company);
@@ -169,5 +167,32 @@ public class JeeslAssetFacadeBean<L extends JeeslLang, D extends JeeslDescriptio
 		cQ.select(event);
 
 		return em.createQuery(cQ).getResultList();
+	}
+
+	@Override
+	public <RREF extends EjbWithId> List<EVENT> fAssetEvents(REALM realm, RREF rref, List<ESTATUS> status)
+	{
+		if(status==null || status.isEmpty()) {return new ArrayList<>();}
+		CriteriaBuilder cB = em.getCriteriaBuilder();
+		CriteriaQuery<EVENT> cQ = cB.createQuery(fbAsset.getClassEvent());
+		Root<EVENT> event = cQ.from(fbAsset.getClassEvent());
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		
+		ListJoin<EVENT,ASSET> jAsset = event.joinList(JeeslAomEvent.Attributes.assets.toString());
+		Expression<Long> eRefId = jAsset.get(JeeslAomAsset.Attributes.realmIdentifier.toString());
+		Path<REALM> pRealm = jAsset.get(JeeslAomAsset.Attributes.realm.toString());
+		
+		predicates.add(cB.equal(eRefId,rref.getId()));
+		predicates.add(cB.equal(pRealm,realm));
+		
+		Join<EVENT,ESTATUS> jStatus = event.join(JeeslAomEvent.Attributes.status.toString());
+		predicates.add(jStatus.in(status));
+		
+		cQ.where(cB.and(predicates.toArray(new Predicate[predicates.size()])));
+		cQ.select(event);
+		cQ.distinct(true);
+
+		TypedQuery<EVENT> tQ = em.createQuery(cQ);
+		return tQ.getResultList();
 	}
 }

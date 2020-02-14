@@ -22,5 +22,5 @@ public interface JeeslAomScope <L extends JeeslLang, D extends JeeslDescription,
 								JeeslStatus<S,L,D>
 {
 	
-	public static enum Code{manufacturer,vendor};
+	public static enum Code{manufacturer,vendor,maintainer};
 }

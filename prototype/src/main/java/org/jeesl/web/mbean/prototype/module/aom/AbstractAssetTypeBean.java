@@ -21,6 +21,7 @@ import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomScope;
 import org.jeesl.interfaces.model.module.aom.core.JeeslAomRealm;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEvent;
+import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventStatus;
 import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphic;
 import org.jeesl.interfaces.model.system.graphic.core.JeeslGraphicFigure;
@@ -52,19 +53,20 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 										ASSET extends JeeslAomAsset<REALM,ASSET,COMPANY,STATUS,TYPE>,
 										STATUS extends JeeslAomStatus<L,D,STATUS,?>,
 										TYPE extends JeeslAomType<L,D,REALM,TYPE,G>,
-										EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE>,
-										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>>
+										EVENT extends JeeslAomEvent<COMPANY,ASSET,ETYPE,ESTATUS>,
+										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
+										ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>>
 					extends AbstractAdminBean<L,D>
 					implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetTypeBean.class);
 	
-	private JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE,EVENT,ETYPE> fAsset;
+	private JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE,EVENT,ETYPE,ESTATUS> fAsset;
 	private JeeslGraphicFacade<L,D,S,G,GT,F,FS> fGraphic;
 	
 	private final SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg;
-	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE,EVENT,ETYPE> fbAsset;
+	private final AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE,EVENT,ETYPE,ESTATUS> fbAsset;
 	
 	private final EjbAssetTypeFactory<REALM,TYPE> efType;
 	
@@ -76,7 +78,7 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
     private TYPE root;
     private TYPE type;  public TYPE getType() {return type;} public void setType(TYPE type) {this.type = type;}
 
-	public AbstractAssetTypeBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE,EVENT,ETYPE> fbAsset, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg)
+	public AbstractAssetTypeBean(AssetFactoryBuilder<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE,EVENT,ETYPE,ESTATUS> fbAsset, SvgFactoryBuilder<L,D,G,GT,F,FS> fbSvg)
 	{
 		super(fbAsset.getClassL(),fbAsset.getClassD());
 		this.fbAsset=fbAsset;
@@ -86,7 +88,7 @@ public abstract class AbstractAssetTypeBean <L extends JeeslLang, D extends Jees
 	}
 	
 	protected <E extends Enum<E>> void postConstructAssetType(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
-									JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE,EVENT,ETYPE> fAsset,
+									JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,STATUS,TYPE,EVENT,ETYPE,ESTATUS> fAsset,
 									JeeslGraphicFacade<L,D,S,G,GT,F,FS> fGraphic,
 									E eRealm, RREF rRef)
 	{

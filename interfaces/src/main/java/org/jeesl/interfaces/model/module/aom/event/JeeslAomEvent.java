@@ -6,26 +6,31 @@ import java.util.List;
 import org.jeesl.interfaces.model.marker.jpa.EjbSaveable;
 import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
 import org.jeesl.interfaces.model.module.aom.company.JeeslAomCompany;
+import org.jeesl.interfaces.model.with.status.JeeslWithStatus;
 import org.jeesl.interfaces.model.with.status.JeeslWithType;
+import org.jeesl.interfaces.model.with.text.EjbWithRemark;
 
+import net.sf.ahtutils.model.interfaces.with.EjbWithName;
 import net.sf.ahtutils.model.interfaces.with.EjbWithRecord;
 
 public interface JeeslAomEvent <COMPANY extends JeeslAomCompany<?,?>,
 								ASSET extends JeeslAomAsset<?,ASSET,COMPANY,?,?>,
-								ETYPE extends JeeslAomEventType<?,?,ETYPE,?>>
+								ETYPE extends JeeslAomEventType<?,?,ETYPE,?>,
+								ESTATUS extends JeeslAomEventStatus<?,?,ESTATUS,?>>
 			extends Serializable,EjbSaveable,
-					EjbWithRecord,JeeslWithType<ETYPE>
+					EjbWithRecord,EjbWithRemark,EjbWithName,
+					JeeslWithType<ETYPE>,JeeslWithStatus<ESTATUS>
 				
 					
 {
-	public enum Attributes{assets}
+	public enum Attributes{assets,status}
 	
 	List<ASSET> getAssets();
 	void setAssets(List<ASSET> assets);
 	
-	COMPANY getVendor();
-	void setVendor(COMPANY vendor);
+	COMPANY getCompany();
+	void setCompany(COMPANY vendor);
 	
-	Double getAmountProcurement();
-	void setAmountProcurement(Double amountProcurement);
+	Double getAmount();
+	void setAmount(Double amount);
 }

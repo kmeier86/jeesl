@@ -11,8 +11,8 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatusFixedCode;
 import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 
-public interface JeeslIoSsiLink <S extends JeeslStatus<S,L,D>,
-						L extends JeeslLang, D extends JeeslDescription,
+public interface JeeslIoSsiLink <L extends JeeslLang, D extends JeeslDescription,
+						S extends JeeslStatus<S,L,D>,
 						G extends JeeslGraphic<L,D,?,?,?>>
 		extends Serializable,EjbPersistable,
 				JeeslOptionRestDownload,JeeslStatusFixedCode,

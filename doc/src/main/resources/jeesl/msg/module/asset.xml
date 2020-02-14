@@ -1,24 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <s:translations xmlns:s="http://ahtutils.aht-group.com/status">
-	<s:translation key="jeeslAssetManufacturers">
+	<s:translation key="jeeslAssetCompany">
     	<s:langs>
-    		<s:lang key="de" translation="Hersteller"/>
-    		<s:lang key="en" translation="Manufacturers"/>
-    		<s:lang key="fr" translation="Manufacturers"/>
-    	</s:langs>
-    </s:translation>
-    <s:translation key="jeeslAssetManufacturer">
-    	<s:langs>
-    		<s:lang key="de" translation="Hersteller"/>
-    		<s:lang key="en" translation="Manufacturer"/>
-    		<s:lang key="fr" translation="Manufacturer"/>
-    	</s:langs>
-    </s:translation>
-    <s:translation key="jeeslAssetVendor">
-    	<s:langs>
-    		<s:lang key="de" translation="Händler"/>
-    		<s:lang key="en" translation="Vendor"/>
-    		<s:lang key="fr" translation="Vendor"/>
+    		<s:lang key="de" translation="Firma"/>
+    		<s:lang key="en" translation="Company"/>
+    		<s:lang key="fr" translation="Company"/>
     	</s:langs>
     </s:translation>
 	<s:translation key="jeeslAssetCompanyScopes">
@@ -28,18 +14,25 @@
     		<s:lang key="fr" translation="Scopes"/>
     	</s:langs>
     </s:translation>
-	<s:translation key="jeeslAssetManufacturerName">
+	<s:translation key="jeeslAssetCompanyName">
     	<s:langs>
     		<s:lang key="de" translation="Name"/>
     		<s:lang key="en" translation="Name"/>
     		<s:lang key="fr" translation="Name"/>
     	</s:langs>
     </s:translation>
-    <s:translation key="jeeslAssetManufacturerUrl">
+    <s:translation key="jeeslAssetCompanyUrl">
     	<s:langs>
     		<s:lang key="de" translation="Webseite"/>
     		<s:lang key="en" translation="Website"/>
     		<s:lang key="fr" translation="Website"/>
+    	</s:langs>
+    </s:translation>
+     <s:translation key="jeeslAssetCompanyPhone">
+    	<s:langs>
+    		<s:lang key="de" translation="Telefon"/>
+    		<s:lang key="en" translation="Phone"/>
+    		<s:lang key="fr" translation="Phone"/>
     	</s:langs>
     </s:translation>
     <s:translation key="jeeslAsset">
@@ -77,6 +70,21 @@
     		<s:lang key="fr" translation="Event"/>
     	</s:langs>
     </s:translation>
+	<s:translation key="jeeslAssetEventName">
+    	<s:langs>
+    		<s:lang key="de" translation="Betreff"/>
+    		<s:lang key="en" translation="Subject"/>
+    		<s:lang key="fr" translation="Subject"/>
+    	</s:langs>
+    </s:translation>  
+	<s:translation key="jeeslAssetEventRemark">
+    	<s:langs>
+    		<s:lang key="de" translation="Beschreibung"/>
+    		<s:lang key="en" translation="Remark"/>
+    		<s:lang key="fr" translation="Remark"/>
+    	</s:langs>
+    </s:translation>  
+    
 	<s:translation key="jeeslAssetEventDate">
     	<s:langs>
     		<s:lang key="de" translation="Datum"/>
@@ -90,13 +98,19 @@
     		<s:lang key="en" translation="Type"/>
     		<s:lang key="fr" translation="Type"/>
     	</s:langs>
-    </s:translation>     
-    	<s:translation key="jeeslAssetEventAmountProcurement">
+    </s:translation>
+    <s:translation key="jeeslAssetEventStatus">
     	<s:langs>
-    		<s:lang key="de" translation="Anschaffungspreis"/>
-    		<s:lang key="en" translation="Procurement Amount"/>
-    		<s:lang key="fr" translation="Procurement Amount"/>
+    		<s:lang key="de" translation="Status"/>
+    		<s:lang key="en" translation="Status"/>
+    		<s:lang key="fr" translation="Status"/>
     	</s:langs>
     </s:translation>
-    
+	<s:translation key="jeeslAssetEventAmount">
+    	<s:langs>
+    		<s:lang key="de" translation="Preis"/>
+    		<s:lang key="en" translation="Preis"/>
+    		<s:lang key="fr" translation="Preis"/>
+    	</s:langs>
+    </s:translation>
 </s:translations>
