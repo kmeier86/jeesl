@@ -1,7 +1,6 @@
 package org.jeesl.web.mbean.prototype.module.aom;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -13,6 +12,7 @@ import org.jeesl.api.bean.module.JeeslAssetCacheBean;
 import org.jeesl.api.bean.msg.JeeslFacesMessageBean;
 import org.jeesl.api.facade.module.JeeslAssetFacade;
 import org.jeesl.controller.handler.NullNumberBinder;
+import org.jeesl.controller.handler.th.ThMultiFilterHandler;
 import org.jeesl.controller.handler.ui.helper.UiHelperAsset;
 import org.jeesl.exception.ejb.JeeslConstraintViolationException;
 import org.jeesl.exception.ejb.JeeslLockingException;
@@ -20,6 +20,8 @@ import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.module.AssetFactoryBuilder;
 import org.jeesl.factory.ejb.module.asset.EjbAssetEventFactory;
 import org.jeesl.factory.ejb.module.asset.EjbAssetFactory;
+import org.jeesl.interfaces.bean.th.ThMultiFilter;
+import org.jeesl.interfaces.bean.th.ThMultiFilterBean;
 import org.jeesl.interfaces.model.module.aom.JeeslAomAsset;
 import org.jeesl.interfaces.model.module.aom.JeeslAomStatus;
 import org.jeesl.interfaces.model.module.aom.JeeslAomType;
@@ -32,6 +34,7 @@ import org.jeesl.interfaces.model.module.aom.event.JeeslAomEventType;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
 import org.jeesl.interfaces.model.system.locale.JeeslLocale;
+import org.jeesl.model.module.aom.AssetEventLazyModel;
 import org.jeesl.util.comparator.ejb.module.asset.EjbAssetComparator;
 import org.jeesl.util.comparator.ejb.module.asset.EjbEventComparator;
 import org.jeesl.web.mbean.prototype.admin.AbstractAdminBean;
@@ -59,7 +62,7 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
 										ETYPE extends JeeslAomEventType<L,D,ETYPE,?>,
 										ESTATUS extends JeeslAomEventStatus<L,D,ESTATUS,?>>
 					extends AbstractAdminBean<L,D>
-					implements Serializable
+					implements Serializable,ThMultiFilterBean
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractAssetBean.class);
@@ -73,16 +76,15 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
 	private final EjbAssetEventFactory<COMPANY,ASSET,EVENT,ETYPE,ESTATUS> efEvent;
 	
 	private final Comparator<ASSET> cpAsset;
-	private final Comparator<EVENT> cpEvent;
 	
 	private final UiHelperAsset<L,D,REALM,RREF,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> uiHelper; public UiHelperAsset<L, D, REALM, RREF, COMPANY, SCOPE, ASSET, ASTATUS, ATYPE, EVENT, ETYPE, ESTATUS> getUiHelper() {return uiHelper;}
 	private TreeNode tree; public TreeNode getTree() {return tree;}
     private TreeNode node; public TreeNode getNode() {return node;} public void setNode(TreeNode node) {this.node = node;}
     private final NullNumberBinder nnb; public NullNumberBinder getNnb() {return nnb;}
+    private final ThMultiFilterHandler<ETYPE> thfEventType; public ThMultiFilterHandler<ETYPE> getThfEventType() {return thfEventType;}
+    private final AssetEventLazyModel<ASSET,EVENT,ETYPE,ESTATUS> lazyEvents; public AssetEventLazyModel<ASSET,EVENT,ETYPE,ESTATUS> getLazyEvents() {return lazyEvents;}
     
 	private final Set<ASSET> path;
-	
-    private final List<EVENT> events; public List<EVENT> getEvents() {return events;}
     
 	private REALM realm; public REALM getRealm() {return realm;}
 	private RREF rref; public RREF getRref() {return rref;}
@@ -99,14 +101,15 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
 		uiHelper = new UiHelperAsset<>();
 		nnb = new NullNumberBinder();
 		
+		thfEventType = new ThMultiFilterHandler<>(this);
+		lazyEvents = new AssetEventLazyModel<>(fbAsset.cpEvent(EjbEventComparator.Type.record),thfEventType);
+		
 		efAsset = fbAsset.ejbAsset();
 		efEvent = fbAsset.ejbEvent();
 		
 		cpAsset = fbAsset.cpAsset(EjbAssetComparator.Type.position);
-		cpEvent = fbAsset.cpEvent(EjbEventComparator.Type.record);
 		
 		path = new HashSet<>();
-		events = new ArrayList<>();
 	}
 	
 	protected <E extends Enum<E>> void postConstructAsset(JeeslTranslationBean<L,D,LOC> bTranslation, JeeslFacesMessageBean bMessage,
@@ -123,13 +126,22 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
 		realm = fAsset.fByEnum(fbAsset.getClassRealm(),eRealm);
 		this.rref=rref;
 		
+		thfEventType.getList().addAll(bCache.getEventType());
+		thfEventType.selectAll();
+//		thFilter.preSelect(MeisNsdsCandidateStatus.class,MeisNsdsCandidateStatus.Code.pending);
+		
 		reloadTree();
+	}
+	
+	@Override public void filtered(ThMultiFilter filter) throws JeeslLockingException, JeeslConstraintViolationException
+	{
+		logger.info("TH Filter");
 	}
 	
 	private void reset(boolean rAsset, boolean rEvents, boolean rEvent)
 	{
 		if(rAsset) {asset=null;}
-		if(rEvents) {events.clear();}
+		if(rEvents) {lazyEvents.clear();}
 		if(rEvent) {event=null;}
 	}
 	
@@ -210,9 +222,7 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
     
 	private void reloadEvents()
 	{
-		events.clear();
-		events.addAll(fAsset.fAssetEvents(asset));
-		Collections.sort(events,cpEvent);
+		lazyEvents.setScope(fAsset,asset);
 	}
     
     public void addEvent()
