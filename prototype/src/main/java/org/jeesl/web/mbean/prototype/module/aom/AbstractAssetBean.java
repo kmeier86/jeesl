@@ -102,7 +102,7 @@ public abstract class AbstractAssetBean <L extends JeeslLang, D extends JeeslDes
 		nnb = new NullNumberBinder();
 		
 		thfEventType = new ThMultiFilterHandler<>(this);
-		lazyEvents = new AssetEventLazyModel<>(fbAsset.cpEvent(EjbEventComparator.Type.record),thfEventType);
+		lazyEvents = new AssetEventLazyModel<>(fbAsset.cpEvent(EjbEventComparator.Type.recordDesc),thfEventType);
 		
 		efAsset = fbAsset.ejbAsset();
 		efEvent = fbAsset.ejbEvent();
