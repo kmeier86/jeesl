@@ -87,13 +87,7 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 	public void reloadRealm(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fAsset, REALM realm, RREF rref)
 	{
 		reloadAssetTypes(fAsset,realm,rref,false);
-		
-		if(!mapCompany.containsKey(realm)) {mapCompany.put(realm,new HashMap<>());}
-		if(!mapCompany.get(realm).containsKey(rref)) {mapCompany.get(realm).put(rref,new ArrayList<>());}
-		mapCompany.get(realm).get(rref).clear();
-		mapCompany.get(realm).get(rref).addAll(fAsset.fAssetCompanies(realm,rref));
-		logger.info(AbstractLogMessage.reloaded(fbAsset.getClassCompany(),mapCompany.get(realm).get(rref)));
-		reloadCompanies(realm,rref);
+		reloadCompanies(fAsset,realm,rref);
 	}
 	
 	private void reloadAssetTypes(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fAsset, REALM realm, RREF rref, boolean force)
@@ -118,15 +112,24 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 		}
 	}
 	
-	private void reloadCompanies(REALM realm, RREF rref)
+	private void reloadCompanies(JeeslAssetFacade<L,D,REALM,COMPANY,SCOPE,ASSET,ASTATUS,ATYPE,EVENT,ETYPE,ESTATUS> fAsset, REALM realm, RREF rref)
 	{
+		if(!mapCompany.containsKey(realm)) {mapCompany.put(realm,new HashMap<>());}
+		if(!mapCompany.get(realm).containsKey(rref)) {mapCompany.get(realm).put(rref,new ArrayList<>());}
+		mapCompany.get(realm).get(rref).clear();
+		mapCompany.get(realm).get(rref).addAll(fAsset.fAssetCompanies(realm,rref));
+		logger.info(AbstractLogMessage.reloaded(fbAsset.getClassCompany(),mapCompany.get(realm).get(rref)));
+		reloadCompanies(realm,rref);
+	}
+	
+	private void reloadCompanies(REALM realm, RREF rref)
+	{	
 		reloadCompanies(realm,rref,cacheScope.ejb(JeeslAomScope.Code.manufacturer),mapManufacturer,mapCompany.get(realm).get(rref));
 		reloadCompanies(realm,rref,cacheScope.ejb(JeeslAomScope.Code.vendor),mapVendor,mapCompany.get(realm).get(rref));
 		reloadCompanies(realm,rref,cacheScope.ejb(JeeslAomScope.Code.maintainer),mapMaintainer,mapCompany.get(realm).get(rref));
 	}
 	
-	private void reloadCompanies(REALM realm, RREF rref, SCOPE scope,
-								Map<REALM,Map<RREF,List<COMPANY>>> map, List<COMPANY> companies)
+	private void reloadCompanies(REALM realm, RREF rref, SCOPE scope, Map<REALM,Map<RREF,List<COMPANY>>> map, List<COMPANY> companies)
 	{		
 		if(!map.containsKey(realm)) {map.put(realm,new HashMap<>());}
 		if(!map.get(realm).containsKey(rref)) {map.get(realm).put(rref,new ArrayList<>());}
@@ -138,9 +141,14 @@ public abstract class AbstractAssetCacheBean <L extends JeeslLang, D extends Jee
 		}		
 	}
 	
-	public void update(REALM realm, RREF rref, COMPANY company)
+	@Override public void update(REALM realm, RREF rref, COMPANY company)
 	{
 		if(!Collections.replaceAll(mapCompany.get(realm).get(rref),company,company)){mapCompany.get(realm).get(rref).add(company);}
 		reloadCompanies(realm,rref);
+	}
+	
+	@Override public void update(REALM realm, RREF rref, ATYPE type)
+	{
+		if(!Collections.replaceAll(mapAssetType.get(realm).get(rref),type,type)){mapAssetType.get(realm).get(rref).add(type);}
 	}
 }
