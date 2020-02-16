@@ -74,7 +74,6 @@ public class JeeslIoFrFacadeBean<L extends JeeslLang, D extends JeeslDescription
 				case amazonS3: mapStorages.put(storage, new FileRepositoryAmazonS3<STORAGE,META>(storage));break;
 				default: logger.error("NYI: "+storage.getEngine().getCode());
 			}
-			
 		}
 		return mapStorages.get(storage);
 	}
