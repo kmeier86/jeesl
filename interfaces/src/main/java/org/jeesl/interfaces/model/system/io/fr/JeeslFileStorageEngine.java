@@ -12,9 +12,8 @@ import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDescription;
 import org.jeesl.interfaces.model.system.option.JeeslOptionRestDownload;
 
-public interface JeeslFileStorageEngine <S extends JeeslStatus<S,L,D>,
-										L extends JeeslLang,
-										D extends JeeslDescription,
+public interface JeeslFileStorageEngine <L extends JeeslLang, D extends JeeslDescription,
+										S extends JeeslStatus<S,L,D>,
 										G extends JeeslGraphic<L,D,?,?,?>>
 							extends Serializable,EjbPersistable,
 									JeeslOptionRestDescription,JeeslOptionRestDownload,
