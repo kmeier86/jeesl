@@ -70,18 +70,18 @@ public class TsFactoryBuilder<L extends JeeslLang, D extends JeeslDescription,
 	private final Class<BRIDGE> cBridge; public Class<BRIDGE> getClassBridge() {return cBridge;}
 	private final Class<EC> cEc; public Class<EC> getClassEntity() {return cEc;}
 	private final Class<INT> cInt; public Class<INT> getClassInterval() {return cInt;}
+	private final Class<STAT> cStat; public Class<STAT> getClassStat(){return cStat;}
 	private final Class<DATA> cData;  public Class<DATA> getClassData() {return cData;}
 	private final Class<POINT> cPoint;  public Class<POINT> getClassPoint() {return cPoint;}
 	private final Class<WS> cWs; public Class<WS> getClassWorkspace() {return cWs;}
-	private final Class<STAT> cStat; public Class<STAT> getClassStat(){return cStat;}
 	private final Class<CRON> cCron; public Class<CRON> getClassCron(){return cCron;}
 	
 	public TsFactoryBuilder(final Class<L> cL, final Class<D> cD,
 							final Class<CAT> cCategory, final Class<SCOPE> cScope,
 							final Class<ST> cScopeType, final Class<UNIT> cUnit, final Class<MP> cMp,
 							final Class<TS> cTs, final Class<TRANSACTION> cTransaction, final Class<SOURCE> cSource, final Class<BRIDGE> cBridge, final Class<EC> cEc, final Class<INT> cInt,
-							final Class<DATA> cData, final Class<POINT> cPoint,
-							final Class<WS> cWs, final Class<STAT> cStat, final Class<CRON> cCron)
+							final Class<STAT> cStat, final Class<DATA> cData, final Class<POINT> cPoint,
+							final Class<WS> cWs, final Class<CRON> cCron)
 	{
 		super(cL,cD);
 		this.cCategory=cCategory;
