@@ -58,19 +58,19 @@ public class HandlerTranslationProvider <L extends JeeslLang, D extends JeeslDes
 	}
 	
 	@Override
-	public String toTranslation(String localeCode, String key)
+	public String tlEntity(String localeCode, String key)
 	{
 		return th.getEntities().get(key).get(localeCode).getLang();
 	}
 	
-	@Override public <E extends Enum<E>> String toTranslation(String localeCode, Class<?> c, E code)
+	@Override public <E extends Enum<E>> String tlAttribute(String localeCode, Class<?> c, E code)
 	{
-		return toTranslation(localeCode,c.getSimpleName(),code.toString());
+		return tlAttribute(localeCode,c.getSimpleName(),code.toString());
 	}
 
-	@Override public String toTranslation(String localeCode, String key1, String key2)
+	@Override public String tlAttribute(String localeCode, String key1, String key2)
 	{
-		if(key2==null) {return toTranslation(localeCode,key1);}		
+		if(key2==null) {return tlEntity(localeCode,key1);}		
 		return th.getLabels().get(key1).get(key2).get(localeCode).getLang();
 	}
 
@@ -90,6 +90,12 @@ public class HandlerTranslationProvider <L extends JeeslLang, D extends JeeslDes
 
 	@Override
 	public String toCurrency(String localeCode, Double value)
+	{
+		if(value==null){return "";}
+		return dfCurrency.format(value);
+	}
+	
+	public String toCurrency(String localeCode, Double value, boolean grouping, int decimals)
 	{
 		if(value==null){return "";}
 		return dfCurrency.format(value);
