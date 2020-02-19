@@ -9,7 +9,7 @@ import org.jeesl.api.bean.JeeslLabelBean;
 import org.jeesl.api.bean.JeeslLabelResolver;
 import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
 import org.jeesl.controller.handler.system.TranslationHandler;
-import org.jeesl.controller.processor.FacadeLabelResolver;
+import org.jeesl.controller.provider.FacadeTranslationProvider;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
@@ -29,8 +29,8 @@ public class AbstractLabelBean <L extends JeeslLang, D extends JeeslDescription,
 	final static Logger logger = LoggerFactory.getLogger(AbstractLabelBean.class);
 	
 	private TranslationHandler<L,D,RE,RA> th;
-	private final IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?,?> fbRevision;
-	private FacadeLabelResolver<RE,RA> flr;
+	private final IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fbRevision;
+	private FacadeTranslationProvider<L,D,LOC,RE,RA> ftp;
 
 	private final Map<RE,Map<MultiKey,String>> mapXpath;
 	public Map<String, Map<String,L>> getEntities() {return th.getEntities();}
@@ -40,18 +40,18 @@ public class AbstractLabelBean <L extends JeeslLang, D extends JeeslDescription,
 	public Map<String,RE> getMapEntities() {return th.getMapEntities();}
 	@Override public List<RE> allEntities() {return th.allEntities();}
 	
-	public AbstractLabelBean(IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?,?> fbRevision)
+	public AbstractLabelBean(IoRevisionFactoryBuilder<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fbRevision)
 	{
 		this.fbRevision=fbRevision;
 		mapXpath = new HashMap<RE,Map<MultiKey,String>>();
 	}
 	
-	protected void init(JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fRevision, final Class<RE> cRE)
+	protected void postConstruct(JeeslIoRevisionFacade<L,D,?,?,?,?,?,RE,?,RA,?,?,?> fRevision)
 	{		
-		th = new TranslationHandler<L,D,RE,RA>(fRevision,cRE);
+		th = new TranslationHandler<L,D,RE,RA>(fRevision,fbRevision.getClassEntity());
 		if(fbRevision!=null)
 		{
-			flr = new FacadeLabelResolver<RE,RA>(fbRevision,fRevision);
+			ftp = new FacadeTranslationProvider<>(fbRevision,fRevision);
 		}
 		
 	}
@@ -77,7 +77,7 @@ public class AbstractLabelBean <L extends JeeslLang, D extends JeeslDescription,
 		MultiKey key = new MultiKey(localeCode,code.toString());
 		if(!mapXpath.get(re).containsKey(key))
 		{
-			mapXpath.get(re).put(key,flr.xpath(localeCode, c, code));
+			mapXpath.get(re).put(key,ftp.xpath(localeCode, c, code));
 		}
 		return mapXpath.get(re).get(key);
 	}
