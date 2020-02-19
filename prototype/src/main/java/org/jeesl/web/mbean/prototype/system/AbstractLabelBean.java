@@ -63,7 +63,7 @@ public class AbstractLabelBean <L extends JeeslLang, D extends JeeslDescription,
 	}
 	
 	@Override
-	public <E extends Enum<E>> String xpath(String localeCode, Class<?> c, E code)
+	public <E extends Enum<E>> String xpAttribute(String localeCode, Class<?> c, E code)
 	{
 		if(!th.getMapEntities().containsKey(c.getSimpleName()))
 		{
@@ -77,13 +77,13 @@ public class AbstractLabelBean <L extends JeeslLang, D extends JeeslDescription,
 		MultiKey key = new MultiKey(localeCode,code.toString());
 		if(!mapXpath.get(re).containsKey(key))
 		{
-			mapXpath.get(re).put(key,ftp.xpath(localeCode, c, code));
+			mapXpath.get(re).put(key,ftp.xpAttribute(localeCode, c, code));
 		}
 		return mapXpath.get(re).get(key);
 	}
 	
 	@Override
-	public String entity(String localeCode, Class<?> c)
+	public String tlEntity(String localeCode, Class<?> c)
 	{
 //		logger.info("Getting entity ["+localeCode+"] for "+c.getSimpleName());
 		if(!th.getMapEntities().containsKey(c.getSimpleName()))

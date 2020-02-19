@@ -45,9 +45,9 @@ public class JeeslPivotFactory<RE extends JeeslRevisionEntity<?,?,?,?,?,?>> exte
 		PivotField json = new PivotField();
 		json.setMap(new HashMap<Long,String>());
 		json.setId("id"+(container.getFieldList().size()+1));
-		json.setLabel(labelResolver.entity(localeCode,c));		
+		json.setLabel(labelResolver.tlEntity(localeCode,c));		
 		
-		String xpath = labelResolver.xpath(localeCode,c,code);
+		String xpath = labelResolver.xpAttribute(localeCode,c,code);
 		for(Object o : collection)
 		{
 			EjbWithId ejb = (EjbWithId)o;
@@ -77,7 +77,7 @@ public class JeeslPivotFactory<RE extends JeeslRevisionEntity<?,?,?,?,?,?>> exte
 		PivotField json = new PivotField();
 		json.setMap(new HashMap<Long,String>());
 		json.setId("id"+(container.getFieldList().size()+1));
-		json.setLabel(labelResolver.entity(localeCode,c));		
+		json.setLabel(labelResolver.tlEntity(localeCode,c));		
 		
 		String xpath = "name[@name='"+localeCode+"']/lang";
 //		xpath = "name/de/lang";

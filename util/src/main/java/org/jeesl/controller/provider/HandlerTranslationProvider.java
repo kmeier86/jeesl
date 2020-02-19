@@ -57,8 +57,8 @@ public class HandlerTranslationProvider <L extends JeeslLang, D extends JeeslDes
 		setLocaleCodes.addAll(localeCodes);
 	}
 	
-	@Override
-	public String tlEntity(String localeCode, String key)
+	@Override public String tlEntity(String localeCode, Class<?> c) {return tlEntity(localeCode,c.getSimpleName());}
+	@Override public String tlEntity(String localeCode, String key)
 	{
 		return th.getEntities().get(key).get(localeCode).getLang();
 	}
@@ -99,5 +99,12 @@ public class HandlerTranslationProvider <L extends JeeslLang, D extends JeeslDes
 	{
 		if(value==null){return "";}
 		return dfCurrency.format(value);
+	}
+
+	@Override
+	public <E extends Enum<E>> String xpAttribute(String localeCode, Class<?> c, E code)
+	{
+		logger.warn("NYI xpAttribute");
+		return null;
 	}
 }

@@ -28,7 +28,7 @@ public class FacadeTranslationProvider <L extends JeeslLang, D extends JeeslDesc
 		this.fRevision=fRevision;
 	}
 
-	@Override public <E extends Enum<E>> String xpath(String localeCode, Class<?> c, E code)
+	@Override public <E extends Enum<E>> String xpAttribute(String localeCode, Class<?> c, E code)
 	{
 		try
 		{
@@ -49,7 +49,7 @@ public class FacadeTranslationProvider <L extends JeeslLang, D extends JeeslDesc
 		return "@id";
 	}
 	
-	@Override public String entity(String localeCode, Class<?> c)
+	@Override public String tlEntity(String localeCode, Class<?> c)
 	{
 		try
 		{
