@@ -1,9 +1,12 @@
 package org.jeesl.controller.provider;
 
-import org.jeesl.api.bean.JeeslLabelResolver;
+import java.util.Date;
+import java.util.List;
+
 import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
 import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
+import org.jeesl.interfaces.controller.handler.JeeslTranslationProvider;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
@@ -14,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 public class FacadeTranslationProvider <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 									RE extends JeeslRevisionEntity<L,D,?,?,RA,?>, RA extends JeeslRevisionAttribute<L,D,RE,?,?>>
-							implements JeeslLabelResolver
+							implements JeeslTranslationProvider<LOC>
 {
 	final static Logger logger = LoggerFactory.getLogger(FacadeTranslationProvider.class);
 	
@@ -58,5 +61,65 @@ public class FacadeTranslationProvider <L extends JeeslLang, D extends JeeslDesc
 		}
 		catch (JeeslNotFoundException e) {e.printStackTrace();}
 		return c.getSimpleName();
+	}
+
+	@Override
+	public boolean hasLocale(String localeCode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<String> getLocaleCodes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String tlEntity(String localeCode, String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String tlAttribute(String localeCode, String key1, String key2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <E extends Enum<E>> String tlAttribute(String localeCode, Class<?> c, E code) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toDate(String localeCode, Date record) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toTime(String localeCode, Date record) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toCurrency(String localeCode, Double value) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toCurrency(String localeCode, Double value, boolean grouping, int decimals) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLanguages(List<LOC> locales) {
+		// TODO Auto-generated method stub
+		
 	}
 }
