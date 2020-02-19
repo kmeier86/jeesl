@@ -1,4 +1,4 @@
-package org.jeesl.controller.processor;
+package org.jeesl.controller.provider;
 
 import org.jeesl.api.bean.JeeslLabelResolver;
 import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
@@ -6,19 +6,22 @@ import org.jeesl.exception.ejb.JeeslNotFoundException;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
+import org.jeesl.interfaces.model.system.locale.JeeslDescription;
+import org.jeesl.interfaces.model.system.locale.JeeslLang;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FacadeLabelResolver <RE extends JeeslRevisionEntity<?,?,?,?,RA,?>,
-									RA extends JeeslRevisionAttribute<?,?,RE,?,?>>
+public class FacadeTranslationProvider <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
+									RE extends JeeslRevisionEntity<L,D,?,?,RA,?>, RA extends JeeslRevisionAttribute<L,D,RE,?,?>>
 							implements JeeslLabelResolver
 {
-	final static Logger logger = LoggerFactory.getLogger(FacadeLabelResolver.class);
+	final static Logger logger = LoggerFactory.getLogger(FacadeTranslationProvider.class);
 	
 	private final JeeslIoRevisionFacade<?,?,?,?,?,?,?,RE,?,?,?,?,?> fRevision;
 	private final IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?,?> fbRevision;
 	
-	public FacadeLabelResolver(IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?,?> fbRevision,
+	public FacadeTranslationProvider(IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?,?> fbRevision,
 								JeeslIoRevisionFacade<?,?,?,?,?,?,?,RE,?,?,?,?,?> fRevision)
 	{
 		this.fbRevision=fbRevision;

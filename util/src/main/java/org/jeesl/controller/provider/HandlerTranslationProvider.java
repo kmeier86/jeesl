@@ -20,12 +20,12 @@ import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GenericTranslationProvider <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
+public class HandlerTranslationProvider <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 										RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 										RA extends JeeslRevisionAttribute<L,D,RE,?,?>>
 					implements JeeslTranslationProvider<LOC>
 {
-	final static Logger logger = LoggerFactory.getLogger(GenericTranslationProvider.class);
+	final static Logger logger = LoggerFactory.getLogger(HandlerTranslationProvider.class);
 	
 	private final Set<String> setLocaleCodes;
 	private final List<String> localeCodes; @Override public List<String> getLocaleCodes() {return localeCodes;}
@@ -36,7 +36,7 @@ public class GenericTranslationProvider <L extends JeeslLang, D extends JeeslDes
 	
 	private DecimalFormat dfCurrency;
 	
-	public GenericTranslationProvider(TranslationHandler<L,D,RE,RA> th)
+	public HandlerTranslationProvider(TranslationHandler<L,D,RE,RA> th)
 	{
 		this.th=th;
 		setLocaleCodes = new HashSet<String>();
