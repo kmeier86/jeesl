@@ -1,6 +1,5 @@
 package org.jeesl.web.mbean.prototype.system;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +22,7 @@ public class AbstractLabelBean <L extends JeeslLang,D extends JeeslDescription,
 								RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 								RA extends JeeslRevisionAttribute<L,D,RE,?,?>>
 								
-					implements Serializable,JeeslLabelBean<RE>,JeeslLabelResolver
+					implements JeeslLabelBean<RE>,JeeslLabelResolver
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractLabelBean.class);
@@ -51,7 +50,7 @@ public class AbstractLabelBean <L extends JeeslLang,D extends JeeslDescription,
 		th = new TranslationHandler<L,D,RE,RA>(fRevision,cRE);
 		if(fbRevision!=null)
 		{
-			flr = new FacadeLabelResolver<RE,RA>(fRevision,fbRevision);
+			flr = new FacadeLabelResolver<RE,RA>(fbRevision,fRevision);
 		}
 		
 	}

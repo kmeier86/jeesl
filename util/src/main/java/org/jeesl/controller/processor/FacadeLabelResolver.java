@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class FacadeLabelResolver <RE extends JeeslRevisionEntity<?,?,?,?,RA,?>,
-								RA extends JeeslRevisionAttribute<?,?,RE,?,?>>
+									RA extends JeeslRevisionAttribute<?,?,RE,?,?>>
 							implements JeeslLabelResolver
 {
 	final static Logger logger = LoggerFactory.getLogger(FacadeLabelResolver.class);
@@ -18,11 +18,11 @@ public class FacadeLabelResolver <RE extends JeeslRevisionEntity<?,?,?,?,RA,?>,
 	private final JeeslIoRevisionFacade<?,?,?,?,?,?,?,RE,?,?,?,?,?> fRevision;
 	private final IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?,?> fbRevision;
 	
-	public FacadeLabelResolver(JeeslIoRevisionFacade<?,?,?,?,?,?,?,RE,?,?,?,?,?> fRevision,
-			IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?,?> fbRevision)
+	public FacadeLabelResolver(IoRevisionFactoryBuilder<?,?,?,?,?,?,?,RE,?,?,?,?,?> fbRevision,
+								JeeslIoRevisionFacade<?,?,?,?,?,?,?,RE,?,?,?,?,?> fRevision)
 	{
-		this.fRevision=fRevision;
 		this.fbRevision=fbRevision;
+		this.fRevision=fRevision;
 	}
 
 	@Override public <E extends Enum<E>> String xpath(String localeCode, Class<?> c, E code)
