@@ -16,11 +16,11 @@ import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribu
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
 import org.jeesl.interfaces.model.system.locale.JeeslLang;
-import org.jeesl.interfaces.model.system.locale.status.JeeslStatus;
+import org.jeesl.interfaces.model.system.locale.JeeslLocale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GenericTranslationProvider <L extends JeeslLang,D extends JeeslDescription,LOC extends JeeslStatus<LOC,L,D>,
+public class GenericTranslationProvider <L extends JeeslLang, D extends JeeslDescription, LOC extends JeeslLocale<L,D,LOC,?>,
 										RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 										RA extends JeeslRevisionAttribute<L,D,RE,?,?>>
 					implements JeeslTranslationProvider<LOC>
@@ -94,6 +94,4 @@ public class GenericTranslationProvider <L extends JeeslLang,D extends JeeslDesc
 		if(value==null){return "";}
 		return dfCurrency.format(value);
 	}
-
-	
 }
