@@ -1,16 +1,17 @@
 package org.jeesl.web.mbean.prototype.system;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.keyvalue.MultiKey;
 import org.jeesl.api.bean.JeeslLabelBean;
-import org.jeesl.api.bean.JeeslLabelResolver;
 import org.jeesl.api.facade.io.JeeslIoRevisionFacade;
 import org.jeesl.controller.handler.system.TranslationHandler;
 import org.jeesl.controller.provider.FacadeTranslationProvider;
 import org.jeesl.factory.builder.io.IoRevisionFactoryBuilder;
+import org.jeesl.interfaces.controller.handler.JeeslTranslationProvider;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionAttribute;
 import org.jeesl.interfaces.model.system.io.revision.entity.JeeslRevisionEntity;
 import org.jeesl.interfaces.model.system.locale.JeeslDescription;
@@ -23,7 +24,7 @@ public class AbstractLabelBean <L extends JeeslLang, D extends JeeslDescription,
 								RE extends JeeslRevisionEntity<L,D,?,?,RA,?>,
 								RA extends JeeslRevisionAttribute<L,D,RE,?,?>>
 								
-					implements JeeslLabelBean<RE>,JeeslLabelResolver
+					implements JeeslLabelBean<RE>,JeeslTranslationProvider<LOC>
 {
 	private static final long serialVersionUID = 1L;
 	final static Logger logger = LoggerFactory.getLogger(AbstractLabelBean.class);
@@ -63,7 +64,7 @@ public class AbstractLabelBean <L extends JeeslLang, D extends JeeslDescription,
 	}
 	
 	@Override
-	public <E extends Enum<E>> String xpath(String localeCode, Class<?> c, E code)
+	public <E extends Enum<E>> String xpAttribute(String localeCode, Class<?> c, E code)
 	{
 		if(!th.getMapEntities().containsKey(c.getSimpleName()))
 		{
@@ -77,13 +78,13 @@ public class AbstractLabelBean <L extends JeeslLang, D extends JeeslDescription,
 		MultiKey key = new MultiKey(localeCode,code.toString());
 		if(!mapXpath.get(re).containsKey(key))
 		{
-			mapXpath.get(re).put(key,ftp.xpath(localeCode, c, code));
+			mapXpath.get(re).put(key,ftp.xpAttribute(localeCode, c, code));
 		}
 		return mapXpath.get(re).get(key);
 	}
 	
 	@Override
-	public String entity(String localeCode, Class<?> c)
+	public String tlEntity(String localeCode, Class<?> c)
 	{
 //		logger.info("Getting entity ["+localeCode+"] for "+c.getSimpleName());
 		if(!th.getMapEntities().containsKey(c.getSimpleName()))
@@ -93,5 +94,65 @@ public class AbstractLabelBean <L extends JeeslLang, D extends JeeslDescription,
 		}
 		
 		return th.getMapEntities().get(c.getSimpleName()).getName().get(localeCode).getLang();
+	}
+	
+	@Override
+	public boolean hasLocale(String localeCode)
+	{
+		logger.warn("NYI");
+		return false;
+	}
+	@Override
+	public List<String> getLocaleCodes()
+	{
+		logger.warn("NYI");
+		return null;
+	}
+	@Override
+	public String tlEntity(String localeCode, String key)
+	{
+		logger.warn("NYI");
+		return null;
+	}
+	@Override
+	public String tlAttribute(String localeCode, String key1, String key2)
+	{
+		logger.warn("NYI");
+		return null;
+	}
+	@Override
+	public <E extends Enum<E>> String tlAttribute(String localeCode, Class<?> c, E code)
+	{
+		logger.warn("NYI");
+		return null;
+	}
+	@Override
+	public String toDate(String localeCode, Date record)
+	{
+		logger.warn("NYI");
+		return null;
+	}
+	@Override
+	public String toTime(String localeCode, Date record)
+	{
+		logger.warn("NYI");
+		return null;
+	}
+	@Override
+	public String toCurrency(String localeCode, Double value)
+	{
+		logger.warn("NYI");
+		return null;
+	}
+	@Override
+	public String toCurrency(String localeCode, boolean grouping, int decimals, Double value)
+	{
+		logger.warn("NYI");
+		return null;
+	}
+	@Override
+	public void setLanguages(List<LOC> locales)
+	{
+		logger.warn("NYI");
 	}
 }

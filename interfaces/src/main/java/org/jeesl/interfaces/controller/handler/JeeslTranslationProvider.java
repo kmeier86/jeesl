@@ -8,4 +8,6 @@ import org.openfuxml.interfaces.configuration.OfxTranslationProvider;
 public interface JeeslTranslationProvider <LOC extends JeeslLocale<?,?,LOC,?>> extends OfxTranslationProvider
 {
 	void setLanguages(List<LOC> locales);
+	
+	<E extends Enum<E>> String xpAttribute(String localeCode, Class<?> c, E code);
 }
