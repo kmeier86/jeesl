@@ -100,12 +100,7 @@ public abstract class AbstractAdminTsBean <L extends JeeslLang, D extends JeeslD
 	
 	protected void postConstructTs(JeeslTranslationBean<L,D,?> bTranslation, JeeslFacesMessageBean bMessage, JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fTs)
 	{
-		this.initTsSuper(bTranslation.getLangKeys().toArray(new String[bTranslation.getLangKeys().size()]), fTs, bMessage);
-	}
-	
-	protected void initTsSuper(String[] langs, JeeslTsFacade<L,D,CAT,SCOPE,ST,UNIT,MP,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,STAT,DATA,POINT,SAMPLE,USER,WS,QAF,CRON> fTs, JeeslFacesMessageBean bMessage)
-	{
-		super.initJeeslAdmin(bTranslation, bMessage);
+		super.initJeeslAdmin(bTranslation,bMessage);
 		this.fTs=fTs;
 		
 		comparatorScope = (new TsScopeComparator<L,D,CAT,SCOPE,UNIT,TS,TRANSACTION,SOURCE,BRIDGE,EC,INT,DATA,SAMPLE,USER,WS,QAF>()).factory(TsScopeComparator.Type.position);
