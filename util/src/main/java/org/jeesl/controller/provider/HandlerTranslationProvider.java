@@ -95,7 +95,7 @@ public class HandlerTranslationProvider <L extends JeeslLang, D extends JeeslDes
 		return dfCurrency.format(value);
 	}
 	
-	public String toCurrency(String localeCode, Double value, boolean grouping, int decimals)
+	public String toCurrency(String localeCode, boolean grouping, int decimals, Double value)
 	{
 		if(value==null){return "";}
 		return dfCurrency.format(value);

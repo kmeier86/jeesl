@@ -112,7 +112,7 @@ public class FacadeTranslationProvider <L extends JeeslLang, D extends JeeslDesc
 	}
 
 	@Override
-	public String toCurrency(String localeCode, Double value, boolean grouping, int decimals) {
+	public String toCurrency(String localeCode, boolean grouping, int decimals, Double value) {
 		// TODO Auto-generated method stub
 		return null;
 	}

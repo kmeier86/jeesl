@@ -145,7 +145,7 @@ public class AbstractLabelBean <L extends JeeslLang, D extends JeeslDescription,
 		return null;
 	}
 	@Override
-	public String toCurrency(String localeCode, Double value, boolean grouping, int decimals)
+	public String toCurrency(String localeCode, boolean grouping, int decimals, Double value)
 	{
 		logger.warn("NYI");
 		return null;
